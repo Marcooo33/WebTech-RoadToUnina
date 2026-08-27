@@ -1,30 +1,40 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out-tsc/
+backend/generated/
+
+# Environment files (keep .env.example trackable)
+.env
+.env.*
+!.env.example
+
+# Test coverage
+coverage/
+
+# Angular cache and build artefacts
 .angular/
-
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
-
-# Environment files
-/.env
-
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
-
-# TypeScript cache
+.ng/
 *.tsbuildinfo
+e2e/test-output/
 
 # Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# IDE-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS-specific temporary files
+.DS_Store
+Thumbs.db
+
+# Local course materials
 .course-resources/
