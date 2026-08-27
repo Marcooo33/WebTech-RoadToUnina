@@ -4,7 +4,7 @@ node_modules/
 # Build output
 dist/
 out-tsc/
-backend/generated/
+backend/src/generated/
 
 # Environment files (keep .env.example trackable)
 .env

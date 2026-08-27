@@ -8,19 +8,25 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "db:check": "tsx src/scripts/db-check.ts",
+    "test": "node --import tsx --test \"src/**/*.test.ts\"",
     "prisma:generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.23.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^24.13.3",
-    "dotenv": "^17.4.2",
+    "@types/pg": "^8.23.1",
     "prisma": "^7.10.0",
     "tsx": "^4.23.12",
     "typescript": "^5.9.3"
