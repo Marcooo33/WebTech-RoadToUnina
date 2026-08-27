@@ -6,3 +6,121 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum GameMode {
+  CLICK
+  TIME
+}
+
+enum GameDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum GameStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum GameMoveType {
+  NAVIGATION
+  BACKTRACK
+}
+
+enum GameSessionStatus {
+  ACTIVE
+  ENDED
+  EXPIRED
+}
+
+model User {
+  id           String  @id @default(uuid()) @db.Uuid
+  username     String  @unique @db.VarChar(30)
+  email        String  @unique @db.VarChar(255)
+  passwordHash String  @map("password_hash") @db.VarChar(255)
+  avatarUrl    String? @map("avatar_url") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  games Game[]
+
+  @@map("users")
+}
+
+model Game {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+
+  mode       GameMode
+  difficulty GameDifficulty
+  status     GameStatus     @default(IN_PROGRESS)
+
+  startPageId    Int    @map("start_page_id")
+  startPageTitle String @map("start_page_title") @db.Text
+
+  currentPageId    Int    @map("current_page_id")
+  currentPageTitle String @map("current_page_title") @db.Text
+
+  clickCount          Int @default(0) @map("click_count")
+  backtrackCount      Int @default(0) @map("backtrack_count")
+  effectivePlayTimeMs Int @default(0) @map("effective_play_time_ms")
+  version             Int @default(0)
+
+  startedAt   DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
+  completedAt DateTime? @map("completed_at") @db.Timestamptz(3)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moves    GameMove[]
+  sessions GameSession[]
+
+  @@index([userId, status])
+  @@index([status, completedAt])
+  @@index([status, mode, difficulty, clickCount])
+  @@index([status, mode, difficulty, effectivePlayTimeMs])
+  @@map("games")
+}
+
+model GameMove {
+  id     String @id @default(uuid()) @db.Uuid
+  gameId String @map("game_id") @db.Uuid
+
+  sequence Int
+  type     GameMoveType
+
+  fromPageId    Int    @map("from_page_id")
+  fromPageTitle String @map("from_page_title") @db.Text
+
+  toPageId    Int    @map("to_page_id")
+  toPageTitle String @map("to_page_title") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, sequence])
+  @@index([gameId, sequence])
+  @@map("game_moves")
+}
+
+model GameSession {
+  id     String @id @default(uuid()) @db.Uuid
+  gameId String @map("game_id") @db.Uuid
+
+  status GameSessionStatus @default(ACTIVE)
+
+  startedAt       DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
+  endedAt         DateTime? @map("ended_at") @db.Timestamptz(3)
+  lastHeartbeatAt DateTime  @default(now()) @map("last_heartbeat_at") @db.Timestamptz(3)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+  @@index([status, lastHeartbeatAt])
+  @@map("game_sessions")
+}
