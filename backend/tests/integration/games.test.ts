@@ -3,8 +3,9 @@ import { randomUUID } from "node:crypto";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { after, before, test } from "node:test";
-import { app } from "../../src/app.js";
+import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
+import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
 
 let server: Server;
 let baseUrl: string;
@@ -161,8 +162,14 @@ async function createGame(
   return post("/api/games", { mode, difficulty }, cookie);
 }
 
+const fakeStartingPageProvider: StartingPageProvider = {
+  async getStartingPage() {
+    return { pageId: 1, title: "ROADTOUNINA test start page" };
+  },
+};
+
 before(async () => {
-  server = app.listen(0);
+  server = createApp({ startingPageProvider: fakeStartingPageProvider }).listen(0);
   await new Promise((resolve) => server.once("listening", resolve));
   const address = server.address() as AddressInfo;
   baseUrl = `http://127.0.0.1:${address.port}`;

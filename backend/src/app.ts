@@ -1,24 +1,41 @@
 import cookieParser from "cookie-parser";
-import express from "express";
+import express, { type Express } from "express";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 import { authRouter } from "./modules/auth/auth.routes.js";
-import { gamesRouter } from "./modules/games/games.routes.js";
+import { createGamesRouter } from "./modules/games/games.routes.js";
+import type { StartingPageProvider } from "./modules/games/starting-page.provider.js";
+import { wikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
 
-export const app = express();
+export interface AppDependencies {
+  startingPageProvider?: StartingPageProvider;
+}
 
-app.use(express.json());
-app.use(cookieParser());
+export function createApp(dependencies: AppDependencies = {}): Express {
+  const app = express();
 
-app.get("/health", (_req, res) => {
-  res.status(200).json({ status: "ok" });
-});
+  app.use(express.json());
+  app.use(cookieParser());
 
-app.use("/api/auth", authRouter);
-app.use("/api/games", gamesRouter);
+  app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "ok" });
+  });
 
-app.use((_req, res) => {
-  res.status(404).json(errorBody(ErrorCode.NOT_FOUND, "Route not found"));
-});
+  app.use("/api/auth", authRouter);
+  app.use(
+    "/api/games",
+    createGamesRouter(
+      dependencies.startingPageProvider ?? wikipediaStartingPageProvider,
+    ),
+  );
 
-app.use(errorMiddleware);
+  app.use((_req, res) => {
+    res.status(404).json(errorBody(ErrorCode.NOT_FOUND, "Route not found"));
+  });
+
+  app.use(errorMiddleware);
+
+  return app;
+}
+
+export const app = createApp();

@@ -1,32 +1,46 @@
 import { Router } from "express";
 import { authenticate } from "../../middleware/auth.middleware.js";
 import { validate } from "../../middleware/validation.middleware.js";
-import {
-  createGameHandler,
-  deleteGameHandler,
-  getGameHandler,
-  listGamesHandler,
-} from "./games.controller.js";
+import { createGamesController } from "./games.controller.js";
+import { GamesService } from "./games.service.js";
 import {
   createGameSchema,
   deleteGameQuerySchema,
   gameParamsSchema,
   listGamesQuerySchema,
 } from "./games.schema.js";
+import type { StartingPageProvider } from "./starting-page.provider.js";
 
-export const gamesRouter = Router();
+export function createGamesRouter(
+  startingPageProvider: StartingPageProvider,
+): Router {
+  const controller = createGamesController(
+    new GamesService(startingPageProvider),
+  );
+  const router = Router();
 
-gamesRouter.use(authenticate);
+  router.use(authenticate);
 
-gamesRouter.post("/", validate({ body: createGameSchema }), createGameHandler);
-gamesRouter.get("/", validate({ query: listGamesQuerySchema }), listGamesHandler);
-gamesRouter.get(
-  "/:gameId",
-  validate({ params: gameParamsSchema }),
-  getGameHandler,
-);
-gamesRouter.delete(
-  "/:gameId",
-  validate({ params: gameParamsSchema, query: deleteGameQuerySchema }),
-  deleteGameHandler,
-);
+  router.post(
+    "/",
+    validate({ body: createGameSchema }),
+    controller.createGameHandler,
+  );
+  router.get(
+    "/",
+    validate({ query: listGamesQuerySchema }),
+    controller.listGamesHandler,
+  );
+  router.get(
+    "/:gameId",
+    validate({ params: gameParamsSchema }),
+    controller.getGameHandler,
+  );
+  router.delete(
+    "/:gameId",
+    validate({ params: gameParamsSchema, query: deleteGameQuerySchema }),
+    controller.deleteGameHandler,
+  );
+
+  return router;
+}

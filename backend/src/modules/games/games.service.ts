@@ -67,17 +67,29 @@ export class GamesService {
   constructor(private readonly startingPageProvider: StartingPageProvider) {}
 
   async create(userId: string, input: CreateGameInput): Promise<Game> {
+    const inProgressCount = await prisma.game.count({
+      where: { userId, status: "IN_PROGRESS" },
+    });
+
+    if (inProgressCount >= MAX_IN_PROGRESS_GAMES) {
+      throw new ApiError(
+        409,
+        ErrorCode.GAME_LIMIT_REACHED,
+        "Maximum number of in-progress games reached",
+      );
+    }
+
     const startingPage = await this.startingPageProvider.getStartingPage();
 
     return prisma.$transaction(
       async (tx) => {
         await tx.$queryRaw`SELECT "id" FROM "users" WHERE "id" = ${userId}::uuid FOR UPDATE`;
 
-        const inProgressCount = await tx.game.count({
+        const lockedCount = await tx.game.count({
           where: { userId, status: "IN_PROGRESS" },
         });
 
-        if (inProgressCount >= MAX_IN_PROGRESS_GAMES) {
+        if (lockedCount >= MAX_IN_PROGRESS_GAMES) {
           throw new ApiError(
             409,
             ErrorCode.GAME_LIMIT_REACHED,
