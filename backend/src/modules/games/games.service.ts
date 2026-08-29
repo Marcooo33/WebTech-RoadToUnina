@@ -15,6 +15,7 @@ import {
   toSessionDto,
 } from "../game-sessions/game-sessions.service.js";
 import { WikipediaService } from "../wikipedia/wikipedia.service.js";
+import { toGameMoveDto } from "./game-move.js";
 import { reconstructActivePath } from "./game-path.js";
 import type {
   BacktrackInput,
@@ -25,7 +26,6 @@ import type {
   ArticleDto,
   GameDto,
   GameListItemDto,
-  GameMoveDto,
   GameWithMoves,
 } from "./games.types.js";
 import type { StartingPageProvider } from "./starting-page.provider.js";
@@ -57,18 +57,6 @@ function invalidMove(): ApiError {
     ErrorCode.INVALID_MOVE,
     "Target page is not a valid playable link",
   );
-}
-
-export function toGameMoveDto(move: GameMove): GameMoveDto {
-  return {
-    sequence: move.sequence,
-    type: move.type,
-    fromPageId: move.fromPageId,
-    fromPageTitle: move.fromPageTitle,
-    toPageId: move.toPageId,
-    toPageTitle: move.toPageTitle,
-    createdAt: move.createdAt.toISOString(),
-  };
 }
 
 export function toGameDto(

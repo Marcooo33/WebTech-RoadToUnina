@@ -4,6 +4,7 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 import { authRouter } from "./modules/auth/auth.routes.js";
 import { createGamesRouter } from "./modules/games/games.routes.js";
 import type { StartingPageProvider } from "./modules/games/starting-page.provider.js";
+import { createHistoryRouter } from "./modules/history/history.routes.js";
 import { wikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
 import { WikipediaService } from "./modules/wikipedia/wikipedia.service.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
@@ -33,6 +34,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       wikipediaService,
     ),
   );
+  app.use("/api/history", createHistoryRouter());
 
   app.use((_req, res) => {
     res.status(404).json(errorBody(ErrorCode.NOT_FOUND, "Route not found"));
