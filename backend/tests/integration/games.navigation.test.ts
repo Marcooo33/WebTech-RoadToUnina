@@ -9,7 +9,7 @@ import { prisma } from "../../src/lib/prisma.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
 import type { MediaWikiClient } from "../../src/modules/wikipedia/mediawiki.client.js";
 import { WikipediaService } from "../../src/modules/wikipedia/wikipedia.service.js";
-import type { TitleResolution } from "../../src/modules/wikipedia/wikipedia.types.js";
+import type { TitleResolution, TitleResolutionSource } from "../../src/modules/wikipedia/wikipedia.types.js";
 
 let server: Server;
 let baseUrl: string;
@@ -1010,11 +1010,11 @@ test("a redirect link to the target completes the game in one navigation", async
       title: titleFor(pageId),
       html: '<p><a href="/wiki/Unina">Unina</a></p>',
     }),
-    resolveTitles: async (titles: string[]) => {
+    resolveTitles: async (sources: TitleResolutionSource[]) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, {
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, {
             kind: "REDIRECT",
             canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
           });
@@ -1091,16 +1091,19 @@ test("a target link beyond the old 500-link cutoff completes in one navigation",
       title: titleFor(pageId),
       html: '<p><a href="/wiki/Unina">Unina</a></p>',
     }),
-    resolveTitles: async (titles: string[]) => {
+    resolveTitles: async (sources: TitleResolutionSource[]) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, {
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, {
             kind: "REDIRECT",
             canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
           });
         } else {
-          map.set(title, { kind: "DIRECT" });
+          map.set(source.title, {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          });
         }
       }
       return map;
@@ -1167,8 +1170,16 @@ function makeContextualWikipediaService(): WikipediaService {
       title: titleFor(pageId),
       html: '<p>Normal <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
     }),
-    resolveTitles: async (titles: string[]) =>
-      new Map(titles.map((title) => [title, { kind: "DIRECT" } as TitleResolution])),
+    resolveTitles: async (sources: TitleResolutionSource[]) =>
+      new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          } as TitleResolution,
+        ]),
+      ),
   } as unknown as MediaWikiClient;
 
   return new WikipediaService({ client });
@@ -1263,8 +1274,16 @@ test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE",
       title: titleFor(pageId),
       html: '<p><a href="/wiki/Normal">normal</a></p><h2 id="Bibliografia">Bibliografia</h2><ul><li><a href="/wiki/Biblio_Target">book</a></li></ul>',
     }),
-    resolveTitles: async (titles: string[]) =>
-      new Map(titles.map((title) => [title, { kind: "DIRECT" } as TitleResolution])),
+    resolveTitles: async (sources: TitleResolutionSource[]) =>
+      new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          } as TitleResolution,
+        ]),
+      ),
   } as unknown as MediaWikiClient;
 
   const app = await createTestApp(new WikipediaService({ client }));

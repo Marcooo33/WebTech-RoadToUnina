@@ -3,13 +3,21 @@ export interface WikipediaPageIdentity {
   title: string;
 }
 
+// A source-link target submitted for canonical resolution. `pageId` is the
+// generator/random-page id, retained as metadata for the caller; the resolution
+// result carries its own authoritative canonical identity.
+export interface TitleResolutionSource {
+  pageId: number;
+  title: string;
+}
+
 // Outcome of resolving a single source-link title against MediaWiki redirects.
-// `DIRECT` means the title is a non-redirect article and its own identity is
-// authoritative. `REDIRECT` means the title resolved to a canonical target.
-// `UNRESOLVED` means the title could not be trusted (missing/malformed/non-main
-// namespace canonical target) and must be excluded.
+// `DIRECT` and `REDIRECT` both carry the authoritative canonical identity that
+// was validated by the latest resolution request. `UNRESOLVED` means the title
+// could not be trusted (missing/malformed/non-main namespace canonical target)
+// and must be excluded.
 export type TitleResolution =
-  | { kind: "DIRECT" }
+  | { kind: "DIRECT"; canonical: WikipediaPageIdentity }
   | { kind: "REDIRECT"; canonical: WikipediaPageIdentity }
   | { kind: "UNRESOLVED" };
 

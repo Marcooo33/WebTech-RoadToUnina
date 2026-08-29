@@ -136,18 +136,16 @@ export class WikipediaService {
     title: string,
     directPageId: number,
   ): Promise<WikipediaPageIdentity | null> {
-    const resolutions = await this.client.resolveTitles([title]);
+    const resolutions = await this.client.resolveTitles([
+      { pageId: directPageId, title },
+    ]);
     const resolution = resolutions.get(title);
 
     if (!resolution || resolution.kind === "UNRESOLVED") {
       return null;
     }
 
-    if (resolution.kind === "REDIRECT") {
-      return resolution.canonical;
-    }
-
-    return { pageId: directPageId, title };
+    return resolution.canonical;
   }
 
   // Single authoritative derivation of an article's playable links: fetch the
@@ -212,9 +210,7 @@ export class WikipediaService {
   private async resolveSources(
     sources: { pageId: number; title: string }[],
   ): Promise<PlayableLink[]> {
-    const resolutions = await this.client.resolveTitles(
-      sources.map((source) => source.title),
-    );
+    const resolutions = await this.client.resolveTitles(sources);
 
     const playable: PlayableLink[] = [];
 
@@ -227,18 +223,9 @@ export class WikipediaService {
         continue;
       }
 
-      if (resolution.kind === "REDIRECT") {
-        playable.push({
-          pageId: resolution.canonical.pageId,
-          title: resolution.canonical.title,
-          sourceTitle: source.title,
-        });
-        continue;
-      }
-
       playable.push({
-        pageId: source.pageId,
-        title: source.title,
+        pageId: resolution.canonical.pageId,
+        title: resolution.canonical.title,
         sourceTitle: source.title,
       });
     }

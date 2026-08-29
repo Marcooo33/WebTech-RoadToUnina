@@ -10,6 +10,7 @@ import type {
   MediaWikiQueryResponse,
   MediaWikiRandomItem,
   TitleResolution,
+  TitleResolutionSource,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
@@ -267,13 +268,21 @@ export class MediaWikiClient {
     return { pageId, title: resolvedTitle };
   }
 
-  // Resolves redirects for a batch of titles. Returns a resolution per unique
-  // requested title, distinguishing DIRECT articles, redirects with an
-  // eligible canonical target, and UNRESOLVED titles that must be excluded.
+  // Resolves redirects for a batch of source-link targets. Returns a resolution
+  // per unique requested title, distinguishing DIRECT articles and redirects
+  // (both carrying their authoritative canonical identity) from UNRESOLVED
+  // titles that must be excluded.
   async resolveTitles(
-    titles: string[],
+    sources: TitleResolutionSource[],
   ): Promise<Map<string, TitleResolution>> {
-    const unique = [...new Set(titles)];
+    const unique: string[] = [];
+    const seen = new Set<string>();
+    for (const source of sources) {
+      if (!seen.has(source.title)) {
+        seen.add(source.title);
+        unique.push(source.title);
+      }
+    }
 
     const chunks: string[][] = [];
     for (
@@ -390,7 +399,7 @@ export class MediaWikiClient {
         original,
         wasRedirect
           ? { kind: "REDIRECT", canonical }
-          : { kind: "DIRECT" },
+          : { kind: "DIRECT", canonical },
       );
     }
 

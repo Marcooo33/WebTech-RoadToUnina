@@ -12,6 +12,7 @@ import type {
   MediaWikiArticleLinks,
   MediaWikiRandomItem,
   TitleResolution,
+  TitleResolutionSource,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
@@ -23,7 +24,7 @@ interface FakeClientMethods {
   ) => Promise<{ pageId: number; title: string; html: string }>;
   resolveTitle?: (title: string) => Promise<WikipediaPageIdentity | null>;
   resolveTitles?: (
-    titles: string[],
+    sources: TitleResolutionSource[],
   ) => Promise<Map<string, TitleResolution>>;
 }
 
@@ -43,8 +44,16 @@ function makeFakeClient(methods: FakeClientMethods): MediaWikiClient {
   };
 
   return {
-    resolveTitles: async (titles: string[]) =>
-      new Map(titles.map((title) => [title, { kind: "DIRECT" } as TitleResolution])),
+    resolveTitles: async (sources: TitleResolutionSource[]) =>
+      new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          } as TitleResolution,
+        ]),
+      ),
     getArticleHtml: defaultArticleHtml,
     ...methods,
   } as unknown as MediaWikiClient;
@@ -546,16 +555,19 @@ test("getValidInternalLinks resolves redirect links to canonical identities", as
         { ns: 0, title: "Unina", pageid: 487631 },
         { ns: 0, title: "Napoli", pageid: 100 },
       ]),
-    resolveTitles: async (titles) => {
+    resolveTitles: async (sources) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, {
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, {
             kind: "REDIRECT",
             canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
           });
         } else {
-          map.set(title, { kind: "DIRECT" });
+          map.set(source.title, {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          });
         }
       }
       return map;
@@ -578,13 +590,16 @@ test("getValidInternalLinks excludes a redirect whose canonical target is missin
         { ns: 0, title: "Unina", pageid: 487631 },
         { ns: 0, title: "Napoli", pageid: 100 },
       ]),
-    resolveTitles: async (titles) => {
+    resolveTitles: async (sources) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, { kind: "UNRESOLVED" });
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, { kind: "UNRESOLVED" });
         } else {
-          map.set(title, { kind: "DIRECT" });
+          map.set(source.title, {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          });
         }
       }
       return map;
@@ -615,6 +630,30 @@ test("getValidInternalLinks excludes citation-only links", async () => {
   const links = await service.getValidInternalLinks(1);
 
   assert.deepEqual(links, [{ pageId: 2, title: "B" }]);
+});
+
+test("getValidInternalLinks uses the canonical resolution id when it disagrees with the generator id", async () => {
+  const client = makeFakeClient({
+    getArticleLinks: async (pageId) =>
+      linksFor(pageId, "P", [{ ns: 0, title: "Napoli", pageid: 100 }]),
+    resolveTitles: async (sources) =>
+      new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            // The resolution reports a different authoritative page id than
+            // the generator's, simulating a delete/recreate race.
+            canonical: { pageId: 200, title: source.title },
+          } as TitleResolution,
+        ]),
+      ),
+  });
+  const service = new WikipediaService({ client });
+
+  const links = await service.getValidInternalLinks(1);
+
+  assert.deepEqual(links, [{ pageId: 200, title: "Napoli" }]);
 });
 
 test("isValidNavigation rejects a citation-only link", async () => {
@@ -773,9 +812,17 @@ test("getArticle deduplicates repeated playable targets before canonical resolut
     }),
     getArticleLinks: async (pageId) =>
       linksFor(pageId, "P", [{ ns: 0, title: "Napoli", pageid: 100 }]),
-    resolveTitles: async (titles) => {
-      resolvedTitles = titles;
-      return new Map(titles.map((title) => [title, { kind: "DIRECT" } as TitleResolution]));
+    resolveTitles: async (sources) => {
+      resolvedTitles = sources.map((source) => source.title);
+      return new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          } as TitleResolution,
+        ]),
+      );
     },
   });
   const service = new WikipediaService({ client });
@@ -795,11 +842,11 @@ test("getArticle resolves redirect links and annotates canonical identities", as
     }),
     getArticleLinks: async (pageId) =>
       linksFor(pageId, "P", [{ ns: 0, title: "Unina", pageid: 487631 }]),
-    resolveTitles: async (titles) => {
+    resolveTitles: async (sources) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, {
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, {
             kind: "REDIRECT",
             canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
           });
@@ -887,16 +934,19 @@ test("getRandomStartingPage rejects a candidate that redirects to the target", a
     getRandomArticles: async () => attempts[call++] ?? [],
     getArticleLinks: async (pageId) =>
       linksFor(pageId, "Good", eligibleLinks(), 1500),
-    resolveTitles: async (titles) => {
+    resolveTitles: async (sources) => {
       const map = new Map<string, TitleResolution>();
-      for (const title of titles) {
-        if (title === "Unina") {
-          map.set(title, {
+      for (const source of sources) {
+        if (source.title === "Unina") {
+          map.set(source.title, {
             kind: "REDIRECT",
             canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
           });
         } else {
-          map.set(title, { kind: "DIRECT" });
+          map.set(source.title, {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          });
         }
       }
       return map;
