@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { MediaWikiClient, MAX_LINK_CONTINUATION_REQUESTS } from "./mediawiki.client.js";
+import {
+  MAX_LINK_CONTINUATION_REQUESTS,
+  MAX_REDIRECT_RESOLUTION_CONCURRENCY,
+  MediaWikiClient,
+} from "./mediawiki.client.js";
 import { WikipediaError } from "./wikipedia.errors.js";
 
 interface CapturedRequest {
@@ -860,4 +864,205 @@ test("link fetch accepts an empty pages array", async () => {
   const result = await client.getArticleLinks(200);
 
   assert.deepEqual(result.links, []);
+});
+
+test("resolveTitles resolves redirects to canonical identities in a batch", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        redirects: [
+          { from: "Unina", to: "Università degli Studi di Napoli Federico II" },
+        ],
+        pages: [
+          { pageid: 2930935, ns: 0, title: "Università degli Studi di Napoli Federico II" },
+          { pageid: 100, ns: 0, title: "Napoli" },
+        ],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["Unina", "Napoli"]);
+
+  assert.deepEqual(
+    result,
+    new Map([
+      [
+        "Unina",
+        {
+          kind: "REDIRECT",
+          canonical: { pageId: 2930935, title: "Università degli Studi di Napoli Federico II" },
+        },
+      ],
+      ["Napoli", { kind: "DIRECT" }],
+    ]),
+  );
+});
+
+test("resolveTitles marks missing pages as UNRESOLVED", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        pages: [
+          { pageid: 100, ns: 0, title: "Napoli" },
+          { ns: 0, title: "Missing", missing: true },
+        ],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["Napoli", "Missing"]);
+
+  assert.deepEqual(
+    result,
+    new Map([
+      ["Napoli", { kind: "DIRECT" }],
+      ["Missing", { kind: "UNRESOLVED" }],
+    ]),
+  );
+});
+
+test("resolveTitles follows redirect chains", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        redirects: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+        ],
+        pages: [{ pageid: 7, ns: 0, title: "C" }],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["A"]);
+
+  assert.deepEqual(
+    result,
+    new Map([["A", { kind: "REDIRECT", canonical: { pageId: 7, title: "C" } }]]),
+  );
+});
+
+test("resolveTitles marks a redirect to a missing target as UNRESOLVED", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        redirects: [{ from: "Unina", to: "Gone" }],
+        pages: [{ ns: 0, title: "Gone", missing: true }],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["Unina"]);
+
+  assert.deepEqual(result, new Map([["Unina", { kind: "UNRESOLVED" }]]));
+});
+
+test("resolveTitles marks a redirect to a non-main namespace as UNRESOLVED", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        redirects: [{ from: "Unina", to: "Categoria:Napoli" }],
+        pages: [{ pageid: 42, ns: 14, title: "Categoria:Napoli" }],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["Unina"]);
+
+  assert.deepEqual(result, new Map([["Unina", { kind: "UNRESOLVED" }]]));
+});
+
+test("resolveTitles marks a redirect without a trustworthy canonical target as UNRESOLVED", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: {
+        redirects: [{ from: "Unina", to: "Elsewhere" }],
+        pages: [],
+      },
+    }),
+  );
+
+  const result = await client.resolveTitles(["Unina"]);
+
+  assert.deepEqual(result, new Map([["Unina", { kind: "UNRESOLVED" }]]));
+});
+
+test("resolveTitles rejects malformed redirects data", async () => {
+  const client = makeClient(() =>
+    jsonResponse(200, {
+      query: { redirects: "not-an-array", pages: [] },
+    }),
+  );
+
+  await assert.rejects(
+    () => client.resolveTitles(["A"]),
+    (error: unknown) =>
+      error instanceof WikipediaError && error.kind === "INVALID_RESPONSE",
+  );
+});
+
+test("resolveTitles chunks requests above the per-request limit", async () => {
+  let requests = 0;
+  const client = makeClient((req) => {
+    requests += 1;
+    const url = new URL(req.url);
+    const titles = (url.searchParams.get("titles") ?? "").split("|");
+    const pages = titles.map((title, index) => ({
+      pageid: index + 1,
+      ns: 0,
+      title,
+    }));
+    return jsonResponse(200, { query: { pages } });
+  });
+
+  const titles = Array.from({ length: 120 }, (_, i) => `Title${i}`);
+  const result = await client.resolveTitles(titles);
+
+  assert.equal(requests, 3);
+  assert.equal(result.size, 120);
+  assert.deepEqual(result.get("Title0"), { kind: "DIRECT" });
+  assert.deepEqual(result.get("Title119"), { kind: "DIRECT" });
+});
+
+test("resolveTitles bounds concurrent resolution requests", async () => {
+  let active = 0;
+  let maxActive = 0;
+  let requests = 0;
+
+  const client = makeClient(async (req) => {
+    requests += 1;
+    active += 1;
+    maxActive = Math.max(maxActive, active);
+    await new Promise((resolve) => setImmediate(resolve));
+    const url = new URL(req.url);
+    const titles = (url.searchParams.get("titles") ?? "").split("|");
+    const pages = titles.map((title, index) => ({
+      pageid: index + 1,
+      ns: 0,
+      title,
+    }));
+    active -= 1;
+    return jsonResponse(200, { query: { pages } });
+  });
+
+  const titles = Array.from({ length: 400 }, (_, i) => `Title${i}`);
+  const result = await client.resolveTitles(titles);
+
+  assert.equal(requests, 8);
+  assert.equal(result.size, 400);
+  assert.ok(
+    maxActive <= MAX_REDIRECT_RESOLUTION_CONCURRENCY,
+    `observed concurrency ${maxActive} exceeded limit ${MAX_REDIRECT_RESOLUTION_CONCURRENCY}`,
+  );
+  assert.ok(maxActive > 1, "resolution should proceed concurrently, not strictly serially");
+});
+
+test("resolveTitles rejects a malformed response", async () => {
+  const client = makeClient(() => jsonResponse(200, {}));
+
+  await assert.rejects(
+    () => client.resolveTitles(["A"]),
+    (error: unknown) =>
+      error instanceof WikipediaError && error.kind === "INVALID_RESPONSE",
+  );
 });

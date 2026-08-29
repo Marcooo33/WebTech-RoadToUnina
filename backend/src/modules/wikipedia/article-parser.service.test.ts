@@ -357,3 +357,48 @@ test("preserves structural and text markup for readability", () => {
   assert.match(result.contentHtml, /<ul><li>one<\/li><li>two<\/li><\/ul>/);
   assert.match(result.contentHtml, /<table>/);
 });
+
+test("heading-delimited bibliography links are excluded while later sections remain playable", () => {
+  const links: PlayableLink[] = [
+    { pageId: 1, title: "Bibliography Book" },
+    { pageId: 2, title: "Later Article" },
+  ];
+  const html = [
+    '<h2 id="Bibliografia">Bibliografia</h2>',
+    '<ul><li><a href="/wiki/Bibliography_Book">book</a></li></ul>',
+    '<h2 id="Voci_correlate">Voci correlate</h2>',
+    '<p>See <a href="/wiki/Later_Article">later</a>.</p>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, [{ pageId: 2, title: "Later Article" }]);
+  assert.doesNotMatch(result.contentHtml, /data-page-id="1"/);
+  assert.match(result.contentHtml, /data-page-id="2"/);
+});
+
+test("a reference section delimited by a heading excludes nested links", () => {
+  const links: PlayableLink[] = [
+    { pageId: 7, title: "Reference Target" },
+  ];
+  const html = [
+    "<h2>Note</h2>",
+    '<ol class="references"><li><a href="/wiki/Reference_Target">ref</a></li></ol>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, []);
+  assert.doesNotMatch(result.contentHtml, /data-page-id="7"/);
+});
+
+test("collectPlayableTitles skips heading-delimited bibliography targets", () => {
+  const parser = new ArticleParserService();
+  const html = [
+    '<p><a href="/wiki/Normal_Article">normal</a></p>',
+    '<h2 id="Bibliografia">Bibliografia</h2>',
+    '<ul><li><a href="/wiki/Bibliography_Book">book</a></li></ul>',
+  ].join("");
+
+  assert.deepEqual(parser.collectPlayableTitles(html), ["Normal Article"]);
+});

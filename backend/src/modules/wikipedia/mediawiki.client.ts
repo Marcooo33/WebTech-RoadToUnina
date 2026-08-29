@@ -9,6 +9,7 @@ import type {
   MediaWikiParseResponse,
   MediaWikiQueryResponse,
   MediaWikiRandomItem,
+  TitleResolution,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
@@ -23,6 +24,15 @@ const DEFAULT_TIMEOUT_MS = 10_000;
 // This is an implementation safety limit, not a ROADTOUNINA game rule.
 export const MAX_LINK_CONTINUATION_REQUESTS = 5;
 
+// MediaWiki resolves at most 50 titles/pageids per query for regular users.
+// Redirect resolution is therefore performed in bounded chunks.
+export const MAX_REDIRECT_RESOLUTION_PER_REQUEST = 50;
+
+// Cap on how many redirect-resolution chunks may be in flight at once. This
+// bounds the latency of a single gameplay action instead of allowing a long,
+// strictly sequential chain of external requests.
+export const MAX_REDIRECT_RESOLUTION_CONCURRENCY = 4;
+
 export interface MediaWikiClientOptions {
   fetch?: typeof fetch;
   baseUrl?: string;
@@ -35,6 +45,34 @@ export interface MediaWikiClientOptions {
 // non-zero namespace must never be defaulted to zero.
 function isMainNamespace(value: unknown): value is number {
   return typeof value === "number" && Number.isInteger(value) && value === 0;
+}
+
+// Runs `worker` over `items` with at most `limit` promises in flight, while
+// preserving result order. This keeps redirect-resolution latency bounded
+// without flooding MediaWiki with an unbounded number of concurrent requests.
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  worker: (item: T) => Promise<R>,
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+
+  const run = async (): Promise<void> => {
+    for (;;) {
+      const index = nextIndex;
+      nextIndex += 1;
+      if (index >= items.length) {
+        return;
+      }
+      results[index] = await worker(items[index]);
+    }
+  };
+
+  const workerCount = Math.min(limit, items.length);
+  await Promise.all(Array.from({ length: workerCount }, () => run()));
+
+  return results;
 }
 
 function toValidRandomItem(raw: unknown): MediaWikiRandomItem | null {
@@ -227,6 +265,136 @@ export class MediaWikiClient {
     }
 
     return { pageId, title: resolvedTitle };
+  }
+
+  // Resolves redirects for a batch of titles. Returns a resolution per unique
+  // requested title, distinguishing DIRECT articles, redirects with an
+  // eligible canonical target, and UNRESOLVED titles that must be excluded.
+  async resolveTitles(
+    titles: string[],
+  ): Promise<Map<string, TitleResolution>> {
+    const unique = [...new Set(titles)];
+
+    const chunks: string[][] = [];
+    for (
+      let offset = 0;
+      offset < unique.length;
+      offset += MAX_REDIRECT_RESOLUTION_PER_REQUEST
+    ) {
+      chunks.push(unique.slice(offset, offset + MAX_REDIRECT_RESOLUTION_PER_REQUEST));
+    }
+
+    const chunkResults = await mapWithConcurrency(
+      chunks,
+      MAX_REDIRECT_RESOLUTION_CONCURRENCY,
+      (chunk) => this.resolveChunk(chunk),
+    );
+
+    const result = new Map<string, TitleResolution>();
+    for (const chunkResult of chunkResults) {
+      for (const [title, resolution] of chunkResult) {
+        result.set(title, resolution);
+      }
+    }
+
+    return result;
+  }
+
+  private async resolveChunk(
+    chunk: string[],
+  ): Promise<Map<string, TitleResolution>> {
+    const body = await this.request<MediaWikiQueryResponse>({
+      action: "query",
+      titles: chunk.join("|"),
+      redirects: "1",
+      format: "json",
+      formatversion: "2",
+    });
+
+    const redirects = body.query?.redirects;
+    if (redirects !== undefined && !Array.isArray(redirects)) {
+      throw new WikipediaError(
+        "INVALID_RESPONSE",
+        "MediaWiki redirects data is malformed",
+      );
+    }
+    const normalized = body.query?.normalized;
+    if (normalized !== undefined && !Array.isArray(normalized)) {
+      throw new WikipediaError(
+        "INVALID_RESPONSE",
+        "MediaWiki normalized data is malformed",
+      );
+    }
+
+    // Single hop map combining title normalization and redirect substitution.
+    // Redirect edges override normalization edges for the same source title.
+    const hopMap = new Map<string, string>();
+    const redirectFroms = new Set<string>();
+
+    for (const entry of normalized ?? []) {
+      const from = normalizeMediaWikiTitle(entry.from);
+      const to = normalizeMediaWikiTitle(entry.to);
+      if (from !== null && to !== null) {
+        hopMap.set(from, to);
+      }
+    }
+    for (const entry of redirects ?? []) {
+      const from = normalizeMediaWikiTitle(entry.from);
+      const to = normalizeMediaWikiTitle(entry.to);
+      if (from !== null && to !== null) {
+        hopMap.set(from, to);
+        redirectFroms.add(from);
+      }
+    }
+
+    const canonicalByTitle = new Map<string, WikipediaPageIdentity>();
+    for (const page of this.requirePagesArray(body)) {
+      if (page.missing) {
+        continue;
+      }
+
+      const id = page.pageid;
+      const title = normalizeMediaWikiTitle(page.title);
+      if (!isValidMediaWikiPageId(id) || title === null) {
+        continue;
+      }
+      if (!isMainNamespace(page.ns)) {
+        continue;
+      }
+
+      canonicalByTitle.set(title, { pageId: id, title });
+    }
+
+    const resolutions = new Map<string, TitleResolution>();
+    for (const original of chunk) {
+      let target = original;
+      let wasRedirect = false;
+      const seen = new Set<string>();
+
+      while (hopMap.has(target) && !seen.has(target)) {
+        seen.add(target);
+        if (redirectFroms.has(target)) {
+          wasRedirect = true;
+        }
+        target = hopMap.get(target) as string;
+      }
+
+      const canonical = canonicalByTitle.get(target);
+
+      if (!canonical) {
+        resolutions.set(original, { kind: "UNRESOLVED" });
+        continue;
+      }
+
+      resolutions.set(
+        original,
+        wasRedirect
+          ? { kind: "REDIRECT", canonical }
+          : { kind: "DIRECT" },
+      );
+    }
+
+    return resolutions;
   }
 
   private async request<T>(params: Record<string, string>): Promise<T> {

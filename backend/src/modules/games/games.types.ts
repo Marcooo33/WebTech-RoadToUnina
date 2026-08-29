@@ -1,7 +1,20 @@
+import type { Game, GameMove } from "../../generated/prisma/client.js";
+
 export interface PageRefDto {
   pageId: number;
   title: string;
 }
+
+export interface ArticleDto {
+  gameId: string;
+  pageId: number;
+  title: string;
+  version: number;
+  contentHtml: string;
+  links: PageRefDto[];
+}
+
+export type GameWithMoves = Game & { moves: GameMove[] };
 
 export interface GameMoveDto {
   sequence: number;

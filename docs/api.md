@@ -105,7 +105,7 @@ The following codes extend the four already implemented in Milestone 3 (`VALIDAT
 | 409 | `GAME_NOT_IN_PROGRESS` | Operation requires an `IN_PROGRESS` game (e.g. deleting a completed game). |
 | 409 | `NO_ACTIVE_SESSION` | Gameplay action requires an `ACTIVE` session and none exists. |
 | 422 | `INVALID_MOVE` | Requested target page is not a valid playable link from the current page. |
-| 422 | `BACKTRACK_NOT_ALLOWED` | Backtracking is forbidden for `HARD` difficulty. |
+| 422 | `BACKTRACK_NOT_ALLOWED` | Backtracking is forbidden for `HARD` difficulty, or is impossible because the active path is already at the starting page. |
 | 422 | `BACKTRACK_LIMIT_REACHED` | `MEDIUM` backtracking limit (3) has been reached. |
 | 500 | `INTERNAL_ERROR` | Unexpected server error (details are never exposed). |
 
@@ -732,7 +732,7 @@ POST /api/games/:gameId/backtrack
 |---|---|---|
 | `version` | integer | required; expected `Game.version` |
 
-**Behavior:** a dedicated action separate from navigation. On success the backend stores a `BACKTRACK` `GameMove`, moves the active path one step back, increments `backtrackCount` and `version`. It does **not** increment `clickCount`.
+**Behavior:** a dedicated action separate from navigation. On success the backend stores a `BACKTRACK` `GameMove`, moves the active path one step back, increments `backtrackCount` and `version`. It does **not** increment `clickCount`. When the active path contains only the starting page there is no previous page to return to, so backtracking is rejected with `BACKTRACK_NOT_ALLOWED`.
 
 Difficulty enforcement:
 
@@ -750,7 +750,7 @@ Difficulty enforcement:
 - `409 STALE_VERSION`;
 - `409 GAME_NOT_IN_PROGRESS`;
 - `409 NO_ACTIVE_SESSION`;
-- `422 BACKTRACK_NOT_ALLOWED` — `HARD` difficulty;
+- `422 BACKTRACK_NOT_ALLOWED` — `HARD` difficulty, or the active path is already at the starting page;
 - `422 BACKTRACK_LIMIT_REACHED` — `MEDIUM` already used 3 backtracks.
 
 ---

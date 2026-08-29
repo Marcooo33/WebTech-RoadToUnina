@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  backtrackSchema,
   createGameSchema,
   deleteGameQuerySchema,
   gameParamsSchema,
   listGamesQuerySchema,
+  moveSchema,
 } from "./games.schema.js";
 
 test("createGameSchema accepts a valid CLICK / EASY game", () => {
@@ -159,4 +161,84 @@ test("deleteGameQuerySchema rejects non-numeric versions", () => {
 test("deleteGameQuerySchema rejects versions exceeding the safe integer range", () => {
   const tooBig = "9007199254740992";
   assert.equal(deleteGameQuerySchema.safeParse({ version: tooBig }).success, false);
+});
+
+test("moveSchema accepts a valid toPageId and version", () => {
+  const result = moveSchema.safeParse({ toPageId: 123456, version: 6 });
+
+  assert.equal(result.success, true);
+  if (result.success) {
+    assert.deepEqual(result.data, { toPageId: 123456, version: 6 });
+  }
+});
+
+test("moveSchema rejects a missing toPageId or version", () => {
+  assert.equal(moveSchema.safeParse({ version: 0 }).success, false);
+  assert.equal(moveSchema.safeParse({ toPageId: 123 }).success, false);
+  assert.equal(moveSchema.safeParse({}).success, false);
+});
+
+test("moveSchema rejects a non-positive or non-integer toPageId", () => {
+  for (const toPageId of [0, -1, 1.5, Number.NaN, "123", null]) {
+    assert.equal(
+      moveSchema.safeParse({ toPageId, version: 0 }).success,
+      false,
+      `expected toPageId=${String(toPageId)} to be rejected`,
+    );
+  }
+});
+
+test("moveSchema rejects an invalid version", () => {
+  for (const version of [-1, 0.5, Number.NaN, "0", null, 9007199254740992]) {
+    assert.equal(
+      moveSchema.safeParse({ toPageId: 123, version }).success,
+      false,
+      `expected version=${String(version)} to be rejected`,
+    );
+  }
+});
+
+test("moveSchema rejects undocumented client-supplied fields", () => {
+  assert.equal(
+    moveSchema.safeParse({
+      toPageId: 123,
+      version: 0,
+      clickCount: 100,
+    }).success,
+    false,
+  );
+
+  assert.equal(
+    moveSchema.safeParse({
+      toPageId: 123,
+      version: 0,
+      userId: "00000000-0000-0000-0000-000000000000",
+    }).success,
+    false,
+  );
+
+  assert.equal(
+    moveSchema.safeParse({ toPageId: 123, version: 0, status: "COMPLETED" })
+      .success,
+    false,
+  );
+});
+
+test("backtrackSchema accepts a valid version", () => {
+  assert.deepEqual(backtrackSchema.parse({ version: 0 }), { version: 0 });
+  assert.deepEqual(backtrackSchema.parse({ version: 6 }), { version: 6 });
+});
+
+test("backtrackSchema rejects a missing or invalid version", () => {
+  assert.equal(backtrackSchema.safeParse({}).success, false);
+  assert.equal(backtrackSchema.safeParse({ version: -1 }).success, false);
+  assert.equal(backtrackSchema.safeParse({ version: 0.5 }).success, false);
+  assert.equal(backtrackSchema.safeParse({ version: "0" }).success, false);
+});
+
+test("backtrackSchema rejects undocumented client-supplied fields", () => {
+  assert.equal(
+    backtrackSchema.safeParse({ version: 0, clickCount: 5 }).success,
+    false,
+  );
 });

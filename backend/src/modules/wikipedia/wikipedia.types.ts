@@ -3,9 +3,20 @@ export interface WikipediaPageIdentity {
   title: string;
 }
 
+// Outcome of resolving a single source-link title against MediaWiki redirects.
+// `DIRECT` means the title is a non-redirect article and its own identity is
+// authoritative. `REDIRECT` means the title resolved to a canonical target.
+// `UNRESOLVED` means the title could not be trusted (missing/malformed/non-main
+// namespace canonical target) and must be excluded.
+export type TitleResolution =
+  | { kind: "DIRECT" }
+  | { kind: "REDIRECT"; canonical: WikipediaPageIdentity }
+  | { kind: "UNRESOLVED" };
+
 export interface PlayableLink {
   pageId: number;
   title: string;
+  sourceTitle?: string;
 }
 
 export interface NormalizedArticle {
