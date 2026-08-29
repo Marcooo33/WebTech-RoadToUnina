@@ -35,6 +35,12 @@ export interface SessionDto {
   lastHeartbeatAt: string;
 }
 
+export interface SessionResponseDto {
+  session: SessionDto;
+  effectivePlayTimeMs: number;
+  gameVersion: number;
+}
+
 export interface GameDto {
   id: string;
   mode: "CLICK" | "TIME";

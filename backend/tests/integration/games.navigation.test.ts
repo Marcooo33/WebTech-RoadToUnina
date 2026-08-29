@@ -202,7 +202,16 @@ async function createGame(
   difficulty = "EASY",
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  return post("/api/games", { mode, difficulty }, cookie, base);
+  const created = await post("/api/games", { mode, difficulty }, cookie, base);
+
+  // Milestone 9: navigation and backtracking now require an ACTIVE play session.
+  // Starting one here does not bump Game.version or effectivePlayTimeMs, so the
+  // exact-version assertions below remain valid.
+  if (created.status === 201 && created.body.id) {
+    await post(`/api/games/${created.body.id}/session`, undefined, cookie, base);
+  }
+
+  return created;
 }
 
 async function move(

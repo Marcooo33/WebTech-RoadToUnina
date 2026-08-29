@@ -3,9 +3,16 @@ import {
   Prisma,
   type Game,
   type GameMove,
+  type GameSession,
 } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
+import {
+  GameSessionService,
+  SessionExpiredError,
+  noActiveSession,
+  toSessionDto,
+} from "../game-sessions/game-sessions.service.js";
 import { WikipediaService } from "../wikipedia/wikipedia.service.js";
 import { reconstructActivePath } from "./game-path.js";
 import type {
@@ -63,7 +70,11 @@ export function toGameMoveDto(move: GameMove): GameMoveDto {
   };
 }
 
-export function toGameDto(game: Game, moves: GameMove[]): GameDto {
+export function toGameDto(
+  game: Game,
+  moves: GameMove[],
+  activeSession: GameSession | null,
+): GameDto {
   const path = reconstructActivePath(
     { pageId: game.startPageId, title: game.startPageTitle },
     moves,
@@ -87,11 +98,14 @@ export function toGameDto(game: Game, moves: GameMove[]): GameDto {
     createdAt: game.createdAt.toISOString(),
     path,
     moves: moves.map(toGameMoveDto),
-    activeSession: null,
+    activeSession: activeSession ? toSessionDto(activeSession) : null,
   };
 }
 
-export function toGameListItemDto(game: Game): GameListItemDto {
+export function toGameListItemDto(
+  game: Game,
+  hasActiveSession: boolean,
+): GameListItemDto {
   return {
     id: game.id,
     mode: game.mode,
@@ -106,7 +120,7 @@ export function toGameListItemDto(game: Game): GameListItemDto {
     version: game.version,
     startedAt: game.startedAt.toISOString(),
     completedAt: game.completedAt?.toISOString() ?? null,
-    hasActiveSession: false,
+    hasActiveSession,
   };
 }
 
@@ -114,6 +128,7 @@ export class GamesService {
   constructor(
     private readonly startingPageProvider: StartingPageProvider,
     private readonly wikipedia: WikipediaService,
+    private readonly sessions: GameSessionService,
   ) {}
 
   async create(userId: string, input: CreateGameInput): Promise<Game> {
@@ -212,6 +227,12 @@ export class GamesService {
       throw gameNotInProgress();
     }
 
+    // Preliminary live-session check. An expired session is finalized here
+    // (effective time + version) and the move is rejected with NO_ACTIVE_SESSION
+    // (docs/api.md §9.3). This runs before Wikipedia work so difficulty/link
+    // validation can never short-circuit expiration handling.
+    await this.sessions.assertActiveForGameplay(gameId);
+
     const links = await this.wikipedia.getValidInternalLinks(game.currentPageId);
     const destination = links.find((link) => link.pageId === input.toPageId);
 
@@ -225,48 +246,76 @@ export class GamesService {
     const fromPageId = game.currentPageId;
     const fromPageTitle = game.currentPageTitle;
     const isTarget = input.toPageId === TARGET_PAGE_ID;
+    const now = new Date();
 
-    return prisma.$transaction(
-      async (tx) => {
-        const result = await tx.game.updateMany({
-          where: {
-            id: gameId,
-            userId,
-            status: "IN_PROGRESS",
-            version: input.version,
-          },
-          data: {
-            currentPageId: input.toPageId,
-            currentPageTitle: destination.title,
-            clickCount: { increment: 1 },
-            version: { increment: 1 },
-            ...(isTarget
-              ? { status: "COMPLETED" as const, completedAt: new Date() }
-              : {}),
-          },
-        });
-
-        if (result.count === 0) {
-          await this.classifyConflict(tx, userId, gameId, input.version);
-        }
-
-        const sequence = await this.nextSequence(tx, gameId);
-        await tx.gameMove.create({
-          data: {
+    try {
+      return await prisma.$transaction(
+        async (tx) => {
+          // Re-validate the session inside the transaction, with a row lock, so
+          // a session ended/expired since the preliminary check cannot be moved
+          // against. SessionExpiredError is handled outside the transaction.
+          const session = await this.sessions.requireActiveInTransaction(
+            tx,
             gameId,
-            sequence,
-            type: "NAVIGATION",
-            fromPageId,
-            fromPageTitle,
-            toPageId: input.toPageId,
-            toPageTitle: destination.title,
-          },
-        });
+            now,
+          );
 
-        return this.loadOwnedWithMoves(tx, gameId);
-      },
-      { maxWait: 10_000, timeout: 30_000 },
-    );
+          // On completion the still-active session is closed in this same
+          // transaction and its duration folded into the one version bump.
+          const completionDurationMs = isTarget
+            ? await this.sessions.endSessionForCompletion(tx, session, now)
+            : 0;
+
+          const result = await tx.game.updateMany({
+            where: {
+              id: gameId,
+              userId,
+              status: "IN_PROGRESS",
+              version: input.version,
+            },
+            data: {
+              currentPageId: input.toPageId,
+              currentPageTitle: destination.title,
+              clickCount: { increment: 1 },
+              version: { increment: 1 },
+              ...(isTarget
+                ? {
+                    status: "COMPLETED" as const,
+                    completedAt: now,
+                    effectivePlayTimeMs: { increment: completionDurationMs },
+                  }
+                : {}),
+            },
+          });
+
+          if (result.count === 0) {
+            await this.classifyConflict(tx, userId, gameId, input.version);
+          }
+
+          const sequence = await this.nextSequence(tx, gameId);
+          await tx.gameMove.create({
+            data: {
+              gameId,
+              sequence,
+              type: "NAVIGATION",
+              fromPageId,
+              fromPageTitle,
+              toPageId: input.toPageId,
+              toPageTitle: destination.title,
+            },
+          });
+
+          return this.loadOwnedWithMoves(tx, gameId);
+        },
+        { maxWait: 10_000, timeout: 30_000 },
+      );
+    } catch (error) {
+      if (error instanceof SessionExpiredError) {
+        await this.sessions.finalizeExpiredSession(error.session.id);
+        throw noActiveSession();
+      }
+      throw error;
+    }
   }
 
   async backtrack(
@@ -283,6 +332,11 @@ export class GamesService {
     if (game.status !== "IN_PROGRESS") {
       throw gameNotInProgress();
     }
+
+    // Session precondition is checked before the difficulty/path rules so an
+    // expired session is finalized and rejected (docs/api.md §9.3) rather than
+    // being masked by a BACKTRACK_NOT_ALLOWED / BACKTRACK_LIMIT_REACHED error.
+    await this.sessions.assertActiveForGameplay(gameId);
 
     if (game.difficulty === "HARD") {
       throw new ApiError(
@@ -324,45 +378,56 @@ export class GamesService {
 
     const current = path[path.length - 1];
     const previous = path[path.length - 2];
+    const now = new Date();
 
-    return prisma.$transaction(
-      async (tx) => {
-        const result = await tx.game.updateMany({
-          where: {
-            id: gameId,
-            userId,
-            status: "IN_PROGRESS",
-            version: input.version,
-          },
-          data: {
-            currentPageId: previous.pageId,
-            currentPageTitle: previous.title,
-            backtrackCount: { increment: 1 },
-            version: { increment: 1 },
-          },
-        });
+    try {
+      return await prisma.$transaction(
+        async (tx) => {
+          await this.sessions.requireActiveInTransaction(tx, gameId, now);
 
-        if (result.count === 0) {
-          await this.classifyConflict(tx, userId, gameId, input.version);
-        }
+          const result = await tx.game.updateMany({
+            where: {
+              id: gameId,
+              userId,
+              status: "IN_PROGRESS",
+              version: input.version,
+            },
+            data: {
+              currentPageId: previous.pageId,
+              currentPageTitle: previous.title,
+              backtrackCount: { increment: 1 },
+              version: { increment: 1 },
+            },
+          });
 
-        const sequence = await this.nextSequence(tx, gameId);
-        await tx.gameMove.create({
-          data: {
-            gameId,
-            sequence,
-            type: "BACKTRACK",
-            fromPageId: current.pageId,
-            fromPageTitle: current.title,
-            toPageId: previous.pageId,
-            toPageTitle: previous.title,
-          },
-        });
+          if (result.count === 0) {
+            await this.classifyConflict(tx, userId, gameId, input.version);
+          }
 
-        return this.loadOwnedWithMoves(tx, gameId);
-      },
-      { maxWait: 10_000, timeout: 30_000 },
-    );
+          const sequence = await this.nextSequence(tx, gameId);
+          await tx.gameMove.create({
+            data: {
+              gameId,
+              sequence,
+              type: "BACKTRACK",
+              fromPageId: current.pageId,
+              fromPageTitle: current.title,
+              toPageId: previous.pageId,
+              toPageTitle: previous.title,
+            },
+          });
+
+          return this.loadOwnedWithMoves(tx, gameId);
+        },
+        { maxWait: 10_000, timeout: 30_000 },
+      );
+    } catch (error) {
+      if (error instanceof SessionExpiredError) {
+        await this.sessions.finalizeExpiredSession(error.session.id);
+        throw noActiveSession();
+      }
+      throw error;
+    }
   }
 
   async delete(userId: string, gameId: string, version: number): Promise<void> {
