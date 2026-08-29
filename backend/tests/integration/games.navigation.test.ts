@@ -1320,3 +1320,52 @@ test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE",
     await app.close();
   }
 });
+
+test("a legitimate section heading containing 'fonti' keeps its links navigable", async () => {
+  const client = {
+    getArticleLinks: async (pageId: number) => {
+      if (pageId === 1) {
+        return {
+          pageId: 1,
+          title: "Page 1",
+          length: 2000,
+          links: [{ ns: 0, title: "Energy Sources", pageid: 2 }],
+        };
+      }
+      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
+    },
+    getArticleHtml: async (pageId: number) => ({
+      pageId,
+      title: titleFor(pageId),
+      html: '<h2 id="Fonti_energetiche">Fonti energetiche</h2><p>See <a href="/wiki/Energy_Sources">energy</a>.</p>',
+    }),
+    resolveTitles: async (sources: TitleResolutionSource[]) =>
+      new Map(
+        sources.map((source) => [
+          source.title,
+          {
+            kind: "DIRECT",
+            canonical: { pageId: source.pageId, title: source.title },
+          } as TitleResolution,
+        ]),
+      ),
+  } as unknown as MediaWikiClient;
+
+  const app = await createTestApp(new WikipediaService({ client }));
+  try {
+    const { cookie } = await register(unique("fontie"), app.baseUrl);
+    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
+    assert.equal(created.status, 201);
+
+    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
+
+    assert.equal(status, 200);
+    assert.equal(body.currentPageId, 2);
+    assert.equal(body.clickCount, 1);
+
+    const moves = await persistedMoves(created.body.id!);
+    assert.equal(moves.length, 1);
+  } finally {
+    await app.close();
+  }
+});

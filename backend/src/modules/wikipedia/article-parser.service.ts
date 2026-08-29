@@ -172,17 +172,28 @@ function isCitationContextElement(element: Element): boolean {
     .some((token) => CITATION_CLASS_TOKENS.has(token.toLowerCase()));
 }
 
-const BIBLIOGRAPHY_HEADING_KEYWORDS = new Set([
+// Complete normalized bibliography/reference headings. Only an exact match on
+// the whole heading (or its MediaWiki id) counts, so legitimate sections whose
+// titles merely contain a word like "fonti", "note" or "riferimenti" (e.g.
+// "Fonti rinnovabili", "Note storiche", "Riferimenti normativi") are never
+// suppressed.
+const BIBLIOGRAPHY_HEADINGS = new Set([
   "bibliografia",
+  "bibliografia e sitografia",
   "bibliography",
-  "bibliografiche",
-  "bibliografici",
-  "riferimenti",
+  "fonti",
+  "fonti bibliografiche",
+  "fonti e note",
+  "note",
+  "note a piè di pagina",
+  "note e riferimenti",
+  "notes",
   "references",
   "reference",
-  "note",
-  "notes",
-  "fonti",
+  "riferimenti",
+  "riferimenti bibliografici",
+  "riferimenti e note",
+  "sitografia",
   "sources",
 ]);
 
@@ -203,16 +214,21 @@ function textContentOf(node: Node): string {
   return "";
 }
 
+function normalizeHeading(value: string): string {
+  return value.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+// MediaWiki heading ids use underscores for spaces and may carry a numeric
+// suffix when the same heading occurs twice (e.g. "Note_2").
+function normalizedHeadingId(value: string): string {
+  return normalizeHeading(value.replace(/_/g, " ")).replace(/\s+\d+$/, "");
+}
+
 function isBibliographyHeading(element: Element): boolean {
-  const id = element.attribs.id ?? "";
-  const text = textContentOf(element);
+  const text = normalizeHeading(textContentOf(element));
+  const id = normalizedHeadingId(element.attribs.id ?? "");
 
-  const combined = `${text} ${id}`
-    .toLowerCase()
-    .split(/[^a-z]+/)
-    .filter(Boolean);
-
-  return combined.some((token) => BIBLIOGRAPHY_HEADING_KEYWORDS.has(token));
+  return BIBLIOGRAPHY_HEADINGS.has(text) || BIBLIOGRAPHY_HEADINGS.has(id);
 }
 
 interface BibliographyState {

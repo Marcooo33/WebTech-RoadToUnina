@@ -392,6 +392,66 @@ test("a reference section delimited by a heading excludes nested links", () => {
   assert.doesNotMatch(result.contentHtml, /data-page-id="7"/);
 });
 
+test("a heading containing 'fonti' but not a bibliography section keeps links playable", () => {
+  const links: PlayableLink[] = [
+    { pageId: 1, title: "Fonti Rinnovabili Link" },
+  ];
+  const html = [
+    '<h2 id="Fonti_rinnovabili">Fonti rinnovabili</h2>',
+    '<p>See <a href="/wiki/Fonti_Rinnovabili_Link">detail</a>.</p>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, [{ pageId: 1, title: "Fonti Rinnovabili Link" }]);
+  assert.match(result.contentHtml, /data-page-id="1"/);
+});
+
+test("a heading containing 'note' but not a references section keeps links playable", () => {
+  const links: PlayableLink[] = [
+    { pageId: 2, title: "Note Storiche Link" },
+  ];
+  const html = [
+    '<h2 id="Note_storiche">Note storiche</h2>',
+    '<p>See <a href="/wiki/Note_Storiche_Link">history</a>.</p>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, [{ pageId: 2, title: "Note Storiche Link" }]);
+  assert.match(result.contentHtml, /data-page-id="2"/);
+});
+
+test("a heading containing 'riferimenti' but not a references section keeps links playable", () => {
+  const links: PlayableLink[] = [
+    { pageId: 3, title: "Riferimenti Normativi Link" },
+  ];
+  const html = [
+    '<h2 id="Riferimenti_normativi">Riferimenti normativi</h2>',
+    '<p>See <a href="/wiki/Riferimenti_Normativi_Link">law</a>.</p>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, [{ pageId: 3, title: "Riferimenti Normativi Link" }]);
+  assert.match(result.contentHtml, /data-page-id="3"/);
+});
+
+test("an exact 'Riferimenti' heading still excludes nested links", () => {
+  const links: PlayableLink[] = [
+    { pageId: 4, title: "Reference Entry" },
+  ];
+  const html = [
+    "<h2>Riferimenti</h2>",
+    '<p><a href="/wiki/Reference_Entry">entry</a></p>',
+  ].join("");
+
+  const result = normalize(html, links);
+
+  assert.deepEqual(result.links, []);
+  assert.doesNotMatch(result.contentHtml, /data-page-id="4"/);
+});
+
 test("collectPlayableTitles skips heading-delimited bibliography targets", () => {
   const parser = new ArticleParserService();
   const html = [
