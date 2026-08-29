@@ -212,13 +212,11 @@ export class GamesService {
       throw gameNotInProgress();
     }
 
-    const article = await this.wikipedia.getArticle(game.currentPageId);
-    const destination = article.links.find(
-      (link) => link.pageId === input.toPageId,
-    );
+    const links = await this.wikipedia.getValidInternalLinks(game.currentPageId);
+    const destination = links.find((link) => link.pageId === input.toPageId);
 
     if (!destination) {
-      // The game may have changed while the article was being resolved; a
+      // The game may have changed while the links were being resolved; a
       // stale request must surface as a version conflict, not a rule error.
       await this.assertVersionUnchanged(userId, gameId, input.version);
       throw invalidMove();

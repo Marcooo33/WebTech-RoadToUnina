@@ -73,9 +73,13 @@ export class WikipediaService {
     );
   }
 
+  // The authoritative set of moves available from a page: exactly the links
+  // that survive into the sanitized article the player sees. Delegating to
+  // `getArticle` keeps a single definition of "playable link" shared by article
+  // rendering and navigation validation, so the two can never drift apart.
   async getValidInternalLinks(pageId: number): Promise<PlayableLink[]> {
-    const article = await this.resolveArticle(pageId);
-    return article.playableLinks.map(({ pageId: resolvedPageId, title }) => ({
+    const article = await this.getArticle(pageId);
+    return article.links.map(({ pageId: resolvedPageId, title }) => ({
       pageId: resolvedPageId,
       title,
     }));

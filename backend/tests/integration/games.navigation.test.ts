@@ -492,14 +492,14 @@ test("two concurrent moves with the same version: exactly one succeeds", async (
 test("a game version change during article resolution returns STALE_VERSION, not INVALID_MOVE", async () => {
   let targetGameId: string | undefined;
   const wikipediaService = {
-    getArticle: async (pageId: number) => {
+    getValidInternalLinks: async (_pageId: number) => {
       if (targetGameId) {
         await prisma.game.update({
           where: { id: targetGameId },
           data: { version: { increment: 1 } },
         });
       }
-      return { pageId, title: "Page 1", contentHtml: "", links: [] };
+      return [];
     },
   } as unknown as WikipediaService;
 
@@ -524,14 +524,14 @@ test("a game version change during article resolution returns STALE_VERSION, not
 test("a move that races a completing move returns STALE_VERSION, not GAME_NOT_IN_PROGRESS", async () => {
   let targetGameId: string | undefined;
   const wikipediaService = {
-    getArticle: async (pageId: number) => {
+    getValidInternalLinks: async (_pageId: number) => {
       if (targetGameId) {
         await prisma.game.update({
           where: { id: targetGameId },
           data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
         });
       }
-      return { pageId, title: "Page 1", contentHtml: "", links: [{ pageId: 2, title: "Page 2" }] };
+      return [{ pageId: 2, title: "Page 2" }];
     },
   } as unknown as WikipediaService;
 
@@ -848,9 +848,9 @@ test("stale + invalid navigation returns STALE_VERSION, not INVALID_MOVE", async
 test("stale navigation does not invoke Wikipedia validation", async () => {
   const calls = { article: 0 };
   const wikipediaService = {
-    getArticle: async () => {
+    getValidInternalLinks: async () => {
       calls.article += 1;
-      return { pageId: 1, title: "Page 1", contentHtml: "", links: [{ pageId: 2, title: "Page 2" }] };
+      return [{ pageId: 2, title: "Page 2" }];
     },
   } as unknown as WikipediaService;
 

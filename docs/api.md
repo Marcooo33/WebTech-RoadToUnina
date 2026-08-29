@@ -108,12 +108,15 @@ The following codes extend the four already implemented in Milestone 3 (`VALIDAT
 | 422 | `BACKTRACK_NOT_ALLOWED` | Backtracking is forbidden for `HARD` difficulty, or is impossible because the active path is already at the starting page. |
 | 422 | `BACKTRACK_LIMIT_REACHED` | `MEDIUM` backtracking limit (3) has been reached. |
 | 500 | `INTERNAL_ERROR` | Unexpected server error (details are never exposed). |
+| 502 | `WIKIPEDIA_UNAVAILABLE` | An upstream MediaWiki request failed or returned an unusable response; the action can be retried. |
+| 503 | `NO_STARTING_PAGE` | No suitable random starting page could be found after the bounded number of attempts; game creation can be retried. |
 
 Rules:
 
 - `FORBIDDEN` MUST NOT be used to distinguish ownership of `Game` resources. A game that does not exist or is not owned by the caller is always reported as `404 GAME_NOT_FOUND`.
 - `409 Conflict` is reserved for state conflicts (version mismatch, duplicates, limits, non-`IN_PROGRESS` status, missing active session).
 - `422 Unprocessable Entity` is reserved for syntactically valid requests that violate a game rule (invalid move, backtracking rules).
+- `502`/`503` are reserved for upstream MediaWiki failures (`WIKIPEDIA_UNAVAILABLE`, `NO_STARTING_PAGE`); they indicate a transient dependency problem, not a client error or an internal bug, and the request may be retried.
 
 ### 2.7 Pagination
 
@@ -578,7 +581,8 @@ POST /api/games
 
 - `400 VALIDATION_ERROR`;
 - `401 AUTHENTICATION_REQUIRED`;
-- `409 GAME_LIMIT_REACHED` — user already has 10 `IN_PROGRESS` games.
+- `409 GAME_LIMIT_REACHED` — user already has 10 `IN_PROGRESS` games;
+- `503 NO_STARTING_PAGE` — no suitable starting page was found; retry.
 
 ### 5.2 List current user's games
 
@@ -670,7 +674,8 @@ GET /api/games/:gameId/article
 
 - `400 VALIDATION_ERROR`;
 - `401 AUTHENTICATION_REQUIRED`;
-- `404 GAME_NOT_FOUND`.
+- `404 GAME_NOT_FOUND`;
+- `502 WIKIPEDIA_UNAVAILABLE` — the upstream MediaWiki fetch failed; retry.
 
 ### 5.6 Navigation move
 
@@ -708,7 +713,8 @@ POST /api/games/:gameId/moves
 - `409 STALE_VERSION`;
 - `409 GAME_NOT_IN_PROGRESS` — game already completed;
 - `409 NO_ACTIVE_SESSION` — no `ACTIVE` session (see §9.3 expiration behavior);
-- `422 INVALID_MOVE` — target not a valid playable link from the current page.
+- `422 INVALID_MOVE` — target not a valid playable link from the current page;
+- `502 WIKIPEDIA_UNAVAILABLE` — the upstream MediaWiki link resolution failed; retry.
 
 ### 5.7 Backtrack
 
