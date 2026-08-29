@@ -204,12 +204,12 @@ export class GamesService {
   ): Promise<GameWithMoves> {
     const game = await this.loadOwnedGame(userId, gameId);
 
-    if (game.status !== "IN_PROGRESS") {
-      throw gameNotInProgress();
-    }
-
     if (input.version !== game.version) {
       throw staleVersion();
+    }
+
+    if (game.status !== "IN_PROGRESS") {
+      throw gameNotInProgress();
     }
 
     const article = await this.wikipedia.getArticle(game.currentPageId);
@@ -278,12 +278,12 @@ export class GamesService {
   ): Promise<GameWithMoves> {
     const game = await this.loadOwnedGame(userId, gameId);
 
-    if (game.status !== "IN_PROGRESS") {
-      throw gameNotInProgress();
-    }
-
     if (input.version !== game.version) {
       throw staleVersion();
+    }
+
+    if (game.status !== "IN_PROGRESS") {
+      throw gameNotInProgress();
     }
 
     if (game.difficulty === "HARD") {
@@ -388,6 +388,10 @@ export class GamesService {
 
     if (!game) {
       throw gameNotFound();
+    }
+
+    if (game.version !== version) {
+      throw staleVersion();
     }
 
     if (game.status !== "IN_PROGRESS") {

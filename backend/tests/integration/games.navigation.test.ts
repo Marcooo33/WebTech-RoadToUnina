@@ -224,6 +224,28 @@ async function backtrack(
   return post(`/api/games/${gameId}/backtrack`, { version }, cookie, base);
 }
 
+async function del(
+  gameId: string,
+  version: number,
+  cookie: string,
+  base: string = baseUrl,
+): Promise<{ status: number; body: GameBody }> {
+  const headers: Record<string, string> = {};
+  if (cookie) {
+    headers.Cookie = `access_token=${cookie}`;
+  }
+
+  const res = await fetch(
+    `${base}/api/games/${gameId}?version=${encodeURIComponent(String(version))}`,
+    { method: "DELETE", headers },
+  );
+  const text = await res.text();
+  return {
+    status: res.status,
+    body: text ? (JSON.parse(text) as GameBody) : {},
+  };
+}
+
 const fakeStartingPageProvider: StartingPageProvider = {
   async getStartingPage() {
     return { pageId: START_PAGE_ID, title: titleFor(START_PAGE_ID) };
@@ -906,6 +928,64 @@ test("stale + backtrack from starting page returns STALE_VERSION and mutates not
 
   const moves = await persistedMoves(created.body.id!);
   assert.equal(moves.length, 0);
+});
+
+test("a stale move against a completed game returns STALE_VERSION", async () => {
+  const { cookie } = await register(unique("compstale1"));
+  const created = await createGame(cookie);
+  assert.equal(created.status, 201);
+
+  await prisma.game.update({
+    where: { id: created.body.id },
+    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
+  });
+
+  const { status, body } = await move(cookie, created.body.id!, 2, 0);
+
+  assert.equal(status, 409);
+  assert.equal(body.error?.code, "STALE_VERSION");
+
+  const moves = await persistedMoves(created.body.id!);
+  assert.equal(moves.length, 0);
+});
+
+test("a stale backtrack against a completed game returns STALE_VERSION", async () => {
+  const { cookie } = await register(unique("compstale2"));
+  const created = await createGame(cookie);
+  assert.equal(created.status, 201);
+
+  await prisma.game.update({
+    where: { id: created.body.id },
+    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
+  });
+
+  const { status, body } = await backtrack(cookie, created.body.id!, 0);
+
+  assert.equal(status, 409);
+  assert.equal(body.error?.code, "STALE_VERSION");
+
+  const moves = await persistedMoves(created.body.id!);
+  assert.equal(moves.length, 0);
+});
+
+test("a stale delete against a completed game returns STALE_VERSION", async () => {
+  const { cookie } = await register(unique("compstale3"));
+  const created = await createGame(cookie);
+  assert.equal(created.status, 201);
+
+  await prisma.game.update({
+    where: { id: created.body.id },
+    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
+  });
+
+  const { status, body } = await del(created.body.id!, 0, cookie);
+
+  assert.equal(status, 409);
+  assert.equal(body.error?.code, "STALE_VERSION");
+
+  const stillThere = await get(`/api/games/${created.body.id}`, cookie);
+  assert.equal(stillThere.status, 200);
+  assert.equal(stillThere.body.status, "COMPLETED");
 });
 
 // ---------------------------------------------------------------------------
