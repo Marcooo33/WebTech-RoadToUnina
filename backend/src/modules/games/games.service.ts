@@ -9,6 +9,7 @@ import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
 import {
   GameSessionService,
+  NoActiveSessionError,
   SessionExpiredError,
   noActiveSession,
   toSessionDto,
@@ -220,6 +221,10 @@ export class GamesService {
     const game = await this.loadOwnedGame(userId, gameId);
 
     if (input.version !== game.version) {
+      // docs/api.md §9.3: an already-expired session is still finalized on the
+      // rejection path, so effective play time stays fair even when the losing
+      // request is also stale.
+      await this.sessions.finalizeIfExpired(gameId);
       throw staleVersion();
     }
 
@@ -246,11 +251,16 @@ export class GamesService {
     const fromPageId = game.currentPageId;
     const fromPageTitle = game.currentPageTitle;
     const isTarget = input.toPageId === TARGET_PAGE_ID;
-    const now = new Date();
 
     try {
       return await prisma.$transaction(
         async (tx) => {
+          // Captured inside the transaction: under connection-pool contention the
+          // callback can start seconds after $transaction() is called, and the
+          // expiry check, completedAt and the completion duration must all
+          // reflect the moment the work actually runs.
+          const now = new Date();
+
           // Re-validate the session inside the transaction, with a row lock, so
           // a session ended/expired since the preliminary check cannot be moved
           // against. SessionExpiredError is handled outside the transaction.
@@ -314,6 +324,13 @@ export class GamesService {
         await this.sessions.finalizeExpiredSession(error.session.id);
         throw noActiveSession();
       }
+      if (error instanceof NoActiveSessionError) {
+        // The session vanished mid-transaction — typically ended by a concurrent
+        // completing move, which also bumped the version. A stale version or a
+        // now-completed game takes precedence over NO_ACTIVE_SESSION.
+        await this.assertNoGameConflict(prisma, userId, gameId, input.version);
+        throw noActiveSession();
+      }
       throw error;
     }
   }
@@ -326,6 +343,10 @@ export class GamesService {
     const game = await this.loadOwnedGame(userId, gameId);
 
     if (input.version !== game.version) {
+      // docs/api.md §9.3: an already-expired session is still finalized on the
+      // rejection path, so effective play time stays fair even when the losing
+      // request is also stale.
+      await this.sessions.finalizeIfExpired(gameId);
       throw staleVersion();
     }
 
@@ -378,11 +399,13 @@ export class GamesService {
 
     const current = path[path.length - 1];
     const previous = path[path.length - 2];
-    const now = new Date();
 
     try {
       return await prisma.$transaction(
         async (tx) => {
+          // Captured inside the transaction so an expiry that occurs while the
+          // callback is queued under pool contention is still detected.
+          const now = new Date();
           await this.sessions.requireActiveInTransaction(tx, gameId, now);
 
           const result = await tx.game.updateMany({
@@ -424,6 +447,13 @@ export class GamesService {
     } catch (error) {
       if (error instanceof SessionExpiredError) {
         await this.sessions.finalizeExpiredSession(error.session.id);
+        throw noActiveSession();
+      }
+      if (error instanceof NoActiveSessionError) {
+        // The session vanished mid-transaction — typically ended by a concurrent
+        // completing move, which also bumped the version. A stale version or a
+        // now-completed game takes precedence over NO_ACTIVE_SESSION.
+        await this.assertNoGameConflict(prisma, userId, gameId, input.version);
         throw noActiveSession();
       }
       throw error;
@@ -498,13 +528,19 @@ export class GamesService {
     }
   }
 
-  private async classifyConflict(
-    tx: Prisma.TransactionClient,
+  // Throws the conflict that explains why an optimistic gameplay write matched
+  // no row. A stale version takes precedence over status so a request that loses
+  // a race against a completing move is reported as STALE_VERSION, not
+  // GAME_NOT_IN_PROGRESS. Returns normally only when version and status still
+  // look current. Accepts either a transaction client or the base `prisma`
+  // client so it can also be used after a rolled-back transaction.
+  private async assertNoGameConflict(
+    db: Prisma.TransactionClient,
     userId: string,
     gameId: string,
     expectedVersion: number,
-  ): Promise<never> {
-    const game = await tx.game.findFirst({
+  ): Promise<void> {
+    const game = await db.game.findFirst({
       where: { id: gameId, userId },
       select: { status: true, version: true },
     });
@@ -513,8 +549,6 @@ export class GamesService {
       throw gameNotFound();
     }
 
-    // A stale version takes precedence over status so a request that loses a
-    // race against a completing move is reported as STALE_VERSION.
     if (game.version !== expectedVersion) {
       throw staleVersion();
     }
@@ -522,7 +556,16 @@ export class GamesService {
     if (game.status !== "IN_PROGRESS") {
       throw gameNotInProgress();
     }
+  }
 
+  private async classifyConflict(
+    tx: Prisma.TransactionClient,
+    userId: string,
+    gameId: string,
+    expectedVersion: number,
+  ): Promise<never> {
+    await this.assertNoGameConflict(tx, userId, gameId, expectedVersion);
+    // Nothing obviously wrong — treat as a narrowly-lost optimistic-lock race.
     throw staleVersion();
   }
 

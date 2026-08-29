@@ -44,6 +44,21 @@ export class SessionExpiredError extends Error {
   }
 }
 
+/**
+ * Thrown from inside a gameplay transaction when the game's ACTIVE session has
+ * disappeared since the caller's preliminary check — typically ended by a
+ * concurrent completing move, which also bumps `Game.version`. The gameplay
+ * caller catches it, classifies the conflict (STALE_VERSION /
+ * GAME_NOT_IN_PROGRESS take precedence) and otherwise rejects with
+ * NO_ACTIVE_SESSION.
+ */
+export class NoActiveSessionError extends Error {
+  constructor() {
+    super("No active play session");
+    this.name = "NoActiveSessionError";
+  }
+}
+
 function isUniqueConstraintError(error: unknown): boolean {
   return (
     typeof error === "object" &&
@@ -350,11 +365,25 @@ export class GameSessionService {
   }
 
   /**
+   * Rejection-path helper: if the game's ACTIVE session has already crossed the
+   * heartbeat timeout, finalize it as EXPIRED (accounting its bounded duration
+   * and bumping `Game.version`) so an expiry event is not lost when the gameplay
+   * action is being rejected for another reason such as STALE_VERSION
+   * (docs/api.md §9.3). No-op when there is no session or it is still live.
+   */
+  async finalizeIfExpired(gameId: string): Promise<void> {
+    const session = await this.findActiveSession(gameId);
+    if (session && this.isExpired(session, new Date())) {
+      await this.finalizeExpiredSession(session.id);
+    }
+  }
+
+  /**
    * Re-validates the session inside the gameplay transaction, immediately before
    * the authoritative game mutation. Takes a row lock on the ACTIVE session so a
    * concurrent end/expiry serializes behind this transaction.
    *
-   * - no ACTIVE row            -> ApiError NO_ACTIVE_SESSION (rolls the tx back)
+   * - no ACTIVE row            -> NoActiveSessionError (caller classifies, then rejects)
    * - ACTIVE but past timeout  -> SessionExpiredError (caller finalizes + rejects)
    */
   async requireActiveInTransaction(
@@ -368,7 +397,7 @@ export class GameSessionService {
       where: { gameId, status: "ACTIVE" },
     });
     if (!session) {
-      throw noActiveSession();
+      throw new NoActiveSessionError();
     }
     if (this.isExpired(session, now)) {
       throw new SessionExpiredError(session);
@@ -391,7 +420,9 @@ export class GameSessionService {
       data: { status: "ENDED", endedAt },
     });
     if (flipped.count === 0) {
-      throw noActiveSession();
+      // Lost the flip to a concurrent completing move / end, which also bumped
+      // the version; the caller classifies this as a conflict.
+      throw new NoActiveSessionError();
     }
     return Math.max(0, endedAt.getTime() - session.startedAt.getTime());
   }

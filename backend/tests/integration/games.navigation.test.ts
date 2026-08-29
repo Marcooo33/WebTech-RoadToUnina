@@ -562,6 +562,45 @@ test("a move that races a completing move returns STALE_VERSION, not GAME_NOT_IN
   }
 });
 
+test("a move that races a completing move which also ended the session returns STALE_VERSION, not NO_ACTIVE_SESSION", async () => {
+  let targetGameId: string | undefined;
+  const wikipediaService = {
+    getValidInternalLinks: async (_pageId: number) => {
+      if (targetGameId) {
+        // Mimic a completing move that lands between the preliminary session
+        // check and the gameplay transaction: game completed, version bumped,
+        // and the ACTIVE session flipped to ENDED.
+        await prisma.game.update({
+          where: { id: targetGameId },
+          data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
+        });
+        await prisma.gameSession.updateMany({
+          where: { gameId: targetGameId, status: "ACTIVE" },
+          data: { status: "ENDED", endedAt: new Date() },
+        });
+      }
+      return [{ pageId: 2, title: "Page 2" }];
+    },
+  } as unknown as WikipediaService;
+
+  const app = await createTestApp(wikipediaService);
+  try {
+    const { cookie } = await register(unique("race3"), app.baseUrl);
+    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
+    targetGameId = created.body.id!;
+
+    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
+
+    assert.equal(status, 409);
+    assert.equal(body.error?.code, "STALE_VERSION");
+
+    const moves = await persistedMoves(created.body.id!);
+    assert.equal(moves.length, 0);
+  } finally {
+    await app.close();
+  }
+});
+
 // ---------------------------------------------------------------------------
 // Backtracking
 // ---------------------------------------------------------------------------

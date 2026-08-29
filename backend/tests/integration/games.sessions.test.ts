@@ -436,6 +436,29 @@ test("move on an expired session finalizes it, bumps version and rejects the mov
   );
 });
 
+test("a stale move against an expired session still finalizes it (docs/api.md §9.3)", async () => {
+  const { cookie } = await register(unique("s_stale_exp"));
+  const { body: game } = await createGame(cookie);
+  const gameId = game.id as string;
+  await startSession(cookie, gameId);
+  const { expectedDurationMs } = await expireActiveSession(gameId);
+
+  // version 5 is stale (current is 0) AND the session has timed out.
+  const res = await move(cookie, gameId, 2, 5);
+  assert.equal(res.status, 409);
+  assert.equal((res.body.error as Json).code, "STALE_VERSION");
+
+  // The expiry event is accounted for even though the move was rejected.
+  const after = await gameRow(gameId);
+  assert.equal(after.effectivePlayTimeMs, expectedDurationMs);
+  assert.equal(after.version, 1);
+  assert.equal(
+    (await prisma.gameSession.findFirstOrThrow({ where: { gameId } })).status,
+    "EXPIRED",
+  );
+  assert.equal(await prisma.gameMove.count({ where: { gameId } }), 0);
+});
+
 test("a fresh session can be started after expiry and gameplay resumes", async () => {
   const { cookie } = await register(unique("s_resume"));
   const { body: game } = await createGame(cookie);
