@@ -316,28 +316,35 @@ test("pagination slices the ordered result consistently and echoes metadata", as
   const full = await get("/api/history?limit=100");
   assert.equal(full.status, 200);
   const fullList = items(full.body);
-  const fullIds = fullList.map((entry) => entry.gameId);
-  const total = full.body.total as number;
 
   // These three rows carry the latest `completedAt` in the table (far future,
-  // later than any row seeded by earlier tests), so they occupy the top slots
-  // in the newest-first ordering, DESC with the `id ASC` tie-break irrelevant
-  // here because the timestamps are distinct.
+  // later than any row seeded by other tests), so they always occupy the first
+  // three slots of the newest-first ordering, in the order g3, g2, g1. Rows
+  // beyond them belong to parallel test files that insert and delete COMPLETED
+  // games concurrently, so neither `total` nor the list tail is asserted here.
   assert.deepEqual(idsInOrder(fullList, known), [g3, g2, g1]);
-  assert.deepEqual(fullIds.slice(0, 3), [g3, g2, g1]);
+  assert.deepEqual(
+    fullList.slice(0, 3).map((entry) => entry.gameId),
+    [g3, g2, g1],
+  );
+  assert.equal(typeof full.body.total, "number");
 
-  // Fixed small page size: walking pages must reproduce the single-page slices.
-  for (const page of [1, 2, 3]) {
-    const res = await get(`/api/history?limit=2&page=${page}`);
-    assert.equal(res.status, 200);
-    assert.equal(res.body.page, page);
-    assert.equal(res.body.limit, 2);
-    assert.equal(res.body.total, total);
-    assert.deepEqual(
-      items(res.body).map((entry) => entry.gameId),
-      fullIds.slice((page - 1) * 2, page * 2),
-    );
-  }
+  // Fixed small page size: the offset math must page through the stable head of
+  // the list — page 1 is [g3, g2], and page 2 starts at g1.
+  const page1 = await get("/api/history?limit=2&page=1");
+  assert.equal(page1.status, 200);
+  assert.equal(page1.body.page, 1);
+  assert.equal(page1.body.limit, 2);
+  assert.deepEqual(
+    items(page1.body).map((entry) => entry.gameId),
+    [g3, g2],
+  );
+
+  const page2 = await get("/api/history?limit=2&page=2");
+  assert.equal(page2.status, 200);
+  assert.equal(page2.body.page, 2);
+  assert.equal(page2.body.limit, 2);
+  assert.equal((items(page2.body)[0] as Json).gameId, g1);
 });
 
 test("a page beyond the last returns an empty list with metadata intact", async () => {

@@ -913,6 +913,11 @@ GET /api/leaderboards/time
 - `click` → `clickCount ASC`, tie-break `effectivePlayTimeMs ASC`;
 - `time` → `effectivePlayTimeMs ASC`, tie-break `clickCount ASC`.
 
+When entries are still tied after the mode's tie-break, the order is fully
+determined by `completedAt ASC`, then `gameId ASC` (the earlier achiever ranks
+higher). `rank` is the 1-based position in the returned list; tied entries
+receive consecutive distinct ranks, not a shared rank.
+
 Only `COMPLETED` games participate. Rankings are per difficulty.
 
 **Success:** `200 OK`.

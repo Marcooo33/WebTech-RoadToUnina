@@ -5,6 +5,8 @@ import { authRouter } from "./modules/auth/auth.routes.js";
 import { createGamesRouter } from "./modules/games/games.routes.js";
 import type { StartingPageProvider } from "./modules/games/starting-page.provider.js";
 import { createHistoryRouter } from "./modules/history/history.routes.js";
+import { createLeaderboardsRouter } from "./modules/leaderboards/leaderboards.routes.js";
+import { createMeRouter } from "./modules/me/me.routes.js";
 import { wikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
 import { WikipediaService } from "./modules/wikipedia/wikipedia.service.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
@@ -35,6 +37,8 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     ),
   );
   app.use("/api/history", createHistoryRouter());
+  app.use("/api/leaderboards", createLeaderboardsRouter());
+  app.use("/api/me", createMeRouter());
 
   app.use((_req, res) => {
     res.status(404).json(errorBody(ErrorCode.NOT_FOUND, "Route not found"));
