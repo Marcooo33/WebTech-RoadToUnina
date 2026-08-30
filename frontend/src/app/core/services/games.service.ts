@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { API_BASE } from '../api/api.config';
+import { ArticleDto } from '../../shared/models/article.model';
 import {
   GameDifficulty,
   GameDto,
@@ -39,5 +40,24 @@ export class GamesService {
   remove(gameId: string, version: number): Observable<void> {
     const params = new HttpParams().set('version', version);
     return this.http.delete<void>(`${this.base}/${gameId}`, { params });
+  }
+
+  /** Current sanitized article + playable links for the game (docs/api.md §5.5). */
+  getArticle(gameId: string): Observable<ArticleDto> {
+    return this.http.get<ArticleDto>(`${this.base}/${gameId}/article`);
+  }
+
+  /**
+   * Requests a NAVIGATION move to `toPageId` (docs/api.md §5.6). The backend
+   * validates ownership, session, version and link reachability; a stale
+   * `version` is rejected with `409 STALE_VERSION`.
+   */
+  move(gameId: string, toPageId: number, version: number): Observable<GameDto> {
+    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toPageId, version });
+  }
+
+  /** Requests a BACKTRACK action (docs/api.md §5.7). */
+  backtrack(gameId: string, version: number): Observable<GameDto> {
+    return this.http.post<GameDto>(`${this.base}/${gameId}/backtrack`, { version });
   }
 }

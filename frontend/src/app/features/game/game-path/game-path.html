@@ -1,0 +1,12 @@
+<nav class="path" aria-label="Active path">
+  <ol class="path__list">
+    @for (page of path(); track $index) {
+      <li class="path__item" [class.path__item--current]="$last">
+        <span class="path__title">{{ page.title }}</span>
+        @if ($last) {
+          <span class="path__badge">current</span>
+        }
+      </li>
+    }
+  </ol>
+</nav>

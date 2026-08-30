@@ -1,0 +1,50 @@
+.hud {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hud__stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: var(--space-2);
+}
+
+.hud__stat {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+}
+
+.hud__stat--primary {
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
+}
+
+.hud__stat dt {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hud__stat dd {
+  margin: var(--space-1) 0 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__note {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.hud__backtrack {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}

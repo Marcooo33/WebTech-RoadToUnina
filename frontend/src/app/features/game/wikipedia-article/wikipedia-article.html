@@ -1,0 +1,5 @@
+<article class="wiki" [class.wiki--disabled]="disabled()">
+  <h1 class="wiki__title">{{ title() }}</h1>
+  <!-- Sanitized backend HTML; playable links are delegated via (click). -->
+  <div class="wiki__body" [innerHTML]="html()" (click)="onClick($event)"></div>
+</article>

@@ -1,0 +1,41 @@
+@let g = game();
+
+<div class="card stack">
+  <h2>Target reached 🎉</h2>
+  <p>
+    You reached <strong>{{ g.currentPageTitle }}</strong> from
+    <strong>{{ g.startPageTitle }}</strong
+    >.
+  </p>
+
+  <table class="table table--responsive">
+    <tbody>
+      <tr>
+        <th>Mode</th>
+        <td>{{ g.mode }}</td>
+      </tr>
+      <tr>
+        <th>Difficulty</th>
+        <td>{{ g.difficulty }}</td>
+      </tr>
+      <tr>
+        <th>Clicks</th>
+        <td>{{ g.clickCount }}</td>
+      </tr>
+      <tr>
+        <th>Backtracks</th>
+        <td>{{ g.backtrackCount }}</td>
+      </tr>
+      <tr>
+        <th>Effective time</th>
+        <td>{{ g.effectivePlayTimeMs | duration }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <a class="btn" routerLink="/dashboard">Back to dashboard</a>
+    <a class="btn btn--secondary" [routerLink]="['/history', g.id]">View in public history</a>
+    <a class="btn btn--secondary" routerLink="/leaderboard">Leaderboards</a>
+  </div>
+</div>

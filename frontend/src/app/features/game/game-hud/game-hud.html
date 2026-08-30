@@ -1,0 +1,49 @@
+@let g = game();
+
+<div class="hud">
+  <dl class="hud__stats">
+    <div class="hud__stat">
+      <dt>Mode</dt>
+      <dd>{{ g.mode }}</dd>
+    </div>
+    <div class="hud__stat">
+      <dt>Difficulty</dt>
+      <dd>{{ g.difficulty }}</dd>
+    </div>
+    <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'TIME'">
+      <dt>Effective time</dt>
+      <dd>{{ displayTimeMs() | duration }}</dd>
+    </div>
+    <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'CLICK'">
+      <dt>Clicks</dt>
+      <dd>{{ g.clickCount }}</dd>
+    </div>
+  </dl>
+
+  <p class="hud__note muted">Timer is display only — the server keeps the official time.</p>
+
+  <div class="hud__backtrack">
+    @switch (g.difficulty) {
+      @case ('EASY') {
+        <span class="muted">Backtracking: unlimited</span>
+      }
+      @case ('MEDIUM') {
+        <span class="muted">Backtracks left: {{ backtracksLeft() }} / 3</span>
+      }
+      @case ('HARD') {
+        <span class="muted">Backtracking: not available</span>
+      }
+    }
+
+    @if (g.difficulty !== 'HARD') {
+      <button
+        type="button"
+        class="btn btn--secondary"
+        [disabled]="!canBacktrack()"
+        (click)="backtrack.emit()"
+      >
+        Backtrack
+      </button>
+    }
+  </div>
+</div>

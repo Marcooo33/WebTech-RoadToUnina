@@ -1,57 +1,70 @@
-<section class="stack">
-  <h1 class="page-title">Game</h1>
-
+<section class="game stack">
   <app-error-banner [message]="error()" />
 
-  @if (loading()) {
-    <app-loading-spinner label="Loading game…" />
-  } @else if (game(); as g) {
-    <div class="card stack">
-      <table class="table table--responsive">
-        <tbody>
-          <tr>
-            <th>Status</th>
-            <td>{{ g.status }}</td>
-          </tr>
-          <tr>
-            <th>Mode</th>
-            <td>{{ g.mode }}</td>
-          </tr>
-          <tr>
-            <th>Difficulty</th>
-            <td>{{ g.difficulty }}</td>
-          </tr>
-          <tr>
-            <th>Start page</th>
-            <td>{{ g.startPageTitle }}</td>
-          </tr>
-          <tr>
-            <th>Current page</th>
-            <td>{{ g.currentPageTitle }}</td>
-          </tr>
-          <tr>
-            <th>Clicks</th>
-            <td>{{ g.clickCount }}</td>
-          </tr>
-          <tr>
-            <th>Backtracks</th>
-            <td>{{ g.backtrackCount }}</td>
-          </tr>
-          <tr>
-            <th>Effective time</th>
-            <td>{{ g.effectivePlayTimeMs | duration }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button type="button" class="btn btn--secondary" (click)="load()">
-        Reload authoritative state
-      </button>
-    </div>
+  @if (notice(); as n) {
+    <p class="notice" role="status">{{ n }}</p>
+  }
 
-    <p class="muted">
-      The interactive article view and move controls are added in a later milestone. This screen
-      shows the server-authoritative game state only.
-    </p>
-    <a routerLink="/dashboard">Back to dashboard</a>
+  @switch (phase()) {
+    @case ('loading') {
+      <app-loading-spinner label="Loading game…" />
+      @if (wikipediaRetry()) {
+        <button type="button" class="btn btn--secondary" (click)="retry()">Retry</button>
+      }
+    }
+
+    @case ('error') {
+      <div class="card stack">
+        <p>This game could not be loaded right now.</p>
+        <div class="actions">
+          <button type="button" class="btn" (click)="retry()">Try again</button>
+          <a class="btn btn--secondary" routerLink="/dashboard">Back to dashboard</a>
+        </div>
+      </div>
+    }
+
+    @case ('completed') {
+      @if (game(); as g) {
+        <app-game-result [game]="g" />
+      }
+    }
+
+    @case ('playing') {
+      @if (game(); as g) {
+        <div class="game__layout">
+          <main class="game__main">
+            @if (article(); as a) {
+              <app-wikipedia-article
+                [title]="a.title"
+                [html]="a.html"
+                [disabled]="busy()"
+                (navigate)="onNavigate($event)"
+              />
+            } @else {
+              <app-loading-spinner label="Loading article…" />
+              @if (wikipediaRetry()) {
+                <button type="button" class="btn btn--secondary" (click)="retry()">Retry</button>
+              }
+            }
+          </main>
+
+          <aside class="game__aside stack">
+            <div class="card">
+              <app-game-hud
+                [game]="g"
+                [displayTimeMs]="displayTimeMs()"
+                [busy]="busy()"
+                (backtrack)="onBacktrack()"
+              />
+            </div>
+            <div class="card">
+              <h2 class="game__aside-title">Path</h2>
+              <app-game-path [path]="g.path" />
+            </div>
+            <a routerLink="/dashboard">Leave game</a>
+          </aside>
+        </div>
+      }
+    }
   }
 </section>
