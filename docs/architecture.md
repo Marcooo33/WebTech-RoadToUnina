@@ -89,6 +89,12 @@ Planned stack:
 
 The final project must contain at least ten automated E2E tests.
 
+The Playwright suite (`e2e/`) runs the browser against the real Angular and
+Express apps, but against a disposable Dockerised PostgreSQL and a deterministic
+in-memory MediaWiki adapter (`E2E_FAKE_WIKIPEDIA=1`, selected only in
+`backend/src/server.ts`). The live MediaWiki adapter keeps its own dedicated
+coverage in the backend integration/unit tests.
+
 ---
 
 ## 4. Responsibility Boundaries

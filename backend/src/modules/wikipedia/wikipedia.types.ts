@@ -34,6 +34,15 @@ export interface NormalizedArticle {
   links: PlayableLink[];
 }
 
+// The subset of the Wikipedia integration that the games module depends on: the
+// authoritative current article and its playable internal links. `WikipediaService`
+// (real MediaWiki) and the deterministic E2E fake both implement this, so the
+// composition root can swap them without the games module knowing.
+export interface WikipediaArticleSource {
+  getArticle(pageId: number): Promise<NormalizedArticle>;
+  getValidInternalLinks(pageId: number): Promise<PlayableLink[]>;
+}
+
 export interface MediaWikiApiError {
   code: string;
   info: string;

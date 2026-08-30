@@ -9,11 +9,12 @@ import { createLeaderboardsRouter } from "./modules/leaderboards/leaderboards.ro
 import { createMeRouter } from "./modules/me/me.routes.js";
 import { wikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
 import { WikipediaService } from "./modules/wikipedia/wikipedia.service.js";
+import type { WikipediaArticleSource } from "./modules/wikipedia/wikipedia.types.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
 
 export interface AppDependencies {
   startingPageProvider?: StartingPageProvider;
-  wikipediaService?: WikipediaService;
+  wikipediaService?: WikipediaArticleSource;
 }
 
 export function createApp(dependencies: AppDependencies = {}): Express {

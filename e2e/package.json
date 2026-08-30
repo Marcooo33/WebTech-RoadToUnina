@@ -1,0 +1,22 @@
+{
+  "name": "roadtounina-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ROADTOUNINA end-to-end tests (Playwright)",
+  "scripts": {
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "test": "node ./run-e2e.mjs",
+    "test:only": "playwright test",
+    "e2e": "npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.13.3",
+    "@types/pg": "^8.23.1",
+    "dotenv": "^17.4.2",
+    "pg": "^8.23.0",
+    "typescript": "^5.9.3"
+  }
+}

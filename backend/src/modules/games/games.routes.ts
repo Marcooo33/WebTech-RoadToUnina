@@ -3,7 +3,7 @@ import { authenticate } from "../../middleware/auth.middleware.js";
 import { validate } from "../../middleware/validation.middleware.js";
 import { createGameSessionsRouter } from "../game-sessions/game-sessions.routes.js";
 import { GameSessionService } from "../game-sessions/game-sessions.service.js";
-import type { WikipediaService } from "../wikipedia/wikipedia.service.js";
+import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
 import { createGamesController } from "./games.controller.js";
 import { GamesService } from "./games.service.js";
 import {
@@ -18,7 +18,7 @@ import type { StartingPageProvider } from "./starting-page.provider.js";
 
 export function createGamesRouter(
   startingPageProvider: StartingPageProvider,
-  wikipediaService: WikipediaService,
+  wikipediaService: WikipediaArticleSource,
 ): Router {
   const sessionService = new GameSessionService();
   const controller = createGamesController(

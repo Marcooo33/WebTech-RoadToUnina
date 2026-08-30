@@ -42,7 +42,7 @@
           </thead>
           <tbody>
             @for (game of inProgress(); track game.id) {
-              <tr>
+              <tr data-testid="game-row">
                 <td>{{ game.mode }}</td>
                 <td>{{ game.difficulty }}</td>
                 <td>{{ game.currentPageTitle }}</td>

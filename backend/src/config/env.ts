@@ -34,6 +34,10 @@ export const envSchema = z.object({
   JWT_SECRET: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
   JWT_EXPIRES_IN: jwtExpiresInSchema,
   SESSION_HEARTBEAT_TIMEOUT: sessionHeartbeatTimeoutSchema,
+  // Test-only. When "1", server.ts swaps the live MediaWiki integration for the
+  // deterministic fixture adapter used by the Playwright E2E suite (see e2e/).
+  // Never set in development or production.
+  E2E_FAKE_WIKIPEDIA: z.enum(["0", "1"]).default("0"),
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -14,7 +14,7 @@ import {
   noActiveSession,
   toSessionDto,
 } from "../game-sessions/game-sessions.service.js";
-import { WikipediaService } from "../wikipedia/wikipedia.service.js";
+import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
 import { toGameMoveDto } from "./game-move.js";
 import { reconstructActivePath } from "./game-path.js";
 import type {
@@ -116,7 +116,7 @@ export function toGameListItemDto(
 export class GamesService {
   constructor(
     private readonly startingPageProvider: StartingPageProvider,
-    private readonly wikipedia: WikipediaService,
+    private readonly wikipedia: WikipediaArticleSource,
     private readonly sessions: GameSessionService,
   ) {}
 

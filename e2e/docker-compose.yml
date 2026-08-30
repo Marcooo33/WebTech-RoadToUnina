@@ -1,0 +1,26 @@
+# Throwaway PostgreSQL for the ROADTOUNINA E2E suite.
+#
+# Same major version as the Supabase production platform (PostgreSQL 17); the
+# exact build does not matter because the project uses no Supabase-specific
+# extensions. Data lives only in the named volume and is dropped by
+# `docker compose down -v` (which `npm test` runs in a finally block).
+services:
+  e2e-db:
+    image: postgres:17-alpine
+    container_name: roadtounina-e2e-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: roadtounina_e2e
+    ports:
+      - "55432:5432"
+    volumes:
+      - e2e-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d roadtounina_e2e"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  e2e-db-data:

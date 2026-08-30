@@ -11,6 +11,7 @@ import type {
   MediaWikiRandomItem,
   NormalizedArticle,
   PlayableLink,
+  WikipediaArticleSource,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
@@ -52,7 +53,7 @@ function hasSuitableArticleLength(
   );
 }
 
-export class WikipediaService {
+export class WikipediaService implements WikipediaArticleSource {
   private readonly client: MediaWikiClient;
   private readonly parser: ArticleParserService;
   private readonly filter: StartingPageFilterConfig;

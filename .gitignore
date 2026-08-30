@@ -19,6 +19,10 @@ coverage/
 .ng/
 *.tsbuildinfo
 e2e/test-output/
+e2e/test-results/
+e2e/playwright-report/
+e2e/blob-report/
+e2e/.playwright/
 
 # Logs
 *.log
