@@ -20,26 +20,11 @@ export const PAGE = {
   golfoDiNapoli: { pageId: 4101, title: "Golfo di Napoli" },
   storiaDiNapoli: { pageId: 4102, title: "Storia di Napoli" },
   napoli: { pageId: 4104, title: "Napoli" },
-  campania: { pageId: 4105, title: "Campania" },
 } as const;
 
 /** Shortest winning route from the start page: 3 navigation clicks, no backtracks
  *  (so it is valid for every difficulty). */
 export const WIN_PATH = [PAGE.golfoDiNapoli, PAGE.napoli, TARGET_PAGE] as const;
-
-/**
- * A route long enough to exercise the MEDIUM 3-backtrack limit without ever
- * standing on the start page: 4100 -> 4101 -> 4102 -> 4104 -> 4105.
- */
-export const DEEP_PATH = [
-  PAGE.golfoDiNapoli,
-  PAGE.storiaDiNapoli,
-  PAGE.napoli,
-  PAGE.campania,
-] as const;
-
-/** A page id that is never linked from the start page (forged-move check). */
-export const UNLINKED_PAGE_ID = 999999;
 
 /**
  * Leaderboard rankings are global and derived from every completed game, so a

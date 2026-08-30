@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 import { createGameInContext, registerInContext, uniqueUser } from "../support/users.js";
-import { errorCode } from "../support/api.js";
 
 test("create a CLICK / EASY game and land on the gameplay screen", async ({ page, context }) => {
   await registerInContext(context, uniqueUser());
@@ -45,7 +44,7 @@ test("delete an in-progress game from the dashboard", async ({ page, context }) 
   await expect(page.getByText("No games in progress yet.")).toBeVisible();
 });
 
-test("the 10 in-progress game limit is enforced in the UI and the API", async ({
+test("the dashboard blocks a new game once the 10 in-progress limit is reached", async ({
   page,
   context,
 }) => {
@@ -58,11 +57,4 @@ test("the 10 in-progress game limit is enforced in the UI and the API", async ({
   await expect(page.getByText("In-progress games (10/10)")).toBeVisible();
   await expect(page.getByRole("status")).toContainText("10-game limit");
   await expect(page.getByRole("button", { name: "New game" })).toBeDisabled();
-
-  // Supplementary: the server is the real authority.
-  const eleventh = await context.request.post("/api/games", {
-    data: { mode: "CLICK", difficulty: "EASY" },
-  });
-  expect(eleventh.status()).toBe(409);
-  expect(await errorCode(eleventh)).toBe("GAME_LIMIT_REACHED");
 });

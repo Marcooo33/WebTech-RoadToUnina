@@ -1,9 +1,25 @@
 # ROADTOUNINA — End-to-End tests (Milestone 16)
 
-Playwright tests that drive the real browser → Angular → Express → PostgreSQL
-path. At least 10 scenarios are full UI flows; a few server-authoritative rule
-edges (forged move, MEDIUM 4th backtrack, HARD backtrack, 11th game) are checked
-through the API client bound to the browser context.
+**14 browser-driven E2E tests** that drive the real Angular UI → Express →
+PostgreSQL path. `context.request` is used only for support — authenticating a
+`BrowserContext`, seeding a completed game, and reading authoritative state as a
+secondary assertion — never as a test's main action or assertion.
+
+Server-authoritative rule edges that are awkward or impossible to reach through
+the UI (forged navigation, the MEDIUM 4th-backtrack limit, HARD backtrack
+rejection, the 11th-game 409) are covered by the backend integration tests
+(`backend/tests/integration/`), not duplicated here.
+
+| Spec | Browser scenarios |
+|---|---|
+| `auth.spec.ts` | register form; log out + log back in; wrong password rejected |
+| `game-lifecycle.spec.ts` | create CLICK/EASY; create TIME/HARD; delete from dashboard; 10-game limit blocks the dashboard |
+| `navigation.spec.ts` | following a playable link is a click and grows the path |
+| `backtracking.spec.ts` | EASY backtrack steps the path back without a click |
+| `resume.spec.ts` | resume restores current page / clicks / path |
+| `completion.spec.ts` | reaching the target shows the completed result |
+| `public.spec.ts` | completed game in anonymous history + detail; on the leaderboard under its filter |
+| `sessions.spec.ts` | two real browser contexts on one game keep exactly one ACTIVE session (+ concurrent-burst and DB assertions) |
 
 ## How it stays deterministic
 
@@ -75,6 +91,6 @@ npm run db:down
 | `run-e2e.mjs` | `db:up` → `playwright test` → `db:down` (finally) |
 | `support/db.ts` | `assertE2EDatabaseUrl`, truncate, `countActiveSessions` |
 | `support/users.ts` | `uniqueUser`, register/login/create-game in a context |
-| `support/api.ts` | server-authoritative gameplay helpers for setup / edge checks |
+| `support/api.ts` | `playThroughApi` (seed a completed game), `getGame` (secondary assertion) |
 | `support/constants.ts` | the handful of fixture page ids/titles the specs walk |
 | `tests/*.spec.ts` | the scenarios |

@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { expect, type APIResponse, type BrowserContext } from "@playwright/test";
+import { expect, type BrowserContext } from "@playwright/test";
 
 export interface TestUser {
   username: string;
@@ -46,12 +46,9 @@ export async function loginInContext(
   expect(response.ok(), `login failed: ${response.status()}`).toBeTruthy();
 }
 
+/** Only `id` is consumed by the specs; the API returns a full GameDto. */
 export interface SeededGame {
   id: string;
-  mode: string;
-  difficulty: string;
-  version: number;
-  currentPageId: number;
 }
 
 export async function createGameInContext(
@@ -67,8 +64,4 @@ export async function createGameInContext(
     `create game failed: ${await response.text()}`,
   ).toBe(201);
   return (await response.json()) as SeededGame;
-}
-
-export async function expectJson(response: APIResponse): Promise<unknown> {
-  return response.json();
 }

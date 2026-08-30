@@ -17,7 +17,14 @@ const e2eProxyConfig = path.resolve(here, "proxy.e2e.json");
 const BACKEND_PORT = 3100;
 const FRONTEND_PORT = 4300;
 
+// No fallback on purpose: an unset E2E_DATABASE_URL must fail loudly, never
+// silently hand the backend its own .env (which points at Supabase).
 const E2E_DATABASE_URL = process.env.E2E_DATABASE_URL;
+if (!E2E_DATABASE_URL) {
+  throw new Error(
+    "E2E_DATABASE_URL is not set — copy e2e/.env.example to e2e/.env before running the suite.",
+  );
+}
 const E2E_JWT_SECRET =
   process.env.E2E_JWT_SECRET ?? "e2e-test-only-jwt-secret-value-01234567890";
 
