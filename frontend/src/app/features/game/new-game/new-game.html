@@ -1,0 +1,52 @@
+<section class="stack">
+  <h1 class="page-title">New game</h1>
+  <p class="muted">
+    Every game starts on a random Italian Wikipedia article. Reach
+    <strong>Università degli Studi di Napoli Federico II</strong> by following only the internal
+    links inside each article.
+  </p>
+
+  <app-error-banner [message]="error()" />
+  @if (limitReached) {
+    <p class="muted">
+      You already have the maximum number of games in progress.
+      <a routerLink="/dashboard">Finish or delete one</a> before starting another.
+    </p>
+  }
+
+  <form class="card stack" [formGroup]="form" (ngSubmit)="submit()">
+    <fieldset class="options">
+      <legend>Mode</legend>
+      @for (mode of modes; track mode.value) {
+        <label class="option" [class.option--selected]="form.controls.mode.value === mode.value">
+          <input type="radio" formControlName="mode" [value]="mode.value" />
+          <span class="option__title">{{ mode.label }}</span>
+          <span class="option__desc">{{ mode.description }}</span>
+        </label>
+      }
+    </fieldset>
+
+    <fieldset class="options">
+      <legend>Difficulty</legend>
+      @for (difficulty of difficulties; track difficulty.value) {
+        <label
+          class="option"
+          [class.option--selected]="form.controls.difficulty.value === difficulty.value"
+        >
+          <input type="radio" formControlName="difficulty" [value]="difficulty.value" />
+          <span class="option__title">{{ difficulty.label }}</span>
+          <span class="option__desc">{{ difficulty.backtracking }}</span>
+        </label>
+      }
+      <p class="muted options__note">
+        Difficulty only changes backtracking. A backtrack never counts as a navigation click.
+      </p>
+    </fieldset>
+
+    <button class="btn" type="submit" [disabled]="submitting() || limitReached">
+      {{ submitting() ? 'Creating…' : 'Start game' }}
+    </button>
+  </form>
+
+  <a routerLink="/dashboard">Back to dashboard</a>
+</section>

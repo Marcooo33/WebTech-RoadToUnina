@@ -12,11 +12,15 @@
     <div class="card stack">
       <div class="row">
         <h2>In-progress games ({{ inProgress().length }}/{{ limit }})</h2>
-        <a class="btn" routerLink="/new-game">New game</a>
+        @if (limitReached) {
+          <button type="button" class="btn" disabled>New game</button>
+        } @else {
+          <a class="btn" routerLink="/new-game">New game</a>
+        }
       </div>
 
       @if (limitReached) {
-        <p class="muted">
+        <p class="muted" role="status">
           You have reached the {{ limit }}-game limit. Finish or delete a game before starting a new
           one.
         </p>
@@ -33,7 +37,7 @@
               <th>Current page</th>
               <th>Clicks</th>
               <th>Time</th>
-              <th></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -44,7 +48,41 @@
                 <td>{{ game.currentPageTitle }}</td>
                 <td>{{ game.clickCount }}</td>
                 <td>{{ game.effectivePlayTimeMs | duration }}</td>
-                <td><a [routerLink]="['/game', game.id]">Resume</a></td>
+                <td>
+                  <div class="actions">
+                    <a [routerLink]="['/game', game.id]">Resume</a>
+                    @if (confirmingId() === game.id) {
+                      <span class="confirm">
+                        <span class="muted">Delete?</span>
+                        <button
+                          type="button"
+                          class="link-btn link-btn--danger"
+                          [disabled]="deletingId() !== null"
+                          (click)="confirmDelete(game)"
+                        >
+                          {{ deletingId() === game.id ? 'Deleting…' : 'Yes' }}
+                        </button>
+                        <button
+                          type="button"
+                          class="link-btn"
+                          [disabled]="deletingId() === game.id"
+                          (click)="cancelDelete()"
+                        >
+                          Cancel
+                        </button>
+                      </span>
+                    } @else {
+                      <button
+                        type="button"
+                        class="link-btn link-btn--danger"
+                        [disabled]="deletingId() !== null"
+                        (click)="askDelete(game.id)"
+                      >
+                        Delete
+                      </button>
+                    }
+                  </div>
+                </td>
               </tr>
             }
           </tbody>

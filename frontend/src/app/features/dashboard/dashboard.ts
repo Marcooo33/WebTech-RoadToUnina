@@ -33,11 +33,28 @@ export class Dashboard implements OnInit {
   readonly inProgress = signal<GameListItemDto[]>([]);
   readonly statistics = signal<StatisticsDto | null>(null);
 
+  /** Id of the game whose inline "delete?" confirmation is currently shown. */
+  readonly confirmingId = signal<string | null>(null);
+  /** Id of the game whose delete request is in flight. */
+  readonly deletingId = signal<string | null>(null);
+
   get limitReached(): boolean {
     return this.inProgress().length >= IN_PROGRESS_LIMIT;
   }
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  /**
+   * (Re)loads the in-progress list and statistics. `showSpinner` is false for a
+   * background refresh (e.g. after a conflicting delete) so the table is not
+   * replaced by a full-card spinner while an error banner is shown above it.
+   */
+  private load(showSpinner = true): void {
+    if (showSpinner) {
+      this.loading.set(true);
+    }
     forkJoin({
       games: this.games.list('IN_PROGRESS'),
       stats: this.stats.get(),
@@ -50,6 +67,49 @@ export class Dashboard implements OnInit {
       error: (err: ApiError) => {
         this.error.set(err.message);
         this.loading.set(false);
+      },
+    });
+  }
+
+  askDelete(gameId: string): void {
+    this.error.set(null);
+    this.confirmingId.set(gameId);
+  }
+
+  cancelDelete(): void {
+    this.confirmingId.set(null);
+  }
+
+  confirmDelete(game: GameListItemDto): void {
+    if (this.deletingId()) {
+      return;
+    }
+    this.deletingId.set(game.id);
+    this.error.set(null);
+
+    // The backend validates ownership, IN_PROGRESS status and the version.
+    this.games.remove(game.id, game.version).subscribe({
+      next: () => {
+        this.inProgress.update((list) => list.filter((g) => g.id !== game.id));
+        this.statistics.update((s) =>
+          s ? { ...s, inProgressGames: Math.max(0, s.inProgressGames - 1) } : s,
+        );
+        this.deletingId.set(null);
+        this.confirmingId.set(null);
+      },
+      error: (err: ApiError) => {
+        this.deletingId.set(null);
+        this.confirmingId.set(null);
+        this.error.set(err.message);
+        // The game changed, completed elsewhere, or is already gone — the local
+        // list is stale, so refresh it in the background.
+        if (
+          err.code === 'STALE_VERSION' ||
+          err.code === 'GAME_NOT_FOUND' ||
+          err.code === 'GAME_NOT_IN_PROGRESS'
+        ) {
+          this.load(false);
+        }
       },
     });
   }
