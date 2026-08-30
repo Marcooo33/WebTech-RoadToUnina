@@ -1,0 +1,42 @@
+<section class="stack">
+  <h1 class="page-title">Leaderboard</h1>
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading leaderboard…" />
+  } @else if (board(); as b) {
+    <p class="muted">
+      {{ b.mode }} · {{ b.difficulty }} — mode and difficulty switching arrive in a later milestone.
+    </p>
+
+    @if (b.items.length === 0) {
+      <p class="muted">No completed games in this category yet.</p>
+    } @else {
+      <div class="card">
+        <table class="table table--responsive">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Clicks</th>
+              <th>Time</th>
+              <th>Completed</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (entry of b.items; track entry.gameId) {
+              <tr>
+                <td>{{ entry.rank }}</td>
+                <td>{{ entry.username }}</td>
+                <td>{{ entry.clickCount }}</td>
+                <td>{{ entry.effectivePlayTimeMs | duration }}</td>
+                <td>{{ entry.completedAt | date: 'short' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</section>

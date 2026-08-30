@@ -1,0 +1,86 @@
+<section class="stack">
+  <h1 class="page-title">Dashboard</h1>
+  <p class="muted">
+    Signed in as <strong>{{ user()?.username }}</strong>
+  </p>
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading your games…" />
+  } @else {
+    <div class="card stack">
+      <div class="row">
+        <h2>In-progress games ({{ inProgress().length }}/{{ limit }})</h2>
+        <a class="btn" routerLink="/new-game">New game</a>
+      </div>
+
+      @if (limitReached) {
+        <p class="muted">
+          You have reached the {{ limit }}-game limit. Finish or delete a game before starting a new
+          one.
+        </p>
+      }
+
+      @if (inProgress().length === 0) {
+        <p class="muted">No games in progress yet.</p>
+      } @else {
+        <table class="table table--responsive">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Difficulty</th>
+              <th>Current page</th>
+              <th>Clicks</th>
+              <th>Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (game of inProgress(); track game.id) {
+              <tr>
+                <td>{{ game.mode }}</td>
+                <td>{{ game.difficulty }}</td>
+                <td>{{ game.currentPageTitle }}</td>
+                <td>{{ game.clickCount }}</td>
+                <td>{{ game.effectivePlayTimeMs | duration }}</td>
+                <td><a [routerLink]="['/game', game.id]">Resume</a></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+    @if (statistics(); as s) {
+      <div class="card stack">
+        <h2>Your statistics</h2>
+        <ul class="stats">
+          <li>
+            <span>Completed games</span><strong>{{ s.completedGames }}</strong>
+          </li>
+          <li>
+            <span>In progress</span><strong>{{ s.inProgressGames }}</strong>
+          </li>
+          <li>
+            <span>Best CLICK</span
+            ><strong>{{ s.bestClick ? s.bestClick.clickCount + ' clicks' : '—' }}</strong>
+          </li>
+          <li>
+            <span>Best TIME</span
+            ><strong>{{ s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—' }}</strong>
+          </li>
+          <li>
+            <span>Average clicks</span><strong>{{ s.averageClicks ?? '—' }}</strong>
+          </li>
+          <li>
+            <span>Average time</span
+            ><strong>{{
+              s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—'
+            }}</strong>
+          </li>
+        </ul>
+      </div>
+    }
+  }
+</section>

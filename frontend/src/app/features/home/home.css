@@ -1,0 +1,14 @@
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+ul {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+li + li {
+  margin-top: var(--space-2);
+}

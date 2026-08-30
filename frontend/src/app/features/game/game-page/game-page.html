@@ -1,0 +1,57 @@
+<section class="stack">
+  <h1 class="page-title">Game</h1>
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading game…" />
+  } @else if (game(); as g) {
+    <div class="card stack">
+      <table class="table table--responsive">
+        <tbody>
+          <tr>
+            <th>Status</th>
+            <td>{{ g.status }}</td>
+          </tr>
+          <tr>
+            <th>Mode</th>
+            <td>{{ g.mode }}</td>
+          </tr>
+          <tr>
+            <th>Difficulty</th>
+            <td>{{ g.difficulty }}</td>
+          </tr>
+          <tr>
+            <th>Start page</th>
+            <td>{{ g.startPageTitle }}</td>
+          </tr>
+          <tr>
+            <th>Current page</th>
+            <td>{{ g.currentPageTitle }}</td>
+          </tr>
+          <tr>
+            <th>Clicks</th>
+            <td>{{ g.clickCount }}</td>
+          </tr>
+          <tr>
+            <th>Backtracks</th>
+            <td>{{ g.backtrackCount }}</td>
+          </tr>
+          <tr>
+            <th>Effective time</th>
+            <td>{{ g.effectivePlayTimeMs | duration }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn--secondary" (click)="load()">
+        Reload authoritative state
+      </button>
+    </div>
+
+    <p class="muted">
+      The interactive article view and move controls are added in a later milestone. This screen
+      shows the server-authoritative game state only.
+    </p>
+    <a routerLink="/dashboard">Back to dashboard</a>
+  }
+</section>

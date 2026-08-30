@@ -1,0 +1,43 @@
+<section class="stack">
+  <h1 class="page-title">Completed games</h1>
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading history…" />
+  } @else if (items().length === 0) {
+    <p class="muted">No completed games yet.</p>
+  } @else {
+    <p class="muted">
+      {{ total() }} completed game(s). Filtering and pagination arrive in a later milestone.
+    </p>
+    <div class="card">
+      <table class="table table--responsive">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Mode</th>
+            <th>Difficulty</th>
+            <th>Clicks</th>
+            <th>Time</th>
+            <th>Completed</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items(); track item.gameId) {
+            <tr>
+              <td>{{ item.player.username }}</td>
+              <td>{{ item.mode }}</td>
+              <td>{{ item.difficulty }}</td>
+              <td>{{ item.clickCount }}</td>
+              <td>{{ item.effectivePlayTimeMs | duration }}</td>
+              <td>{{ item.completedAt | date: 'short' }}</td>
+              <td><a [routerLink]="['/history', item.gameId]">Details</a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

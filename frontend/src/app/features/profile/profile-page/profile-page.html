@@ -1,0 +1,76 @@
+<section class="stack">
+  <h1 class="page-title">Profile</h1>
+
+  @if (user(); as u) {
+    <div class="card">
+      <table class="table table--responsive">
+        <tbody>
+          <tr>
+            <th>Username</th>
+            <td>{{ u.username }}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{ u.email }}</td>
+          </tr>
+          <tr>
+            <th>Member since</th>
+            <td>{{ u.createdAt | date: 'mediumDate' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading statistics…" />
+  } @else if (statistics(); as s) {
+    <div class="card stack">
+      <h2>Statistics</h2>
+      <table class="table table--responsive">
+        <tbody>
+          <tr>
+            <th>Completed games</th>
+            <td>{{ s.completedGames }}</td>
+          </tr>
+          <tr>
+            <th>In progress</th>
+            <td>{{ s.inProgressGames }}</td>
+          </tr>
+          <tr>
+            <th>Best CLICK</th>
+            <td>
+              {{
+                s.bestClick
+                  ? s.bestClick.clickCount + ' clicks (' + s.bestClick.difficulty + ')'
+                  : '—'
+              }}
+            </td>
+          </tr>
+          <tr>
+            <th>Best TIME</th>
+            <td>
+              {{
+                s.bestTime
+                  ? (s.bestTime.effectivePlayTimeMs | duration) + ' (' + s.bestTime.difficulty + ')'
+                  : '—'
+              }}
+            </td>
+          </tr>
+          <tr>
+            <th>Average clicks</th>
+            <td>{{ s.averageClicks ?? '—' }}</td>
+          </tr>
+          <tr>
+            <th>Average time</th>
+            <td>
+              {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

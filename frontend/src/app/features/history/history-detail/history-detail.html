@@ -1,0 +1,47 @@
+<section class="stack">
+  <p><a routerLink="/history">← All completed games</a></p>
+
+  <app-error-banner [message]="error()" />
+
+  @if (loading()) {
+    <app-loading-spinner label="Loading game…" />
+  } @else if (game(); as g) {
+    <h1 class="page-title">{{ g.player.username }} · {{ g.mode }} / {{ g.difficulty }}</h1>
+
+    <div class="card">
+      <table class="table table--responsive">
+        <tbody>
+          <tr>
+            <th>Clicks</th>
+            <td>{{ g.clickCount }}</td>
+          </tr>
+          <tr>
+            <th>Backtracks</th>
+            <td>{{ g.backtrackCount }}</td>
+          </tr>
+          <tr>
+            <th>Effective time</th>
+            <td>{{ g.effectivePlayTimeMs | duration }}</td>
+          </tr>
+          <tr>
+            <th>Start page</th>
+            <td>{{ g.startPageTitle }}</td>
+          </tr>
+          <tr>
+            <th>Completed</th>
+            <td>{{ g.completedAt | date: 'medium' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card stack">
+      <h2>Path</h2>
+      <ol class="path">
+        @for (page of g.path; track page.pageId) {
+          <li>{{ page.title }}</li>
+        }
+      </ol>
+    </div>
+  }
+</section>

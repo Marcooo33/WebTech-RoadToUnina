@@ -1,0 +1,34 @@
+<section class="auth card">
+  <h1 class="page-title">Log in</h1>
+
+  <app-error-banner [message]="error()" />
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field">
+      <label for="identifier">Username or email</label>
+      <input id="identifier" type="text" formControlName="identifier" autocomplete="username" />
+      @if (form.controls.identifier.touched && form.controls.identifier.invalid) {
+        <span class="field__error">Enter your username or email.</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        autocomplete="current-password"
+      />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <span class="field__error">Enter your password.</span>
+      }
+    </div>
+
+    <button class="btn" type="submit" [disabled]="submitting()">
+      {{ submitting() ? 'Logging in…' : 'Log in' }}
+    </button>
+  </form>
+
+  <p class="muted">No account? <a routerLink="/register">Register</a>.</p>
+</section>
