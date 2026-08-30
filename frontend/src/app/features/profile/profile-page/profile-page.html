@@ -42,26 +42,32 @@
           <tr>
             <th>Best CLICK</th>
             <td>
-              {{
-                s.bestClick
-                  ? s.bestClick.clickCount + ' clicks (' + s.bestClick.difficulty + ')'
-                  : '—'
-              }}
+              @if (s.bestClick; as b) {
+                <a [routerLink]="['/history', b.gameId]">
+                  {{ b.clickCount }} clicks · {{ b.effectivePlayTimeMs | duration }} ·
+                  {{ b.difficulty }}
+                </a>
+              } @else {
+                —
+              }
             </td>
           </tr>
           <tr>
             <th>Best TIME</th>
             <td>
-              {{
-                s.bestTime
-                  ? (s.bestTime.effectivePlayTimeMs | duration) + ' (' + s.bestTime.difficulty + ')'
-                  : '—'
-              }}
+              @if (s.bestTime; as b) {
+                <a [routerLink]="['/history', b.gameId]">
+                  {{ b.effectivePlayTimeMs | duration }} · {{ b.clickCount }} clicks ·
+                  {{ b.difficulty }}
+                </a>
+              } @else {
+                —
+              }
             </td>
           </tr>
           <tr>
             <th>Average clicks</th>
-            <td>{{ s.averageClicks ?? '—' }}</td>
+            <td>{{ s.averageClicks != null ? (s.averageClicks | number: '1.0-1') : '—' }}</td>
           </tr>
           <tr>
             <th>Average time</th>

@@ -12,6 +12,18 @@
       <table class="table table--responsive">
         <tbody>
           <tr>
+            <th>Player</th>
+            <td>{{ g.player.username }}</td>
+          </tr>
+          <tr>
+            <th>Mode</th>
+            <td>{{ g.mode }}</td>
+          </tr>
+          <tr>
+            <th>Difficulty</th>
+            <td>{{ g.difficulty }}</td>
+          </tr>
+          <tr>
             <th>Clicks</th>
             <td>{{ g.clickCount }}</td>
           </tr>
@@ -37,11 +49,37 @@
 
     <div class="card stack">
       <h2>Path</h2>
-      <ol class="path">
-        @for (page of g.path; track page.pageId) {
-          <li>{{ page.title }}</li>
-        }
-      </ol>
+      <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Completed path" />
+    </div>
+
+    <div class="card stack">
+      <h2>Move history</h2>
+      @if (g.moves.length === 0) {
+        <p class="muted">No moves were recorded.</p>
+      } @else {
+        <table class="table table--responsive moves">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (move of g.moves; track move.sequence) {
+              <tr [class.moves__row--backtrack]="move.type === 'BACKTRACK'">
+                <td>{{ move.sequence }}</td>
+                <td>{{ move.type }}</td>
+                <td>{{ move.fromPageTitle }}</td>
+                <td>{{ move.toPageTitle }}</td>
+                <td>{{ move.createdAt | date: 'short' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
     </div>
   }
 </section>

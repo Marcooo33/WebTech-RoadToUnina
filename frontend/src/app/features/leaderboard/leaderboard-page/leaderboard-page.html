@@ -1,14 +1,41 @@
 <section class="stack">
   <h1 class="page-title">Leaderboard</h1>
 
+  <div class="tabs" role="tablist" aria-label="Leaderboard mode">
+    @for (mode of modes; track mode) {
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        [class.tab--active]="selection().mode === mode"
+        [attr.aria-selected]="selection().mode === mode"
+        (click)="selectMode(mode)"
+      >
+        {{ mode }}
+      </button>
+    }
+  </div>
+
+  <div class="filters" aria-label="Difficulty">
+    @for (difficulty of difficulties; track difficulty) {
+      <button
+        type="button"
+        class="chip"
+        [class.chip--active]="selection().difficulty === difficulty"
+        [attr.aria-pressed]="selection().difficulty === difficulty"
+        (click)="selectDifficulty(difficulty)"
+      >
+        {{ difficulty }}
+      </button>
+    }
+  </div>
+
   <app-error-banner [message]="error()" />
 
   @if (loading()) {
     <app-loading-spinner label="Loading leaderboard…" />
   } @else if (board(); as b) {
-    <p class="muted">
-      {{ b.mode }} · {{ b.difficulty }} — mode and difficulty switching arrive in a later milestone.
-    </p>
+    <p class="muted">{{ b.mode }} · {{ b.difficulty }}</p>
 
     @if (b.items.length === 0) {
       <p class="muted">No completed games in this category yet.</p>
@@ -19,8 +46,8 @@
             <tr>
               <th>#</th>
               <th>Player</th>
-              <th>Clicks</th>
-              <th>Time</th>
+              <th [class.is-primary]="primaryMetric() === 'clicks'">Clicks</th>
+              <th [class.is-primary]="primaryMetric() === 'time'">Time</th>
               <th>Completed</th>
             </tr>
           </thead>
@@ -29,8 +56,10 @@
               <tr>
                 <td>{{ entry.rank }}</td>
                 <td>{{ entry.username }}</td>
-                <td>{{ entry.clickCount }}</td>
-                <td>{{ entry.effectivePlayTimeMs | duration }}</td>
+                <td [class.is-primary]="primaryMetric() === 'clicks'">{{ entry.clickCount }}</td>
+                <td [class.is-primary]="primaryMetric() === 'time'">
+                  {{ entry.effectivePlayTimeMs | duration }}
+                </td>
                 <td>{{ entry.completedAt | date: 'short' }}</td>
               </tr>
             }

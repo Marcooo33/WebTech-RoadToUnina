@@ -1,43 +1,93 @@
 <section class="stack">
   <h1 class="page-title">Completed games</h1>
 
+  <div class="filters">
+    <label>
+      <span>Mode</span>
+      <select [value]="filters().mode ?? 'ALL'" (change)="onModeChange($any($event.target).value)">
+        <option value="ALL">All</option>
+        <option value="CLICK">CLICK</option>
+        <option value="TIME">TIME</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Difficulty</span>
+      <select
+        [value]="filters().difficulty ?? 'ALL'"
+        (change)="onDifficultyChange($any($event.target).value)"
+      >
+        <option value="ALL">All</option>
+        <option value="EASY">EASY</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HARD">HARD</option>
+      </select>
+    </label>
+  </div>
+
   <app-error-banner [message]="error()" />
 
   @if (loading()) {
     <app-loading-spinner label="Loading history…" />
-  } @else if (items().length === 0) {
-    <p class="muted">No completed games yet.</p>
-  } @else {
-    <p class="muted">
-      {{ total() }} completed game(s). Filtering and pagination arrive in a later milestone.
-    </p>
-    <div class="card">
-      <table class="table table--responsive">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Mode</th>
-            <th>Difficulty</th>
-            <th>Clicks</th>
-            <th>Time</th>
-            <th>Completed</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of items(); track item.gameId) {
+  } @else if (!error()) {
+    @if (items.length > 0) {
+      <div class="card">
+        <table class="table table--responsive">
+          <thead>
             <tr>
-              <td>{{ item.player.username }}</td>
-              <td>{{ item.mode }}</td>
-              <td>{{ item.difficulty }}</td>
-              <td>{{ item.clickCount }}</td>
-              <td>{{ item.effectivePlayTimeMs | duration }}</td>
-              <td>{{ item.completedAt | date: 'short' }}</td>
-              <td><a [routerLink]="['/history', item.gameId]">Details</a></td>
+              <th>Player</th>
+              <th>Mode</th>
+              <th>Difficulty</th>
+              <th>Clicks</th>
+              <th>Time</th>
+              <th>Completed</th>
+              <th></th>
             </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            @for (item of items; track item.gameId) {
+              <tr>
+                <td>{{ item.player.username }}</td>
+                <td>{{ item.mode }}</td>
+                <td>{{ item.difficulty }}</td>
+                <td>{{ item.clickCount }}</td>
+                <td>{{ item.effectivePlayTimeMs | duration }}</td>
+                <td>{{ item.completedAt | date: 'short' }}</td>
+                <td><a [routerLink]="['/history', item.gameId]">Details</a></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="muted">{{ emptyMessage }}</p>
+    }
+
+    @if (pagination(); as p) {
+      @if (p.hasPrev || p.hasNext) {
+        <div class="pager">
+          <button
+            type="button"
+            class="btn btn--secondary"
+            [disabled]="!p.hasPrev"
+            (click)="goToPage(p.prevPage)"
+          >
+            Previous
+          </button>
+          <span class="muted">
+            Page {{ p.page }} of {{ p.totalPages }}, showing {{ p.start }}–{{ p.end }} of
+            {{ p.total }}
+          </span>
+          <button
+            type="button"
+            class="btn btn--secondary"
+            [disabled]="!p.hasNext"
+            (click)="goToPage(p.nextPage)"
+          >
+            Next
+          </button>
+        </div>
+      }
+    }
   }
 </section>

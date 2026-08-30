@@ -1,5 +1,6 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { StatsService } from '../../../core/services/stats.service';
 import { ApiError } from '../../../shared/models/api-error.model';
@@ -12,7 +13,7 @@ import { LoadingSpinner } from '../../../shared/components/loading-spinner/loadi
 @Component({
   selector: 'app-profile-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, DurationPipe, ErrorBanner, LoadingSpinner],
+  imports: [RouterLink, DatePipe, DecimalPipe, DurationPipe, ErrorBanner, LoadingSpinner],
   templateUrl: './profile-page.html',
 })
 export class ProfilePage implements OnInit {

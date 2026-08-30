@@ -1,0 +1,6 @@
+/* BACKTRACK rows are set apart with a tint *and* the explicit "BACKTRACK" label
+   in the Type column, so the distinction is not conveyed by colour alone. */
+.moves__row--backtrack td {
+  background: var(--color-primary-tint);
+  font-style: italic;
+}
