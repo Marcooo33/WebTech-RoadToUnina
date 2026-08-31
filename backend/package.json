@@ -10,7 +10,8 @@
     "start": "node dist/server.js",
     "db:check": "tsx src/scripts/db-check.ts",
     "test": "node --import tsx --test \"src/**/*.test.ts\"",
-    "test:integration": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "test:integration": "node tests/run-integration.mjs",
+    "test:integration:down": "docker compose -f ../e2e/docker-compose.yml down -v",
     "typecheck:tests": "tsc -p tests/tsconfig.json",
     "prisma:generate": "prisma generate"
   },

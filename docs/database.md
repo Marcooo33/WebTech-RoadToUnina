@@ -552,6 +552,26 @@ Runtime and migration connection strings may differ depending on Supabase poolin
 
 Secrets belong in `.env`, while `.env.example` contains placeholders only.
 
+### Test databases (never Supabase)
+
+Automated tests never touch the Supabase database. Both test suites run against a
+single local Docker PostgreSQL 17 instance (`e2e/docker-compose.yml`, host port
+`55432`) holding two **separate** databases:
+
+```text
+Supabase PostgreSQL        -> application / production
+Local Docker PostgreSQL
+  ├── roadtounina_e2e         -> Playwright E2E suite  (e2e/)
+  └── roadtounina_integration -> backend integration suite (backend/tests/)
+```
+
+Both databases are schema-managed the same way as production: `prisma migrate
+deploy` against the target `DATABASE_URL`. Each suite has a positive allow-list
+guard (`e2e/support/db.ts`, `backend/tests/support/db.ts`) that aborts before any
+migration or destructive query unless the connection string is exactly its own
+local database — so a suite can never migrate or delete data in Supabase or in
+the other suite's database.
+
 ---
 
 ## 14. Deletion Policy

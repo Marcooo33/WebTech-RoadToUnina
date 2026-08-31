@@ -56,9 +56,17 @@ The API is served at http://localhost:3000 (health check: http://localhost:3000/
 
 ```bash
 cd backend
-npm test                 # unit tests
-npm run test:integration # integration tests (needs a database in backend/.env)
+npm test                      # unit tests (no database)
+npm run test:integration      # integration tests (local Docker PostgreSQL)
+npm run test:integration:down # stop / wipe the local test container
 ```
+
+`npm run test:integration` needs Docker. It starts the same throwaway
+PostgreSQL container as the E2E suite (`e2e/docker-compose.yml`, host port
+`55432`), ensures a dedicated `roadtounina_integration` database exists,
+applies Prisma migrations to it, then runs the suite. A safety guard aborts
+before any query unless the target is exactly that local database, so the
+integration tests never reach Supabase or the E2E database (`roadtounina_e2e`).
 
 ## Run the end-to-end tests
 
