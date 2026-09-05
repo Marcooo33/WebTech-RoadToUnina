@@ -32,13 +32,12 @@ interface GameBody {
   clickCount?: number;
   backtrackCount?: number;
   effectivePlayTimeMs?: number;
-  version?: number;
+  playStartedAt?: string | null;
   startedAt?: string;
   completedAt?: string | null;
   createdAt?: string;
   path?: { pageId: number; title: string }[];
   moves?: unknown[];
-  activeSession?: unknown;
   items?: GameListItemBody[];
   error?: { code?: string; message?: string };
 }
@@ -50,7 +49,6 @@ interface GameListItemBody {
   status?: string;
   startPageTitle?: string;
   clickCount?: number;
-  hasActiveSession?: boolean;
 }
 
 function unique(prefix: string): string {
@@ -198,7 +196,7 @@ test("authenticated user can create a CLICK / EASY game", async () => {
   assert.equal(body.clickCount, 0);
   assert.equal(body.backtrackCount, 0);
   assert.equal(body.effectivePlayTimeMs, 0);
-  assert.equal(body.version, 0);
+  assert.equal(body.playStartedAt, null);
   assert.equal(body.completedAt, null);
   assert.equal(typeof body.startedAt, "string");
   assert.equal(typeof body.createdAt, "string");
@@ -210,7 +208,6 @@ test("authenticated user can create a CLICK / EASY game", async () => {
     { pageId: body.startPageId, title: body.startPageTitle },
   ]);
   assert.deepEqual(body.moves, []);
-  assert.equal(body.activeSession, null);
 });
 
 test("authenticated user can create a TIME / HARD game", async () => {
@@ -297,7 +294,6 @@ test("user can list their games", async () => {
   assert.equal(status, 200);
   assert.ok(Array.isArray(body.items));
   assert.equal(body.items.length, 2);
-  assert.equal(body.items[0].hasActiveSession, false);
 });
 
 test("list supports the optional status filter", async () => {
@@ -392,7 +388,7 @@ test("owner can delete an IN_PROGRESS game", async () => {
   const created = await createGame(cookie, "CLICK", "EASY");
   assert.equal(created.status, 201);
 
-  const { status } = await del(`/api/games/${created.body.id}?version=0`, cookie);
+  const { status } = await del(`/api/games/${created.body.id}`, cookie);
 
   assert.equal(status, 204);
 
@@ -408,7 +404,7 @@ test("another user cannot delete a game and receives 404 GAME_NOT_FOUND", async 
   const created = await createGame(owner.cookie, "CLICK", "EASY");
 
   const { status, body } = await del(
-    `/api/games/${created.body.id}?version=0`,
+    `/api/games/${created.body.id}`,
     other.cookie,
   );
 
@@ -427,10 +423,7 @@ test("deletion of a COMPLETED game is rejected with 409 GAME_NOT_IN_PROGRESS", a
     data: { status: "COMPLETED", completedAt: new Date() },
   });
 
-  const { status, body } = await del(
-    `/api/games/${created.body.id}?version=0`,
-    cookie,
-  );
+  const { status, body } = await del(`/api/games/${created.body.id}`, cookie);
 
   assert.equal(status, 409);
   assert.equal(body.error?.code, "GAME_NOT_IN_PROGRESS");
@@ -441,48 +434,16 @@ test("deletion of a COMPLETED game is rejected with 409 GAME_NOT_IN_PROGRESS", a
   assert.equal(typeof stillThere.body.completedAt, "string");
 });
 
-test("deletion with a stale version returns 409 STALE_VERSION", async () => {
-  const { cookie } = await register(unique("ds"));
-
-  const created = await createGame(cookie, "CLICK", "EASY");
-  assert.equal(created.status, 201);
-
-  const { status, body } = await del(
-    `/api/games/${created.body.id}?version=1`,
-    cookie,
-  );
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-});
-
-test("deletion requires a version query parameter", async () => {
+test("deletion does not accept a legacy version query parameter", async () => {
   const { cookie } = await register(unique("dv"));
 
   const created = await createGame(cookie, "CLICK", "EASY");
   assert.equal(created.status, 201);
 
-  const { status, body } = await del(`/api/games/${created.body.id}`, cookie);
-
-  assert.equal(status, 400);
-  assert.equal(body.error?.code, "VALIDATION_ERROR");
-});
-
-test("invalid version query values are rejected with 400 VALIDATION_ERROR", async () => {
-  const { cookie } = await register(unique("dv2"));
-
-  const created = await createGame(cookie, "CLICK", "EASY");
-  assert.equal(created.status, 201);
-
-  for (const raw of ["", " ", "1.0", "1e3", "+1", "-1", "abc", "01"]) {
-    const { status, body } = await del(
-      `/api/games/${created.body.id}?version=${encodeURIComponent(raw)}`,
-      cookie,
-    );
-
-    assert.equal(status, 400, `expected 400 for version=${JSON.stringify(raw)}`);
-    assert.equal(body.error?.code, "VALIDATION_ERROR");
-  }
+  // The query param is simply ignored now — deletion succeeds on ownership +
+  // IN_PROGRESS alone.
+  const { status } = await del(`/api/games/${created.body.id}?version=99`, cookie);
+  assert.equal(status, 204);
 });
 
 test("concurrent delete attempts against the same game cannot both succeed", async () => {
@@ -492,8 +453,8 @@ test("concurrent delete attempts against the same game cannot both succeed", asy
   assert.equal(created.status, 201);
 
   const results = await Promise.all([
-    del(`/api/games/${created.body.id}?version=0`, cookie),
-    del(`/api/games/${created.body.id}?version=0`, cookie),
+    del(`/api/games/${created.body.id}`, cookie),
+    del(`/api/games/${created.body.id}`, cookie),
   ]);
 
   const successes = results.filter((r) => r.status === 204);
@@ -503,31 +464,6 @@ test("concurrent delete attempts against the same game cannot both succeed", asy
   assert.equal(failures.length, 1);
   assert.equal(failures[0].status, 404);
   assert.equal(failures[0].body.error?.code, "GAME_NOT_FOUND");
-});
-
-test("a version-changing mutation prevents a stale delete", async () => {
-  const { cookie } = await register(unique("dmv"));
-
-  const created = await createGame(cookie, "CLICK", "EASY");
-  assert.equal(created.status, 201);
-  assert.equal(created.body.version, 0);
-
-  await prisma.game.update({
-    where: { id: created.body.id },
-    data: { version: 1 },
-  });
-
-  const { status, body } = await del(
-    `/api/games/${created.body.id}?version=0`,
-    cookie,
-  );
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const stillThere = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(stillThere.status, 200);
-  assert.equal(stillThere.body.version, 1);
 });
 
 test("creation of the 11th IN_PROGRESS game is rejected with 409 GAME_LIMIT_REACHED", async () => {

@@ -30,12 +30,10 @@ User
   │
   │ N
 Game
+  │ 1
   │
-  ├───────────────┐
-  │ 1             │ 1
-  │               │
-  │ N             │ N
-GameMove       GameSession
+  │ N
+GameMove
 ```
 
 Initial entities:
@@ -43,7 +41,9 @@ Initial entities:
 - `User`
 - `Game`
 - `GameMove`
-- `GameSession`
+
+Effective play time is tracked with three fields directly on `Game` — there is
+no separate play-session table (see §7).
 
 Do not create initial tables for:
 
@@ -77,12 +77,6 @@ enum GameStatus {
 enum GameMoveType {
   NAVIGATION
   BACKTRACK
-}
-
-enum GameSessionStatus {
-  ACTIVE
-  ENDED
-  EXPIRED
 }
 ```
 
@@ -137,8 +131,9 @@ Fields:
 | currentPageTitle | text | current page title snapshot |
 | clickCount | integer | successful NAVIGATION actions |
 | backtrackCount | integer | BACKTRACK actions used |
-| effectivePlayTimeMs | integer | aggregate official active play time |
-| version | integer | optimistic concurrency version |
+| effectivePlayTimeMs | integer | finalized official active play time (see §8) |
+| playStartedAt | timestamptz? | start of the current unfinalized play interval; `null` when nothing is pending |
+| lastHeartbeatAt | timestamptz? | most recent proof of activity (heartbeat or gameplay action) |
 | startedAt | timestamptz | game creation/start |
 | completedAt | timestamptz? | completion time |
 | createdAt | timestamptz | row creation |
@@ -147,8 +142,7 @@ Fields:
 Relations:
 
 - belongs to `User`;
-- has many `GameMove`;
-- has many `GameSession`.
+- has many `GameMove`.
 
 ### Important semantic rules
 
@@ -160,7 +154,7 @@ A user may have at most 10 `IN_PROGRESS` games. This limit is a domain invariant
 
 Only `IN_PROGRESS` games may be deleted through normal user operations.
 
-Deleting an in-progress game should cascade-delete its moves and sessions.
+Deleting an in-progress game cascade-deletes its moves.
 
 ---
 
@@ -210,95 +204,72 @@ Historical events are never deleted merely because the user backtracked.
 
 ---
 
-## 7. GameSession
+## 7. Effective Play Time
 
-Purpose:
+There is no play-session table. Effective play time is server-authoritative and
+tracked with three fields on `Game`:
 
-Stores each period of effective active play.
+| Field | Meaning |
+|---|---|
+| `effectivePlayTimeMs` | Play time already finalized/accounted. Authoritative for completed games, history, statistics and leaderboards. |
+| `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
+| `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
 
-Fields:
+### The algorithm
 
-| Field | Type | Description |
-|---|---|---|
-| id | UUID | primary key |
-| gameId | UUID | game FK |
-| status | GameSessionStatus | ACTIVE/ENDED/EXPIRED |
-| startedAt | timestamptz | session start |
-| endedAt | timestamptz? | official session end |
-| lastHeartbeatAt | timestamptz | latest confirmed active heartbeat |
-| createdAt | timestamptz | row creation |
-
-Relations:
-
-`Game 1 -> N GameSession`
-
-Deletion:
-
-Deleting a game cascades to all sessions.
-
-### Single active session invariant
-
-A game may have at most one ACTIVE session.
-
-This should be protected by PostgreSQL using a partial unique index:
-
-```sql
-CREATE UNIQUE INDEX "one_active_session_per_game"
-ON "game_sessions" ("game_id")
-WHERE "status" = 'ACTIVE';
-```
-
-The backend must enforce the rule too, but the database constraint is the final protection.
-
----
-
-## 8. Effective Play Time
-
-`effectivePlayTimeMs` is stored on `Game` as an intentional aggregate/denormalization for efficient ranking queries.
-
-Detailed timing remains represented by `GameSession`.
-
-For a normal ended session:
-
-`duration = endedAt - startedAt`
-
-For a session that expires because heartbeats stop, the official effective end should normally correspond to the last confirmed heartbeat rather than the later timeout-detection moment.
-
-Updates to:
-
-- session status/end;
-- `Game.effectivePlayTimeMs`
-
-should be made consistently, preferably in the same transaction when appropriate.
-
-The TIME leaderboard must use effective play time, never:
-
-`completedAt - startedAt`
-
----
-
-## 9. Optimistic Concurrency
-
-`Game.version` starts at `0`.
-
-State-changing operations verify the expected version.
-
-Conceptual update:
+**Open / resume** (`GET /api/games/:id` by the owner, game `IN_PROGRESS`), in one update:
 
 ```text
-client sends expected version 7
-database currently version 7
-    -> mutation succeeds
-    -> version becomes 8
+if playStartedAt is not null and lastHeartbeatAt > playStartedAt:
+    effectivePlayTimeMs += lastHeartbeatAt - playStartedAt   # finalize stale interval
+playStartedAt   = now
+lastHeartbeatAt = now                                        # start a fresh interval
 ```
 
-If the database version no longer matches the expected version, the mutation must fail rather than silently overwriting newer state.
+**Heartbeat** (`POST /api/games/:id/heartbeat`, ~every 12 s while playing):
 
-Expected API behavior: HTTP `409 Conflict`.
+```text
+lastHeartbeatAt = now
+```
+
+**Valid move / backtrack** — folds `lastHeartbeatAt = now` into the same
+transaction as the game mutation.
+
+**Winning move** — inside the completion transaction:
+
+```text
+effectivePlayTimeMs += now - playStartedAt   # 0 if playStartedAt is null
+status = COMPLETED; completedAt = now
+playStartedAt = null; lastHeartbeatAt = null
+```
+
+There is **no expiration process** and no state transition: a stale
+`lastHeartbeatAt` is just data, used only to bound the interval at the next open.
+If a browser disappears, the time after the last heartbeat is not counted.
+
+The TIME leaderboard uses `effectivePlayTimeMs`, never `completedAt - startedAt`.
+
+The frontend timer is display-only and never authoritative.
 
 ---
 
-## 10. Constraints
+## 8. Concurrency
+
+There is no `Game.version` field, no optimistic-concurrency token, and no locks
+or leases. Simultaneous multi-tab / multi-device editing is not a project
+requirement.
+
+A navigation move updates the `Game` row and appends a `GameMove` in one
+transaction; completion also finalizes timing in that same transaction. The only
+unique constraint a gameplay write can hit is `game_moves (gameId, sequence)`
+when two requests for the same game race for the next sequence number — the loser
+recomputes and retries once. Ordinary transactions plus authoritative backend
+checks (ownership, `IN_PROGRESS`, valid link, difficulty rules) are sufficient
+for the single-player flow the project targets.
+
+---
+
+## 9. Constraints
 
 Recommended PostgreSQL constraints beyond Prisma's basic schema:
 
@@ -315,20 +286,9 @@ ALTER TABLE "games"
 ADD CONSTRAINT "games_play_time_non_negative"
 CHECK ("effective_play_time_ms" >= 0);
 
-ALTER TABLE "games"
-ADD CONSTRAINT "games_version_non_negative"
-CHECK ("version" >= 0);
-
 ALTER TABLE "game_moves"
 ADD CONSTRAINT "game_moves_sequence_positive"
 CHECK ("sequence" > 0);
-
-ALTER TABLE "game_sessions"
-ADD CONSTRAINT "game_sessions_dates_valid"
-CHECK (
-  "ended_at" IS NULL
-  OR "ended_at" >= "started_at"
-);
 ```
 
 Game completion consistency:
@@ -351,7 +311,7 @@ CHECK (
 
 ---
 
-## 11. Indexes
+## 10. Indexes
 
 Recommended initial indexes should correspond to actual application queries.
 
@@ -387,24 +347,18 @@ Retrieve a user's games by status:
 (gameId, sequence)
 ```
 
-### Sessions
-
-```text
-gameId
-(status, lastHeartbeatAt)
-```
-
 Do not add indexes speculatively without a query that benefits from them.
 
 ---
 
-## 12. Prisma Reference Schema
+## 11. Prisma Reference Schema
 
-This is the approved initial Prisma model.
+This is the approved Prisma model.
 
 ```prisma
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -430,12 +384,6 @@ enum GameStatus {
 enum GameMoveType {
   NAVIGATION
   BACKTRACK
-}
-
-enum GameSessionStatus {
-  ACTIVE
-  ENDED
-  EXPIRED
 }
 
 model User {
@@ -467,10 +415,12 @@ model Game {
   currentPageId    Int    @map("current_page_id")
   currentPageTitle String @map("current_page_title") @db.Text
 
-  clickCount           Int @default(0) @map("click_count")
-  backtrackCount       Int @default(0) @map("backtrack_count")
-  effectivePlayTimeMs  Int @default(0) @map("effective_play_time_ms")
-  version              Int @default(0)
+  clickCount          Int @default(0) @map("click_count")
+  backtrackCount      Int @default(0) @map("backtrack_count")
+  effectivePlayTimeMs Int @default(0) @map("effective_play_time_ms")
+
+  playStartedAt   DateTime? @map("play_started_at") @db.Timestamptz(3)
+  lastHeartbeatAt DateTime? @map("last_heartbeat_at") @db.Timestamptz(3)
 
   startedAt   DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
   completedAt DateTime? @map("completed_at") @db.Timestamptz(3)
@@ -478,9 +428,8 @@ model Game {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
 
-  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  moves    GameMove[]
-  sessions GameSession[]
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moves GameMove[]
 
   @@index([userId, status])
   @@index([status, completedAt])
@@ -512,41 +461,27 @@ model GameMove {
 
   @@map("game_moves")
 }
-
-model GameSession {
-  id     String @id @default(uuid()) @db.Uuid
-  gameId String @map("game_id") @db.Uuid
-
-  status GameSessionStatus @default(ACTIVE)
-
-  startedAt        DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
-  endedAt          DateTime? @map("ended_at") @db.Timestamptz(3)
-  lastHeartbeatAt  DateTime  @default(now()) @map("last_heartbeat_at") @db.Timestamptz(3)
-  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
-
-  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
-
-  @@index([gameId])
-  @@index([status, lastHeartbeatAt])
-
-  @@map("game_sessions")
-}
 ```
 
 Depending on the installed Prisma version, datasource URLs may belong in `prisma.config.ts` rather than inside `schema.prisma`. Follow the installed version's supported configuration while preserving the data model above.
 
 ---
 
-## 13. Supabase / Prisma Workflow
+## 12. Supabase / Prisma Workflow
 
 Expected workflow:
 
 1. define/update `schema.prisma`;
-2. generate a Prisma migration;
+2. generate a Prisma migration (`prisma migrate dev --create-only` when the migration needs hand-edited SQL, e.g. dropping an enum or a table);
 3. add required PostgreSQL-specific custom constraints/indexes to the migration when Prisma cannot express them;
 4. apply migration to Supabase PostgreSQL;
-5. commit both `schema.prisma` and the migration;
+5. commit `schema.prisma`, the migration, and the regenerated client under `backend/src/generated/prisma/`;
 6. never commit database secrets.
+
+Migrations are forward-only. The `game_sessions` table, the `GameSessionStatus`
+enum, the `one_active_session_per_game` partial unique index and the
+`Game.version` column were removed by
+`20260905120000_remove_sessions_and_version`; `0_init` is not rewritten.
 
 Runtime and migration connection strings may differ depending on Supabase pooling configuration.
 
@@ -574,7 +509,7 @@ the other suite's database.
 
 ---
 
-## 14. Deletion Policy
+## 13. Deletion Policy
 
 Normal application behavior:
 
@@ -583,8 +518,7 @@ Normal application behavior:
 Delete:
 
 - Game;
-- related GameMoves via cascade;
-- related GameSessions via cascade.
+- related GameMoves via cascade.
 
 ### COMPLETED game
 
@@ -596,7 +530,7 @@ Account deletion policy is not yet finalized and should not be invented by the c
 
 ---
 
-## 15. Derived Data
+## 14. Derived Data
 
 Do not create an authoritative leaderboard table initially.
 

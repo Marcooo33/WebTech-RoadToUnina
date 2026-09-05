@@ -29,10 +29,8 @@ function game(id: string, over: Partial<GameListItemDto> = {}): GameListItemDto 
     clickCount: 0,
     backtrackCount: 0,
     effectivePlayTimeMs: 0,
-    version: 0,
     startedAt: '2026-08-01T00:00:00.000Z',
     completedAt: null,
-    hasActiveSession: false,
     ...over,
   };
 }
@@ -87,15 +85,16 @@ describe('Dashboard', () => {
   });
 
   it('deletes an in-progress game after confirmation and drops the row', () => {
-    flushLoad([game('g1', { version: 4 }), game('g2')]);
+    flushLoad([game('g1'), game('g2')]);
     const component = fixture.componentInstance;
 
     component.askDelete('g1');
     fixture.detectChanges();
     component.confirmDelete(component.inProgress()[0]);
 
-    const req = http.expectOne('/api/games/g1?version=4');
+    const req = http.expectOne('/api/games/g1');
     expect(req.request.method).toBe('DELETE');
+    expect(req.request.params.keys()).toEqual([]);
     req.flush(null, { status: 204, statusText: 'No Content' });
 
     expect(component.inProgress().map((g) => g.id)).toEqual(['g2']);
@@ -103,24 +102,24 @@ describe('Dashboard', () => {
   });
 
   it('does not start a second delete while one is already in flight', () => {
-    flushLoad([game('g1', { version: 1 }), game('g2', { version: 2 })]);
+    flushLoad([game('g1'), game('g2')]);
     const component = fixture.componentInstance;
 
     component.confirmDelete(component.inProgress()[0]);
-    http.expectOne('/api/games/g1?version=1'); // pending, not flushed
+    http.expectOne('/api/games/g1'); // pending, not flushed
 
     component.confirmDelete(component.inProgress()[1]);
-    http.expectNone('/api/games/g2?version=2');
+    http.expectNone('/api/games/g2');
     expect(component.deletingId()).toBe('g1');
   });
 
   it('refreshes the list when a delete reports the game is no longer in progress', () => {
-    flushLoad([game('g1', { version: 4 })]);
+    flushLoad([game('g1')]);
     const component = fixture.componentInstance;
 
     component.confirmDelete(component.inProgress()[0]);
     http
-      .expectOne('/api/games/g1?version=4')
+      .expectOne('/api/games/g1')
       .flush(
         { error: { code: 'GAME_NOT_IN_PROGRESS', message: 'This game is already completed.' } },
         { status: 409, statusText: 'Conflict' },
@@ -128,23 +127,6 @@ describe('Dashboard', () => {
 
     flushLoad([]);
     expect(component.inProgress()).toEqual([]);
-  });
-
-  it('reloads authoritative state when a delete hits a stale version', () => {
-    flushLoad([game('g1', { version: 4 })]);
-    const component = fixture.componentInstance;
-
-    component.confirmDelete(component.inProgress()[0]);
-    http
-      .expectOne('/api/games/g1?version=4')
-      .flush(
-        { error: { code: 'STALE_VERSION', message: 'Game changed since you loaded it.' } },
-        { status: 409, statusText: 'Conflict' },
-      );
-
-    // load() re-fires both requests.
-    flushLoad([game('g1', { version: 5 })]);
-    expect(component.inProgress()[0].version).toBe(5);
-    expect(component.error()).toBe('Game changed since you loaded it.');
+    expect(component.error()).toBe('This game is already completed.');
   });
 });

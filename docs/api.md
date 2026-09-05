@@ -7,7 +7,7 @@ This document defines the REST contract for the entire initial application. It i
 The contract is consistent with:
 
 - `docs/architecture.md` — Express backend is authoritative; Angular requests actions only;
-- `docs/game-rules.md` — game rules, difficulty, sessions, leaderboards;
+- `docs/game-rules.md` — game rules, difficulty, effective play time, leaderboards;
 - `docs/database.md` — Prisma entities and enums.
 
 No endpoint trusts the frontend for authoritative game state. Every resource's ownership is derived from the authenticated identity, never from a client-supplied `userId`.
@@ -100,10 +100,8 @@ The following codes extend the four already implemented in Milestone 3 (`VALIDAT
 | 404 | `GAME_NOT_FOUND` | Game does not exist **or** is not owned by the authenticated user. |
 | 409 | `USERNAME_TAKEN` | Username is already registered. |
 | 409 | `EMAIL_TAKEN` | Email is already registered. |
-| 409 | `STALE_VERSION` | `Game.version` mismatch (optimistic concurrency conflict). |
 | 409 | `GAME_LIMIT_REACHED` | User already has 10 `IN_PROGRESS` games. |
-| 409 | `GAME_NOT_IN_PROGRESS` | Operation requires an `IN_PROGRESS` game (e.g. deleting a completed game). |
-| 409 | `NO_ACTIVE_SESSION` | Gameplay action requires an `ACTIVE` session and none exists. |
+| 409 | `GAME_NOT_IN_PROGRESS` | Operation requires an `IN_PROGRESS` game (e.g. a move/backtrack/heartbeat/delete on a completed game). |
 | 422 | `INVALID_MOVE` | Requested target page is not a valid playable link from the current page. |
 | 422 | `BACKTRACK_NOT_ALLOWED` | Backtracking is forbidden for `HARD` difficulty, or is impossible because the active path is already at the starting page. |
 | 422 | `BACKTRACK_LIMIT_REACHED` | `MEDIUM` backtracking limit (3) has been reached. |
@@ -114,7 +112,7 @@ The following codes extend the four already implemented in Milestone 3 (`VALIDAT
 Rules:
 
 - `FORBIDDEN` MUST NOT be used to distinguish ownership of `Game` resources. A game that does not exist or is not owned by the caller is always reported as `404 GAME_NOT_FOUND`.
-- `409 Conflict` is reserved for state conflicts (version mismatch, duplicates, limits, non-`IN_PROGRESS` status, missing active session).
+- `409 Conflict` is reserved for state conflicts (duplicates, limits, non-`IN_PROGRESS` status).
 - `422 Unprocessable Entity` is reserved for syntactically valid requests that violate a game rule (invalid move, backtracking rules).
 - `502`/`503` are reserved for upstream MediaWiki failures (`WIKIPEDIA_UNAVAILABLE`, `NO_STARTING_PAGE`); they indicate a transient dependency problem, not a client error or an internal bug, and the request may be retried.
 
@@ -137,7 +135,6 @@ Enums serialize as their Prisma string values, uppercase:
 - `GameDifficulty`: `EASY`, `MEDIUM`, `HARD`
 - `GameStatus`: `IN_PROGRESS`, `COMPLETED`
 - `GameMoveType`: `NAVIGATION`, `BACKTRACK`
-- `GameSessionStatus`: `ACTIVE`, `ENDED`, `EXPIRED`
 
 Request bodies/query parameters use the same uppercase strings. Validation is case-sensitive.
 
@@ -151,20 +148,19 @@ All timestamps are ISO 8601 strings in UTC, with millisecond precision, e.g.:
 
 ### 2.10 ID representation
 
-- Database primary keys (`User.id`, `Game.id`, `GameMove.id`, `GameSession.id`) are **UUID strings**.
+- Database primary keys (`User.id`, `Game.id`, `GameMove.id`) are **UUID strings**.
 - MediaWiki page identifiers (`startPageId`, `currentPageId`, `fromPageId`, `toPageId`, and any `pageId`) are **integers** (MediaWiki `pageid`).
 
 The frontend never supplies MediaWiki titles or URLs for authoritative navigation; it supplies page ids, which the backend validates.
 
-### 2.11 Version / optimistic concurrency
+### 2.11 Concurrency
 
-Every `Game` has a numeric `version`, starting at `0`.
-
-- Mutations that change navigation state (`move`, `backtrack`) MUST include the `version` the client believes is current.
-- If the supplied `version` does not match the persisted `Game.version`, the backend rejects with `409 STALE_VERSION` and does not mutate state.
-- On success the `version` increments, and the response returns the new `version`.
-- `DELETE /api/games/:gameId` REQUIRES a `version` supplied as a query parameter (`?version=<expectedVersion>`); a mismatch returns `409 STALE_VERSION`. There is no request body on delete.
-- Session lifecycle may change `effectivePlayTimeMs` (and therefore `version`); session endpoints return the current `gameVersion` so the client stays in sync. A successful heartbeat does not change the `Game` row and therefore does not bump `version`; however, finalizing an expired session (see §6.2 and §9.3) does update `effectivePlayTimeMs` and increment `version`.
+There is no optimistic-concurrency `version` field. `move`, `backtrack`, `delete`
+and `heartbeat` carry no version or session id — the backend authorizes each
+request from the authenticated identity and the game's current persisted state
+(ownership, `IN_PROGRESS`, valid link, difficulty rules). Simultaneous multi-tab /
+multi-device editing is not a project requirement; ordinary database transactions
+protect integrity for the single-player flow.
 
 ### 2.12 Authority rules
 
@@ -172,13 +168,13 @@ The frontend MUST NOT send authoritative values. In particular the backend never
 
 - `clickCount`;
 - `backtrackCount`;
-- `effectivePlayTimeMs`;
+- `effectivePlayTimeMs`, `playStartedAt`, `lastHeartbeatAt`;
 - `status` (game completion);
 - `currentPageId` / `currentPageTitle` (current page);
 - score or ranking values;
 - `userId` for ownership.
 
-The frontend sends **requested actions** (e.g. "navigate to page id `X`", "backtrack", "start a session") and the backend validates and applies them. Victory, counters, timing, and completion are always decided server-side.
+The frontend sends **requested actions** (e.g. "navigate to page id `X`", "backtrack", "heartbeat") and the backend validates and applies them. Victory, counters, timing, and completion are always decided server-side.
 
 ---
 
@@ -257,12 +253,13 @@ Item in the current user's game list.
   "clickCount": 4,
   "backtrackCount": 1,
   "effectivePlayTimeMs": 84000,
-  "version": 6,
   "startedAt": "2026-08-28T10:00:00.000Z",
-  "completedAt": null,
-  "hasActiveSession": true
+  "completedAt": null
 }
 ```
+
+`effectivePlayTimeMs` on a list item is the finalized total so far; it does not
+include time in a currently-open interval.
 
 ### 3.6 GameDto
 
@@ -281,7 +278,7 @@ Full representation of an owned game (used to resume).
   "clickCount": 4,
   "backtrackCount": 1,
   "effectivePlayTimeMs": 84000,
-  "version": 6,
+  "playStartedAt": "2026-08-28T10:05:00.000Z",
   "startedAt": "2026-08-28T10:00:00.000Z",
   "completedAt": null,
   "createdAt": "2026-08-28T10:00:00.000Z",
@@ -292,46 +289,21 @@ Full representation of an owned game (used to resume).
   ],
   "moves": [
     { "sequence": 1, "type": "NAVIGATION", "fromPageId": 100, "fromPageTitle": "…", "toPageId": 150, "toPageTitle": "…", "createdAt": "…" }
-  ],
-  "activeSession": {
-    "id": "…",
-    "gameId": "…",
-    "status": "ACTIVE",
-    "startedAt": "2026-08-28T10:05:00.000Z",
-    "endedAt": null,
-    "lastHeartbeatAt": "2026-08-28T10:06:30.000Z"
-  }
+  ]
 }
 ```
 
-`path` is the reconstructed active path (start page → current page). `moves` is the complete chronological event history. `activeSession` is `null` when no `ACTIVE` session exists.
+`path` is the reconstructed active path (start page → current page). `moves` is
+the complete chronological event history.
 
-### 3.7 SessionDto
+`effectivePlayTimeMs` is the finalized total. For an `IN_PROGRESS` game,
+`playStartedAt` is the start of the interval currently being timed (the backend
+sets it when the game is opened — see §5.3); the client animates
+`effectivePlayTimeMs + (now - baseline)` locally for display. For a `COMPLETED`
+game `effectivePlayTimeMs` is final and `playStartedAt` is `null`. The internal
+`lastHeartbeatAt` bookkeeping field is not exposed.
 
-```json
-{
-  "id": "…",
-  "gameId": "…",
-  "status": "ACTIVE",
-  "startedAt": "2026-08-28T10:05:00.000Z",
-  "endedAt": null,
-  "lastHeartbeatAt": "2026-08-28T10:06:30.000Z"
-}
-```
-
-### 3.8 SessionResponseDto
-
-Returned by every session operation so the client stays in sync with authoritative timing/version.
-
-```json
-{
-  "session": { "…": "SessionDto" },
-  "effectivePlayTimeMs": 84000,
-  "gameVersion": 7
-}
-```
-
-### 3.9 ArticleDto
+### 3.7 ArticleDto
 
 The current article representation for the active game.
 
@@ -340,7 +312,6 @@ The current article representation for the active game.
   "gameId": "…",
   "pageId": 200,
   "title": "…",
-  "version": 6,
   "contentHtml": "<p>sanitized content…</p>",
   "links": [
     { "pageId": 123456, "title": "…" },
@@ -351,9 +322,9 @@ The current article representation for the active game.
 
 - `contentHtml` is normalized and sanitized HTML; external/non-playable links are removed.
 - `links` lists the playable internal Wikipedia links. The frontend maps clicks on these to a move request using `pageId`.
-- `version` mirrors the current `Game.version` so the client can use it for the next move.
+- The client checks `pageId` against the game's `currentPageId` and reloads if they disagree.
 
-### 3.10 CompletedGameSummaryDto
+### 3.8 CompletedGameSummaryDto
 
 Item in the public history list.
 
@@ -374,7 +345,7 @@ Item in the public history list.
 }
 ```
 
-### 3.11 CompletedGameDetailDto
+### 3.9 CompletedGameDetailDto
 
 Public detail of a completed game.
 
@@ -404,9 +375,9 @@ Public detail of a completed game.
 }
 ```
 
-### 3.12 LeaderboardEntryDto
+### 3.10 LeaderboardEntryDto
 
-Ranking entry. Both metrics are always present; ordering differs by leaderboard (§7.2).
+Ranking entry. Both metrics are always present; ordering differs by leaderboard (§6.2).
 
 ```json
 {
@@ -419,7 +390,7 @@ Ranking entry. Both metrics are always present; ordering differs by leaderboard 
 }
 ```
 
-### 3.13 StatisticsDto
+### 3.11 StatisticsDto
 
 Personal statistics derived from the current user's completed/ongoing games.
 
@@ -543,7 +514,7 @@ GET /api/auth/me
 
 - `401 AUTHENTICATION_REQUIRED` — not authenticated.
 
-This endpoint is also the "profile" endpoint used by the Profile/Statistics surface (§8.1).
+This endpoint is also the "profile" endpoint used by the Profile/Statistics surface (§7.1).
 
 ---
 
@@ -573,7 +544,7 @@ POST /api/games
 | `mode` | `GameMode` | required |
 | `difficulty` | `GameDifficulty` | required |
 
-**Behavior:** the backend selects a random eligible starting page (MediaWiki), sets status `IN_PROGRESS`, counters `0`, `version 0`, and persists the game. Only `mode` and `difficulty` come from the client.
+**Behavior:** the backend selects a random eligible starting page (MediaWiki), sets status `IN_PROGRESS`, counters and `effectivePlayTimeMs` to `0`, `playStartedAt` / `lastHeartbeatAt` to `null`, and persists the game. Only `mode` and `difficulty` come from the client.
 
 **Success:** `201 Created` with `GameDto`.
 
@@ -618,7 +589,14 @@ GET /api/games/:gameId
 
 **Path parameters:** `gameId` (UUID).
 
-**Success:** `200 OK` with `GameDto` (full resume payload, including `path`, `moves`, `activeSession`).
+**Behavior:** returns the full resume payload (`path`, `moves`, timing fields).
+For an `IN_PROGRESS` game owned by the caller this is also the **resume flow**:
+the backend finalizes any pending play interval up to its last heartbeat and
+starts a fresh interval (`playStartedAt = lastHeartbeatAt = now`), so the returned
+`effectivePlayTimeMs` / `playStartedAt` are current. A `COMPLETED` game is
+returned unchanged. There is no separate "start session" request.
+
+**Success:** `200 OK` with `GameDto`.
 
 **Errors:**
 
@@ -629,22 +607,16 @@ GET /api/games/:gameId
 ### 5.4 Delete owned IN_PROGRESS game
 
 ```http
-DELETE /api/games/:gameId?version=<expectedVersion>
+DELETE /api/games/:gameId
 ```
 
 **Auth:** required.
 
 **Path parameters:** `gameId` (UUID).
 
-**Query parameters:**
+**Body:** none. **Query parameters:** none.
 
-| Param | Type | Constraints |
-|---|---|---|
-| `version` | integer | **required**; expected `Game.version` |
-
-**Body:** none.
-
-**Behavior:** only the owner may delete, and only when status is `IN_PROGRESS`. Moves and sessions cascade. Completed games are never deletable. The expected `version` is validated before deletion.
+**Behavior:** only the owner may delete, and only when status is `IN_PROGRESS`. Moves cascade. Completed games are never deletable.
 
 **Success:** `204 No Content`.
 
@@ -653,8 +625,7 @@ DELETE /api/games/:gameId?version=<expectedVersion>
 - `400 VALIDATION_ERROR`;
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND`;
-- `409 GAME_NOT_IN_PROGRESS` — game is `COMPLETED`;
-- `409 STALE_VERSION` — supplied `version` mismatch.
+- `409 GAME_NOT_IN_PROGRESS` — game is `COMPLETED`.
 
 ### 5.5 Get current article
 
@@ -666,7 +637,7 @@ GET /api/games/:gameId/article
 
 **Path parameters:** `gameId` (UUID).
 
-**Behavior:** returns the sanitized, sandboxed representation of the game's current Wikipedia article plus its playable internal links. This does not change game state (no counter/version change).
+**Behavior:** returns the sanitized, sandboxed representation of the game's current Wikipedia article plus its playable internal links. This does not change navigation state or counters.
 
 **Success:** `200 OK` with `ArticleDto`.
 
@@ -691,28 +662,24 @@ POST /api/games/:gameId/moves
 
 ```json
 {
-  "toPageId": 123456,
-  "version": 6
+  "toPageId": 123456
 }
 ```
 
 | Field | Type | Constraints |
 |---|---|---|
 | `toPageId` | integer | required; target MediaWiki page id |
-| `version` | integer | required; expected `Game.version` |
 
-**Behavior:** the backend verifies ownership, `IN_PROGRESS` status, an `ACTIVE` session, and the expected version; then verifies `toPageId` is reachable through a valid internal link from the current page. On success it stores a `NAVIGATION` `GameMove`, increments `clickCount` and `version`, updates the current page, and checks for victory. Backtracking does not count here.
+**Behavior:** the backend verifies ownership and `IN_PROGRESS` status, then verifies `toPageId` is reachable through a valid internal link from the current page. In one transaction it stores a `NAVIGATION` `GameMove`, increments `clickCount`, updates the current page, refreshes `lastHeartbeatAt` (the move is proof of activity), and checks for victory — on victory it also finalizes `effectivePlayTimeMs` and clears the timing fields. Backtracking does not count here.
 
-**Success:** `200 OK` with the updated `GameDto` (including the new `version` and, when the target is reached, `status: COMPLETED` and `completedAt`).
+**Success:** `200 OK` with the updated `GameDto` (when the target is reached, `status: COMPLETED`, `completedAt` set, `playStartedAt: null`).
 
 **Errors:**
 
 - `400 VALIDATION_ERROR`;
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND`;
-- `409 STALE_VERSION`;
 - `409 GAME_NOT_IN_PROGRESS` — game already completed;
-- `409 NO_ACTIVE_SESSION` — no `ACTIVE` session (see §9.3 expiration behavior);
 - `422 INVALID_MOVE` — target not a valid playable link from the current page;
 - `502 WIKIPEDIA_UNAVAILABLE` — the upstream MediaWiki link resolution failed; retry.
 
@@ -726,19 +693,9 @@ POST /api/games/:gameId/backtrack
 
 **Path parameters:** `gameId` (UUID).
 
-**Body:**
+**Body:** none (`{}` or empty).
 
-```json
-{
-  "version": 6
-}
-```
-
-| Field | Type | Constraints |
-|---|---|---|
-| `version` | integer | required; expected `Game.version` |
-
-**Behavior:** a dedicated action separate from navigation. On success the backend stores a `BACKTRACK` `GameMove`, moves the active path one step back, increments `backtrackCount` and `version`. It does **not** increment `clickCount`. When the active path contains only the starting page there is no previous page to return to, so backtracking is rejected with `BACKTRACK_NOT_ALLOWED`.
+**Behavior:** a dedicated action separate from navigation. In one transaction the backend stores a `BACKTRACK` `GameMove`, moves the active path one step back, increments `backtrackCount`, and refreshes `lastHeartbeatAt`. It does **not** increment `clickCount`. When the active path contains only the starting page there is no previous page to return to, so backtracking is rejected with `BACKTRACK_NOT_ALLOWED`.
 
 Difficulty enforcement:
 
@@ -753,93 +710,48 @@ Difficulty enforcement:
 - `400 VALIDATION_ERROR`;
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND`;
-- `409 STALE_VERSION`;
 - `409 GAME_NOT_IN_PROGRESS`;
-- `409 NO_ACTIVE_SESSION`;
 - `422 BACKTRACK_NOT_ALLOWED` — `HARD` difficulty, or the active path is already at the starting page;
 - `422 BACKTRACK_LIMIT_REACHED` — `MEDIUM` already used 3 backtracks.
 
----
-
-## 6. Game Sessions
-
-Sessions are persistent records (`GameSession`). A game has at most one `ACTIVE` session. The frontend timer is display-only; the backend owns effective play time.
-
-The session is scoped to the game: the backend always operates on the game's current `ACTIVE` session (never on a client-supplied session id).
-
-### 6.1 Start / resume session
+### 5.8 Heartbeat
 
 ```http
-POST /api/games/:gameId/session
+POST /api/games/:gameId/heartbeat
 ```
 
 **Auth:** required.
 
 **Path parameters:** `gameId` (UUID).
 
-**Body:** none.
+**Body:** none (`{}` or empty).
 
-**Behavior (idempotent):**
+**Behavior:** the only timing-specific endpoint. It records that the owner is
+still actively playing by setting `lastHeartbeatAt = now` on the game (and
+`playStartedAt = now` if none is set). It is **not a session**: nothing is
+created, no other field changes, and it carries no session id or version. The
+frontend sends it roughly every 12 s while the game page is open. A stale
+`lastHeartbeatAt` triggers no state transition — it only bounds the play interval
+the next time the game is opened (§5.3).
 
-- If an `ACTIVE` session already exists, return it (refresh/resume and cross-device hand-off reuse the same session; no second `ACTIVE` session is created).
-- If the previous `ACTIVE` session has expired (heartbeat timeout), finalize it first using `lastHeartbeatAt` for effective-time accounting (see §9.3), then create a new `ACTIVE` session.
-- If no `ACTIVE` session exists, create one.
+**Success:** `204 No Content`.
 
-**Success:** `200 OK` with `SessionResponseDto`.
+**Errors:**
 
-**Errors:** `400 VALIDATION_ERROR`, `401 AUTHENTICATION_REQUIRED`, `404 GAME_NOT_FOUND`, `409 GAME_NOT_IN_PROGRESS`.
-
-### 6.2 Heartbeat
-
-```http
-POST /api/games/:gameId/session/heartbeat
-```
-
-**Auth:** required.
-
-**Path parameters:** `gameId` (UUID).
-
-**Body:** none.
-
-**Behavior:** updates `lastHeartbeatAt` of the current `ACTIVE` session. A successful heartbeat does not change the `Game` row, so `version` is not bumped.
-
-If the heartbeat discovers that the `ACTIVE` session has already exceeded the heartbeat timeout, the backend:
-
-1. finalizes the session as `EXPIRED`, using `lastHeartbeatAt` (not the detection moment) as the effective end for time accounting;
-2. updates `Game.effectivePlayTimeMs` and increments `Game.version` accordingly;
-3. returns `409 NO_ACTIVE_SESSION`.
-
-**Success:** `200 OK` with `SessionResponseDto` (`gameVersion` unchanged).
-
-**Errors:** `400 VALIDATION_ERROR`, `401 AUTHENTICATION_REQUIRED`, `404 GAME_NOT_FOUND`, `409 NO_ACTIVE_SESSION` (no `ACTIVE` session, or the session expired as described above).
-
-### 6.3 End session
-
-```http
-POST /api/games/:gameId/session/end
-```
-
-**Auth:** required.
-
-**Path parameters:** `gameId` (UUID).
-
-**Body:** none.
-
-**Behavior:** explicitly ends the current `ACTIVE` session, computes its duration, accumulates it into `Game.effectivePlayTimeMs`, and bumps `Game.version`. A `beforeunload` browser event is not the sole mechanism for this (it is unreliable); heartbeat expiry is the fallback.
-
-**Success:** `200 OK` with `SessionResponseDto` (session now `ENDED`, updated `effectivePlayTimeMs` and `gameVersion`).
-
-**Errors:** `400 VALIDATION_ERROR`, `401 AUTHENTICATION_REQUIRED`, `404 GAME_NOT_FOUND`, `409 NO_ACTIVE_SESSION`.
+- `400 VALIDATION_ERROR`;
+- `401 AUTHENTICATION_REQUIRED`;
+- `404 GAME_NOT_FOUND`;
+- `409 GAME_NOT_IN_PROGRESS` — the game is `COMPLETED`; its `effectivePlayTimeMs` is already final.
 
 ---
 
-## 7. Public History & Leaderboards
+## 6. Public History & Leaderboards
 
 These endpoints are public (no auth). They expose only `COMPLETED` games. `IN_PROGRESS` games can never appear.
 
-### 7.1 Public history
+### 6.1 Public history
 
-#### 7.1.1 List completed games
+#### 6.1.1 List completed games
 
 ```http
 GET /api/history
@@ -871,7 +783,7 @@ GET /api/history
 
 **Errors:** `400 VALIDATION_ERROR`.
 
-#### 7.1.2 Get completed game details
+#### 6.1.2 Get completed game details
 
 ```http
 GET /api/history/:gameId
@@ -890,7 +802,7 @@ GET /api/history/:gameId
 - `400 VALIDATION_ERROR`;
 - `404 NOT_FOUND` — the game does not exist or is not `COMPLETED` (in-progress games are never exposed).
 
-### 7.2 Leaderboards
+### 6.2 Leaderboards
 
 Two endpoints, one per mode, each filtered by `difficulty`. Rankings are derived from completed `Game` records; there is no `Leaderboard` table.
 
@@ -943,13 +855,13 @@ Only `COMPLETED` games participate. Rankings are per difficulty.
 
 ---
 
-## 8. Profile / Statistics
+## 7. Profile / Statistics
 
-### 8.1 Profile
+### 7.1 Profile
 
 Reuses the current-user endpoint `GET /api/auth/me` (§4.4). Returns `UserProfileDto`.
 
-### 8.2 Personal statistics
+### 7.2 Personal statistics
 
 ```http
 GET /api/me/stats
@@ -963,39 +875,43 @@ GET /api/me/stats
 
 ---
 
-## 9. Cross-cutting behavior
+## 8. Cross-cutting behavior
 
-### 9.1 Ownership
+### 8.1 Ownership
 
 Ownership of a `Game` is always derived from the authenticated identity, never from a request field. Requests for games that do not exist or that the caller does not own return `404 GAME_NOT_FOUND` (never `403`).
 
-### 9.2 Optimistic concurrency
+### 8.2 Concurrency
 
-`move`, `backtrack`, and `delete` carry the client's expected `version`. A mismatch returns `409 STALE_VERSION` and never overwrites newer state. Clients reload authoritative state (`GET /api/games/:gameId`) to recover.
+There is no `version` field and no session id on any request. `move`, `backtrack`
+and `delete` are authorized from the authenticated identity plus the game's
+current persisted state. Ordinary transactions keep integrity; a rare race for
+the next move-sequence number is resolved by recomputing and retrying once.
+Simultaneous multi-tab / multi-device editing is not specially coordinated.
 
-### 9.3 Session expiration during gameplay
+### 8.3 Effective play time
 
-If a gameplay request (`move` or `backtrack`) finds that the game's `ACTIVE` session has exceeded the heartbeat timeout, the backend:
+Server-authoritative, tracked with `Game.effectivePlayTimeMs`, `Game.playStartedAt`
+and `Game.lastHeartbeatAt` (see `docs/game-rules.md` §12 and `docs/database.md`
+§7). Opening an in-progress game (`GET /api/games/:id`) finalizes any pending
+interval up to its last heartbeat and starts a new one; the heartbeat
+(`POST /api/games/:id/heartbeat`) and every valid move/backtrack refresh
+`lastHeartbeatAt`; the winning move finalizes the last interval. Time after a
+browser disappears is never counted — there is no expiration process.
 
-1. finalizes the expired session, using `lastHeartbeatAt` (not the detection moment) as the effective end for time accounting;
-2. updates `Game.effectivePlayTimeMs` and increments `Game.version` (this mutation is applied even though the gameplay action itself is rejected);
-3. rejects the gameplay action with `409 NO_ACTIVE_SESSION`.
+### 8.4 Completion
 
-The client then re-fetches authoritative state and starts a fresh session (`POST /api/games/:gameId/session`) before retrying the action. This keeps effective play time fair (technical detection delay is not counted) and is enforced server-side.
-
-### 9.4 Completion
-
-Victory is decided server-side when a `NAVIGATION` reaches the configured target page id (`Università degli Studi di Napoli Federico II`). Completion sets `COMPLETED`, `completedAt`, ends any `ACTIVE` session, and finalizes `effectivePlayTimeMs`. The frontend cannot mark a game completed directly. Once completed, the game becomes eligible for public history and leaderboards, and further moves/backtracks are rejected with `409 GAME_NOT_IN_PROGRESS`.
+Victory is decided server-side when a `NAVIGATION` reaches the configured target page id (`Università degli Studi di Napoli Federico II`). In one transaction completion sets `COMPLETED`, `completedAt`, folds the final interval into `effectivePlayTimeMs`, and clears `playStartedAt` / `lastHeartbeatAt`. The frontend cannot mark a game completed directly. Once completed, the game becomes eligible for public history and leaderboards, and further moves/backtracks/heartbeats are rejected with `409 GAME_NOT_IN_PROGRESS`.
 
 ---
 
-## 10. Consistency checklist
+## 9. Consistency checklist
 
 This contract has been checked against the approved documents:
 
-- **Game rules** — two statuses only; 10-game limit; CLICK/TIME modes; EASY/MEDIUM/HARD backtracking rules; navigation only through validated internal links; backtracking does not increment clicks; effective time excludes downtime; one active session; server-side victory; completed games only in public surfaces.
-- **Database** — endpoints map 1:1 onto `User`, `Game`, `GameMove`, `GameSession` and the five enums; no `Leaderboard`, `UserStatistics`, or `WikipediaPage` tables are assumed; leaderboards/statistics are derived from `Game` records; `passwordHash` is never exposed; `version` starts at `0`.
-- **Architecture** — Express authoritative; Angular requests actions; ownership from authentication; no client-authoritative game state; MediaWiki navigation controlled by ROADTOUNINA; heartbeat-based sessions; no iframe navigation.
-- **Milestone 3 error shape** — all errors use `{ error: { code, message, details? } }`; existing codes are preserved and extended, not changed.
+- **Game rules** — two statuses only; 10-game limit; CLICK/TIME modes; EASY/MEDIUM/HARD backtracking rules; navigation only through validated internal links; backtracking does not increment clicks; effective time excludes idle/offline time; server-side victory; completed games only in public surfaces.
+- **Database** — endpoints map 1:1 onto `User`, `Game`, `GameMove` and their enums; effective play time is three fields on `Game`, not a table; no `Leaderboard`, `UserStatistics`, or `WikipediaPage` tables are assumed; leaderboards/statistics are derived from `Game` records; `passwordHash` is never exposed; there is no `version` field.
+- **Architecture** — Express authoritative; Angular requests actions; ownership from authentication; no client-authoritative game state; MediaWiki navigation controlled by ROADTOUNINA; a minimal heartbeat updates timing only; no iframe navigation.
+- **Milestone 3 error shape** — all errors use `{ error: { code, message, details? } }`.
 
 This contract defines the interface for Milestones 5–15 without implementing any of them.

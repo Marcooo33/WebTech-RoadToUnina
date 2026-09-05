@@ -16,15 +16,6 @@ const jwtExpiresInSchema = z
     message: 'JWT_EXPIRES_IN must be a valid duration (e.g. "8h", "1d", "60")',
   });
 
-const sessionHeartbeatTimeoutSchema = z
-  .string()
-  .min(1)
-  .default("90s")
-  .refine(isPositiveDuration, {
-    message:
-      'SESSION_HEARTBEAT_TIMEOUT must be a valid duration (e.g. "90s", "2m", "120")',
-  });
-
 export const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
@@ -33,7 +24,6 @@ export const envSchema = z.object({
     .default("development"),
   JWT_SECRET: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
   JWT_EXPIRES_IN: jwtExpiresInSchema,
-  SESSION_HEARTBEAT_TIMEOUT: sessionHeartbeatTimeoutSchema,
   // Test-only. When "1", server.ts swaps the live MediaWiki integration for the
   // deterministic fixture adapter used by the Playwright E2E suite (see e2e/).
   // Never set in development or production.

@@ -31,7 +31,7 @@ A game has only two statuses in the initial version:
 
 A game becomes `COMPLETED` only when the player reaches the target page.
 
-Leaving the browser, closing the tab, logging out, or stopping a play session does **not** complete or abandon the game. The game remains `IN_PROGRESS`.
+Leaving the browser, closing the tab, or logging out does **not** complete or abandon the game. The game remains `IN_PROGRESS`.
 
 There is no `ABANDONED`, `LOST`, or `PAUSED` game status in the initial version.
 
@@ -166,7 +166,7 @@ A successful `NAVIGATION` move increments:
 
 A backtracking action does **not** increment `clickCount`.
 
-Reloading the page, opening the game route, resuming a session, or requesting the current article does not increment `clickCount`.
+Reloading the page, reopening the game route, or requesting the current article does not increment `clickCount`.
 
 The frontend must never send an authoritative click count to the backend.
 
@@ -234,51 +234,56 @@ Effective play time:
 
 The 30 minutes spent outside the game must not count.
 
-Effective time is derived from play sessions and may also be stored as an aggregate on the `Game` record for efficient leaderboard queries.
+### How it is tracked
 
-The frontend timer is display-only. The server is authoritative for the official time.
+There is **no persistent play-session entity**. Effective play time is
+server-authoritative and stored with three fields directly on `Game`:
 
----
+| Field | Meaning |
+|---|---|
+| `effectivePlayTimeMs` | Play time already finalized/accounted. The authoritative value for completed games, history, statistics and leaderboards. |
+| `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
+| `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
 
-## 13. Game Sessions
+Rules:
 
-A game may have at most **one active play session at a time**.
+- **Opening / resuming an in-progress game** (`GET /api/games/:id` by the owner)
+  finalizes any pending interval up to its `lastHeartbeatAt`
+  (`effectivePlayTimeMs += lastHeartbeatAt - playStartedAt`), then starts a fresh
+  interval (`playStartedAt = lastHeartbeatAt = now`). The offline gap between the
+  last heartbeat and reopening is never counted.
+- **Heartbeat** (`POST /api/games/:id/heartbeat`, roughly every 12 s while
+  playing) only sets `lastHeartbeatAt = now`. It creates nothing and changes
+  nothing else.
+- **A valid move or backtrack** also sets `lastHeartbeatAt = now` in the same
+  transaction — a real action is stronger proof of activity than a heartbeat.
+- **The winning move** finalizes the last interval up to now
+  (`effectivePlayTimeMs += now - playStartedAt`) inside the completion
+  transaction, then clears `playStartedAt` and `lastHeartbeatAt`.
+- A stale `lastHeartbeatAt` is just data — there is no expiration process and no
+  state transition. If a browser disappears, the time after the last heartbeat is
+  simply not counted when the game is next opened.
 
-A play session represents a period during which the player is actively playing that specific game.
-
-Initial session statuses:
-
-- `ACTIVE`
-- `ENDED`
-- `EXPIRED`
-
-A session stores:
-
-- start time;
-- optional end time;
-- last heartbeat time.
-
-The frontend periodically sends a heartbeat.
-
-If a browser closes or crashes without ending the session, the server may expire the session after the configured heartbeat timeout.
-
-When an expired session's end time is determined, the application should use the last confirmed heartbeat time rather than the later moment at which the server happened to detect the timeout.
-
-This prevents technical timeout delay from unfairly increasing effective play time.
+The frontend timer is display-only: it animates
+`effectivePlayTimeMs + (now - clientBaseline)` locally for smoothness and is
+never sent back. The server remains authoritative for the official time.
 
 ---
 
 ## 14. Refresh and Multiple Tabs
 
-Refreshing the same active game must preserve its current server-side state.
+Refreshing the same active game must preserve its current server-side state; the
+frontend reloads the authoritative state from the backend, which also
+re-establishes the timing interval (see §12).
 
-The frontend must reload the authoritative state from the backend.
+Game state is persistent because of `Game` + `GameMove`, not because of any
+session record. Opening the same game again — in the same tab, another tab, or
+another device — simply finalizes the previous interval and starts a new one.
 
-Opening the same game in another tab/device must not create a second simultaneous active play session.
-
-The backend must enforce the one-active-session rule.
-
-Concurrent stale actions must not corrupt the game. Game state changes should use optimistic concurrency control through the game's `version` field or an equivalent server-side mechanism.
+Simultaneous play from multiple tabs/devices is not a project requirement and is
+not specially coordinated. There is no "one active session" rule, no version
+field, and no locks. Ordinary database transactions and authoritative backend
+checks keep game state consistent.
 
 ---
 
@@ -296,8 +301,7 @@ Resuming a game restores at least:
 - backtracking count;
 - mode;
 - difficulty;
-- effective play time;
-- current game version.
+- effective play time (finalized so far).
 
 ---
 
@@ -329,8 +333,8 @@ If yes:
 
 1. the game becomes `COMPLETED`;
 2. `completedAt` is set;
-3. the active play session is ended;
-4. final effective play time is persisted;
+3. the final play interval is finalized into `effectivePlayTimeMs` (up to the moment of the winning move) and `playStartedAt` / `lastHeartbeatAt` are cleared;
+4. all of the above is persisted atomically in one transaction;
 5. the completed game becomes eligible for public history;
 6. the game may contribute to the relevant leaderboard.
 

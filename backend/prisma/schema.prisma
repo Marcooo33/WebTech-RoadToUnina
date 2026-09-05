@@ -28,12 +28,6 @@ enum GameMoveType {
   BACKTRACK
 }
 
-enum GameSessionStatus {
-  ACTIVE
-  ENDED
-  EXPIRED
-}
-
 model User {
   id           String  @id @default(uuid()) @db.Uuid
   username     String  @unique @db.VarChar(30)
@@ -66,7 +60,13 @@ model Game {
   clickCount          Int @default(0) @map("click_count")
   backtrackCount      Int @default(0) @map("backtrack_count")
   effectivePlayTimeMs Int @default(0) @map("effective_play_time_ms")
-  version             Int @default(0)
+
+  // Minimal server-authoritative timing state (docs/game-rules.md §12). No
+  // persistent play-session entity: `playStartedAt` is the start of the current
+  // unfinalized play interval (null when nothing is pending) and
+  // `lastHeartbeatAt` is the most recent proof of activity (heartbeat or move).
+  playStartedAt   DateTime? @map("play_started_at") @db.Timestamptz(3)
+  lastHeartbeatAt DateTime? @map("last_heartbeat_at") @db.Timestamptz(3)
 
   startedAt   DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
   completedAt DateTime? @map("completed_at") @db.Timestamptz(3)
@@ -74,9 +74,8 @@ model Game {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
 
-  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  moves    GameMove[]
-  sessions GameSession[]
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moves GameMove[]
 
   @@index([userId, status])
   @@index([status, completedAt])
@@ -105,22 +104,4 @@ model GameMove {
   @@unique([gameId, sequence])
   @@index([gameId, sequence])
   @@map("game_moves")
-}
-
-model GameSession {
-  id     String @id @default(uuid()) @db.Uuid
-  gameId String @map("game_id") @db.Uuid
-
-  status GameSessionStatus @default(ACTIVE)
-
-  startedAt       DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
-  endedAt         DateTime? @map("ended_at") @db.Timestamptz(3)
-  lastHeartbeatAt DateTime  @default(now()) @map("last_heartbeat_at") @db.Timestamptz(3)
-  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
-
-  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
-
-  @@index([gameId])
-  @@index([status, lastHeartbeatAt])
-  @@map("game_sessions")
 }

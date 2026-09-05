@@ -99,7 +99,7 @@ Do not create application models or migrations in this milestone.
 - users domain
 - game logic
 - MediaWiki
-- game sessions
+- effective play time
 - leaderboard
 - database application tables
 - UI pages
@@ -226,9 +226,8 @@ Implement the approved PostgreSQL data model using Prisma and apply the initial 
 Implement Prisma models:
 
 - `User`
-- `Game`
+- `Game` (including the `effectivePlayTimeMs` / `playStartedAt` / `lastHeartbeatAt` timing fields — there is no separate session table)
 - `GameMove`
-- `GameSession`
 
 Implement enums:
 
@@ -236,13 +235,12 @@ Implement enums:
 - `GameDifficulty`
 - `GameStatus`
 - `GameMoveType`
-- `GameSessionStatus`
 
 Implement relations, indexes, mappings and cascading behavior defined in `docs/database.md`.
 
-Create and version the initial Prisma migration.
+Create and version the Prisma migrations.
 
-Add custom PostgreSQL constraints that Prisma cannot express directly, including the single-active-session partial unique index.
+Add custom PostgreSQL constraints that Prisma cannot express directly (non-negative counter / play-time checks, completion consistency, positive move sequence).
 
 Configure connection through environment variables.
 
@@ -252,12 +250,11 @@ Never commit real Supabase credentials.
 
 Preserve:
 
-- counters cannot be negative;
+- counters and `effectivePlayTimeMs` cannot be negative;
 - unique `(gameId, sequence)`;
-- one ACTIVE GameSession per Game;
 - completed games require `completedAt`;
 - in-progress games require `completedAt = NULL`;
-- GameMove and GameSession cascade on Game deletion.
+- GameMove cascades on Game deletion.
 
 The maximum of 10 in-progress games per user remains application/domain logic and must **not** be modeled as a user column.
 
@@ -341,7 +338,7 @@ Keep `/health`.
 - authentication
 - games
 - MediaWiki
-- game sessions
+- effective play time
 - leaderboards
 
 ## Validation
@@ -395,11 +392,9 @@ Document at least:
 - move
 - backtrack
 
-### Sessions
+### Effective play time
 
-- start/resume session
-- heartbeat
-- end session if supported explicitly
+- heartbeat (updates the activity timestamp only)
 
 ### Public History
 
@@ -566,7 +561,7 @@ At this milestone, starting-page selection may be abstracted/stubbed if MediaWik
 - playable article rendering
 - game moves
 - backtracking
-- sessions/timer
+- effective play time / heartbeat
 - leaderboards
 
 ## Validation
@@ -630,7 +625,7 @@ Do not scatter raw MediaWiki HTTP calls through game controllers/services.
 ## Must Not Implement
 
 - complete navigation engine
-- game session timer
+- effective-time accounting
 - leaderboard
 
 ## Validation
@@ -676,8 +671,6 @@ Implement:
 - GameMove persistence;
 - click count increment;
 - current page update;
-- game version increment;
-- optimistic concurrency;
 - backtracking;
 - difficulty rules;
 - active-path reconstruction;
@@ -690,9 +683,9 @@ The backend must verify:
 
 - game ownership;
 - game is `IN_PROGRESS`;
-- expected version matches;
-- player has a valid active session if session enforcement is already introduced, or preserve the interface for it;
 - target is a valid playable link from current page.
+
+There is no `version` field and no session id on the request.
 
 ### Backtracking
 
@@ -709,7 +702,7 @@ Reaching the configured Federico II MediaWiki page id:
 - sets `COMPLETED`;
 - sets `completedAt`;
 - prevents further moves;
-- later session integration must finalize play time.
+- finalizes `effectivePlayTimeMs` (see Milestone 9) in the same transaction.
 
 ## Transactions
 
@@ -721,7 +714,6 @@ Test:
 
 - valid move;
 - invalid/teleport move rejected;
-- stale version rejected with conflict;
 - click increment;
 - easy backtracking;
 - medium fourth backtrack rejected;
@@ -742,57 +734,52 @@ feat: implement game navigation engine
 
 ---
 
-# Milestone 9 — Play Sessions and Effective Timer
+# Milestone 9 — Effective Play Time
 
 ## Goal
 
-Implement one-active-session semantics and official effective play time.
+Implement server-authoritative official effective play time without any
+persistent play-session entity.
 
 ## Required Reading
 
-- `docs/game-rules.md`
-- `docs/database.md`
-- `docs/api.md`
+- `docs/game-rules.md` §12
+- `docs/database.md` §7
+- `docs/api.md` §5.8, §8.3
 
 ## Scope
 
-Implement:
+Add three fields to `Game`: `effectivePlayTimeMs`, `playStartedAt`,
+`lastHeartbeatAt`. Implement, ideally in one small timing helper:
 
-- start/resume play session;
-- one ACTIVE session per game;
-- heartbeat;
-- explicit end where useful;
-- expiration after heartbeat timeout;
-- effective time accumulation;
-- refresh-safe session identification;
-- cross-device resume behavior.
+- resume on open — `GET /api/games/:id` (owner, `IN_PROGRESS`) finalizes any
+  pending interval up to its last heartbeat, then starts a fresh interval;
+- minimal heartbeat — `POST /api/games/:id/heartbeat` sets `lastHeartbeatAt = now`
+  (and `playStartedAt = now` if unset); rejected on a completed game;
+- activity on gameplay — a valid move/backtrack refreshes `lastHeartbeatAt` in
+  its own transaction;
+- completion — the winning move finalizes the last interval up to now and clears
+  `playStartedAt` / `lastHeartbeatAt` in the completion transaction.
 
-Use `GameSession`.
+No session table, no `ACTIVE`/`EXPIRED` state machine, no expiration job, no
+one-session rule, no version field. Cross-device resume works because state lives
+in `Game` + `GameMove`.
 
-The official timer is backend-controlled.
-
-A closed/crashed browser must not cause all wall-clock downtime to count.
-
-For expired sessions, use the last confirmed heartbeat according to game rules.
-
-## Important
-
-A simple browser refresh should not unnecessarily create multiple active sessions.
-
-A second tab/device must not produce a second simultaneous ACTIVE session for the same game.
+A closed/crashed browser must not cause offline time to count: the interval is
+bounded by the last heartbeat when the game is next opened.
 
 ## Validation
 
 Test:
 
-- start session;
-- heartbeat updates;
-- only one active session;
-- refresh/resume;
-- expired session;
-- effective time excludes downtime;
-- game can later resume from another device/session;
-- official time remains non-negative and consistent.
+- open → heartbeats → move → completion records effective time correctly;
+- browser disappears → long gap → reopen counts only up to the last heartbeat;
+- reopening finalizes the old interval and starts a new one;
+- the winning move accounts the final interval up to the backend's current time;
+- a heartbeat updates timing but creates no other row;
+- a completed game rejects the heartbeat and its effective time stays final;
+- effective time is non-negative and monotonic across a game;
+- TIME leaderboard orders by `effectivePlayTimeMs`.
 
 ## Completion Criteria
 
@@ -801,7 +788,7 @@ TIME mode has a reliable server-authoritative clock foundation.
 Recommended commit:
 
 ```text
-feat: implement game play sessions
+feat: track effective play time on the game record
 ```
 
 ---
@@ -1068,16 +1055,18 @@ UI state must reflect:
 - MEDIUM remaining uses;
 - HARD unavailable.
 
-### Concurrency/Session Errors
+### Error handling
 
 Handle:
 
-- stale game version;
-- active session elsewhere;
-- expired session;
-- move rejection.
+- move rejection (`INVALID_MOVE`) — refresh the article;
+- backtrack rejections (`BACKTRACK_NOT_ALLOWED` / `BACKTRACK_LIMIT_REACHED`);
+- `GAME_NOT_IN_PROGRESS` — reload authoritative state;
+- transient Wikipedia / network failures — non-fatal, offer retry.
 
-Reload authoritative state when required.
+There is no stale-version or session-conflict handling to implement. The
+heartbeat runs on a plain interval; if it fails transiently it just retries, and
+`GAME_NOT_IN_PROGRESS` from it triggers a reload.
 
 ## Validation
 
@@ -1157,10 +1146,11 @@ Target at least 12–15 meaningful scenarios rather than exactly ten.
 9. MEDIUM fourth backtrack rejected;
 10. HARD backtracking rejected;
 11. game resume preserves state;
-12. only one active session per game;
-13. reaching target completes game;
-14. completed game visible in public history;
-15. leaderboard shows completed result in correct mode/difficulty.
+12. reaching target completes game;
+13. completed game visible in public history;
+14. leaderboard shows completed result in correct mode/difficulty.
+
+The suite currently has 13 browser-driven scenarios (≥ 10 required).
 
 Tests must not rely excessively on unstable live Wikipedia randomness.
 
@@ -1247,11 +1237,10 @@ Verify the student can explain:
 - why Express was chosen;
 - why backend is authoritative;
 - Prisma/Supabase architecture;
-- Game/GameMove/GameSession distinction;
-- effective timer;
-- heartbeat;
-- one-active-session constraint;
-- optimistic concurrency;
+- Game/GameMove distinction;
+- effective play time (the three `Game` timing fields and the resume/heartbeat/completion flow);
+- the minimal heartbeat;
+- why there is no session entity, expiration job, or version field;
 - Wikipedia sandboxing;
 - leaderboard queries;
 - difficulty rules.

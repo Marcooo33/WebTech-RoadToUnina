@@ -89,11 +89,11 @@ Planned stack:
 
 The final project must contain at least ten automated E2E tests.
 
-The Playwright suite (`e2e/`) is 14 browser-driven scenarios that run against the
+The Playwright suite (`e2e/`) is 13 browser-driven scenarios that run against the
 real Angular and Express apps, but against a disposable Dockerised PostgreSQL and
 a deterministic in-memory MediaWiki adapter (`E2E_FAKE_WIKIPEDIA=1`, selected
 only in `backend/src/server.ts`). Server-authoritative rule edges (forged move,
-backtrack limits, game limit) and the live MediaWiki adapter keep their dedicated
+backtrack limits, game limit) and effective-time behaviour keep their dedicated
 coverage in the backend integration/unit tests.
 
 ---
@@ -124,8 +124,7 @@ Responsible for:
 - game rules;
 - game state transitions;
 - move validation;
-- session management;
-- official timer calculations;
+- official effective-play-time accounting;
 - difficulty enforcement;
 - starting-page selection;
 - Wikipedia integration;
@@ -138,9 +137,8 @@ Responsible for:
 Responsible for persistent authoritative state:
 
 - users;
-- games;
-- moves;
-- play sessions.
+- games (including their `effectivePlayTimeMs` / `playStartedAt` / `lastHeartbeatAt` timing fields);
+- moves.
 
 Important invariants should be protected by database constraints when reasonably possible.
 
@@ -178,7 +176,6 @@ backend/src/
 │   ├── auth/
 │   ├── users/
 │   ├── games/
-│   ├── game-sessions/
 │   ├── wikipedia/
 │   └── leaderboards/
 └── shared/
@@ -239,11 +236,10 @@ Conceptual responsibilities:
 - perform navigation;
 - perform backtracking;
 - apply difficulty rules;
-- verify current version;
 - increment counters;
+- refresh the activity timestamp (`lastHeartbeatAt`);
 - detect victory;
-- complete game;
-- coordinate game session state where needed.
+- complete game (finalizing effective play time).
 
 Example conceptual flow:
 
@@ -258,17 +254,15 @@ load authoritative game
         ↓
 validate ownership
         ↓
-validate active session
-        ↓
-validate game version
+validate IN_PROGRESS
         ↓
 WikipediaService validates target link
         ↓
 database transaction
         ↓
 store GameMove
-update Game
-check victory
+update Game (counter, current page, lastHeartbeatAt)
+check victory → on victory, finalize effectivePlayTimeMs
 ```
 
 All state-changing game operations should be transactional where multiple database records or counters must remain consistent.
@@ -446,41 +440,38 @@ Ownership comes from the authenticated identity.
 
 ---
 
-## 13. Game Session Architecture
+## 13. Effective Play Time
 
-A game may have only one active play session.
+There is **no persistent play-session entity**. Effective play time is
+server-authoritative and stored in three fields on `Game`:
+`effectivePlayTimeMs` (finalized total), `playStartedAt` (start of the current
+unfinalized interval), and `lastHeartbeatAt` (most recent proof of activity).
 
-Sessions are persistent database records.
+- Opening/resuming an in-progress game (`GET /api/games/:id`) finalizes any
+  pending interval up to its last heartbeat and starts a fresh one.
+- Angular sends a minimal heartbeat (`POST /api/games/:id/heartbeat`, ~every
+  12 s) that only sets `lastHeartbeatAt = now`. Every valid move/backtrack does
+  the same in its own transaction.
+- The winning move finalizes the last interval up to that moment, inside the
+  completion transaction.
+- A stale `lastHeartbeatAt` causes no state transition: there is no expiration
+  job. Time after a browser disappears is simply not counted at the next open.
 
-The backend uses heartbeats to distinguish an active player from a browser that has closed or crashed.
-
-Angular periodically sends a heartbeat while actively playing.
-
-The backend handles:
-
-- session creation/resume;
-- heartbeat updates;
-- explicit session end where possible;
-- session expiration;
-- official effective play-time calculation.
-
-A browser `beforeunload` event must not be the sole mechanism for ending sessions because delivery is not reliable.
+Angular animates the displayed timer locally and is never authoritative. Details
+in `docs/game-rules.md` §12.
 
 ---
 
 ## 14. Concurrency
 
-Each `Game` has a numeric `version`.
+There is no `Game.version` field and no optimistic-concurrency token, session
+token, lock, or lease. Simultaneous multi-tab / multi-device editing is not a
+project requirement.
 
-State-changing requests should include the version the client believes is current.
-
-The backend validates that version before applying a mutation.
-
-After a successful mutation, the version increments.
-
-Stale mutations should produce an HTTP conflict response (expected: `409 Conflict`).
-
-The database operation must remain atomic.
+State-changing game operations run in a database transaction where multiple
+records or counters must stay consistent (a navigation move updates the `Game`
+row and appends a `GameMove`; completion also finalizes timing). A rare race for
+the next move-sequence number is resolved by recomputing and retrying once.
 
 ---
 
@@ -497,11 +488,11 @@ Authenticated capabilities include:
 
 - creating games;
 - listing own in-progress games;
-- loading own game state;
+- loading own game state (which also resumes effective-time tracking);
 - deleting own in-progress games;
-- starting/resuming play sessions;
 - moving;
 - backtracking;
+- sending a keep-alive heartbeat;
 - personal profile/statistics.
 
 Exact endpoints belong in `docs/api.md`.

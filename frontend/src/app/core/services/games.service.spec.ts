@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { GamesService } from './games.service';
 
-describe('GamesService (Milestone 14 endpoints)', () => {
+describe('GamesService (games endpoints)', () => {
   let service: GamesService;
   let http: HttpTestingController;
 
@@ -24,19 +24,35 @@ describe('GamesService (Milestone 14 endpoints)', () => {
     req.flush({});
   });
 
-  it('POSTs a move with toPageId and the expected version', () => {
-    service.move('g1', 555, 6).subscribe();
+  it('POSTs a move with only toPageId (no version)', () => {
+    service.move('g1', 555).subscribe();
     const req = http.expectOne('/api/games/g1/moves');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ toPageId: 555, version: 6 });
+    expect(req.request.body).toEqual({ toPageId: 555 });
     req.flush({});
   });
 
-  it('POSTs a backtrack with the expected version only', () => {
-    service.backtrack('g1', 6).subscribe();
+  it('POSTs an empty backtrack body', () => {
+    service.backtrack('g1').subscribe();
     const req = http.expectOne('/api/games/g1/backtrack');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ version: 6 });
+    expect(req.request.body).toEqual({});
     req.flush({});
+  });
+
+  it('DELETEs a game with no query parameters', () => {
+    service.remove('g1').subscribe();
+    const req = http.expectOne('/api/games/g1');
+    expect(req.request.method).toBe('DELETE');
+    expect(req.request.params.keys()).toEqual([]);
+    req.flush(null);
+  });
+
+  it('POSTs a minimal heartbeat', () => {
+    service.heartbeat('g1').subscribe();
+    const req = http.expectOne('/api/games/g1/heartbeat');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({});
+    req.flush(null);
   });
 });

@@ -13,7 +13,7 @@ test("resuming an in-progress game restores its authoritative state", async ({ p
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.napoli.title);
   await expect(page.getByTestId("hud-clicks")).toHaveText("2");
 
-  // Leave the game (this ends the play session best-effort) and come back.
+  // Leave the game and come back — state persists via Game + GameMove.
   await page.goto("/dashboard");
   const row = page.getByTestId("game-row");
   await expect(row).toHaveCount(1);

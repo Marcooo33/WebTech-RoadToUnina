@@ -15,8 +15,8 @@ export default async function globalSetup(): Promise<void> {
   // Postgres may report "started" before it accepts connections.
   await waitForDatabase(databaseUrl);
 
-  // Apply the committed migration (schema + CHECK constraints + the
-  // one_active_session_per_game partial unique index) to the throwaway DB.
+  // Apply the committed migrations (schema + CHECK constraints) to the
+  // throwaway DB.
   execFileSync("npx", ["prisma", "migrate", "deploy"], {
     cwd: backendDir,
     stdio: "inherit",

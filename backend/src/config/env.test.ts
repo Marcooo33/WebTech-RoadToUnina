@@ -22,33 +22,12 @@ test("parseEnv returns parsed values for valid input", () => {
   assert.equal(result.JWT_EXPIRES_IN, "1h");
 });
 
-test("parseEnv defaults PORT, NODE_ENV, JWT_EXPIRES_IN and SESSION_HEARTBEAT_TIMEOUT", () => {
+test("parseEnv defaults PORT, NODE_ENV and JWT_EXPIRES_IN", () => {
   const result = parseEnv(validEnv);
 
   assert.equal(result.PORT, 3000);
   assert.equal(result.NODE_ENV, "development");
   assert.equal(result.JWT_EXPIRES_IN, "8h");
-  assert.equal(result.SESSION_HEARTBEAT_TIMEOUT, "90s");
-});
-
-test("parseEnv accepts a custom SESSION_HEARTBEAT_TIMEOUT duration", () => {
-  const result = parseEnv({ ...validEnv, SESSION_HEARTBEAT_TIMEOUT: "2m" });
-
-  assert.equal(result.SESSION_HEARTBEAT_TIMEOUT, "2m");
-});
-
-test("parseEnv throws when SESSION_HEARTBEAT_TIMEOUT is not a valid duration", () => {
-  assert.throws(
-    () => parseEnv({ ...validEnv, SESSION_HEARTBEAT_TIMEOUT: "not-a-duration" }),
-    /SESSION_HEARTBEAT_TIMEOUT/,
-  );
-});
-
-test("parseEnv throws when SESSION_HEARTBEAT_TIMEOUT is not positive", () => {
-  assert.throws(
-    () => parseEnv({ ...validEnv, SESSION_HEARTBEAT_TIMEOUT: "0" }),
-    /SESSION_HEARTBEAT_TIMEOUT/,
-  );
 });
 
 test("parseEnv throws when DATABASE_URL is missing", () => {

@@ -62,7 +62,6 @@ export default defineConfig({
         NODE_ENV: "test",
         PORT: String(BACKEND_PORT),
         E2E_FAKE_WIKIPEDIA: "1",
-        SESSION_HEARTBEAT_TIMEOUT: "90s",
       },
     },
     {

@@ -3,18 +3,15 @@ import {
   Prisma,
   type Game,
   type GameMove,
-  type GameSession,
 } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
-import {
-  GameSessionService,
-  NoActiveSessionError,
-  SessionExpiredError,
-  noActiveSession,
-  toSessionDto,
-} from "../game-sessions/game-sessions.service.js";
 import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
+import {
+  activityData,
+  completionTimingData,
+  resumeIntervalData,
+} from "./game-timing.js";
 import { toGameMoveDto } from "./game-move.js";
 import { reconstructActivePath } from "./game-path.js";
 import type {
@@ -33,6 +30,8 @@ import type { StartingPageProvider } from "./starting-page.provider.js";
 export const MAX_IN_PROGRESS_GAMES = 10;
 export const MEDIUM_BACKTRACK_LIMIT = 3;
 
+const TX_OPTIONS = { maxWait: 10_000, timeout: 30_000 } as const;
+
 type GameStatusFilter = "IN_PROGRESS" | "COMPLETED";
 
 function gameNotFound(): ApiError {
@@ -47,10 +46,6 @@ function gameNotInProgress(): ApiError {
   );
 }
 
-function staleVersion(): ApiError {
-  return new ApiError(409, ErrorCode.STALE_VERSION, "Stale version");
-}
-
 function invalidMove(): ApiError {
   return new ApiError(
     422,
@@ -59,11 +54,33 @@ function invalidMove(): ApiError {
   );
 }
 
-export function toGameDto(
-  game: Game,
-  moves: GameMove[],
-  activeSession: GameSession | null,
-): GameDto {
+/**
+ * `true` for a unique-constraint violation (P2002). The only such constraint a
+ * gameplay write can hit is `game_moves (game_id, sequence)` when two requests
+ * for the same game race for the next move number — the loser simply recomputes
+ * the sequence and retries once. This is not concurrency control, just integrity
+ * handling for a rare multi-tab double-submit.
+ */
+function isSequenceConflict(error: unknown): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (error as { code?: unknown }).code === "P2002"
+  );
+}
+
+async function withSequenceRetry<T>(run: () => Promise<T>): Promise<T> {
+  try {
+    return await run();
+  } catch (error) {
+    if (isSequenceConflict(error)) {
+      return run();
+    }
+    throw error;
+  }
+}
+
+export function toGameDto(game: Game, moves: GameMove[]): GameDto {
   const path = reconstructActivePath(
     { pageId: game.startPageId, title: game.startPageTitle },
     moves,
@@ -81,20 +98,16 @@ export function toGameDto(
     clickCount: game.clickCount,
     backtrackCount: game.backtrackCount,
     effectivePlayTimeMs: game.effectivePlayTimeMs,
-    version: game.version,
+    playStartedAt: game.playStartedAt?.toISOString() ?? null,
     startedAt: game.startedAt.toISOString(),
     completedAt: game.completedAt?.toISOString() ?? null,
     createdAt: game.createdAt.toISOString(),
     path,
     moves: moves.map(toGameMoveDto),
-    activeSession: activeSession ? toSessionDto(activeSession) : null,
   };
 }
 
-export function toGameListItemDto(
-  game: Game,
-  hasActiveSession: boolean,
-): GameListItemDto {
+export function toGameListItemDto(game: Game): GameListItemDto {
   return {
     id: game.id,
     mode: game.mode,
@@ -106,10 +119,8 @@ export function toGameListItemDto(
     clickCount: game.clickCount,
     backtrackCount: game.backtrackCount,
     effectivePlayTimeMs: game.effectivePlayTimeMs,
-    version: game.version,
     startedAt: game.startedAt.toISOString(),
     completedAt: game.completedAt?.toISOString() ?? null,
-    hasActiveSession,
   };
 }
 
@@ -117,7 +128,6 @@ export class GamesService {
   constructor(
     private readonly startingPageProvider: StartingPageProvider,
     private readonly wikipedia: WikipediaArticleSource,
-    private readonly sessions: GameSessionService,
   ) {}
 
   async create(userId: string, input: CreateGameInput): Promise<Game> {
@@ -135,36 +145,33 @@ export class GamesService {
 
     const startingPage = await this.startingPageProvider.getStartingPage();
 
-    return prisma.$transaction(
-      async (tx) => {
-        await tx.$queryRaw`SELECT "id" FROM "users" WHERE "id" = ${userId}::uuid FOR UPDATE`;
+    return prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT "id" FROM "users" WHERE "id" = ${userId}::uuid FOR UPDATE`;
 
-        const lockedCount = await tx.game.count({
-          where: { userId, status: "IN_PROGRESS" },
-        });
+      const lockedCount = await tx.game.count({
+        where: { userId, status: "IN_PROGRESS" },
+      });
 
-        if (lockedCount >= MAX_IN_PROGRESS_GAMES) {
-          throw new ApiError(
-            409,
-            ErrorCode.GAME_LIMIT_REACHED,
-            "Maximum number of in-progress games reached",
-          );
-        }
+      if (lockedCount >= MAX_IN_PROGRESS_GAMES) {
+        throw new ApiError(
+          409,
+          ErrorCode.GAME_LIMIT_REACHED,
+          "Maximum number of in-progress games reached",
+        );
+      }
 
-        return tx.game.create({
-          data: {
-            userId,
-            mode: input.mode,
-            difficulty: input.difficulty,
-            startPageId: startingPage.pageId,
-            startPageTitle: startingPage.title,
-            currentPageId: startingPage.pageId,
-            currentPageTitle: startingPage.title,
-          },
-        });
-      },
-      { maxWait: 10_000, timeout: 30_000 },
-    );
+      return tx.game.create({
+        data: {
+          userId,
+          mode: input.mode,
+          difficulty: input.difficulty,
+          startPageId: startingPage.pageId,
+          startPageTitle: startingPage.title,
+          currentPageId: startingPage.pageId,
+          currentPageTitle: startingPage.title,
+        },
+      });
+    }, TX_OPTIONS);
   }
 
   async list(userId: string, status?: GameStatusFilter): Promise<Game[]> {
@@ -174,6 +181,13 @@ export class GamesService {
     });
   }
 
+  /**
+   * Loads an owned game to open/resume it. For an IN_PROGRESS game this also
+   * (re)establishes the effective-time interval: any pending interval is
+   * finalized up to its last heartbeat and a fresh interval is started now.
+   * This is the "normal game-loading/resume flow" — there is no separate
+   * start/resume endpoint (docs/game-rules.md §12, docs/api.md §5.3).
+   */
   async get(userId: string, gameId: string): Promise<GameWithMoves> {
     const game = await prisma.game.findFirst({
       where: { id: gameId, userId },
@@ -184,7 +198,17 @@ export class GamesService {
       throw gameNotFound();
     }
 
-    return game;
+    if (game.status !== "IN_PROGRESS") {
+      return game;
+    }
+
+    const updated = await prisma.game.update({
+      where: { id: gameId },
+      data: resumeIntervalData(game, new Date()),
+      include: { moves: { orderBy: { sequence: "asc" } } },
+    });
+
+    return updated;
   }
 
   async getArticle(userId: string, gameId: string): Promise<ArticleDto> {
@@ -195,10 +219,31 @@ export class GamesService {
       gameId: game.id,
       pageId: article.pageId,
       title: article.title,
-      version: game.version,
       contentHtml: article.contentHtml,
-      links: article.links.map((link) => ({ pageId: link.pageId, title: link.title })),
+      links: article.links.map((link) => ({
+        pageId: link.pageId,
+        title: link.title,
+      })),
     };
+  }
+
+  /**
+   * POST /api/games/:gameId/heartbeat — the only timing-specific endpoint.
+   * Records that the owner is still actively playing by advancing
+   * `lastHeartbeatAt`. It is not a session: no row is created, nothing else
+   * changes. A completed game rejects the heartbeat.
+   */
+  async heartbeat(userId: string, gameId: string): Promise<void> {
+    const game = await this.loadOwnedGame(userId, gameId);
+
+    if (game.status !== "IN_PROGRESS") {
+      throw gameNotInProgress();
+    }
+
+    await prisma.game.update({
+      where: { id: gameId },
+      data: activityData(game, new Date()),
+    });
   }
 
   async move(
@@ -208,31 +253,14 @@ export class GamesService {
   ): Promise<GameWithMoves> {
     const game = await this.loadOwnedGame(userId, gameId);
 
-    if (input.version !== game.version) {
-      // docs/api.md §9.3: an already-expired session is still finalized on the
-      // rejection path, so effective play time stays fair even when the losing
-      // request is also stale.
-      await this.sessions.finalizeIfExpired(gameId);
-      throw staleVersion();
-    }
-
     if (game.status !== "IN_PROGRESS") {
       throw gameNotInProgress();
     }
-
-    // Preliminary live-session check. An expired session is finalized here
-    // (effective time + version) and the move is rejected with NO_ACTIVE_SESSION
-    // (docs/api.md §9.3). This runs before Wikipedia work so difficulty/link
-    // validation can never short-circuit expiration handling.
-    await this.sessions.assertActiveForGameplay(gameId);
 
     const links = await this.wikipedia.getValidInternalLinks(game.currentPageId);
     const destination = links.find((link) => link.pageId === input.toPageId);
 
     if (!destination) {
-      // The game may have changed while the links were being resolved; a
-      // stale request must surface as a version conflict, not a rule error.
-      await this.assertVersionUnchanged(userId, gameId, input.version);
       throw invalidMove();
     }
 
@@ -240,112 +268,67 @@ export class GamesService {
     const fromPageTitle = game.currentPageTitle;
     const isTarget = input.toPageId === TARGET_PAGE_ID;
 
-    try {
-      return await prisma.$transaction(
-        async (tx) => {
-          // Captured inside the transaction: under connection-pool contention the
-          // callback can start seconds after $transaction() is called, and the
-          // expiry check, completedAt and the completion duration must all
-          // reflect the moment the work actually runs.
-          const now = new Date();
+    return withSequenceRetry(() =>
+      prisma.$transaction(async (tx) => {
+        // Captured inside the transaction: under connection-pool contention the
+        // callback can start seconds after $transaction() is called, and both
+        // the activity timestamp and any completion timing must reflect the
+        // moment the work actually runs.
+        const now = new Date();
 
-          // Re-validate the session inside the transaction, with a row lock, so
-          // a session ended/expired since the preliminary check cannot be moved
-          // against. SessionExpiredError is handled outside the transaction.
-          const session = await this.sessions.requireActiveInTransaction(
-            tx,
+        const current = await tx.game.findUniqueOrThrow({
+          where: { id: gameId },
+          select: { status: true, playStartedAt: true },
+        });
+        if (current.status !== "IN_PROGRESS") {
+          throw gameNotInProgress();
+        }
+
+        await tx.game.update({
+          where: { id: gameId },
+          data: {
+            currentPageId: input.toPageId,
+            currentPageTitle: destination.title,
+            clickCount: { increment: 1 },
+            lastHeartbeatAt: now,
+            ...(isTarget
+              ? {
+                  status: "COMPLETED" as const,
+                  completedAt: now,
+                  ...completionTimingData(current.playStartedAt, now),
+                }
+              : {}),
+          },
+        });
+
+        const sequence = await this.nextSequence(tx, gameId);
+        await tx.gameMove.create({
+          data: {
             gameId,
-            now,
-          );
+            sequence,
+            type: "NAVIGATION",
+            fromPageId,
+            fromPageTitle,
+            toPageId: input.toPageId,
+            toPageTitle: destination.title,
+          },
+        });
 
-          // On completion the still-active session is closed in this same
-          // transaction and its duration folded into the one version bump.
-          const completionDurationMs = isTarget
-            ? await this.sessions.endSessionForCompletion(tx, session, now)
-            : 0;
-
-          const result = await tx.game.updateMany({
-            where: {
-              id: gameId,
-              userId,
-              status: "IN_PROGRESS",
-              version: input.version,
-            },
-            data: {
-              currentPageId: input.toPageId,
-              currentPageTitle: destination.title,
-              clickCount: { increment: 1 },
-              version: { increment: 1 },
-              ...(isTarget
-                ? {
-                    status: "COMPLETED" as const,
-                    completedAt: now,
-                    effectivePlayTimeMs: { increment: completionDurationMs },
-                  }
-                : {}),
-            },
-          });
-
-          if (result.count === 0) {
-            await this.classifyConflict(tx, userId, gameId, input.version);
-          }
-
-          const sequence = await this.nextSequence(tx, gameId);
-          await tx.gameMove.create({
-            data: {
-              gameId,
-              sequence,
-              type: "NAVIGATION",
-              fromPageId,
-              fromPageTitle,
-              toPageId: input.toPageId,
-              toPageTitle: destination.title,
-            },
-          });
-
-          return this.loadOwnedWithMoves(tx, gameId);
-        },
-        { maxWait: 10_000, timeout: 30_000 },
-      );
-    } catch (error) {
-      if (error instanceof SessionExpiredError) {
-        await this.sessions.finalizeExpiredSession(error.session.id);
-        throw noActiveSession();
-      }
-      if (error instanceof NoActiveSessionError) {
-        // The session vanished mid-transaction — typically ended by a concurrent
-        // completing move, which also bumped the version. A stale version or a
-        // now-completed game takes precedence over NO_ACTIVE_SESSION.
-        await this.assertNoGameConflict(prisma, userId, gameId, input.version);
-        throw noActiveSession();
-      }
-      throw error;
-    }
+        return this.loadOwnedWithMoves(tx, gameId);
+      }, TX_OPTIONS),
+    );
   }
 
   async backtrack(
     userId: string,
     gameId: string,
-    input: BacktrackInput,
+    _input: BacktrackInput,
   ): Promise<GameWithMoves> {
     const game = await this.loadOwnedGame(userId, gameId);
-
-    if (input.version !== game.version) {
-      // docs/api.md §9.3: an already-expired session is still finalized on the
-      // rejection path, so effective play time stays fair even when the losing
-      // request is also stale.
-      await this.sessions.finalizeIfExpired(gameId);
-      throw staleVersion();
-    }
 
     if (game.status !== "IN_PROGRESS") {
       throw gameNotInProgress();
     }
-
-    // Session precondition is checked before the difficulty/path rules so an
-    // expired session is finalized and rejected (docs/api.md §9.3) rather than
-    // being masked by a BACKTRACK_NOT_ALLOWED / BACKTRACK_LIMIT_REACHED error.
-    await this.sessions.assertActiveForGameplay(gameId);
 
     if (game.difficulty === "HARD") {
       throw new ApiError(
@@ -377,7 +360,6 @@ export class GamesService {
     );
 
     if (path.length <= 1) {
-      await this.assertVersionUnchanged(userId, gameId, input.version);
       throw new ApiError(
         422,
         ErrorCode.BACKTRACK_NOT_ALLOWED,
@@ -388,74 +370,49 @@ export class GamesService {
     const current = path[path.length - 1];
     const previous = path[path.length - 2];
 
-    try {
-      return await prisma.$transaction(
-        async (tx) => {
-          // Captured inside the transaction so an expiry that occurs while the
-          // callback is queued under pool contention is still detected.
-          const now = new Date();
-          await this.sessions.requireActiveInTransaction(tx, gameId, now);
+    return withSequenceRetry(() =>
+      prisma.$transaction(async (tx) => {
+        const now = new Date();
 
-          const result = await tx.game.updateMany({
-            where: {
-              id: gameId,
-              userId,
-              status: "IN_PROGRESS",
-              version: input.version,
-            },
-            data: {
-              currentPageId: previous.pageId,
-              currentPageTitle: previous.title,
-              backtrackCount: { increment: 1 },
-              version: { increment: 1 },
-            },
-          });
+        const state = await tx.game.findUniqueOrThrow({
+          where: { id: gameId },
+          select: { status: true },
+        });
+        if (state.status !== "IN_PROGRESS") {
+          throw gameNotInProgress();
+        }
 
-          if (result.count === 0) {
-            await this.classifyConflict(tx, userId, gameId, input.version);
-          }
+        await tx.game.update({
+          where: { id: gameId },
+          data: {
+            currentPageId: previous.pageId,
+            currentPageTitle: previous.title,
+            backtrackCount: { increment: 1 },
+            lastHeartbeatAt: now,
+          },
+        });
 
-          const sequence = await this.nextSequence(tx, gameId);
-          await tx.gameMove.create({
-            data: {
-              gameId,
-              sequence,
-              type: "BACKTRACK",
-              fromPageId: current.pageId,
-              fromPageTitle: current.title,
-              toPageId: previous.pageId,
-              toPageTitle: previous.title,
-            },
-          });
+        const sequence = await this.nextSequence(tx, gameId);
+        await tx.gameMove.create({
+          data: {
+            gameId,
+            sequence,
+            type: "BACKTRACK",
+            fromPageId: current.pageId,
+            fromPageTitle: current.title,
+            toPageId: previous.pageId,
+            toPageTitle: previous.title,
+          },
+        });
 
-          return this.loadOwnedWithMoves(tx, gameId);
-        },
-        { maxWait: 10_000, timeout: 30_000 },
-      );
-    } catch (error) {
-      if (error instanceof SessionExpiredError) {
-        await this.sessions.finalizeExpiredSession(error.session.id);
-        throw noActiveSession();
-      }
-      if (error instanceof NoActiveSessionError) {
-        // The session vanished mid-transaction — typically ended by a concurrent
-        // completing move, which also bumped the version. A stale version or a
-        // now-completed game takes precedence over NO_ACTIVE_SESSION.
-        await this.assertNoGameConflict(prisma, userId, gameId, input.version);
-        throw noActiveSession();
-      }
-      throw error;
-    }
+        return this.loadOwnedWithMoves(tx, gameId);
+      }, TX_OPTIONS),
+    );
   }
 
-  async delete(userId: string, gameId: string, version: number): Promise<void> {
+  async delete(userId: string, gameId: string): Promise<void> {
     const { count } = await prisma.game.deleteMany({
-      where: {
-        id: gameId,
-        userId,
-        status: "IN_PROGRESS",
-        version,
-      },
+      where: { id: gameId, userId, status: "IN_PROGRESS" },
     });
 
     if (count === 1) {
@@ -464,22 +421,14 @@ export class GamesService {
 
     const game = await prisma.game.findFirst({
       where: { id: gameId, userId },
-      select: { status: true, version: true },
+      select: { status: true },
     });
 
     if (!game) {
       throw gameNotFound();
     }
 
-    if (game.version !== version) {
-      throw staleVersion();
-    }
-
-    if (game.status !== "IN_PROGRESS") {
-      throw gameNotInProgress();
-    }
-
-    throw staleVersion();
+    throw gameNotInProgress();
   }
 
   private async loadOwnedGame(userId: string, gameId: string): Promise<Game> {
@@ -492,69 +441,6 @@ export class GamesService {
     }
 
     return game;
-  }
-
-  // Re-checks the persisted version after asynchronous Wikipedia/article work.
-  // A request whose version changed while resolving the article must surface as
-  // STALE_VERSION rather than a later gameplay rule error.
-  private async assertVersionUnchanged(
-    userId: string,
-    gameId: string,
-    expectedVersion: number,
-  ): Promise<void> {
-    const game = await prisma.game.findFirst({
-      where: { id: gameId, userId },
-      select: { version: true },
-    });
-
-    if (!game) {
-      throw gameNotFound();
-    }
-
-    if (game.version !== expectedVersion) {
-      throw staleVersion();
-    }
-  }
-
-  // Throws the conflict that explains why an optimistic gameplay write matched
-  // no row. A stale version takes precedence over status so a request that loses
-  // a race against a completing move is reported as STALE_VERSION, not
-  // GAME_NOT_IN_PROGRESS. Returns normally only when version and status still
-  // look current. Accepts either a transaction client or the base `prisma`
-  // client so it can also be used after a rolled-back transaction.
-  private async assertNoGameConflict(
-    db: Prisma.TransactionClient,
-    userId: string,
-    gameId: string,
-    expectedVersion: number,
-  ): Promise<void> {
-    const game = await db.game.findFirst({
-      where: { id: gameId, userId },
-      select: { status: true, version: true },
-    });
-
-    if (!game) {
-      throw gameNotFound();
-    }
-
-    if (game.version !== expectedVersion) {
-      throw staleVersion();
-    }
-
-    if (game.status !== "IN_PROGRESS") {
-      throw gameNotInProgress();
-    }
-  }
-
-  private async classifyConflict(
-    tx: Prisma.TransactionClient,
-    userId: string,
-    gameId: string,
-    expectedVersion: number,
-  ): Promise<never> {
-    await this.assertNoGameConflict(tx, userId, gameId, expectedVersion);
-    // Nothing obviously wrong — treat as a narrowly-lost optimistic-lock race.
-    throw staleVersion();
   }
 
   private async nextSequence(

@@ -87,8 +87,8 @@ export class Dashboard implements OnInit {
     this.deletingId.set(game.id);
     this.error.set(null);
 
-    // The backend validates ownership, IN_PROGRESS status and the version.
-    this.games.remove(game.id, game.version).subscribe({
+    // The backend validates ownership and that the game is still IN_PROGRESS.
+    this.games.remove(game.id).subscribe({
       next: () => {
         this.inProgress.update((list) => list.filter((g) => g.id !== game.id));
         this.statistics.update((s) =>
@@ -101,13 +101,9 @@ export class Dashboard implements OnInit {
         this.deletingId.set(null);
         this.confirmingId.set(null);
         this.error.set(err.message);
-        // The game changed, completed elsewhere, or is already gone — the local
-        // list is stale, so refresh it in the background.
-        if (
-          err.code === 'STALE_VERSION' ||
-          err.code === 'GAME_NOT_FOUND' ||
-          err.code === 'GAME_NOT_IN_PROGRESS'
-        ) {
+        // The game completed elsewhere or is already gone — the local list is
+        // stale, so refresh it in the background.
+        if (err.code === 'GAME_NOT_FOUND' || err.code === 'GAME_NOT_IN_PROGRESS') {
           this.load(false);
         }
       },

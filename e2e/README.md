@@ -1,6 +1,6 @@
 # ROADTOUNINA — End-to-End tests (Milestone 16)
 
-**14 browser-driven E2E tests** that drive the real Angular UI → Express →
+**13 browser-driven E2E tests** that drive the real Angular UI → Express →
 PostgreSQL path. `context.request` is used only for support — authenticating a
 `BrowserContext`, seeding a completed game, and reading authoritative state as a
 secondary assertion — never as a test's main action or assertion.
@@ -19,7 +19,6 @@ rejection, the 11th-game 409) are covered by the backend integration tests
 | `resume.spec.ts` | resume restores current page / clicks / path |
 | `completion.spec.ts` | reaching the target shows the completed result |
 | `public.spec.ts` | completed game in anonymous history + detail; on the leaderboard under its filter |
-| `sessions.spec.ts` | two real browser contexts on one game keep exactly one ACTIVE session (+ concurrent-burst and DB assertions) |
 
 ## How it stays deterministic
 
@@ -32,7 +31,7 @@ rejection, the 11th-game 409) are covered by the backend integration tests
   port `55432`, database `roadtounina_e2e`). `global-setup.ts` refuses to run
   unless `E2E_DATABASE_URL` points at exactly `localhost:55432/roadtounina_e2e`,
   so the suite can never migrate or `TRUNCATE` Supabase. The schema is applied
-  with `prisma migrate deploy` and the four tables are truncated once per run.
+  with `prisma migrate deploy` and the application tables are truncated once per run.
 - **Isolation from dev servers** — the E2E stack runs the backend on `:3100` and
   the Angular dev server on `:4300` (a dedicated `proxy.e2e.json` points the
   frontend at `:3100`), with `reuseExistingServer: false`. A developer's
@@ -89,7 +88,7 @@ npm run db:down
 | `playwright.config.ts` | single worker, no retries, `webServer` for backend + frontend |
 | `global-setup.ts` | DB guard → readiness → `prisma migrate deploy` → truncate |
 | `run-e2e.mjs` | `db:up` → `playwright test` → `db:down` (finally) |
-| `support/db.ts` | `assertE2EDatabaseUrl`, truncate, `countActiveSessions` |
+| `support/db.ts` | `assertE2EDatabaseUrl`, `truncateAll`, `waitForDatabase` |
 | `support/users.ts` | `uniqueUser`, register/login/create-game in a context |
 | `support/api.ts` | `playThroughApi` (seed a completed game), `getGame` (secondary assertion) |
 | `support/constants.ts` | the handful of fixture page ids/titles the specs walk |

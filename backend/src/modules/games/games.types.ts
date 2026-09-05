@@ -9,7 +9,6 @@ export interface ArticleDto {
   gameId: string;
   pageId: number;
   title: string;
-  version: number;
   contentHtml: string;
   links: PageRefDto[];
 }
@@ -26,21 +25,6 @@ export interface GameMoveDto {
   createdAt: string;
 }
 
-export interface SessionDto {
-  id: string;
-  gameId: string;
-  status: "ACTIVE" | "ENDED" | "EXPIRED";
-  startedAt: string;
-  endedAt: string | null;
-  lastHeartbeatAt: string;
-}
-
-export interface SessionResponseDto {
-  session: SessionDto;
-  effectivePlayTimeMs: number;
-  gameVersion: number;
-}
-
 export interface GameDto {
   id: string;
   mode: "CLICK" | "TIME";
@@ -53,13 +37,13 @@ export interface GameDto {
   clickCount: number;
   backtrackCount: number;
   effectivePlayTimeMs: number;
-  version: number;
+  /** Start of the current play interval (in-progress games only); `null` otherwise. */
+  playStartedAt: string | null;
   startedAt: string;
   completedAt: string | null;
   createdAt: string;
   path: PageRefDto[];
   moves: GameMoveDto[];
-  activeSession: SessionDto | null;
 }
 
 export interface GameListItemDto {
@@ -73,8 +57,6 @@ export interface GameListItemDto {
   clickCount: number;
   backtrackCount: number;
   effectivePlayTimeMs: number;
-  version: number;
   startedAt: string;
   completedAt: string | null;
-  hasActiveSession: boolean;
 }

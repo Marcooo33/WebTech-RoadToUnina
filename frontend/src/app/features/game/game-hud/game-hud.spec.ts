@@ -15,7 +15,7 @@ function gameDto(over: Partial<GameDto> = {}): GameDto {
     clickCount: 3,
     backtrackCount: 0,
     effectivePlayTimeMs: 65_000,
-    version: 4,
+    playStartedAt: '2026-08-01T00:00:00.000Z',
     startedAt: '2026-08-01T00:00:00.000Z',
     completedAt: null,
     createdAt: '2026-08-01T00:00:00.000Z',
@@ -24,7 +24,6 @@ function gameDto(over: Partial<GameDto> = {}): GameDto {
       { pageId: 2, title: 'Current' },
     ],
     moves: [],
-    activeSession: null,
     ...over,
   };
 }

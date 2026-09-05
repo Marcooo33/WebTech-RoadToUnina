@@ -62,7 +62,6 @@ async function seedGame(options: SeedOptions): Promise<string> {
       clickCount: options.clickCount ?? 0,
       backtrackCount: 0,
       effectivePlayTimeMs: options.effectivePlayTimeMs ?? 0,
-      version: 1,
       startedAt: new Date(),
       completedAt: status === "COMPLETED" ? new Date() : null,
     },

@@ -62,23 +62,10 @@ export async function waitForDatabase(url: string, attempts = 20): Promise<void>
   }
 }
 
-/** Reset the four application tables. Runs once, in global setup. */
+/** Reset the application tables. Runs once, in global setup. */
 export async function truncateAll(url: string): Promise<void> {
   assertE2EDatabaseUrl(url);
   await withClient(url, (c) =>
-    c.query(
-      'TRUNCATE "game_sessions", "game_moves", "games", "users" RESTART IDENTITY CASCADE',
-    ),
+    c.query('TRUNCATE "game_moves", "games", "users" RESTART IDENTITY CASCADE'),
   );
-}
-
-export async function countActiveSessions(url: string, gameId: string): Promise<number> {
-  assertE2EDatabaseUrl(url);
-  return withClient(url, async (c) => {
-    const result = await c.query(
-      `SELECT COUNT(*)::int AS count FROM "game_sessions" WHERE "game_id" = $1 AND "status" = 'ACTIVE'`,
-      [gameId],
-    );
-    return result.rows[0].count as number;
-  });
 }

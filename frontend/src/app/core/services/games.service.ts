@@ -29,6 +29,11 @@ export class GamesService {
     return this.http.get<GameListResponse>(this.base, { params }).pipe(map((res) => res.items));
   }
 
+  /**
+   * Loads an owned game. For an in-progress game the backend also re-establishes
+   * the effective-time interval as part of this call (docs/api.md §5.3) — this is
+   * the resume flow; there is no separate "start session" request.
+   */
   get(gameId: string): Observable<GameDto> {
     return this.http.get<GameDto>(`${this.base}/${gameId}`);
   }
@@ -37,9 +42,8 @@ export class GamesService {
     return this.http.post<GameDto>(this.base, { mode, difficulty });
   }
 
-  remove(gameId: string, version: number): Observable<void> {
-    const params = new HttpParams().set('version', version);
-    return this.http.delete<void>(`${this.base}/${gameId}`, { params });
+  remove(gameId: string): Observable<void> {
+    return this.http.delete<void>(`${this.base}/${gameId}`);
   }
 
   /** Current sanitized article + playable links for the game (docs/api.md §5.5). */
@@ -49,15 +53,23 @@ export class GamesService {
 
   /**
    * Requests a NAVIGATION move to `toPageId` (docs/api.md §5.6). The backend
-   * validates ownership, session, version and link reachability; a stale
-   * `version` is rejected with `409 STALE_VERSION`.
+   * validates ownership, that the game is in progress, and link reachability.
    */
-  move(gameId: string, toPageId: number, version: number): Observable<GameDto> {
-    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toPageId, version });
+  move(gameId: string, toPageId: number): Observable<GameDto> {
+    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toPageId });
   }
 
   /** Requests a BACKTRACK action (docs/api.md §5.7). */
-  backtrack(gameId: string, version: number): Observable<GameDto> {
-    return this.http.post<GameDto>(`${this.base}/${gameId}/backtrack`, { version });
+  backtrack(gameId: string): Observable<GameDto> {
+    return this.http.post<GameDto>(`${this.base}/${gameId}/backtrack`, {});
+  }
+
+  /**
+   * Minimal keep-alive: tells the backend the player is still actively playing
+   * so effective play time excludes idle/offline periods (docs/api.md §6). Not a
+   * session — it only advances a timestamp. Returns 204.
+   */
+  heartbeat(gameId: string): Observable<void> {
+    return this.http.post<void>(`${this.base}/${gameId}/heartbeat`, {});
   }
 }

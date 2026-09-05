@@ -3,7 +3,6 @@ import { test } from "node:test";
 import {
   backtrackSchema,
   createGameSchema,
-  deleteGameQuerySchema,
   gameParamsSchema,
   listGamesQuerySchema,
   moveSchema,
@@ -117,128 +116,54 @@ test("gameParamsSchema rejects an invalid gameId", () => {
   assert.equal(gameParamsSchema.safeParse({ gameId: "not-a-uuid" }).success, false);
 });
 
-test("deleteGameQuerySchema accepts canonical non-negative integer versions", () => {
-  assert.deepEqual(deleteGameQuerySchema.parse({ version: "0" }), { version: 0 });
-  assert.deepEqual(deleteGameQuerySchema.parse({ version: "1" }), { version: 1 });
-  assert.deepEqual(deleteGameQuerySchema.parse({ version: "42" }), { version: 42 });
-  assert.deepEqual(deleteGameQuerySchema.parse({ version: "10" }), { version: 10 });
-  assert.deepEqual(deleteGameQuerySchema.parse({ version: "123" }), { version: 123 });
-});
-
-test("deleteGameQuerySchema rejects a missing version", () => {
-  assert.equal(deleteGameQuerySchema.safeParse({}).success, false);
-});
-
-test("deleteGameQuerySchema rejects empty and whitespace-only versions", () => {
-  assert.equal(deleteGameQuerySchema.safeParse({ version: "" }).success, false);
-  assert.equal(deleteGameQuerySchema.safeParse({ version: " " }).success, false);
-  assert.equal(
-    deleteGameQuerySchema.safeParse({ version: "   " }).success,
-    false,
-  );
-});
-
-test("deleteGameQuerySchema rejects non-canonical numeric representations", () => {
-  for (const value of ["1.0", "1e3", "+1", "-1", "01", "00", "1.5"]) {
-    assert.equal(
-      deleteGameQuerySchema.safeParse({ version: value }).success,
-      false,
-      `expected ${value} to be rejected`,
-    );
-  }
-});
-
-test("deleteGameQuerySchema rejects non-numeric versions", () => {
-  for (const value of ["abc", "1a", "0x10", "Infinity"]) {
-    assert.equal(
-      deleteGameQuerySchema.safeParse({ version: value }).success,
-      false,
-      `expected ${value} to be rejected`,
-    );
-  }
-});
-
-test("deleteGameQuerySchema rejects versions exceeding the safe integer range", () => {
-  const tooBig = "9007199254740992";
-  assert.equal(deleteGameQuerySchema.safeParse({ version: tooBig }).success, false);
-});
-
-test("moveSchema accepts a valid toPageId and version", () => {
-  const result = moveSchema.safeParse({ toPageId: 123456, version: 6 });
+test("moveSchema accepts a valid toPageId", () => {
+  const result = moveSchema.safeParse({ toPageId: 123456 });
 
   assert.equal(result.success, true);
   if (result.success) {
-    assert.deepEqual(result.data, { toPageId: 123456, version: 6 });
+    assert.deepEqual(result.data, { toPageId: 123456 });
   }
 });
 
-test("moveSchema rejects a missing toPageId or version", () => {
-  assert.equal(moveSchema.safeParse({ version: 0 }).success, false);
-  assert.equal(moveSchema.safeParse({ toPageId: 123 }).success, false);
+test("moveSchema rejects a missing toPageId", () => {
   assert.equal(moveSchema.safeParse({}).success, false);
 });
 
 test("moveSchema rejects a non-positive or non-integer toPageId", () => {
   for (const toPageId of [0, -1, 1.5, Number.NaN, "123", null]) {
     assert.equal(
-      moveSchema.safeParse({ toPageId, version: 0 }).success,
+      moveSchema.safeParse({ toPageId }).success,
       false,
       `expected toPageId=${String(toPageId)} to be rejected`,
     );
   }
 });
 
-test("moveSchema rejects an invalid version", () => {
-  for (const version of [-1, 0.5, Number.NaN, "0", null, 9007199254740992]) {
-    assert.equal(
-      moveSchema.safeParse({ toPageId: 123, version }).success,
-      false,
-      `expected version=${String(version)} to be rejected`,
-    );
-  }
-});
-
 test("moveSchema rejects undocumented client-supplied fields", () => {
   assert.equal(
-    moveSchema.safeParse({
-      toPageId: 123,
-      version: 0,
-      clickCount: 100,
-    }).success,
+    moveSchema.safeParse({ toPageId: 123, clickCount: 100 }).success,
     false,
   );
 
   assert.equal(
     moveSchema.safeParse({
       toPageId: 123,
-      version: 0,
       userId: "00000000-0000-0000-0000-000000000000",
     }).success,
     false,
   );
 
   assert.equal(
-    moveSchema.safeParse({ toPageId: 123, version: 0, status: "COMPLETED" })
-      .success,
+    moveSchema.safeParse({ toPageId: 123, version: 0 }).success,
     false,
   );
 });
 
-test("backtrackSchema accepts a valid version", () => {
-  assert.deepEqual(backtrackSchema.parse({ version: 0 }), { version: 0 });
-  assert.deepEqual(backtrackSchema.parse({ version: 6 }), { version: 6 });
-});
-
-test("backtrackSchema rejects a missing or invalid version", () => {
-  assert.equal(backtrackSchema.safeParse({}).success, false);
-  assert.equal(backtrackSchema.safeParse({ version: -1 }).success, false);
-  assert.equal(backtrackSchema.safeParse({ version: 0.5 }).success, false);
-  assert.equal(backtrackSchema.safeParse({ version: "0" }).success, false);
+test("backtrackSchema accepts an empty body", () => {
+  assert.deepEqual(backtrackSchema.parse({}), {});
 });
 
 test("backtrackSchema rejects undocumented client-supplied fields", () => {
-  assert.equal(
-    backtrackSchema.safeParse({ version: 0, clickCount: 5 }).success,
-    false,
-  );
+  assert.equal(backtrackSchema.safeParse({ version: 0 }).success, false);
+  assert.equal(backtrackSchema.safeParse({ clickCount: 5 }).success, false);
 });

@@ -140,7 +140,10 @@ Preserve the approved entities:
 - User
 - Game
 - GameMove
-- GameSession
+
+There is no separate play-session entity. Effective play time is tracked with
+three fields directly on `Game` (`effectivePlayTimeMs`, `playStartedAt`,
+`lastHeartbeatAt`) — see `docs/game-rules.md` §12.
 
 Do not add `Leaderboard`, `UserStatistics`, or `WikipediaPage` tables without explicit approval.
 
@@ -149,10 +152,10 @@ Important database invariants must remain protected.
 Examples:
 
 - non-negative counters;
-- one active session per game;
+- non-negative `effectivePlayTimeMs`;
 - unique move sequence within a game;
 - completion status consistent with completedAt;
-- cascade deletion for moves/sessions when an in-progress game is deleted.
+- cascade deletion for moves when an in-progress game is deleted.
 
 Custom PostgreSQL SQL inside Prisma migrations is allowed where Prisma schema syntax cannot express an approved constraint.
 
@@ -175,8 +178,7 @@ Key invariants include:
 - HARD no backtracking;
 - navigation only through validated internal Wikipedia article links;
 - backtracking does not count as a navigation click;
-- effective play time excludes time outside active play sessions;
-- at most one active play session per game;
+- effective play time excludes idle/offline time (only intervals bounded by a heartbeat or a gameplay action are counted);
 - victory is decided server-side;
 - completed games contribute to public history/rankings.
 
@@ -215,15 +217,9 @@ Do not create abstractions only for the sake of having more layers.
 
 ## 10. Transactions and Concurrency
 
-Use database transactions for state changes that must remain consistent across multiple writes.
+Use database transactions for state changes that must remain consistent across multiple writes (a navigation move updates the `Game` row and appends a `GameMove` atomically; completion also finalizes timing in the same transaction).
 
-Game mutations must account for concurrency.
-
-The approved design uses a `Game.version` field for optimistic concurrency.
-
-Do not replace newer game state with stale client state.
-
-Expected stale mutation behavior is an explicit conflict response.
+There is no optimistic-concurrency `version` field, and no session tokens, locks, or leases. The project does not need explicit simultaneous multi-tab/multi-device editing support; the common single-player, single-tab flow must be correct, and database integrity is kept with ordinary transactions and authoritative backend checks (ownership, `IN_PROGRESS`, valid link, difficulty rules). A rare race for the next move-sequence number is resolved by recomputing and retrying once.
 
 ---
 

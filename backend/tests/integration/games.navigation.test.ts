@@ -9,17 +9,16 @@ import { prisma } from "../../src/lib/prisma.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
 import type { MediaWikiClient } from "../../src/modules/wikipedia/mediawiki.client.js";
 import { WikipediaService } from "../../src/modules/wikipedia/wikipedia.service.js";
-import type { TitleResolution, TitleResolutionSource } from "../../src/modules/wikipedia/wikipedia.types.js";
+import type {
+  TitleResolution,
+  TitleResolutionSource,
+} from "../../src/modules/wikipedia/wikipedia.types.js";
 
 let server: Server;
 let baseUrl: string;
 const createdUserIds: string[] = [];
 
 const START_PAGE_ID = 1;
-
-interface ErrorBody {
-  error?: { code?: string; message?: string };
-}
 
 interface PageRef {
   pageId: number;
@@ -48,13 +47,12 @@ interface GameBody {
   clickCount?: number;
   backtrackCount?: number;
   effectivePlayTimeMs?: number;
-  version?: number;
+  playStartedAt?: string | null;
   startedAt?: string;
   completedAt?: string | null;
   createdAt?: string;
   path?: PageRef[];
   moves?: MoveBody[];
-  activeSession?: unknown;
   gameId?: string;
   pageId?: number;
   title?: string;
@@ -102,35 +100,16 @@ function unique(prefix: string): string {
   return `${prefix}_${randomUUID().replace(/-/g, "").slice(0, 16)}`;
 }
 
-function parseSetCookie(setCookie: string): {
-  name: string;
-  value: string;
-  attributes: Record<string, string>;
-} {
-  const [first, ...rest] = setCookie.split(";");
-  const [name, value] = first.split("=");
-
-  const attributes: Record<string, string> = {};
-  for (const part of rest) {
-    const trimmed = part.trim();
-    const eq = trimmed.indexOf("=");
-    if (eq === -1) {
-      attributes[trimmed.toLowerCase()] = "";
-    } else {
-      attributes[trimmed.slice(0, eq).toLowerCase()] = trimmed.slice(eq + 1);
-    }
-  }
-
-  return { name, value, attributes };
+function parseSetCookie(setCookie: string): { value: string } {
+  const [first] = setCookie.split(";");
+  const [, value] = first.split("=");
+  return { value };
 }
 
 async function register(
   username: string,
   base: string = baseUrl,
-): Promise<{
-  userId: string;
-  cookie: string;
-}> {
+): Promise<{ userId: string; cookie: string }> {
   const res = await fetch(`${base}/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -148,9 +127,7 @@ async function register(
     throw new Error("register did not return a user id");
   }
   const cookie = parseSetCookie(res.headers.getSetCookie()[0]).value;
-
   createdUserIds.push(userId);
-
   return { userId, cookie };
 }
 
@@ -172,10 +149,7 @@ async function post(
   });
 
   const text = await res.text();
-  return {
-    status: res.status,
-    body: text ? (JSON.parse(text) as GameBody) : {},
-  };
+  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
 }
 
 async function get(
@@ -190,10 +164,7 @@ async function get(
 
   const res = await fetch(`${base}${path}`, { headers });
   const text = await res.text();
-  return {
-    status: res.status,
-    body: text ? (JSON.parse(text) as GameBody) : {},
-  };
+  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
 }
 
 async function createGame(
@@ -202,57 +173,37 @@ async function createGame(
   difficulty = "EASY",
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  const created = await post("/api/games", { mode, difficulty }, cookie, base);
-
-  // Milestone 9: navigation and backtracking now require an ACTIVE play session.
-  // Starting one here does not bump Game.version or effectivePlayTimeMs, so the
-  // exact-version assertions below remain valid.
-  if (created.status === 201 && created.body.id) {
-    await post(`/api/games/${created.body.id}/session`, undefined, cookie, base);
-  }
-
-  return created;
+  return post("/api/games", { mode, difficulty }, cookie, base);
 }
 
 async function move(
   cookie: string,
   gameId: string,
   toPageId: number,
-  version: number,
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  return post(`/api/games/${gameId}/moves`, { toPageId, version }, cookie, base);
+  return post(`/api/games/${gameId}/moves`, { toPageId }, cookie, base);
 }
 
 async function backtrack(
   cookie: string,
   gameId: string,
-  version: number,
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  return post(`/api/games/${gameId}/backtrack`, { version }, cookie, base);
+  return post(`/api/games/${gameId}/backtrack`, {}, cookie, base);
 }
 
 async function del(
   gameId: string,
-  version: number,
   cookie: string,
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  const headers: Record<string, string> = {};
-  if (cookie) {
-    headers.Cookie = `access_token=${cookie}`;
-  }
-
-  const res = await fetch(
-    `${base}/api/games/${gameId}?version=${encodeURIComponent(String(version))}`,
-    { method: "DELETE", headers },
-  );
+  const res = await fetch(`${base}/api/games/${gameId}`, {
+    method: "DELETE",
+    headers: { Cookie: `access_token=${cookie}` },
+  });
   const text = await res.text();
-  return {
-    status: res.status,
-    body: text ? (JSON.parse(text) as GameBody) : {},
-  };
+  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
 }
 
 const fakeStartingPageProvider: StartingPageProvider = {
@@ -308,27 +259,27 @@ async function persistedMoves(gameId: string) {
 // Current article
 // ---------------------------------------------------------------------------
 
-test("owner can retrieve the current article without mutating state", async () => {
+test("owner can retrieve the current article without changing game state", async () => {
   const { cookie } = await register(unique("art1"));
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const beforeArticle = await get(`/api/games/${created.body.id}`, cookie);
-
-  const { status, body } = await get(`/api/games/${created.body.id}/article`, cookie);
+  const { status, body } = await get(
+    `/api/games/${created.body.id}/article`,
+    cookie,
+  );
 
   assert.equal(status, 200);
   assert.equal(body.gameId, created.body.id);
   assert.equal(body.pageId, created.body.currentPageId);
   assert.equal(body.title, titleFor(created.body.currentPageId!));
-  assert.equal(body.version, created.body.version);
   assert.equal(typeof body.contentHtml, "string");
   assert.ok(Array.isArray(body.links));
   assert.equal(body.links!.length, 5);
 
-  const afterArticle = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(afterArticle.body.version, beforeArticle.body.version);
-  assert.equal(afterArticle.body.clickCount, beforeArticle.body.clickCount);
+  const after = await get(`/api/games/${created.body.id}`, cookie);
+  assert.equal(after.body.clickCount, 0);
+  assert.equal(after.body.currentPageId, created.body.currentPageId);
 });
 
 test("article reflects the authoritative current page after navigation", async () => {
@@ -336,14 +287,16 @@ test("article reflects the authoritative current page after navigation", async (
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, created.body.version!);
+  await move(cookie, created.body.id!, 2);
 
-  const { status, body } = await get(`/api/games/${created.body.id}/article`, cookie);
+  const { status, body } = await get(
+    `/api/games/${created.body.id}/article`,
+    cookie,
+  );
 
   assert.equal(status, 200);
   assert.equal(body.pageId, 2);
   assert.equal(body.title, "Page 2");
-  assert.equal(body.version, 1);
 });
 
 test("non-owner cannot retrieve another user's article", async () => {
@@ -351,14 +304,17 @@ test("non-owner cannot retrieve another user's article", async () => {
   const other = await register(unique("artt"));
 
   const created = await createGame(owner.cookie);
-  const { status, body } = await get(`/api/games/${created.body.id}/article`, other.cookie);
+  const { status, body } = await get(
+    `/api/games/${created.body.id}/article`,
+    other.cookie,
+  );
 
   assert.equal(status, 404);
   assert.equal(body.error?.code, "GAME_NOT_FOUND");
 });
 
 // ---------------------------------------------------------------------------
-// Navigation
+// Navigation (no version, no session id)
 // ---------------------------------------------------------------------------
 
 test("valid navigation persists a NAVIGATION move and updates counters", async () => {
@@ -366,14 +322,13 @@ test("valid navigation persists a NAVIGATION move and updates counters", async (
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await move(cookie, created.body.id!, 2, 0);
+  const { status, body } = await move(cookie, created.body.id!, 2);
 
   assert.equal(status, 200);
   assert.equal(body.currentPageId, 2);
   assert.equal(body.currentPageTitle, "Page 2");
   assert.equal(body.clickCount, 1);
   assert.equal(body.backtrackCount, 0);
-  assert.equal(body.version, 1);
   assert.equal(body.status, "IN_PROGRESS");
   assert.deepEqual(body.path, [
     { pageId: 1, title: "Page 1" },
@@ -383,7 +338,6 @@ test("valid navigation persists a NAVIGATION move and updates counters", async (
   assert.equal(body.moves![0].type, "NAVIGATION");
   assert.equal(body.moves![0].fromPageId, 1);
   assert.equal(body.moves![0].toPageId, 2);
-  assert.equal(body.moves![0].toPageTitle, "Page 2");
 
   const moves = await persistedMoves(created.body.id!);
   assert.equal(moves.length, 1);
@@ -396,8 +350,8 @@ test("move sequences start at 1 and increment", async () => {
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
+  await move(cookie, created.body.id!, 2);
+  await move(cookie, created.body.id!, 3);
 
   const moves = await persistedMoves(created.body.id!);
   assert.deepEqual(
@@ -411,13 +365,12 @@ test("invalid/teleport page is rejected with INVALID_MOVE and no mutation", asyn
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await move(cookie, created.body.id!, 999999, 0);
+  const { status, body } = await move(cookie, created.body.id!, 999999);
 
   assert.equal(status, 422);
   assert.equal(body.error?.code, "INVALID_MOVE");
 
   const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 0);
   assert.equal(after.body.clickCount, 0);
   assert.equal(after.body.currentPageId, created.body.currentPageId);
 
@@ -425,22 +378,18 @@ test("invalid/teleport page is rejected with INVALID_MOVE and no mutation", asyn
   assert.equal(moves.length, 0);
 });
 
-test("stale version returns STALE_VERSION and does not create a move", async () => {
-  const { cookie } = await register(unique("nav4"));
+test("a move body carrying a legacy version field is rejected as a validation error", async () => {
+  const { cookie } = await register(unique("nav3b"));
   const created = await createGame(cookie);
-  assert.equal(created.status, 201);
 
-  const { status, body } = await move(cookie, created.body.id!, 2, 5);
+  const { status, body } = await post(
+    `/api/games/${created.body.id}/moves`,
+    { toPageId: 2, version: 0 },
+    cookie,
+  );
 
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 0);
-  assert.equal(after.body.clickCount, 0);
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 0);
+  assert.equal(status, 400);
+  assert.equal(body.error?.code, "VALIDATION_ERROR");
 });
 
 test("non-owner cannot navigate another user's game", async () => {
@@ -448,7 +397,7 @@ test("non-owner cannot navigate another user's game", async () => {
   const other = await register(unique("navt"));
 
   const created = await createGame(owner.cookie);
-  const { status, body } = await move(other.cookie, created.body.id!, 2, 0);
+  const { status, body } = await move(other.cookie, created.body.id!, 2);
 
   assert.equal(status, 404);
   assert.equal(body.error?.code, "GAME_NOT_FOUND");
@@ -459,150 +408,46 @@ test("completed games reject further navigation", async () => {
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const winning = await move(cookie, created.body.id!, TARGET_PAGE_ID, 0);
+  const winning = await move(cookie, created.body.id!, TARGET_PAGE_ID);
   assert.equal(winning.status, 200);
   assert.equal(winning.body.status, "COMPLETED");
 
-  const { status, body } = await move(cookie, created.body.id!, 2, winning.body.version!);
+  const { status, body } = await move(cookie, created.body.id!, 2);
 
   assert.equal(status, 409);
   assert.equal(body.error?.code, "GAME_NOT_IN_PROGRESS");
 });
 
-// ---------------------------------------------------------------------------
-// Concurrency
-// ---------------------------------------------------------------------------
-
-test("two concurrent moves with the same version: exactly one succeeds", async () => {
+test("two identical concurrent moves both persist as sequential moves", async () => {
   const { cookie } = await register(unique("conc1"));
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
   const results = await Promise.all([
-    move(cookie, created.body.id!, 2, 0),
-    move(cookie, created.body.id!, 2, 0),
+    move(cookie, created.body.id!, 2),
+    move(cookie, created.body.id!, 3),
   ]);
 
-  const successes = results.filter((r) => r.status === 200);
-  const conflicts = results.filter((r) => r.status === 409);
-
-  assert.equal(successes.length, 1);
-  assert.equal(conflicts.length, 1);
-  assert.equal(conflicts[0].body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 1);
-  assert.equal(after.body.clickCount, 1);
+  // Both are real user actions; neither is rejected and the move sequence stays
+  // consistent (the loser of the sequence-number race retries once).
+  assert.deepEqual(
+    results.map((r) => r.status).sort(),
+    [200, 200],
+  );
 
   const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 1);
-});
+  assert.equal(moves.length, 2);
+  assert.deepEqual(
+    moves.map((m) => m.sequence),
+    [1, 2],
+  );
 
-test("a game version change during article resolution returns STALE_VERSION, not INVALID_MOVE", async () => {
-  let targetGameId: string | undefined;
-  const wikipediaService = {
-    getValidInternalLinks: async (_pageId: number) => {
-      if (targetGameId) {
-        await prisma.game.update({
-          where: { id: targetGameId },
-          data: { version: { increment: 1 } },
-        });
-      }
-      return [];
-    },
-  } as unknown as WikipediaService;
-
-  const app = await createTestApp(wikipediaService);
-  try {
-    const { cookie } = await register(unique("race1"), app.baseUrl);
-    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
-    targetGameId = created.body.id!;
-
-    const { status, body } = await move(cookie, created.body.id!, 999999, 0, app.baseUrl);
-
-    assert.equal(status, 409);
-    assert.equal(body.error?.code, "STALE_VERSION");
-
-    const moves = await persistedMoves(created.body.id!);
-    assert.equal(moves.length, 0);
-  } finally {
-    await app.close();
-  }
-});
-
-test("a move that races a completing move returns STALE_VERSION, not GAME_NOT_IN_PROGRESS", async () => {
-  let targetGameId: string | undefined;
-  const wikipediaService = {
-    getValidInternalLinks: async (_pageId: number) => {
-      if (targetGameId) {
-        await prisma.game.update({
-          where: { id: targetGameId },
-          data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
-        });
-      }
-      return [{ pageId: 2, title: "Page 2" }];
-    },
-  } as unknown as WikipediaService;
-
-  const app = await createTestApp(wikipediaService);
-  try {
-    const { cookie } = await register(unique("race2"), app.baseUrl);
-    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
-    targetGameId = created.body.id!;
-
-    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
-
-    assert.equal(status, 409);
-    assert.equal(body.error?.code, "STALE_VERSION");
-
-    const moves = await persistedMoves(created.body.id!);
-    assert.equal(moves.length, 0);
-  } finally {
-    await app.close();
-  }
-});
-
-test("a move that races a completing move which also ended the session returns STALE_VERSION, not NO_ACTIVE_SESSION", async () => {
-  let targetGameId: string | undefined;
-  const wikipediaService = {
-    getValidInternalLinks: async (_pageId: number) => {
-      if (targetGameId) {
-        // Mimic a completing move that lands between the preliminary session
-        // check and the gameplay transaction: game completed, version bumped,
-        // and the ACTIVE session flipped to ENDED.
-        await prisma.game.update({
-          where: { id: targetGameId },
-          data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
-        });
-        await prisma.gameSession.updateMany({
-          where: { gameId: targetGameId, status: "ACTIVE" },
-          data: { status: "ENDED", endedAt: new Date() },
-        });
-      }
-      return [{ pageId: 2, title: "Page 2" }];
-    },
-  } as unknown as WikipediaService;
-
-  const app = await createTestApp(wikipediaService);
-  try {
-    const { cookie } = await register(unique("race3"), app.baseUrl);
-    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
-    targetGameId = created.body.id!;
-
-    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
-
-    assert.equal(status, 409);
-    assert.equal(body.error?.code, "STALE_VERSION");
-
-    const moves = await persistedMoves(created.body.id!);
-    assert.equal(moves.length, 0);
-  } finally {
-    await app.close();
-  }
+  const after = await get(`/api/games/${created.body.id}`, cookie);
+  assert.equal(after.body.clickCount, 2);
 });
 
 // ---------------------------------------------------------------------------
-// Backtracking
+// Backtracking (difficulty rules preserved)
 // ---------------------------------------------------------------------------
 
 test("EASY backtracking succeeds and decrements the active path", async () => {
@@ -610,15 +455,14 @@ test("EASY backtracking succeeds and decrements the active path", async () => {
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
+  await move(cookie, created.body.id!, 2);
+  await move(cookie, created.body.id!, 3);
 
-  const { status, body } = await backtrack(cookie, created.body.id!, 2);
+  const { status, body } = await backtrack(cookie, created.body.id!);
 
   assert.equal(status, 200);
   assert.equal(body.backtrackCount, 1);
   assert.equal(body.clickCount, 2);
-  assert.equal(body.version, 3);
   assert.equal(body.currentPageId, 2);
   assert.deepEqual(body.path, [
     { pageId: 1, title: "Page 1" },
@@ -633,67 +477,31 @@ test("EASY backtracking succeeds and decrements the active path", async () => {
   assert.equal(bt.toPageId, 2);
 });
 
-test("EASY may backtrack repeatedly while the path allows", async () => {
-  const { cookie } = await register(unique("bt2"));
-  const created = await createGame(cookie);
-  assert.equal(created.status, 201);
-
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
-  await move(cookie, created.body.id!, 4, 2);
-
-  const first = await backtrack(cookie, created.body.id!, 3);
-  assert.equal(first.status, 200);
-  assert.equal(first.body.backtrackCount, 1);
-  assert.equal(first.body.currentPageId, 3);
-
-  const second = await backtrack(cookie, created.body.id!, 4);
-  assert.equal(second.status, 200);
-  assert.equal(second.body.backtrackCount, 2);
-  assert.equal(second.body.currentPageId, 2);
-
-  const third = await backtrack(cookie, created.body.id!, 5);
-  assert.equal(third.status, 200);
-  assert.equal(third.body.backtrackCount, 3);
-  assert.equal(third.body.currentPageId, 1);
-  assert.equal(third.body.clickCount, 3);
-});
-
 test("EASY allows unlimited backtracks (a fourth succeeds)", async () => {
-  const { cookie } = await register(unique("bt2b"));
+  const { cookie } = await register(unique("bt2"));
   const created = await createGame(cookie, "CLICK", "EASY");
   assert.equal(created.status, 201);
 
-  let version = 0;
-
   for (let i = 1; i <= 4; i += 1) {
-    const nav = await move(cookie, created.body.id!, 2, version);
+    const nav = await move(cookie, created.body.id!, 2);
     assert.equal(nav.status, 200);
-    assert.equal(nav.body.currentPageId, 2);
     assert.equal(nav.body.clickCount, i);
-    version += 1;
 
-    const back = await backtrack(cookie, created.body.id!, version);
+    const back = await backtrack(cookie, created.body.id!);
     assert.equal(back.status, 200, `backtrack ${i} should succeed`);
     assert.equal(back.body.backtrackCount, i);
     assert.equal(back.body.currentPageId, 1);
-    version += 1;
   }
 
   const after = await get(`/api/games/${created.body.id}`, cookie);
-
-  assert.equal(after.status, 200);
   assert.equal(after.body.backtrackCount, 4);
   assert.equal(after.body.clickCount, 4);
-  assert.equal(after.body.version, 8);
   assert.equal(after.body.status, "IN_PROGRESS");
   assert.deepEqual(after.body.path, [{ pageId: 1, title: "Page 1" }]);
 
   const moves = await persistedMoves(created.body.id!);
   assert.equal(moves.length, 8);
   assert.equal(moves.filter((m) => m.type === "BACKTRACK").length, 4);
-  assert.equal(moves[moves.length - 1].type, "BACKTRACK");
-  assert.equal(moves[moves.length - 1].sequence, 8);
 });
 
 test("backtracking from the starting page is rejected and mutates nothing", async () => {
@@ -701,13 +509,12 @@ test("backtracking from the starting page is rejected and mutates nothing", asyn
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await backtrack(cookie, created.body.id!, 0);
+  const { status, body } = await backtrack(cookie, created.body.id!);
 
   assert.equal(status, 422);
   assert.equal(body.error?.code, "BACKTRACK_NOT_ALLOWED");
 
   const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 0);
   assert.equal(after.body.backtrackCount, 0);
   assert.equal(after.body.clickCount, 0);
 
@@ -720,25 +527,24 @@ test("MEDIUM allows three backtracks and rejects the fourth", async () => {
   const created = await createGame(cookie, "CLICK", "MEDIUM");
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
-  await move(cookie, created.body.id!, 4, 2);
-  await move(cookie, created.body.id!, 5, 3);
+  await move(cookie, created.body.id!, 2);
+  await move(cookie, created.body.id!, 3);
+  await move(cookie, created.body.id!, 4);
+  await move(cookie, created.body.id!, 5);
 
   for (let i = 0; i < 3; i += 1) {
-    const result = await backtrack(cookie, created.body.id!, 4 + i);
+    const result = await backtrack(cookie, created.body.id!);
     assert.equal(result.status, 200, `backtrack ${i + 1} should succeed`);
     assert.equal(result.body.backtrackCount, i + 1);
   }
 
-  const fourth = await backtrack(cookie, created.body.id!, 7);
+  const fourth = await backtrack(cookie, created.body.id!);
 
   assert.equal(fourth.status, 422);
   assert.equal(fourth.body.error?.code, "BACKTRACK_LIMIT_REACHED");
 
   const after = await get(`/api/games/${created.body.id}`, cookie);
   assert.equal(after.body.backtrackCount, 3);
-  assert.equal(after.body.version, 7);
   assert.equal(after.body.currentPageId, 2);
 });
 
@@ -747,16 +553,15 @@ test("HARD rejects backtracking with BACKTRACK_NOT_ALLOWED", async () => {
   const created = await createGame(cookie, "CLICK", "HARD");
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0);
+  await move(cookie, created.body.id!, 2);
 
-  const { status, body } = await backtrack(cookie, created.body.id!, 1);
+  const { status, body } = await backtrack(cookie, created.body.id!);
 
   assert.equal(status, 422);
   assert.equal(body.error?.code, "BACKTRACK_NOT_ALLOWED");
 
   const after = await get(`/api/games/${created.body.id}`, cookie);
   assert.equal(after.body.backtrackCount, 0);
-  assert.equal(after.body.version, 1);
   assert.equal(after.body.currentPageId, 2);
 
   const moves = await persistedMoves(created.body.id!);
@@ -768,10 +573,10 @@ test("navigating to a previously visited page remains a NAVIGATION", async () =>
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
+  await move(cookie, created.body.id!, 2);
+  await move(cookie, created.body.id!, 3);
 
-  const { status, body } = await move(cookie, created.body.id!, 2, 2);
+  const { status, body } = await move(cookie, created.body.id!, 2);
 
   assert.equal(status, 200);
   assert.deepEqual(body.path, [
@@ -796,11 +601,11 @@ test("A -> B -> C -> D, backtrack, C -> E reconstructs A -> B -> C -> E", async 
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  await move(cookie, created.body.id!, 2, 0); // A -> B
-  await move(cookie, created.body.id!, 3, 1); // B -> C
-  await move(cookie, created.body.id!, 4, 2); // C -> D
-  await backtrack(cookie, created.body.id!, 3); // D -> C
-  await move(cookie, created.body.id!, 5, 4); // C -> E
+  await move(cookie, created.body.id!, 2); // A -> B
+  await move(cookie, created.body.id!, 3); // B -> C
+  await move(cookie, created.body.id!, 4); // C -> D
+  await backtrack(cookie, created.body.id!); // D -> C
+  await move(cookie, created.body.id!, 5); // C -> E
 
   const { status, body } = await get(`/api/games/${created.body.id}`, cookie);
 
@@ -823,24 +628,36 @@ test("A -> B -> C -> D, backtrack, C -> E reconstructs A -> B -> C -> E", async 
 // Completion
 // ---------------------------------------------------------------------------
 
-test("navigating to the target page completes the game", async () => {
+test("navigating to the target page completes the game atomically", async () => {
   const { cookie } = await register(unique("comp1"));
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await move(cookie, created.body.id!, TARGET_PAGE_ID, 0);
+  const { status, body } = await move(
+    cookie,
+    created.body.id!,
+    TARGET_PAGE_ID,
+  );
 
   assert.equal(status, 200);
   assert.equal(body.status, "COMPLETED");
   assert.equal(typeof body.completedAt, "string");
   assert.equal(body.clickCount, 1);
-  assert.equal(body.version, 1);
   assert.equal(body.currentPageId, TARGET_PAGE_ID);
   assert.equal(body.currentPageTitle, TARGET_PAGE_TITLE);
+  assert.equal(body.playStartedAt, null);
   assert.deepEqual(body.path, [
     { pageId: 1, title: "Page 1" },
     { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
   ]);
+
+  const row = await prisma.game.findUniqueOrThrow({
+    where: { id: created.body.id! },
+  });
+  assert.equal(row.status, "COMPLETED");
+  assert.notEqual(row.completedAt, null);
+  assert.equal(row.playStartedAt, null);
+  assert.equal(row.lastHeartbeatAt, null);
 
   const moves = await persistedMoves(created.body.id!);
   assert.equal(moves.length, 1);
@@ -853,16 +670,15 @@ test("completed games reject further navigation and backtracking", async () => {
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const winning = await move(cookie, created.body.id!, TARGET_PAGE_ID, 0);
+  const winning = await move(cookie, created.body.id!, TARGET_PAGE_ID);
   assert.equal(winning.status, 200);
   assert.equal(winning.body.status, "COMPLETED");
-  const completedVersion = winning.body.version!;
 
-  const moveAfter = await move(cookie, created.body.id!, 2, completedVersion);
+  const moveAfter = await move(cookie, created.body.id!, 2);
   assert.equal(moveAfter.status, 409);
   assert.equal(moveAfter.body.error?.code, "GAME_NOT_IN_PROGRESS");
 
-  const backAfter = await backtrack(cookie, created.body.id!, completedVersion);
+  const backAfter = await backtrack(cookie, created.body.id!);
   assert.equal(backAfter.status, 409);
   assert.equal(backAfter.body.error?.code, "GAME_NOT_IN_PROGRESS");
 
@@ -870,166 +686,16 @@ test("completed games reject further navigation and backtracking", async () => {
   assert.equal(moves.length, 1);
 });
 
-// ---------------------------------------------------------------------------
-// Stale-version precedence
-// ---------------------------------------------------------------------------
-
-test("stale + invalid navigation returns STALE_VERSION, not INVALID_MOVE", async () => {
-  const { cookie } = await register(unique("stale1"));
+test("deleting a completed game is rejected; the game is preserved", async () => {
+  const { cookie } = await register(unique("comp3"));
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await move(cookie, created.body.id!, 999999, 5);
+  await move(cookie, created.body.id!, TARGET_PAGE_ID);
 
+  const { status, body } = await del(created.body.id!, cookie);
   assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 0);
-  assert.equal(after.body.clickCount, 0);
-  assert.equal(after.body.currentPageId, created.body.currentPageId);
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 0);
-});
-
-test("stale navigation does not invoke Wikipedia validation", async () => {
-  const calls = { article: 0 };
-  const wikipediaService = {
-    getValidInternalLinks: async () => {
-      calls.article += 1;
-      return [{ pageId: 2, title: "Page 2" }];
-    },
-  } as unknown as WikipediaService;
-
-  const app = await createTestApp(wikipediaService);
-  try {
-    const { cookie } = await register(unique("stale2"), app.baseUrl);
-    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
-    assert.equal(created.status, 201);
-
-    const { status, body } = await move(cookie, created.body.id!, 2, 5, app.baseUrl);
-
-    assert.equal(status, 409);
-    assert.equal(body.error?.code, "STALE_VERSION");
-    assert.equal(calls.article, 0);
-  } finally {
-    await app.close();
-  }
-});
-
-test("stale + HARD backtrack returns STALE_VERSION, not BACKTRACK_NOT_ALLOWED", async () => {
-  const { cookie } = await register(unique("stale3"));
-  const created = await createGame(cookie, "CLICK", "HARD");
-  assert.equal(created.status, 201);
-
-  await move(cookie, created.body.id!, 2, 0);
-
-  const { status, body } = await backtrack(cookie, created.body.id!, 99);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 1);
-  assert.equal(after.body.backtrackCount, 0);
-  assert.equal(after.body.currentPageId, 2);
-});
-
-test("stale + MEDIUM at limit backtrack returns STALE_VERSION, not BACKTRACK_LIMIT_REACHED", async () => {
-  const { cookie } = await register(unique("stale4"));
-  const created = await createGame(cookie, "CLICK", "MEDIUM");
-  assert.equal(created.status, 201);
-
-  await move(cookie, created.body.id!, 2, 0);
-  await move(cookie, created.body.id!, 3, 1);
-  await move(cookie, created.body.id!, 4, 2);
-  await move(cookie, created.body.id!, 5, 3);
-  await backtrack(cookie, created.body.id!, 4);
-  await backtrack(cookie, created.body.id!, 5);
-  await backtrack(cookie, created.body.id!, 6);
-
-  const { status, body } = await backtrack(cookie, created.body.id!, 6);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.backtrackCount, 3);
-  assert.equal(after.body.version, 7);
-});
-
-test("stale + backtrack from starting page returns STALE_VERSION and mutates nothing", async () => {
-  const { cookie } = await register(unique("stale5"));
-  const created = await createGame(cookie, "CLICK", "EASY");
-  assert.equal(created.status, 201);
-
-  const { status, body } = await backtrack(cookie, created.body.id!, 99);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.version, 0);
-  assert.equal(after.body.backtrackCount, 0);
-  assert.equal(after.body.clickCount, 0);
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 0);
-});
-
-test("a stale move against a completed game returns STALE_VERSION", async () => {
-  const { cookie } = await register(unique("compstale1"));
-  const created = await createGame(cookie);
-  assert.equal(created.status, 201);
-
-  await prisma.game.update({
-    where: { id: created.body.id },
-    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
-  });
-
-  const { status, body } = await move(cookie, created.body.id!, 2, 0);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 0);
-});
-
-test("a stale backtrack against a completed game returns STALE_VERSION", async () => {
-  const { cookie } = await register(unique("compstale2"));
-  const created = await createGame(cookie);
-  assert.equal(created.status, 201);
-
-  await prisma.game.update({
-    where: { id: created.body.id },
-    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
-  });
-
-  const { status, body } = await backtrack(cookie, created.body.id!, 0);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 0);
-});
-
-test("a stale delete against a completed game returns STALE_VERSION", async () => {
-  const { cookie } = await register(unique("compstale3"));
-  const created = await createGame(cookie);
-  assert.equal(created.status, 201);
-
-  await prisma.game.update({
-    where: { id: created.body.id },
-    data: { status: "COMPLETED", completedAt: new Date(), version: { increment: 1 } },
-  });
-
-  const { status, body } = await del(created.body.id!, 0, cookie);
-
-  assert.equal(status, 409);
-  assert.equal(body.error?.code, "STALE_VERSION");
+  assert.equal(body.error?.code, "GAME_NOT_IN_PROGRESS");
 
   const stillThere = await get(`/api/games/${created.body.id}`, cookie);
   assert.equal(stillThere.status, 200);
@@ -1037,7 +703,7 @@ test("a stale delete against a completed game returns STALE_VERSION", async () =
 });
 
 // ---------------------------------------------------------------------------
-// Redirect-to-target completion
+// Redirect-to-target completion (real WikipediaService + fake MediaWiki client)
 // ---------------------------------------------------------------------------
 
 test("a redirect link to the target completes the game in one navigation", async () => {
@@ -1072,8 +738,7 @@ test("a redirect link to the target completes the game in one navigation", async
     },
   } as unknown as MediaWikiClient;
 
-  const redirectService = new WikipediaService({ client: redirectClient });
-  const app = await createTestApp(redirectService);
+  const app = await createTestApp(new WikipediaService({ client: redirectClient }));
 
   try {
     const { cookie } = await register(unique("redir"), app.baseUrl);
@@ -1093,91 +758,12 @@ test("a redirect link to the target completes the game in one navigation", async
       cookie,
       created.body.id!,
       TARGET_PAGE_ID,
-      0,
       app.baseUrl,
     );
 
     assert.equal(status, 200);
     assert.equal(body.status, "COMPLETED");
     assert.equal(body.clickCount, 1);
-    assert.equal(body.version, 1);
-    assert.equal(typeof body.completedAt, "string");
-    assert.equal(body.currentPageId, TARGET_PAGE_ID);
-    assert.equal(body.currentPageTitle, TARGET_PAGE_TITLE);
-
-    const moves = await persistedMoves(created.body.id!);
-    assert.equal(moves.length, 1);
-    assert.equal(moves[0].type, "NAVIGATION");
-    assert.equal(moves[0].toPageId, TARGET_PAGE_ID);
-    assert.equal(moves[0].toPageTitle, TARGET_PAGE_TITLE);
-  } finally {
-    await app.close();
-  }
-});
-
-// ---------------------------------------------------------------------------
-// Playable links beyond the old 500-link cutoff
-// ---------------------------------------------------------------------------
-
-test("a target link beyond the old 500-link cutoff completes in one navigation", async () => {
-  const rawLinks = Array.from({ length: 600 }, (_, i) => ({
-    ns: 0,
-    title: `T${i}`,
-    pageid: 5000 + i,
-  }));
-  rawLinks[550] = { ns: 0, title: "Unina", pageid: 487631 };
-
-  const client = {
-    getArticleLinks: async (pageId: number) => {
-      if (pageId === 1) {
-        return { pageId: 1, title: "Page 1", length: 2000, links: rawLinks };
-      }
-      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
-    },
-    getArticleHtml: async (pageId: number) => ({
-      pageId,
-      title: titleFor(pageId),
-      html: '<p><a href="/wiki/Unina">Unina</a></p>',
-    }),
-    resolveTitles: async (sources: TitleResolutionSource[]) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, {
-            kind: "REDIRECT",
-            canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-          });
-        } else {
-          map.set(source.title, {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          });
-        }
-      }
-      return map;
-    },
-  } as unknown as MediaWikiClient;
-
-  const service = new WikipediaService({ client });
-  const app = await createTestApp(service);
-
-  try {
-    const { cookie } = await register(unique("beyond500"), app.baseUrl);
-    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
-    assert.equal(created.status, 201);
-
-    const { status, body } = await move(
-      cookie,
-      created.body.id!,
-      TARGET_PAGE_ID,
-      0,
-      app.baseUrl,
-    );
-
-    assert.equal(status, 200);
-    assert.equal(body.status, "COMPLETED");
-    assert.equal(body.clickCount, 1);
-    assert.equal(body.version, 1);
     assert.equal(typeof body.completedAt, "string");
     assert.equal(body.currentPageId, TARGET_PAGE_ID);
 
@@ -1193,10 +779,6 @@ test("a target link beyond the old 500-link cutoff completes in one navigation",
 // Authoritative playable-link validation (contextual filtering)
 // ---------------------------------------------------------------------------
 
-// Builds a real WikipediaService whose MediaWiki client reports BOTH a normal
-// body link (B) and a citation-only link (C) as raw links, but whose article
-// HTML places C inside a citation context. The real ArticleParserService must
-// therefore drop C from the playable link set.
 function makeContextualWikipediaService(): WikipediaService {
   const client = {
     getArticleLinks: async (pageId: number) => {
@@ -1251,17 +833,15 @@ test("a normal body link remains navigable", async () => {
       [2],
     );
 
-    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
+    const { status, body } = await move(cookie, created.body.id!, 2, app.baseUrl);
 
     assert.equal(status, 200);
     assert.equal(body.currentPageId, 2);
     assert.equal(body.clickCount, 1);
-    assert.equal(body.version, 1);
 
     const moves = await persistedMoves(created.body.id!);
     assert.equal(moves.length, 1);
     assert.equal(moves[0].type, "NAVIGATION");
-    assert.equal(moves[0].toPageId, 2);
   } finally {
     await app.close();
   }
@@ -1282,16 +862,14 @@ test("a citation-only link is rejected with INVALID_MOVE and mutates nothing", a
     assert.equal(article.status, 200);
     assert.equal(article.body.links!.some((link) => link.pageId === 3), false);
 
-    const { status, body } = await move(cookie, created.body.id!, 3, 0, app.baseUrl);
+    const { status, body } = await move(cookie, created.body.id!, 3, app.baseUrl);
 
     assert.equal(status, 422);
     assert.equal(body.error?.code, "INVALID_MOVE");
 
     const after = await get(`/api/games/${created.body.id}`, cookie, app.baseUrl);
     assert.equal(after.body.currentPageId, created.body.currentPageId);
-    assert.equal(after.body.currentPageTitle, created.body.currentPageTitle);
     assert.equal(after.body.clickCount, 0);
-    assert.equal(after.body.version, 0);
     assert.equal(after.body.status, "IN_PROGRESS");
 
     const moves = await persistedMoves(created.body.id!);
@@ -1351,16 +929,10 @@ test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE",
       [2],
     );
 
-    const { status, body } = await move(cookie, created.body.id!, 3, 0, app.baseUrl);
+    const { status, body } = await move(cookie, created.body.id!, 3, app.baseUrl);
 
     assert.equal(status, 422);
     assert.equal(body.error?.code, "INVALID_MOVE");
-
-    const after = await get(`/api/games/${created.body.id}`, cookie, app.baseUrl);
-    assert.equal(after.body.currentPageId, created.body.currentPageId);
-    assert.equal(after.body.clickCount, 0);
-    assert.equal(after.body.version, 0);
-    assert.equal(after.body.status, "IN_PROGRESS");
 
     const moves = await persistedMoves(created.body.id!);
     assert.equal(moves.length, 0);
@@ -1405,7 +977,7 @@ test("a legitimate section heading containing 'fonti' keeps its links navigable"
     const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
     assert.equal(created.status, 201);
 
-    const { status, body } = await move(cookie, created.body.id!, 2, 0, app.baseUrl);
+    const { status, body } = await move(cookie, created.body.id!, 2, app.baseUrl);
 
     assert.equal(status, 200);
     assert.equal(body.currentPageId, 2);

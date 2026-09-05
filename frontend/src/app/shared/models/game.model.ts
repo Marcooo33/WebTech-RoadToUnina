@@ -3,7 +3,6 @@ export type GameMode = 'CLICK' | 'TIME';
 export type GameDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
 export type GameStatus = 'IN_PROGRESS' | 'COMPLETED';
 export type GameMoveType = 'NAVIGATION' | 'BACKTRACK';
-export type GameSessionStatus = 'ACTIVE' | 'ENDED' | 'EXPIRED';
 
 /** A reference to a Wikipedia page on the active path (docs/api.md §3.3). */
 export interface PageRef {
@@ -22,16 +21,6 @@ export interface GameMoveDto {
   createdAt: string;
 }
 
-/** Play session record (docs/api.md §3.7). */
-export interface SessionDto {
-  id: string;
-  gameId: string;
-  status: GameSessionStatus;
-  startedAt: string;
-  endedAt: string | null;
-  lastHeartbeatAt: string;
-}
-
 /** Item in the current user's game list (docs/api.md §3.5). */
 export interface GameListItemDto {
   id: string;
@@ -44,10 +33,8 @@ export interface GameListItemDto {
   clickCount: number;
   backtrackCount: number;
   effectivePlayTimeMs: number;
-  version: number;
   startedAt: string;
   completedAt: string | null;
-  hasActiveSession: boolean;
 }
 
 /** Full representation of an owned game, used to resume (docs/api.md §3.6). */
@@ -62,12 +49,13 @@ export interface GameDto {
   currentPageTitle: string;
   clickCount: number;
   backtrackCount: number;
+  /** Finalized effective play time (ms). Authoritative; the HUD only animates it. */
   effectivePlayTimeMs: number;
-  version: number;
+  /** Start of the current play interval for an in-progress game; `null` otherwise. */
+  playStartedAt: string | null;
   startedAt: string;
   completedAt: string | null;
   createdAt: string;
   path: PageRef[];
   moves: GameMoveDto[];
-  activeSession: SessionDto | null;
 }
