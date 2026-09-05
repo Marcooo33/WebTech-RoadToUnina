@@ -1,26 +1,23 @@
 import type { Request, Response } from "express";
-import type { ValidatedRequest } from "../../middleware/validation.middleware.js";
 import {
   clearAccessTokenCookie,
   setAccessTokenCookie,
 } from "../../shared/cookies.js";
-import type { LoginInput, RegisterInput } from "./auth.schema.js";
 import { getCurrentUser, login, register, toUserProfileDto } from "./auth.service.js";
+import { parseLoginInput, parseRegisterInput } from "./auth.validation.js";
 
 export async function registerHandler(
   req: Request,
   res: Response,
 ): Promise<void> {
-  const input = (req as ValidatedRequest).validated.body as RegisterInput;
-  const user = await register(input);
+  const user = await register(parseRegisterInput(req.body));
 
   setAccessTokenCookie(res, user.id);
   res.status(201).json(toUserProfileDto(user));
 }
 
 export async function loginHandler(req: Request, res: Response): Promise<void> {
-  const input = (req as ValidatedRequest).validated.body as LoginInput;
-  const user = await login(input);
+  const user = await login(parseLoginInput(req.body));
 
   setAccessTokenCookie(res, user.id);
   res.status(200).json(toUserProfileDto(user));

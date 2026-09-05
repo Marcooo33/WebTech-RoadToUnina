@@ -35,7 +35,6 @@ describe('errorInterceptor', () => {
         error: {
           code: 'GAME_NOT_FOUND',
           message: 'Game does not exist',
-          details: [{ path: 'x' }],
         },
       },
       { status: 404, statusText: 'Not Found' },

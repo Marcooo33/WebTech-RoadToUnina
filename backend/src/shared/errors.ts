@@ -23,7 +23,6 @@ export interface ErrorBody {
   error: {
     code: ErrorCode;
     message: string;
-    details?: unknown;
   };
 }
 
@@ -32,23 +31,12 @@ export class ApiError extends Error {
     public readonly status: number,
     public readonly code: ErrorCode,
     message: string,
-    public readonly details?: unknown,
   ) {
     super(message);
     this.name = "ApiError";
   }
 }
 
-export function errorBody(
-  code: ErrorCode,
-  message: string,
-  details?: unknown,
-): ErrorBody {
-  const error: ErrorBody["error"] = { code, message };
-
-  if (details !== undefined) {
-    error.details = details;
-  }
-
-  return { error };
+export function errorBody(code: ErrorCode, message: string): ErrorBody {
+  return { error: { code, message } };
 }

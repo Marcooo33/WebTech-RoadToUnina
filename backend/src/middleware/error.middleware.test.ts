@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { z } from "zod";
 import { errorMiddleware } from "./error.middleware.js";
 import { WikipediaError } from "../modules/wikipedia/wikipedia.errors.js";
 import { ApiError, ErrorCode } from "../shared/errors.js";
@@ -41,17 +40,20 @@ test("maps ApiError to its status and body", () => {
   });
 });
 
-test("maps ZodError to 400 VALIDATION_ERROR with details", () => {
-  const schema = z.object({ name: z.string() });
-  const result = schema.safeParse({});
+test("maps a validation ApiError to 400 VALIDATION_ERROR", () => {
   const res = mockResponse();
 
-  errorMiddleware(result.error, {} as never, res as never, () => {});
+  errorMiddleware(
+    new ApiError(400, ErrorCode.VALIDATION_ERROR, "Invalid move request"),
+    {} as never,
+    res as never,
+    () => {},
+  );
 
   assert.equal(res.statusCode, 400);
-  const body = res.body as { error: { code: string; details: unknown[] } };
-  assert.equal(body.error.code, "VALIDATION_ERROR");
-  assert.equal(body.error.details.length, 1);
+  assert.deepEqual(res.body, {
+    error: { code: "VALIDATION_ERROR", message: "Invalid move request" },
+  });
 });
 
 test("maps JSON parse errors to 400 INVALID_JSON", () => {

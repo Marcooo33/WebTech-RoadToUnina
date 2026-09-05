@@ -1,5 +1,4 @@
 import type { NextFunction, Request, Response } from "express";
-import { ZodError } from "zod";
 import { WikipediaError } from "../modules/wikipedia/wikipedia.errors.js";
 import { ApiError, ErrorCode, errorBody } from "../shared/errors.js";
 
@@ -50,18 +49,10 @@ export function errorMiddleware(
     return;
   }
 
+  // Explicit request validation (see shared/validation.ts) throws an ApiError
+  // with ErrorCode.VALIDATION_ERROR, so it is handled here too.
   if (error instanceof ApiError) {
-    res.status(error.status).json(errorBody(error.code, error.message, error.details));
-    return;
-  }
-
-  if (error instanceof ZodError) {
-    const details = error.issues.map((issue) => ({
-      path: issue.path.join("."),
-      message: issue.message,
-    }));
-
-    res.status(400).json(errorBody(ErrorCode.VALIDATION_ERROR, "Invalid request", details));
+    res.status(error.status).json(errorBody(error.code, error.message));
     return;
   }
 

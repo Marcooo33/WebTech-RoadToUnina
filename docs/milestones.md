@@ -315,8 +315,7 @@ backend/src/
 ├── lib/
 │   └── prisma.ts
 ├── middleware/
-│   ├── error.middleware.ts
-│   └── validation.middleware.ts
+│   └── error.middleware.ts
 ├── modules/
 └── shared/
 ```
@@ -327,7 +326,8 @@ Implement:
 - Prisma Client lifecycle/singleton;
 - centralized error handling;
 - API 404 handling;
-- request validation infrastructure;
+- explicit request validation at the controller boundary (small `parse*`
+  functions per module; shared helpers in `shared/validation.ts`);
 - standard JSON API error shape;
 - basic logging approach if needed.
 

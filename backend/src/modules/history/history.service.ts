@@ -7,7 +7,7 @@ import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
 import { toGameMoveDto } from "../games/game-move.js";
 import { reconstructActivePath } from "../games/game-path.js";
-import type { HistoryListQuery } from "./history.schema.js";
+import type { HistoryListQuery } from "./history.validation.js";
 import type {
   CompletedGameDetailDto,
   CompletedGameSummaryDto,

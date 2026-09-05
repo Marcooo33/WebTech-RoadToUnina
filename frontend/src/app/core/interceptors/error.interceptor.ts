@@ -5,14 +5,14 @@ import { ApiError } from '../../shared/models/api-error.model';
 import { AuthService } from '../auth/auth.service';
 
 interface BackendErrorBody {
-  error?: { code?: string; message?: string; details?: unknown };
+  error?: { code?: string; message?: string };
 }
 
 /**
  * Converts every failed HTTP response into an {@link ApiError} with the stable
- * `{ error: { code, message, details } }` shape from docs/api.md §2.5, so
- * components never touch `HttpErrorResponse` directly. A `401` additionally
- * resets local auth state.
+ * `{ error: { code, message } }` shape from docs/api.md §2.5, so components
+ * never touch `HttpErrorResponse` directly. A `401` additionally resets local
+ * auth state.
  */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
@@ -53,7 +53,6 @@ function toApiError(error: unknown): ApiError {
       error.status,
       parsed.code ?? 'INTERNAL_ERROR',
       parsed.message,
-      parsed.details,
     );
   }
 

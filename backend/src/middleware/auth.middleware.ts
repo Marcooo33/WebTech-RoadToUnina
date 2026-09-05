@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import { z } from "zod";
 import { verifyAccessToken } from "../lib/jwt.js";
 import { ACCESS_TOKEN_COOKIE } from "../shared/cookies.js";
 import { ApiError, ErrorCode } from "../shared/errors.js";
+import { isUuid } from "../shared/validation.js";
 
 export interface AuthIdentity {
   userId: string;
@@ -16,8 +16,6 @@ declare global {
     }
   }
 }
-
-const uuidSchema = z.string().uuid();
 
 function authenticationRequired(): ApiError {
   return new ApiError(
@@ -47,7 +45,7 @@ export function authenticate(
     return;
   }
 
-  if (!sub || !uuidSchema.safeParse(sub).success) {
+  if (!isUuid(sub)) {
     next(authenticationRequired());
     return;
   }

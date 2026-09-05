@@ -392,6 +392,20 @@ test("a move body carrying a legacy version field is rejected as a validation er
   assert.equal(body.error?.code, "VALIDATION_ERROR");
 });
 
+test("a backtrack body carrying unexpected fields is rejected as a validation error", async () => {
+  const { cookie } = await register(unique("nav3c"));
+  const created = await createGame(cookie);
+
+  const { status, body } = await post(
+    `/api/games/${created.body.id}/backtrack`,
+    { version: 0 },
+    cookie,
+  );
+
+  assert.equal(status, 400);
+  assert.equal(body.error?.code, "VALIDATION_ERROR");
+});
+
 test("non-owner cannot navigate another user's game", async () => {
   const owner = await register(unique("navo"));
   const other = await register(unique("navt"));

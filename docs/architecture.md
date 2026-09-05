@@ -170,8 +170,7 @@ backend/src/
 │   └── prisma.ts
 ├── middleware/
 │   ├── auth.middleware.ts
-│   ├── error.middleware.ts
-│   └── validation.middleware.ts
+│   └── error.middleware.ts
 ├── modules/
 │   ├── auth/
 │   ├── users/
@@ -189,11 +188,18 @@ feature/
 ├── feature.controller.ts
 ├── feature.service.ts
 ├── feature.repository.ts
-├── feature.schema.ts
+├── feature.validation.ts
 └── feature.types.ts
 ```
 
 Do not create every file mechanically if it provides no value. Keep responsibilities separated without over-engineering.
+
+`feature.validation.ts` holds small, explicit `parse*` functions that check an
+endpoint's untrusted body / query / route params and return typed values. They
+are called at the top of the controller handler; a failed check throws a
+`VALIDATION_ERROR` (`shared/validation.ts`). Shared low-level helpers
+(`asObject`, `isUuid`, positive-integer query parsing) live in
+`shared/validation.ts`. There is no generic validation middleware or schema DSL.
 
 ---
 
@@ -206,9 +212,9 @@ HTTP Request
     ↓
 Route
     ↓
-Middleware / validation
+Auth middleware (where required)
     ↓
-Controller
+Controller (validates input at the boundary)
     ↓
 Service / domain logic
     ↓

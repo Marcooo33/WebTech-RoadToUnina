@@ -1,47 +1,111 @@
 import ms from "ms";
 import type { StringValue } from "ms";
-import { z } from "zod";
 
-function isPositiveDuration(value: string): boolean {
-  const duration = ms(value as StringValue);
-
-  return typeof duration === "number" && Number.isFinite(duration) && duration > 0;
+export interface Env {
+  DATABASE_URL: string;
+  PORT: number;
+  NODE_ENV: "development" | "test" | "production";
+  JWT_SECRET: string;
+  JWT_EXPIRES_IN: string;
+  E2E_FAKE_WIKIPEDIA: "0" | "1";
 }
 
-const jwtExpiresInSchema = z
-  .string()
-  .min(1)
-  .default("8h")
-  .refine(isPositiveDuration, {
-    message: 'JWT_EXPIRES_IN must be a valid duration (e.g. "8h", "1d", "60")',
-  });
+type RawEnv = Record<string, string | undefined>;
 
-export const envSchema = z.object({
-  DATABASE_URL: z.string().min(1),
-  PORT: z.coerce.number().int().min(1).max(65535).default(3000),
-  NODE_ENV: z
-    .enum(["development", "test", "production"])
-    .default("development"),
-  JWT_SECRET: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
-  JWT_EXPIRES_IN: jwtExpiresInSchema,
-  // Test-only. When "1", server.ts swaps the live MediaWiki integration for the
-  // deterministic fixture adapter used by the Playwright E2E suite (see e2e/).
-  // Never set in development or production.
-  E2E_FAKE_WIKIPEDIA: z.enum(["0", "1"]).default("0"),
-});
+const JWT_SECRET_MIN_LENGTH = 32;
 
-export type Env = z.infer<typeof envSchema>;
+function fail(reason: string): never {
+  throw new Error(`Invalid environment configuration: ${reason}`);
+}
 
-export function parseEnv(raw: Record<string, string | undefined>): Env {
-  const result = envSchema.safeParse(raw);
+function requiredString(raw: RawEnv, name: string): string {
+  const value = raw[name];
 
-  if (!result.success) {
-    const details = result.error.issues
-      .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
-      .join("\n- ");
-
-    throw new Error(`Invalid environment configuration:\n- ${details}`);
+  if (value === undefined || value.trim() === "") {
+    fail(`${name} is required`);
   }
 
-  return result.data;
+  return value;
+}
+
+function parsePort(value: string | undefined): number {
+  if (value === undefined || value === "") {
+    return 3000;
+  }
+
+  const port = Number(value);
+
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    fail(`PORT must be an integer between 1 and 65535 (received "${value}")`);
+  }
+
+  return port;
+}
+
+function parseNodeEnv(value: string | undefined): Env["NODE_ENV"] {
+  if (value === undefined || value === "") {
+    return "development";
+  }
+
+  if (value === "development" || value === "test" || value === "production") {
+    return value;
+  }
+
+  fail(
+    `NODE_ENV must be one of development, test, production (received "${value}")`,
+  );
+}
+
+function parseJwtSecret(raw: RawEnv): string {
+  const value = requiredString(raw, "JWT_SECRET");
+
+  if (value.length < JWT_SECRET_MIN_LENGTH) {
+    fail(`JWT_SECRET must be at least ${JWT_SECRET_MIN_LENGTH} characters`);
+  }
+
+  return value;
+}
+
+function parseJwtExpiresIn(value: string | undefined): string {
+  if (value === undefined || value === "") {
+    return "8h";
+  }
+
+  const duration = ms(value as StringValue);
+
+  if (typeof duration !== "number" || !Number.isFinite(duration) || duration <= 0) {
+    fail(
+      `JWT_EXPIRES_IN must be a positive duration such as "8h", "1d" or "60" (received "${value}")`,
+    );
+  }
+
+  return value;
+}
+
+function parseFlag(value: string | undefined, name: string): "0" | "1" {
+  if (value === undefined || value === "") {
+    return "0";
+  }
+
+  if (value === "0" || value === "1") {
+    return value;
+  }
+
+  fail(`${name} must be "0" or "1" (received "${value}")`);
+}
+
+/**
+ * Validates process environment at startup and returns a fully typed config.
+ * Missing or malformed values throw immediately so the server never boots in a
+ * half-configured state. `E2E_FAKE_WIKIPEDIA` is test-only (see server.ts).
+ */
+export function parseEnv(raw: RawEnv): Env {
+  return {
+    DATABASE_URL: requiredString(raw, "DATABASE_URL"),
+    PORT: parsePort(raw.PORT),
+    NODE_ENV: parseNodeEnv(raw.NODE_ENV),
+    JWT_SECRET: parseJwtSecret(raw),
+    JWT_EXPIRES_IN: parseJwtExpiresIn(raw.JWT_EXPIRES_IN),
+    E2E_FAKE_WIKIPEDIA: parseFlag(raw.E2E_FAKE_WIKIPEDIA, "E2E_FAKE_WIKIPEDIA"),
+  };
 }

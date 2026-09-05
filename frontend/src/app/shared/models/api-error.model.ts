@@ -1,9 +1,9 @@
 /**
  * Normalized client-side representation of a backend error response.
  *
- * The backend always returns `{ error: { code, message, details? } }`
- * (docs/api.md §2.5). The HTTP error interceptor converts every failed request
- * into an instance of this class so components have a single shape to handle.
+ * The backend always returns `{ error: { code, message } }` (docs/api.md §2.5).
+ * The HTTP error interceptor converts every failed request into an instance of
+ * this class so components have a single shape to handle.
  */
 export class ApiError extends Error {
   constructor(
@@ -13,8 +13,6 @@ export class ApiError extends Error {
     readonly code: string,
     /** Human-readable summary safe to show to the user. */
     message: string,
-    /** Optional structured context (e.g. validation `{ path, message }[]`). */
-    readonly details?: unknown,
   ) {
     super(message);
     this.name = 'ApiError';

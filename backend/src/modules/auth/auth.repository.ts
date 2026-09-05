@@ -1,6 +1,6 @@
 import { prisma } from "../../lib/prisma.js";
 import type { User } from "../../generated/prisma/client.js";
-import { normalizeEmail } from "./auth.schema.js";
+import { normalizeEmail } from "./auth.validation.js";
 
 export interface CreateUserInput {
   username: string;

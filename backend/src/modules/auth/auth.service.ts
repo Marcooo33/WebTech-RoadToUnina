@@ -8,7 +8,7 @@ import {
   findUserByIdentifier,
   findUserByUsername,
 } from "./auth.repository.js";
-import { normalizeEmail, type LoginInput, type RegisterInput } from "./auth.schema.js";
+import { normalizeEmail, type LoginInput, type RegisterInput } from "./auth.validation.js";
 import type { UserProfileDto } from "./auth.types.js";
 
 function isUniqueConstraintError(error: unknown): boolean {

@@ -75,15 +75,18 @@ Every error uses the standard shape established by the Milestone 3 backend found
 {
   "error": {
     "code": "VALIDATION_ERROR",
-    "message": "Invalid request",
-    "details": [ { "path": "body.username", "message": "Required" } ]
+    "message": "toPageId must be a positive integer"
   }
 }
 ```
 
 - `code` — machine-readable error code (see §2.6);
-- `message` — human-readable summary;
-- `details` — optional; present for validation errors (array of `{ path, message }`) and anywhere else that benefits from structured context.
+- `message` — human-readable summary. For a `VALIDATION_ERROR` it names the field or rule that failed.
+
+HTTP inputs (body, query, route params) are validated explicitly at the backend
+boundary with small per-module TypeScript parsing functions (`*.validation.ts`).
+A failed check produces the `VALIDATION_ERROR` shape above; domain rules stay in
+the services and produce their own codes (§2.6).
 
 ### 2.6 Error codes
 
@@ -912,6 +915,6 @@ This contract has been checked against the approved documents:
 - **Game rules** — two statuses only; 10-game limit; CLICK/TIME modes; EASY/MEDIUM/HARD backtracking rules; navigation only through validated internal links; backtracking does not increment clicks; effective time excludes idle/offline time; server-side victory; completed games only in public surfaces.
 - **Database** — endpoints map 1:1 onto `User`, `Game`, `GameMove` and their enums; effective play time is three fields on `Game`, not a table; no `Leaderboard`, `UserStatistics`, or `WikipediaPage` tables are assumed; leaderboards/statistics are derived from `Game` records; `passwordHash` is never exposed; there is no `version` field.
 - **Architecture** — Express authoritative; Angular requests actions; ownership from authentication; no client-authoritative game state; MediaWiki navigation controlled by ROADTOUNINA; a minimal heartbeat updates timing only; no iframe navigation.
-- **Milestone 3 error shape** — all errors use `{ error: { code, message, details? } }`.
+- **Milestone 3 error shape** — all errors use `{ error: { code, message } }`.
 
 This contract defines the interface for Milestones 5–15 without implementing any of them.

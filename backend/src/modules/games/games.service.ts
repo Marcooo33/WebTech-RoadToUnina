@@ -15,10 +15,10 @@ import {
 import { toGameMoveDto } from "./game-move.js";
 import { reconstructActivePath } from "./game-path.js";
 import type {
-  BacktrackInput,
   CreateGameInput,
+  GameStatusFilter,
   MoveInput,
-} from "./games.schema.js";
+} from "./games.validation.js";
 import type {
   ArticleDto,
   GameDto,
@@ -31,8 +31,6 @@ export const MAX_IN_PROGRESS_GAMES = 10;
 export const MEDIUM_BACKTRACK_LIMIT = 3;
 
 const TX_OPTIONS = { maxWait: 10_000, timeout: 30_000 } as const;
-
-type GameStatusFilter = "IN_PROGRESS" | "COMPLETED";
 
 function gameNotFound(): ApiError {
   return new ApiError(404, ErrorCode.GAME_NOT_FOUND, "Game not found");
@@ -343,11 +341,7 @@ export class GamesService {
     );
   }
 
-  async backtrack(
-    userId: string,
-    gameId: string,
-    _input: BacktrackInput,
-  ): Promise<GameWithMoves> {
+  async backtrack(userId: string, gameId: string): Promise<GameWithMoves> {
     const game = await this.loadOwnedGame(userId, gameId);
 
     if (game.status !== "IN_PROGRESS") {

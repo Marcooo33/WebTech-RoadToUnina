@@ -6,7 +6,7 @@ import type {
 import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
 import type { LeaderboardDto, LeaderboardEntryDto } from "./leaderboards.types.js";
-import type { LeaderboardQuery } from "./leaderboards.schema.js";
+import type { LeaderboardQuery } from "./leaderboards.validation.js";
 
 // A COMPLETED row always has completedAt (games_completion_consistency). A
 // COMPLETED row without it is a corrupt state, surfaced as an internal error.
