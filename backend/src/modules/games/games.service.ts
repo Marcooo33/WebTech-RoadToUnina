@@ -187,6 +187,11 @@ export class GamesService {
    * finalized up to its last heartbeat and a fresh interval is started now.
    * This is the "normal game-loading/resume flow" — there is no separate
    * start/resume endpoint (docs/game-rules.md §12, docs/api.md §5.3).
+   *
+   * The resume write is conditional on the game still being IN_PROGRESS, so a
+   * winning move (or a deletion) that commits between the read below and the
+   * write cannot be clobbered: if the row no longer qualifies the update simply
+   * matches nothing and the current authoritative state is returned as-is.
    */
   async get(userId: string, gameId: string): Promise<GameWithMoves> {
     const game = await prisma.game.findFirst({
@@ -198,17 +203,28 @@ export class GamesService {
       throw gameNotFound();
     }
 
+    // A COMPLETED game is immutable — nothing to resume, return the read as-is.
     if (game.status !== "IN_PROGRESS") {
       return game;
     }
 
-    const updated = await prisma.game.update({
-      where: { id: gameId },
+    await prisma.game.updateMany({
+      where: { id: gameId, status: "IN_PROGRESS" },
       data: resumeIntervalData(game, new Date()),
+    });
+
+    // Re-read the authoritative state: normally the row we just resumed, or —
+    // if a winning move / deletion raced us — the untouched current state.
+    const current = await prisma.game.findFirst({
+      where: { id: gameId, userId },
       include: { moves: { orderBy: { sequence: "asc" } } },
     });
 
-    return updated;
+    if (!current) {
+      throw gameNotFound();
+    }
+
+    return current;
   }
 
   async getArticle(userId: string, gameId: string): Promise<ArticleDto> {
@@ -236,12 +252,16 @@ export class GamesService {
   async heartbeat(userId: string, gameId: string): Promise<void> {
     const game = await this.loadOwnedGame(userId, gameId);
 
+    // Reject a heartbeat aimed at an already-completed game.
     if (game.status !== "IN_PROGRESS") {
       throw gameNotInProgress();
     }
 
-    await prisma.game.update({
-      where: { id: gameId },
+    // Conditional write: if a winning move completed the game between the read
+    // and here, this matches no row and the completed game keeps its cleared
+    // timing fields.
+    await prisma.game.updateMany({
+      where: { id: gameId, status: "IN_PROGRESS" },
       data: activityData(game, new Date()),
     });
   }
@@ -284,20 +304,24 @@ export class GamesService {
           throw gameNotInProgress();
         }
 
+        // A normal move just refreshes the activity timestamp; the winning move
+        // instead finalizes the interval and clears both timing fields
+        // (`completionTimingData` sets `lastHeartbeatAt: null`).
+        const timingData = isTarget
+          ? {
+              status: "COMPLETED" as const,
+              completedAt: now,
+              ...completionTimingData(current.playStartedAt, now),
+            }
+          : { lastHeartbeatAt: now };
+
         await tx.game.update({
           where: { id: gameId },
           data: {
             currentPageId: input.toPageId,
             currentPageTitle: destination.title,
             clickCount: { increment: 1 },
-            lastHeartbeatAt: now,
-            ...(isTarget
-              ? {
-                  status: "COMPLETED" as const,
-                  completedAt: now,
-                  ...completionTimingData(current.playStartedAt, now),
-                }
-              : {}),
+            ...timingData,
           },
         });
 

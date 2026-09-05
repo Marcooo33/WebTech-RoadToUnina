@@ -6,6 +6,7 @@ import { after, before, test } from "node:test";
 import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../../src/config/game.js";
 import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
+import { resumeIntervalData } from "../../src/modules/games/game-timing.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
 import { WikipediaService } from "../../src/modules/wikipedia/wikipedia.service.js";
 
@@ -280,4 +281,168 @@ test("effective time is monotonic across repeated opens", async () => {
     assert.ok(value >= 0);
     previous = value;
   }
+});
+
+// ---------------------------------------------------------------------------
+// Race safety: a resume GET arriving around completion
+// ---------------------------------------------------------------------------
+
+test("a stale resume write cannot overwrite a game the winning move already completed", async () => {
+  const cookie = await register(unique("t_getrace"));
+  const gameId = await createGame(cookie);
+  await req("GET", `/api/games/${gameId}`, cookie); // open
+
+  // The interval began ~2 minutes ago.
+  await prisma.game.update({
+    where: { id: gameId },
+    data: { playStartedAt: new Date(Date.now() - 120_000) },
+  });
+
+  // Exactly what GamesService.get() reads before it issues its resume write.
+  const staleRead = await prisma.game.findUniqueOrThrow({ where: { id: gameId } });
+
+  // The winning move completes the game and finalizes effective time.
+  const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
+    toPageId: TARGET_PAGE_ID,
+  });
+  assert.equal(win.body.status, "COMPLETED");
+  const finalized = await timingRow(gameId);
+  assert.equal(finalized.status, "COMPLETED");
+  assert.ok(finalized.effectivePlayTimeMs >= 118_000);
+
+  // Replay the resume write GamesService.get() would now attempt with its stale
+  // read. The `status: IN_PROGRESS` guard must make it match no row.
+  const { count } = await prisma.game.updateMany({
+    where: { id: gameId, status: "IN_PROGRESS" },
+    data: resumeIntervalData(staleRead, new Date()),
+  });
+  assert.equal(count, 0, "stale resume write must match no row");
+
+  const after = await timingRow(gameId);
+  assert.equal(after.status, "COMPLETED");
+  assert.equal(after.effectivePlayTimeMs, finalized.effectivePlayTimeMs);
+  assert.equal(after.playStartedAt, null);
+  assert.equal(after.lastHeartbeatAt, null);
+});
+
+test("GET and the winning move issued concurrently leave the completed game consistent", async () => {
+  const cookie = await register(unique("t_getrace2"));
+  const gameId = await createGame(cookie);
+  await req("GET", `/api/games/${gameId}`, cookie);
+  await prisma.game.update({
+    where: { id: gameId },
+    data: { playStartedAt: new Date(Date.now() - 60_000) },
+  });
+
+  const [, win] = await Promise.all([
+    req("GET", `/api/games/${gameId}`, cookie),
+    req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: TARGET_PAGE_ID }),
+  ]);
+
+  assert.equal(win.status, 200);
+  assert.equal(win.body.status, "COMPLETED");
+
+  const row = await timingRow(gameId);
+  assert.equal(row.status, "COMPLETED");
+  assert.equal(row.playStartedAt, null, "playStartedAt must not be resurrected");
+  assert.equal(row.lastHeartbeatAt, null, "lastHeartbeatAt must not be resurrected");
+  // The ~60s interval was accounted (by whichever of GET-resume / winning move
+  // ran first); it was never truncated away by a stale write.
+  assert.ok(
+    row.effectivePlayTimeMs >= 58_000,
+    `effective time ${row.effectivePlayTimeMs} was truncated`,
+  );
+});
+
+test("a heartbeat racing the winning move cannot resurrect lastHeartbeatAt on the completed game", async () => {
+  const cookie = await register(unique("t_hbrace"));
+  const gameId = await createGame(cookie);
+  await req("GET", `/api/games/${gameId}`, cookie);
+
+  const [hb, win] = await Promise.all([
+    req("POST", `/api/games/${gameId}/heartbeat`, cookie),
+    req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: TARGET_PAGE_ID }),
+  ]);
+
+  assert.equal(win.body.status, "COMPLETED");
+  // The heartbeat either lands first (204) or after completion (409) — never
+  // leaves the completed row with a non-null lastHeartbeatAt.
+  assert.ok(hb.status === 204 || hb.status === 409);
+
+  const row = await timingRow(gameId);
+  assert.equal(row.status, "COMPLETED");
+  assert.equal(row.playStartedAt, null);
+  assert.equal(row.lastHeartbeatAt, null);
+});
+
+// ---------------------------------------------------------------------------
+// Heartbeat then completion; and the (null playStartedAt, set lastHeartbeatAt) state
+// ---------------------------------------------------------------------------
+
+test("a heartbeat immediately before the winning move does not cap effective time at the heartbeat", async () => {
+  const cookie = await register(unique("t_hbwin"));
+  const gameId = await createGame(cookie);
+  await req("GET", `/api/games/${gameId}`, cookie);
+
+  // Interval began ~2 min ago; the previous heartbeat was ~90s ago.
+  await prisma.game.update({
+    where: { id: gameId },
+    data: {
+      playStartedAt: new Date(Date.now() - 120_000),
+      lastHeartbeatAt: new Date(Date.now() - 90_000),
+    },
+  });
+
+  // 1. a heartbeat now — lastHeartbeatAt jumps to ~now
+  const hb = await req("POST", `/api/games/${gameId}/heartbeat`, cookie);
+  assert.equal(hb.status, 204);
+
+  // 2. the winning move immediately after
+  const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
+    toPageId: TARGET_PAGE_ID,
+  });
+  assert.equal(win.body.status, "COMPLETED");
+
+  const row = await timingRow(gameId);
+  // Completion accounts `now - playStartedAt` (~120s). It is NOT limited to the
+  // ~0s gap between the fresh heartbeat and completion, nor to the stale
+  // `lastHeartbeatAt - playStartedAt` (~30s) window.
+  assert.ok(
+    row.effectivePlayTimeMs >= 118_000,
+    `expected ~120000, got ${row.effectivePlayTimeMs}`,
+  );
+  assert.ok(row.effectivePlayTimeMs <= 130_000);
+  assert.equal(row.playStartedAt, null);
+  assert.equal(row.lastHeartbeatAt, null);
+});
+
+test("a gameplay action before the first GET leaves playStartedAt null; completion stays valid", async () => {
+  const cookie = await register(unique("t_nullps"));
+  const gameId = await createGame(cookie);
+
+  const fresh = await timingRow(gameId);
+  assert.equal(fresh.playStartedAt, null);
+  assert.equal(fresh.lastHeartbeatAt, null);
+
+  // No GET / resume — a direct API client moves straight away.
+  const m1 = await req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: 2 });
+  assert.equal(m1.status, 200);
+
+  const mid = await timingRow(gameId);
+  assert.equal(mid.playStartedAt, null, "no interval was ever established");
+  assert.notEqual(mid.lastHeartbeatAt, null, "the move refreshed the activity stamp");
+
+  // Completion with playStartedAt still null must add 0 — never a negative or a
+  // garbage value — and still clear the timing fields.
+  const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
+    toPageId: TARGET_PAGE_ID,
+  });
+  assert.equal(win.status, 200);
+  assert.equal(win.body.status, "COMPLETED");
+
+  const row = await timingRow(gameId);
+  assert.equal(row.status, "COMPLETED");
+  assert.equal(row.effectivePlayTimeMs, 0);
+  assert.equal(row.playStartedAt, null);
+  assert.equal(row.lastHeartbeatAt, null);
 });
