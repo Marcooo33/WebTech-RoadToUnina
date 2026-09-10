@@ -15,7 +15,7 @@ test("following a playable link is a navigation click and advances the path", as
   await expect(page.getByTestId("hud-clicks")).toHaveText("0");
 
   await page
-    .locator(`.wiki__body a[data-page-id="${PAGE.golfoDiNapoli.pageId}"]`)
+    .locator(`.wiki__body a[data-page-title="${PAGE.golfoDiNapoli.title}"]`)
     .click();
 
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.golfoDiNapoli.title);

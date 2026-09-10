@@ -38,8 +38,8 @@ function articleDto(over: Record<string, unknown> = {}) {
     gameId: 'g1',
     pageId: 100,
     title: 'Current',
-    contentHtml: '<p>hi <a data-page-id="200" data-page-title="Next">next</a></p>',
-    links: [{ pageId: 200, title: 'Next' }],
+    contentHtml: '<p>hi <a data-page-title="Next">next</a></p>',
+    links: [{ title: 'Next' }],
     ...over,
   };
 }
@@ -130,13 +130,11 @@ describe('GamePage', () => {
   it('applies a successful navigation and reloads the article for the new page', () => {
     reachPlaying();
 
-    component.onNavigate(200);
+    component.onNavigate('Next');
     const move = http.expectOne('/api/games/g1/moves');
     expect(move.request.method).toBe('POST');
-    expect(move.request.body).toEqual({ toPageId: 200 });
-    move.flush(
-      playingGame({ currentPageId: 200, currentPageTitle: 'Next', clickCount: 1 }),
-    );
+    expect(move.request.body).toEqual({ toTitle: 'Next' });
+    move.flush(playingGame({ currentPageId: 200, currentPageTitle: 'Next', clickCount: 1 }));
 
     http.expectOne('/api/games/g1/article').flush(articleDto({ pageId: 200, title: 'Next' }));
 
@@ -148,7 +146,7 @@ describe('GamePage', () => {
   it('enters the completed state when a move reaches the target and stops heartbeating', () => {
     reachPlaying();
 
-    component.onNavigate(999);
+    component.onNavigate('Forged');
     http.expectOne('/api/games/g1/moves').flush(
       playingGame({
         status: 'COMPLETED',
@@ -183,9 +181,7 @@ describe('GamePage', () => {
     reachPlaying();
 
     vi.advanceTimersByTime(12_000);
-    http
-      .expectOne('/api/games/g1/heartbeat')
-      .flush(...apiError('GAME_NOT_IN_PROGRESS', 409));
+    http.expectOne('/api/games/g1/heartbeat').flush(...apiError('GAME_NOT_IN_PROGRESS', 409));
 
     // load() re-runs: GET game (now completed) → result state, no article call.
     http
@@ -208,7 +204,7 @@ describe('GamePage', () => {
   it('reconciles by reloading when a move is rejected as GAME_NOT_IN_PROGRESS', () => {
     reachPlaying();
 
-    component.onNavigate(200);
+    component.onNavigate('Next');
     http.expectOne('/api/games/g1/moves').flush(...apiError('GAME_NOT_IN_PROGRESS', 409));
 
     http
@@ -221,11 +217,11 @@ describe('GamePage', () => {
   it('does not fire a second move request while one is already in flight', () => {
     reachPlaying();
 
-    component.onNavigate(200);
-    component.onNavigate(201);
+    component.onNavigate('Next');
+    component.onNavigate('Other');
 
     const move = http.expectOne('/api/games/g1/moves');
-    expect(move.request.body).toEqual({ toPageId: 200 });
+    expect(move.request.body).toEqual({ toTitle: 'Next' });
     http.expectNone('/api/games/g1/moves');
 
     move.flush(playingGame({ currentPageId: 200 }));
@@ -235,7 +231,7 @@ describe('GamePage', () => {
   it('refreshes the article when a move is rejected as INVALID_MOVE', () => {
     reachPlaying();
 
-    component.onNavigate(200);
+    component.onNavigate('Next');
     http.expectOne('/api/games/g1/moves').flush(...apiError('INVALID_MOVE', 422));
 
     http.expectOne('/api/games/g1/article').flush(articleDto());

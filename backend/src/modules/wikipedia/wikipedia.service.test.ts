@@ -1,960 +1,305 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../../config/game.js";
-import { ArticleParserService } from "./article-parser.service.js";
 import { MediaWikiClient } from "./mediawiki.client.js";
+import { WikipediaService } from "./wikipedia.service.js";
 import { WikipediaError } from "./wikipedia.errors.js";
-import {
-  DEFAULT_STARTING_PAGE_FILTER,
-  WikipediaService,
-} from "./wikipedia.service.js";
-import type {
-  MediaWikiArticleLinks,
-  MediaWikiRandomItem,
-  TitleResolution,
-  TitleResolutionSource,
-  WikipediaPageIdentity,
-} from "./wikipedia.types.js";
 
-interface FakeClientMethods {
-  getRandomArticles?: (limit: number) => Promise<MediaWikiRandomItem[]>;
-  getArticleLinks?: (pageId: number) => Promise<MediaWikiArticleLinks>;
-  getArticleHtml?: (
-    pageId: number,
-  ) => Promise<{ pageId: number; title: string; html: string }>;
-  resolveTitle?: (title: string) => Promise<WikipediaPageIdentity | null>;
-  resolveTitles?: (
-    sources: TitleResolutionSource[],
-  ) => Promise<Map<string, TitleResolution>>;
-}
-
-function makeFakeClient(methods: FakeClientMethods): MediaWikiClient {
-  const getArticleLinks = methods.getArticleLinks;
-
-  // By default the fake article HTML contains every raw link as a plain body
-  // link, so link-level filtering and canonical resolution are exercised
-  // without any contextual (citation/bibliography) exclusions unless a test
-  // supplies its own getArticleHtml.
-  const defaultArticleHtml = async (pageId: number) => {
-    const links = getArticleLinks ? (await getArticleLinks(pageId)).links : [];
-    const html = `<p>${links
-      .map((link) => `<a href="/wiki/${link.title}">${link.title}</a>`)
-      .join("")}</p>`;
-    return { pageId, title: "P", html };
-  };
-
-  return {
-    resolveTitles: async (sources: TitleResolutionSource[]) =>
-      new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          } as TitleResolution,
-        ]),
-      ),
-    getArticleHtml: defaultArticleHtml,
-    ...methods,
-  } as unknown as MediaWikiClient;
-}
-
-function linksFor(
-  pageId: number,
-  title: string,
-  links: MediaWikiArticleLinks["links"],
-  length?: unknown,
-): MediaWikiArticleLinks {
-  return { pageId, title, length: length as number | undefined, links };
-}
-
-function eligibleLinks(): MediaWikiArticleLinks["links"] {
-  return [
-    { ns: 0, title: "A", pageid: 1 },
-    { ns: 0, title: "B", pageid: 2 },
-    { ns: 0, title: "C", pageid: 3 },
-    { ns: 0, title: "D", pageid: 4 },
-    { ns: 0, title: "E", pageid: 5 },
-    { ns: 0, title: "F", pageid: 6 },
-  ];
-}
-
-test("getArticle returns a normalized article with controlled playable links", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "Start",
-      html: '<p><a href="/wiki/Target_Page">go</a> and <a href="https://evil.example.com">no</a></p>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "Start", [{ ns: 0, title: "Target Page", pageid: 42 }]),
+function fixture(
+  options: {
+    html?: string;
+    info?: (id: number) => Record<string, unknown>;
+    random?: () => unknown[];
+    resolution?: (title: string) => unknown;
+  } = {},
+) {
+  const requests: URLSearchParams[] = [];
+  const client = new MediaWikiClient({
+    fetch: (async (url: string | URL | Request) => {
+      const params = new URL(String(url)).searchParams;
+      requests.push(params);
+      let body: unknown;
+      if (params.get("list") === "random") {
+        body = {
+          query: {
+            random: options.random?.() ?? [{ id: 1, ns: 0, title: "Start" }],
+          },
+        };
+      } else if (params.get("prop") === "info") {
+        const id = Number(params.get("pageids"));
+        body = {
+          query: {
+            pages: [
+              options.info?.(id) ?? {
+                pageid: id,
+                ns: 0,
+                title: "Start",
+                length: 1000,
+              },
+            ],
+          },
+        };
+      } else if (params.get("action") === "parse") {
+        body = {
+          parse: {
+            pageid: Number(params.get("pageid")),
+            title: "Start",
+            text:
+              options.html ??
+              '<p><a href="/wiki/Unina">Unina</a><a href="/wiki/Napoli">Napoli</a></p>',
+          },
+        };
+      } else if (params.has("titles")) {
+        const title = params.get("titles")!;
+        body = options.resolution?.(title) ?? {
+          query: {
+            redirects:
+              title === "Unina" ? [{ from: title, to: TARGET_PAGE_TITLE }] : [],
+            pages: [
+              {
+                pageid: title === "Unina" ? TARGET_PAGE_ID : 2,
+                ns: 0,
+                title: title === "Unina" ? TARGET_PAGE_TITLE : title,
+              },
+            ],
+          },
+        };
+      } else {
+        assert.fail("Unexpected MediaWiki request: " + params);
+      }
+      return new Response(JSON.stringify(body), { status: 200 });
+    }) as typeof fetch,
   });
-  const service = new WikipediaService({ client });
+  return { service: new WikipediaService({ client }), requests };
+}
 
+test("article loading uses two requests and returns source titles without eager resolution", async () => {
+  const { service, requests } = fixture();
   const article = await service.getArticle(1);
-
   assert.equal(article.pageId, 1);
   assert.equal(article.title, "Start");
-  assert.deepEqual(article.links, [{ pageId: 42, title: "Target Page" }]);
-  assert.match(article.contentHtml, /data-page-id="42"/);
-  assert.doesNotMatch(article.contentHtml, /evil.example.com/);
+  assert.deepEqual(article.links, [{ title: "Unina" }, { title: "Napoli" }]);
+  assert.match(article.contentHtml, /data-page-title="Unina"/);
+  assert.doesNotMatch(article.contentHtml, /href=|data-page-id/);
+  assert.equal(requests.length, 2);
+  assert.equal(requests[0].get("prop"), "info");
+  assert.equal(requests[1].get("prop"), "text");
 });
 
-test("getValidInternalLinks excludes red links and non-main-namespace links", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Article", pageid: 1 },
-        { ns: 0, title: "Red link" },
-        { ns: 14, title: "Categoria:Cat", pageid: 3 },
-        { ns: 1, title: "Discussione:P", pageid: 4 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 1, title: "Article" }]);
-});
-
-test("getValidInternalLinks filters out linked pages with invalid page IDs", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Napoli", pageid: 123 },
-        { ns: 0, title: "Invalid Zero", pageid: 0 },
-        { ns: 0, title: "Invalid Negative", pageid: -10 },
-        { ns: 0, title: "Invalid Fraction", pageid: 2.5 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 123, title: "Napoli" }]);
-});
-
-test("getValidInternalLinks rejects a NaN namespace", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Napoli", pageid: 123 },
-        { ns: Number.NaN, title: "NaN ns", pageid: 124 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 123, title: "Napoli" }]);
-});
-
-test("isValidNavigation reflects membership in the source eligible links", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async () =>
-      linksFor(1, "P", [{ ns: 0, title: "Target", pageid: 99 }]),
-  });
-  const service = new WikipediaService({ client });
-
-  assert.equal(await service.isValidNavigation(1, 99), true);
-  assert.equal(await service.isValidNavigation(1, 123), false);
-});
-
-test("getRandomStartingPage returns the first suitable candidate", async () => {
-  const client = makeFakeClient({
-    getRandomArticles: async () => [{ id: 10, ns: 0, title: "Good" }],
-    getArticleLinks: async (pageId) =>
-      linksFor(
-        pageId,
-        "Good",
-        [
-          { ns: 0, title: "A", pageid: 1 },
-          { ns: 0, title: "B", pageid: 2 },
-          { ns: 0, title: "C", pageid: 3 },
-          { ns: 0, title: "D", pageid: 4 },
-          { ns: 0, title: "E", pageid: 5 },
-          { ns: 0, title: "F", pageid: 6 },
-        ],
-        2000,
-      ),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 10, title: "Good" });
-});
-
-test("getRandomStartingPage skips a candidate with too few eligible links", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 1, ns: 0, title: "Too few" }],
-    [{ id: 2, ns: 0, title: "Enough" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      pageId === 1
-        ? linksFor(1, "Too few", [{ ns: 0, title: "Only", pageid: 1 }], 1000)
-        : linksFor(
-            2,
-            "Enough",
-            [
-              { ns: 0, title: "A", pageid: 1 },
-              { ns: 0, title: "B", pageid: 2 },
-              { ns: 0, title: "C", pageid: 3 },
-              { ns: 0, title: "D", pageid: 4 },
-              { ns: 0, title: "E", pageid: 5 },
-            ],
-            1000,
-          ),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "Enough" });
-});
-
-test("getRandomStartingPage skips a candidate that is too small", async () => {
-  const client = makeFakeClient({
-    getRandomArticles: async () => [{ id: 9, ns: 0, title: "Stub" }],
-    getArticleLinks: async (pageId) =>
-      linksFor(
-        pageId,
-        "Stub",
-        [
-          { ns: 0, title: "A", pageid: 1 },
-          { ns: 0, title: "B", pageid: 2 },
-          { ns: 0, title: "C", pageid: 3 },
-          { ns: 0, title: "D", pageid: 4 },
-          { ns: 0, title: "E", pageid: 5 },
-        ],
-        120,
-      ),
-  });
-  const service = new WikipediaService({ client });
-
-  await assert.rejects(
-    () => service.getRandomStartingPage(),
-    (error: unknown) =>
-      error instanceof WikipediaError && error.kind === "NO_SUITABLE_STARTING_PAGE",
+test("a 6000-link article is complete in two requests without continuation", async () => {
+  const html = Array.from(
+    { length: 6000 },
+    (_, i) => '<a href="/wiki/Title_' + i + '">link</a>',
+  ).join("");
+  const { service, requests } = fixture({ html });
+  const article = await service.getArticle(1);
+  assert.equal(article.links.length, 6000);
+  assert.deepEqual(article.links[5999], { title: "Title 5999" });
+  assert.equal(requests.length, 2);
+  assert.equal(
+    requests.some(
+      (p) => p.has("generator") || p.has("titles") || p.has("gplcontinue"),
+    ),
+    false,
   );
 });
 
-test("getRandomStartingPage retries are bounded", async () => {
-  let calls = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => {
-      calls += 1;
-      return [{ id: calls, ns: 0, title: `Bad ${calls}` }];
-    },
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, `Bad ${pageId}`, [{ ns: 0, title: "X", pageid: pageId }], 1000),
+test("a warm move resolves only the clicked redirect and returns its canonical identity", async () => {
+  const { service, requests } = fixture();
+  await service.getArticle(1);
+  requests.length = 0;
+  assert.deepEqual(await service.resolveNavigation(1, "unina"), {
+    pageId: TARGET_PAGE_ID,
+    title: TARGET_PAGE_TITLE,
   });
-  const service = new WikipediaService({ client });
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].get("titles"), "Unina");
+  assert.equal(requests[0].get("redirects"), "1");
+});
 
-  await assert.rejects(
-    () => service.getRandomStartingPage(),
-    (error: unknown) =>
-      error instanceof WikipediaError && error.kind === "NO_SUITABLE_STARTING_PAGE",
+test("a cold move needs at most three requests and works without a cache entry", async () => {
+  const { service, requests } = fixture();
+  assert.deepEqual(await service.resolveNavigation(1, "Napoli"), {
+    pageId: 2,
+    title: "Napoli",
+  });
+  assert.equal(requests.length, 3);
+});
+
+test("forged canonical titles cannot bypass validation of the actual clicked alias", async () => {
+  const { service, requests } = fixture();
+  assert.equal(await service.resolveNavigation(1, TARGET_PAGE_TITLE), null);
+  assert.equal(requests.length, 2);
+  assert.equal(
+    requests.some((p) => p.has("titles")),
+    false,
   );
-
-  assert.equal(calls, 10);
 });
 
-test("getRandomStartingPage ignores an empty random result", async () => {
-  const results: MediaWikiRandomItem[][] = [[], [{ id: 5, ns: 0, title: "Ok" }]];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => results[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(
-        pageId,
-        "Ok",
-        [
-          { ns: 0, title: "A", pageid: 1 },
-          { ns: 0, title: "B", pageid: 2 },
-          { ns: 0, title: "C", pageid: 3 },
-          { ns: 0, title: "D", pageid: 4 },
-          { ns: 0, title: "E", pageid: 5 },
-        ],
-        1500,
-      ),
+test("external, namespace and citation-only destinations are not resolved", async () => {
+  const { service, requests } = fixture({
+    html: '<a href="https://example.com">External</a><a href="/wiki/Categoria:X">X</a><cite><a href="/wiki/Book">Book</a></cite><a href="/wiki/Normal">N</a>',
   });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 5, title: "Ok" });
+  for (const title of ["External", "Categoria:X", "Book", "Forged"]) {
+    assert.equal(await service.resolveNavigation(1, title), null);
+  }
+  assert.equal(requests.length, 2);
 });
 
-test("getRandomStartingPage rejects non-main-namespace candidates", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 123, ns: 14, title: "Categoria:Napoli" }],
-    [{ id: 123, ns: 1, title: "Discussione:Napoli" }],
-    [{ id: 456, ns: 0, title: "Napoli" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(
-        pageId,
-        "Napoli",
-        [
-          { ns: 0, title: "A", pageid: 1 },
-          { ns: 0, title: "B", pageid: 2 },
-          { ns: 0, title: "C", pageid: 3 },
-          { ns: 0, title: "D", pageid: 4 },
-          { ns: 0, title: "E", pageid: 5 },
-        ],
-        1000,
-      ),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 456, title: "Napoli" });
-});
-
-test("getRandomStartingPage rejects invalid page IDs", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    { id: 0, ns: 0, title: "Bad" },
-    { id: -1, ns: 0, title: "Bad" },
-    { id: 1.5, ns: 0, title: "Bad" },
-    { id: Number.NaN, ns: 0, title: "Bad" },
-    { id: 777, ns: 0, title: "Valid" },
-  ].map((candidate) => [candidate]);
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(
-        pageId,
-        "Valid",
-        [
-          { ns: 0, title: "A", pageid: 1 },
-          { ns: 0, title: "B", pageid: 2 },
-          { ns: 0, title: "C", pageid: 3 },
-          { ns: 0, title: "D", pageid: 4 },
-          { ns: 0, title: "E", pageid: 5 },
-        ],
-        1000,
-      ),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 777, title: "Valid" });
-});
-
-test("getRandomStartingPage retries stay bounded when all candidates are invalid", async () => {
-  let calls = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => {
-      calls += 1;
-      return [{ id: calls, ns: 14, title: `Categoria:${calls}` }];
-    },
-    getArticleLinks: async () =>
-      linksFor(1, "Never", [{ ns: 0, title: "X", pageid: 1 }], 1000),
-  });
-  const service = new WikipediaService({ client });
-
-  await assert.rejects(
-    () => service.getRandomStartingPage(),
-    (error: unknown) =>
-      error instanceof WikipediaError && error.kind === "NO_SUITABLE_STARTING_PAGE",
-  );
-
-  assert.equal(calls, 10);
-});
-
-test("getRandomStartingPage rejects a candidate with missing length", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 1, ns: 0, title: "No length" }],
-    [{ id: 2, ns: 0, title: "Has length" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      pageId === 1
-        ? linksFor(1, "No length", eligibleLinks())
-        : linksFor(2, "Has length", eligibleLinks(), 2000),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "Has length" });
-});
-
-test("getRandomStartingPage rejects malformed article lengths", async () => {
-  for (const badLength of [null, "5000", Number.NaN, Number.POSITIVE_INFINITY]) {
-    const attempts: MediaWikiRandomItem[][] = [
-      [{ id: 1, ns: 0, title: "Bad" }],
-      [{ id: 2, ns: 0, title: "Good" }],
-    ];
-    let call = 0;
-    const client = makeFakeClient({
-      getRandomArticles: async () => attempts[call++] ?? [],
-      getArticleLinks: async (pageId) =>
-        pageId === 1
-          ? linksFor(1, "Bad", eligibleLinks(), badLength)
-          : linksFor(2, "Good", eligibleLinks(), 2000),
+test("missing and non-main-namespace selected destinations are rejected", async () => {
+  for (const page of [
+    { ns: 0, title: "Napoli", missing: true },
+    { pageid: 7, ns: 14, title: "Categoria:X" },
+  ]) {
+    const { service } = fixture({
+      resolution: () => ({ query: { pages: [page] } }),
     });
-    const service = new WikipediaService({ client });
-
-    const page = await service.getRandomStartingPage();
-
-    assert.deepEqual(
-      page,
-      { pageId: 2, title: "Good" },
-      `expected malformed length ${String(badLength)} to be rejected`,
-    );
+    assert.equal(await service.resolveNavigation(1, "Napoli"), null);
   }
 });
 
-test("getRandomStartingPage rejects below-minimum length and accepts the minimum", async () => {
-  const min = DEFAULT_STARTING_PAGE_FILTER.minArticleLengthBytes;
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 1, ns: 0, title: "Too small" }],
-    [{ id: 2, ns: 0, title: "At min" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      pageId === 1
-        ? linksFor(1, "Too small", eligibleLinks(), min - 1)
-        : linksFor(2, "At min", eligibleLinks(), min),
+test("the selected title's latest canonical ID is used without caching resolutions", async () => {
+  let id = 2;
+  const { service, requests } = fixture({
+    resolution: (title) => ({
+      query: { pages: [{ pageid: id++, ns: 0, title }] },
+    }),
   });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "At min" });
+  assert.equal((await service.resolveNavigation(1, "Napoli"))?.pageId, 2);
+  assert.equal((await service.resolveNavigation(1, "Napoli"))?.pageId, 3);
+  assert.equal(requests.length, 4);
 });
 
-test("getRandomStartingPage retries stay bounded when all lengths are invalid", async () => {
-  let calls = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => {
-      calls += 1;
-      return [{ id: calls, ns: 0, title: `Missing ${calls}` }];
-    },
-    getArticleLinks: async () => linksFor(1, "Missing", eligibleLinks()),
-  });
-  const service = new WikipediaService({ client });
+test("concurrent/repeated article calls share one load and cannot mutate cached links", async () => {
+  const { service, requests } = fixture();
+  const [a, b] = await Promise.all([
+    service.getArticle(1),
+    service.getArticle(1),
+  ]);
+  a.links.push({ title: "Forged" });
+  assert.equal(b.links.length, 2);
+  assert.equal(await service.resolveNavigation(1, "Forged"), null);
+  assert.equal(requests.length, 2);
+});
 
+test("article TTL expiry refetches and validates the fresh link set", async (t) => {
+  t.mock.timers.enable({ apis: ["Date"], now: 0 });
+  const { service, requests } = fixture();
+  await service.getArticle(1);
+  t.mock.timers.setTime(60_001);
+  await service.getArticle(1);
+  assert.equal(requests.length, 4);
+});
+
+test("article cache evicts least recently used entries after 32 pages", async () => {
+  const { service, requests } = fixture();
+  for (let id = 1; id <= 32; id++) await service.getArticle(id);
+  await service.getArticle(1);
+  await service.getArticle(33);
+  await service.getArticle(1);
+  assert.equal(requests.length, 66);
+  await service.getArticle(2);
+  assert.equal(requests.length, 68);
+});
+
+test("failed article loads are not cached", async () => {
+  let first = true;
+  const { service, requests } = fixture({
+    info: (id) => {
+      if (first) {
+        first = false;
+        return { pageid: id, ns: 14, title: "Bad" };
+      }
+      return { pageid: id, ns: 0, title: "Start", length: 1000 };
+    },
+  });
+  await assert.rejects(() => service.getArticle(1), WikipediaError);
+  assert.equal((await service.getArticle(1)).pageId, 1);
+  assert.equal(requests.length, 3);
+});
+
+const eligibleHtml = ["A", "B", "C", "D", "E"]
+  .map((title) => '<a href="/wiki/' + title + '">' + title + "</a>")
+  .join("");
+
+test("random selection uses three requests and reuses the accepted article", async () => {
+  const { service, requests } = fixture({ html: eligibleHtml });
+  assert.deepEqual(await service.getRandomStartingPage(), {
+    pageId: 1,
+    title: "Start",
+  });
+  assert.equal(requests.length, 3);
+  await service.getArticle(1);
+  assert.equal(requests.length, 3);
+});
+
+test("random selection rejects target, redirects, short and missing lengths before parsing", async () => {
+  let attempt = 0;
+  const ids = [TARGET_PAGE_ID, 2, 3, 4, 5];
+  const { service, requests } = fixture({
+    html: eligibleHtml,
+    random: () => [{ id: ids[attempt++], ns: 0, title: "Start" }],
+    info: (id) => ({
+      pageid: id,
+      ns: 0,
+      title: "Start",
+      length: id === 3 ? 499 : id === 4 ? undefined : 500,
+      redirect: id === 2,
+    }),
+  });
+  assert.equal((await service.getRandomStartingPage()).pageId, 5);
+  assert.equal(requests.filter((p) => p.get("action") === "parse").length, 1);
+  assert.equal(
+    requests.some((p) => p.has("titles")),
+    false,
+  );
+});
+
+test("random selection rejects malformed candidates and empty random results", async () => {
+  let attempt = 0;
+  const candidates = [
+    [],
+    [{ id: 1, ns: 14, title: "Categoria:X" }],
+    [{ id: -1, ns: 0, title: "X" }],
+    [{ id: 1, ns: 0, title: "" }],
+    [{ id: 1, ns: 0, title: "Start" }],
+  ];
+  const { service } = fixture({
+    html: eligibleHtml,
+    random: () => candidates[attempt++],
+  });
+  assert.equal((await service.getRandomStartingPage()).pageId, 1);
+  assert.equal(attempt, 5);
+});
+
+test("random attempts remain bounded and bibliography links do not satisfy eligibility", async () => {
+  let id = 0;
+  const { service, requests } = fixture({
+    html: "<h2>Bibliografia</h2>" + eligibleHtml,
+    random: () => [{ id: ++id, ns: 0, title: "Start" }],
+  });
   await assert.rejects(
     () => service.getRandomStartingPage(),
     (error: unknown) =>
-      error instanceof WikipediaError && error.kind === "NO_SUITABLE_STARTING_PAGE",
+      error instanceof WikipediaError &&
+      error.kind === "NO_SUITABLE_STARTING_PAGE",
   );
-
-  assert.equal(calls, 10);
+  assert.equal(requests.filter((p) => p.get("list") === "random").length, 10);
+  assert.equal(requests.length, 30);
 });
 
-test("resolvePage delegates title resolution to the client", async () => {
-  const client = makeFakeClient({
-    resolveTitle: async (title) =>
-      title === "Nope" ? null : { pageId: 42, title: "Resolved" },
-  });
-  const service = new WikipediaService({ client });
-
-  assert.deepEqual(await service.resolvePage("Anything"), {
-    pageId: 42,
-    title: "Resolved",
-  });
-  assert.equal(await service.resolvePage("Nope"), null);
+test("repeated random candidates do not cause repeated article retrieval", async () => {
+  const { service, requests } = fixture({ html: "<p>No playable links</p>" });
+  await assert.rejects(() => service.getRandomStartingPage(), WikipediaError);
+  assert.equal(requests.filter((p) => p.get("list") === "random").length, 10);
+  assert.equal(requests.filter((p) => p.get("action") === "parse").length, 1);
+  assert.equal(requests.length, 12);
 });
 
-test("getArticle uses the real parser by default", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p><a href="/wiki/A">a</a></p>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [{ ns: 0, title: "A", pageid: 1 }]),
+test("random selection does not retry upstream failures as new random attempts", async () => {
+  const { service, requests } = fixture({
+    info: () => ({ ns: 0, title: "Gone", missing: true }),
   });
-  const service = new WikipediaService({ client, parser: new ArticleParserService() });
-
-  const article = await service.getArticle(1);
-
-  assert.match(article.contentHtml, /data-page-id="1"/);
-  assert.deepEqual(article.links, [{ pageId: 1, title: "A" }]);
-});
-
-test("getValidInternalLinks filters and normalizes malformed link titles", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "  Trimmed  ", pageid: 1 },
-        { ns: 0, title: "Underscored_Title", pageid: 2 },
-        { ns: 0, title: "", pageid: 3 },
-        { ns: 0, title: "   ", pageid: 4 },
-        { ns: 0, title: "Good", pageid: 5 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [
-    { pageId: 1, title: "Trimmed" },
-    { pageId: 2, title: "Underscored Title" },
-    { pageId: 5, title: "Good" },
-  ]);
-});
-
-test("getValidInternalLinks drops links with non-string titles", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Good", pageid: 1 },
-        { ns: 0, title: 123 as unknown as string, pageid: 2 },
-        { ns: 0, title: null as unknown as string, pageid: 3 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 1, title: "Good" }]);
-});
-
-test("getRandomStartingPage rejects empty and whitespace titles and normalizes valid ones", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 1, ns: 0, title: "" }],
-    [{ id: 2, ns: 0, title: "   " }],
-    [{ id: 3, ns: 0, title: "  Valid  " }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "Valid", eligibleLinks(), 1500),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 3, title: "Valid" });
-});
-
-test("getValidInternalLinks resolves redirect links to canonical identities", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Unina", pageid: 487631 },
-        { ns: 0, title: "Napoli", pageid: 100 },
-      ]),
-    resolveTitles: async (sources) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, {
-            kind: "REDIRECT",
-            canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-          });
-        } else {
-          map.set(source.title, {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          });
-        }
-      }
-      return map;
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [
-    { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-    { pageId: 100, title: "Napoli" },
-  ]);
-});
-
-test("getValidInternalLinks excludes a redirect whose canonical target is missing", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "Unina", pageid: 487631 },
-        { ns: 0, title: "Napoli", pageid: 100 },
-      ]),
-    resolveTitles: async (sources) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, { kind: "UNRESOLVED" });
-        } else {
-          map.set(source.title, {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          });
-        }
-      }
-      return map;
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 100, title: "Napoli" }]);
-});
-
-test("getValidInternalLinks excludes citation-only links", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p>Body <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "B", pageid: 2 },
-        { ns: 0, title: "C", pageid: 3 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 2, title: "B" }]);
-});
-
-test("getValidInternalLinks uses the canonical resolution id when it disagrees with the generator id", async () => {
-  const client = makeFakeClient({
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [{ ns: 0, title: "Napoli", pageid: 100 }]),
-    resolveTitles: async (sources) =>
-      new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            // The resolution reports a different authoritative page id than
-            // the generator's, simulating a delete/recreate race.
-            canonical: { pageId: 200, title: source.title },
-          } as TitleResolution,
-        ]),
-      ),
-  });
-  const service = new WikipediaService({ client });
-
-  const links = await service.getValidInternalLinks(1);
-
-  assert.deepEqual(links, [{ pageId: 200, title: "Napoli" }]);
-});
-
-test("isValidNavigation rejects a citation-only link", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p>Body <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "B", pageid: 2 },
-        { ns: 0, title: "C", pageid: 3 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  assert.equal(await service.isValidNavigation(1, 2), true);
-  assert.equal(await service.isValidNavigation(1, 3), false);
-});
-
-test("getRandomStartingPage rejects a candidate whose raw links are bibliography-only", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 1, ns: 0, title: "Bibliography heavy" }],
-    [{ id: 2, ns: 0, title: "Good" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      pageId === 1
-        ? linksFor(
-            1,
-            "Bibliography heavy",
-            [
-              { ns: 0, title: "B1", pageid: 101 },
-              { ns: 0, title: "B2", pageid: 102 },
-              { ns: 0, title: "B3", pageid: 103 },
-              { ns: 0, title: "B4", pageid: 104 },
-              { ns: 0, title: "B5", pageid: 105 },
-            ],
-            1500,
-          )
-        : linksFor(2, "Good", eligibleLinks(), 1500),
-    getArticleHtml: async (pageId) => {
-      if (pageId === 1) {
-        return {
-          pageId,
-          title: "Bibliography heavy",
-          html:
-            '<h2 id="Bibliografia">Bibliografia</h2><ul>' +
-            ["B1", "B2", "B3", "B4", "B5"]
-              .map((title) => `<li><a href="/wiki/${title}">${title}</a></li>`)
-              .join("") +
-            "</ul>",
-        };
-      }
-      return {
-        pageId,
-        title: "Good",
-        html: eligibleLinks()
-          .map((link) => `<a href="/wiki/${link.title}">${link.title}</a>`)
-          .join(""),
-      };
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "Good" });
-});
-
-test("getArticle resolves a playable link beyond the old 500-link cutoff", async () => {
-  const rawLinks = Array.from({ length: 600 }, (_, i) => ({
-    ns: 0,
-    title: `T${i}`,
-    pageid: 1000 + i,
-  }));
-  rawLinks[550] = { ns: 0, title: "Target", pageid: 501 };
-
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p><a href="/wiki/Target">go</a></p>',
-    }),
-    getArticleLinks: async (pageId) => linksFor(pageId, "P", rawLinks),
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.deepEqual(article.links, [{ pageId: 501, title: "Target" }]);
-});
-
-test("getArticle resolves all playable links without an arbitrary truncation", async () => {
-  const rawLinks = Array.from({ length: 600 }, (_, i) => ({
-    ns: 0,
-    title: `T${i}`,
-    pageid: i + 1,
-  }));
-  const htmlLinks = rawLinks
-    .map((link) => `<a href="/wiki/${link.title}">${link.title}</a>`)
-    .join("");
-
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: `<p>${htmlLinks}</p>`,
-    }),
-    getArticleLinks: async (pageId) => linksFor(pageId, "P", rawLinks),
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.equal(article.links.length, 600);
-});
-
-test("getArticle still excludes a citation-only link beyond the old cutoff", async () => {
-  const rawLinks = Array.from({ length: 600 }, (_, i) => ({
-    ns: 0,
-    title: `T${i}`,
-    pageid: 1000 + i,
-  }));
-  rawLinks[550] = { ns: 0, title: "C", pageid: 501 };
-
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p>Body <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "B", pageid: 2 },
-        ...rawLinks,
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.deepEqual(article.links, [{ pageId: 2, title: "B" }]);
-});
-
-test("getArticle deduplicates repeated playable targets before canonical resolution", async () => {
-  let resolvedTitles: string[] = [];
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p><a href="/wiki/Napoli">1</a><a href="/wiki/Napoli">2</a><a href="/wiki/Napoli">3</a><a href="/wiki/Napoli">4</a></p>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [{ ns: 0, title: "Napoli", pageid: 100 }]),
-    resolveTitles: async (sources) => {
-      resolvedTitles = sources.map((source) => source.title);
-      return new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          } as TitleResolution,
-        ]),
-      );
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.deepEqual(resolvedTitles, ["Napoli"]);
-  assert.deepEqual(article.links, [{ pageId: 100, title: "Napoli" }]);
-});
-
-test("getArticle resolves redirect links and annotates canonical identities", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p><a href="/wiki/Unina">Unina</a></p>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [{ ns: 0, title: "Unina", pageid: 487631 }]),
-    resolveTitles: async (sources) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, {
-            kind: "REDIRECT",
-            canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-          });
-        }
-      }
-      return map;
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.equal(article.pageId, 1);
-  assert.deepEqual(article.links, [
-    { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-  ]);
-  assert.match(article.contentHtml, new RegExp(`data-page-id="${TARGET_PAGE_ID}"`));
-  assert.match(article.contentHtml, /data-page-title="Università degli Studi di Napoli Federico II"/);
-});
-
-test("getArticle excludes a redirect whose canonical target failed resolution", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p><a href="/wiki/Unina">Unina</a></p>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [{ ns: 0, title: "Unina", pageid: 487631 }]),
-    resolveTitles: async () =>
-      new Map([["Unina", { kind: "UNRESOLVED" } as TitleResolution]]),
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.deepEqual(article.links, []);
-});
-
-test("getArticle excludes citation-only links from the playable link set", async () => {
-  const client = makeFakeClient({
-    getArticleHtml: async (pageId) => ({
-      pageId,
-      title: "P",
-      html: '<p>Normal <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
-    }),
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "P", [
-        { ns: 0, title: "B", pageid: 2 },
-        { ns: 0, title: "C", pageid: 3 },
-      ]),
-  });
-  const service = new WikipediaService({ client });
-
-  const article = await service.getArticle(1);
-
-  assert.deepEqual(article.links, [{ pageId: 2, title: "B" }]);
-});
-
-test("getRandomStartingPage rejects the target page as a starting page", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: TARGET_PAGE_ID, ns: 0, title: TARGET_PAGE_TITLE }],
-    [{ id: 2, ns: 0, title: "Good" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "Good", eligibleLinks(), 1500),
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "Good" });
-});
-
-test("getRandomStartingPage rejects a candidate that redirects to the target", async () => {
-  const attempts: MediaWikiRandomItem[][] = [
-    [{ id: 487631, ns: 0, title: "Unina" }],
-    [{ id: 2, ns: 0, title: "Good" }],
-  ];
-  let call = 0;
-  const client = makeFakeClient({
-    getRandomArticles: async () => attempts[call++] ?? [],
-    getArticleLinks: async (pageId) =>
-      linksFor(pageId, "Good", eligibleLinks(), 1500),
-    resolveTitles: async (sources) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, {
-            kind: "REDIRECT",
-            canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-          });
-        } else {
-          map.set(source.title, {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          });
-        }
-      }
-      return map;
-    },
-  });
-  const service = new WikipediaService({ client });
-
-  const page = await service.getRandomStartingPage();
-
-  assert.deepEqual(page, { pageId: 2, title: "Good" });
+  await assert.rejects(() => service.getRandomStartingPage(), WikipediaError);
+  assert.equal(requests.length, 2);
 });

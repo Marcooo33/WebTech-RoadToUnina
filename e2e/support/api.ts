@@ -13,9 +13,9 @@ interface GameState {
   effectivePlayTimeMs: number;
 }
 
-async function move(context: BrowserContext, gameId: string, toPageId: number) {
+async function move(context: BrowserContext, gameId: string, toTitle: string) {
   return context.request.post(`/api/games/${gameId}/moves`, {
-    data: { toPageId },
+    data: { toTitle },
   });
 }
 
@@ -28,27 +28,26 @@ export async function getGame(
   return (await res.json()) as GameState;
 }
 
-/** Navigate the given page ids in order via the API. Returns the final game state. */
+/** Navigate the given titles in order via the API. Returns the final game state. */
 export async function playThroughApi(
   context: BrowserContext,
   gameId: string,
-  pageIds: readonly number[],
+  titles: readonly string[],
 ): Promise<GameState> {
   // Opening the game establishes the effective-time interval server-side.
   await getGame(context, gameId);
 
   let game: GameState | undefined;
-  for (const toPageId of pageIds) {
-    const res = await move(context, gameId, toPageId);
-    expect(
-      res.status(),
-      `move to ${toPageId} failed: ${await res.text()}`,
-    ).toBe(200);
+  for (const toTitle of titles) {
+    const res = await move(context, gameId, toTitle);
+    expect(res.status(), `move to ${toTitle} failed: ${await res.text()}`).toBe(
+      200,
+    );
     game = (await res.json()) as GameState;
   }
 
   if (!game) {
-    throw new Error("playThroughApi called with no page ids");
+    throw new Error("playThroughApi called with no titles");
   }
   return game;
 }

@@ -24,11 +24,11 @@ describe('GamesService (games endpoints)', () => {
     req.flush({});
   });
 
-  it('POSTs a move with only toPageId (no version)', () => {
-    service.move('g1', 555).subscribe();
+  it('POSTs a move with only toTitle (no version)', () => {
+    service.move('g1', 'Napoli').subscribe();
     const req = http.expectOne('/api/games/g1/moves');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ toPageId: 555 });
+    expect(req.request.body).toEqual({ toTitle: 'Napoli' });
     req.flush({});
   });
 

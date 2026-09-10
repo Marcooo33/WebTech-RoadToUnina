@@ -10,9 +10,9 @@ test("EASY backtracking steps the active path back without spending a click", as
   const game = await createGameInContext(context, "CLICK", "EASY");
 
   await page.goto(`/game/${game.id}`);
-  await page.locator(`.wiki__body a[data-page-id="${PAGE.golfoDiNapoli.pageId}"]`).click();
+  await page.locator(`.wiki__body a[data-page-title="${PAGE.golfoDiNapoli.title}"]`).click();
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.golfoDiNapoli.title);
-  await page.locator(`.wiki__body a[data-page-id="${PAGE.storiaDiNapoli.pageId}"]`).click();
+  await page.locator(`.wiki__body a[data-page-title="${PAGE.storiaDiNapoli.title}"]`).click();
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.storiaDiNapoli.title);
   await expect(page.locator(".path__item")).toHaveCount(3);
   await expect(page.getByTestId("hud-clicks")).toHaveText("2");

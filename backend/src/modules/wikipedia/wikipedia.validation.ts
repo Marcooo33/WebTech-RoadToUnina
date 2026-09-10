@@ -1,9 +1,5 @@
 export function isValidMediaWikiPageId(value: unknown): value is number {
-  return (
-    typeof value === "number" &&
-    Number.isInteger(value) &&
-    value > 0
-  );
+  return typeof value === "number" && Number.isSafeInteger(value) && value > 0;
 }
 
 export function normalizeMediaWikiTitle(value: unknown): string | null {
@@ -11,6 +7,15 @@ export function normalizeMediaWikiTitle(value: unknown): string | null {
     return null;
   }
 
-  const normalized = value.replace(/_/g, " ").trim();
-  return normalized.length > 0 ? normalized : null;
+  // Titles are decoded from URLs by the parser, not by the REST boundary.
+  // Reject MediaWiki's multi-title delimiter and invalid title characters.
+  if (/[\u0000-\u001f\u007f|#<>\[\]{}]/u.test(value)) return null;
+  const normalized = value
+    .normalize("NFC")
+    .replace(/_/g, " ")
+    .replace(/ +/g, " ")
+    .trim();
+  if (normalized.length === 0 || Buffer.byteLength(normalized, "utf8") > 255)
+    return null;
+  return normalized.charAt(0).toLocaleUpperCase("it") + normalized.slice(1);
 }

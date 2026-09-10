@@ -27,13 +27,13 @@
 
 /* Playable links: styled like ordinary Wikipedia links. Non-playable links were
    flattened to <span> by the backend and render as plain text. */
-.wiki__body a[data-page-id] {
+.wiki__body a[data-page-title] {
   color: var(--color-primary);
   text-decoration: none;
   cursor: pointer;
 }
 
-.wiki__body a[data-page-id]:hover {
+.wiki__body a[data-page-title]:hover {
   text-decoration: underline;
 }
 

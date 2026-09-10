@@ -4,35 +4,21 @@ import {
   normalizeMediaWikiTitle,
 } from "./wikipedia.validation.js";
 import type {
-  MediaWikiArticleLinks,
   MediaWikiPage,
   MediaWikiParseResponse,
   MediaWikiQueryResponse,
   MediaWikiRandomItem,
-  TitleResolution,
-  TitleResolutionSource,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
 export const DEFAULT_MEDIAWIKI_API_URL = "https://it.wikipedia.org/w/api.php";
 
-const DEFAULT_USER_AGENT = "ROADTOUNINA/1.0 (university web project; it.wikipedia.org)";
+const DEFAULT_USER_AGENT =
+  "ROADTOUNINA/1.0 (university web project; it.wikipedia.org)";
 const DEFAULT_TIMEOUT_MS = 10_000;
 
-// Defensive bound on how many continuation requests the client will follow
-// while collecting linked pages. `gpllimit=max` already returns up to 500
-// pages per request, so this covers every realistic article many times over.
-// This is an implementation safety limit, not a ROADTOUNINA game rule.
-export const MAX_LINK_CONTINUATION_REQUESTS = 5;
-
-// MediaWiki resolves at most 50 titles/pageids per query for regular users.
-// Redirect resolution is therefore performed in bounded chunks.
-export const MAX_REDIRECT_RESOLUTION_PER_REQUEST = 50;
-
-// Cap on how many redirect-resolution chunks may be in flight at once. This
-// bounds the latency of a single gameplay action instead of allowing a long,
-// strictly sequential chain of external requests.
-export const MAX_REDIRECT_RESOLUTION_CONCURRENCY = 4;
+const MAX_RATE_LIMIT_RETRIES = 2;
+const MAX_RETRY_WAIT_MS = 10_000;
 
 export interface MediaWikiClientOptions {
   fetch?: typeof fetch;
@@ -46,34 +32,6 @@ export interface MediaWikiClientOptions {
 // non-zero namespace must never be defaulted to zero.
 function isMainNamespace(value: unknown): value is number {
   return typeof value === "number" && Number.isInteger(value) && value === 0;
-}
-
-// Runs `worker` over `items` with at most `limit` promises in flight, while
-// preserving result order. This keeps redirect-resolution latency bounded
-// without flooding MediaWiki with an unbounded number of concurrent requests.
-async function mapWithConcurrency<T, R>(
-  items: T[],
-  limit: number,
-  worker: (item: T) => Promise<R>,
-): Promise<R[]> {
-  const results = new Array<R>(items.length);
-  let nextIndex = 0;
-
-  const run = async (): Promise<void> => {
-    for (;;) {
-      const index = nextIndex;
-      nextIndex += 1;
-      if (index >= items.length) {
-        return;
-      }
-      results[index] = await worker(items[index]);
-    }
-  };
-
-  const workerCount = Math.min(limit, items.length);
-  await Promise.all(Array.from({ length: workerCount }, () => run()));
-
-  return results;
 }
 
 function toValidRandomItem(raw: unknown): MediaWikiRandomItem | null {
@@ -140,47 +98,6 @@ export class MediaWikiClient {
     return items;
   }
 
-  async getArticleLinks(pageId: number): Promise<MediaWikiArticleLinks> {
-    const [info, targets] = await Promise.all([
-      this.fetchPageInfo(pageId),
-      this.fetchLinkTargets(pageId),
-    ]);
-
-    const seen = new Set<number>();
-    const links: { ns: number; title: string; pageid: number }[] = [];
-
-    for (const page of targets) {
-      if (page.missing) {
-        continue;
-      }
-
-      const id = this.requirePageId(page);
-      if (seen.has(id)) {
-        continue;
-      }
-      seen.add(id);
-
-      // A playable link must be a main-namespace article. A missing or
-      // malformed namespace must not be treated as namespace 0.
-      if (!isMainNamespace(page.ns)) {
-        continue;
-      }
-
-      links.push({
-        ns: page.ns,
-        title: this.requireTitle(page),
-        pageid: id,
-      });
-    }
-
-    return {
-      pageId: info.pageId,
-      title: info.title,
-      length: info.length,
-      links,
-    };
-  }
-
   async getArticleHtml(
     pageId: number,
   ): Promise<{ pageId: number; title: string; html: string }> {
@@ -241,6 +158,11 @@ export class MediaWikiClient {
   }
 
   async resolveTitle(title: string): Promise<WikipediaPageIdentity | null> {
+    const normalized = normalizeMediaWikiTitle(title);
+    if (normalized === null) {
+      throw new WikipediaError("INVALID_RESPONSE", "Invalid article title");
+    }
+    title = normalized;
     const body = await this.request<MediaWikiQueryResponse>({
       action: "query",
       titles: title,
@@ -256,6 +178,13 @@ export class MediaWikiClient {
 
     const pageId = this.requirePageId(page);
     const resolvedTitle = this.requireTitle(page);
+    if (
+      typeof page.ns === "number" &&
+      Number.isInteger(page.ns) &&
+      page.ns !== 0
+    ) {
+      return null;
+    }
     this.requireMainNamespace(page);
 
     if (this.expectedCanonicalTitle(body, title) !== resolvedTitle) {
@@ -268,167 +197,53 @@ export class MediaWikiClient {
     return { pageId, title: resolvedTitle };
   }
 
-  // Resolves redirects for a batch of source-link targets. Returns a resolution
-  // per unique requested title, distinguishing DIRECT articles and redirects
-  // (both carrying their authoritative canonical identity) from UNRESOLVED
-  // titles that must be excluded.
-  async resolveTitles(
-    sources: TitleResolutionSource[],
-  ): Promise<Map<string, TitleResolution>> {
-    const unique: string[] = [];
-    const seen = new Set<string>();
-    for (const source of sources) {
-      if (!seen.has(source.title)) {
-        seen.add(source.title);
-        unique.push(source.title);
-      }
-    }
-
-    const chunks: string[][] = [];
-    for (
-      let offset = 0;
-      offset < unique.length;
-      offset += MAX_REDIRECT_RESOLUTION_PER_REQUEST
-    ) {
-      chunks.push(unique.slice(offset, offset + MAX_REDIRECT_RESOLUTION_PER_REQUEST));
-    }
-
-    const chunkResults = await mapWithConcurrency(
-      chunks,
-      MAX_REDIRECT_RESOLUTION_CONCURRENCY,
-      (chunk) => this.resolveChunk(chunk),
-    );
-
-    const result = new Map<string, TitleResolution>();
-    for (const chunkResult of chunkResults) {
-      for (const [title, resolution] of chunkResult) {
-        result.set(title, resolution);
-      }
-    }
-
-    return result;
-  }
-
-  private async resolveChunk(
-    chunk: string[],
-  ): Promise<Map<string, TitleResolution>> {
-    const body = await this.request<MediaWikiQueryResponse>({
-      action: "query",
-      titles: chunk.join("|"),
-      redirects: "1",
-      format: "json",
-      formatversion: "2",
-    });
-
-    const redirects = body.query?.redirects;
-    if (redirects !== undefined && !Array.isArray(redirects)) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "MediaWiki redirects data is malformed",
-      );
-    }
-    const normalized = body.query?.normalized;
-    if (normalized !== undefined && !Array.isArray(normalized)) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "MediaWiki normalized data is malformed",
-      );
-    }
-
-    // Single hop map combining title normalization and redirect substitution.
-    // Redirect edges override normalization edges for the same source title.
-    const hopMap = new Map<string, string>();
-    const redirectFroms = new Set<string>();
-
-    for (const entry of normalized ?? []) {
-      const from = normalizeMediaWikiTitle(entry.from);
-      const to = normalizeMediaWikiTitle(entry.to);
-      if (from !== null && to !== null) {
-        hopMap.set(from, to);
-      }
-    }
-    for (const entry of redirects ?? []) {
-      const from = normalizeMediaWikiTitle(entry.from);
-      const to = normalizeMediaWikiTitle(entry.to);
-      if (from !== null && to !== null) {
-        hopMap.set(from, to);
-        redirectFroms.add(from);
-      }
-    }
-
-    const canonicalByTitle = new Map<string, WikipediaPageIdentity>();
-    for (const page of this.requirePagesArray(body)) {
-      if (page.missing) {
-        continue;
-      }
-
-      const id = page.pageid;
-      const title = normalizeMediaWikiTitle(page.title);
-      if (!isValidMediaWikiPageId(id) || title === null) {
-        continue;
-      }
-      if (!isMainNamespace(page.ns)) {
-        continue;
-      }
-
-      canonicalByTitle.set(title, { pageId: id, title });
-    }
-
-    const resolutions = new Map<string, TitleResolution>();
-    for (const original of chunk) {
-      let target = original;
-      let wasRedirect = false;
-      const seen = new Set<string>();
-
-      while (hopMap.has(target) && !seen.has(target)) {
-        seen.add(target);
-        if (redirectFroms.has(target)) {
-          wasRedirect = true;
-        }
-        target = hopMap.get(target) as string;
-      }
-
-      const canonical = canonicalByTitle.get(target);
-
-      if (!canonical) {
-        resolutions.set(original, { kind: "UNRESOLVED" });
-        continue;
-      }
-
-      resolutions.set(
-        original,
-        wasRedirect
-          ? { kind: "REDIRECT", canonical }
-          : { kind: "DIRECT", canonical },
-      );
-    }
-
-    return resolutions;
-  }
-
   private async request<T>(params: Record<string, string>): Promise<T> {
     const query = new URLSearchParams(params);
     const url = `${this.baseUrl}?${query.toString()}`;
 
-    let response: Response;
-    try {
-      response = await this.fetchImpl(url, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "User-Agent": this.userAgent,
-        },
-        signal: AbortSignal.timeout(this.timeoutMs),
-      });
-    } catch (error) {
-      throw new WikipediaError(
-        "NETWORK",
-        "Failed to reach the MediaWiki API",
-        { cause: error },
-      );
+    let response!: Response;
+    for (let attempt = 0; attempt <= MAX_RATE_LIMIT_RETRIES; attempt += 1) {
+      try {
+        response = await this.fetchImpl(url, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "User-Agent": this.userAgent,
+          },
+          signal: AbortSignal.timeout(this.timeoutMs),
+        });
+      } catch (error) {
+        throw new WikipediaError(
+          "NETWORK",
+          "Failed to reach the MediaWiki API",
+          { cause: error },
+        );
+      }
+
+      if (response.status !== 429 || attempt === MAX_RATE_LIMIT_RETRIES) {
+        break;
+      }
+      const retryAfter = response.headers.get("Retry-After");
+      let delay = 1000 * 2 ** attempt;
+      if (retryAfter !== null) {
+        const seconds = /^\d+(?:\.\d+)?$/.test(retryAfter.trim())
+          ? Number(retryAfter)
+          : NaN;
+        const requestedDelay = Number.isFinite(seconds)
+          ? seconds * 1000
+          : Date.parse(retryAfter) - Date.now();
+        if (Number.isFinite(requestedDelay))
+          delay = Math.max(delay, requestedDelay);
+      }
+      // Do not retry earlier than a long Retry-After, or hold an API request open
+      // indefinitely. Return the upstream error and let the player retry later.
+      if (delay > MAX_RETRY_WAIT_MS) break;
+      await response.body?.cancel();
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
 
     if (!response.ok) {
+      await response.body?.cancel();
       throw new WikipediaError(
         "INVALID_RESPONSE",
         `MediaWiki API returned HTTP ${response.status}`,
@@ -446,11 +261,7 @@ export class MediaWikiClient {
       );
     }
 
-    if (
-      typeof body !== "object" ||
-      body === null ||
-      Array.isArray(body)
-    ) {
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
       throw new WikipediaError(
         "INVALID_RESPONSE",
         "MediaWiki API returned a malformed response body",
@@ -468,9 +279,14 @@ export class MediaWikiClient {
     return body as T;
   }
 
-  private async fetchPageInfo(
+  async getPageInfo(
     pageId: number,
-  ): Promise<{ pageId: number; title: string; length?: number }> {
+  ): Promise<{
+    pageId: number;
+    title: string;
+    length?: number;
+    redirect: boolean;
+  }> {
     const body = await this.request<MediaWikiQueryResponse>({
       action: "query",
       pageids: String(pageId),
@@ -497,76 +313,13 @@ export class MediaWikiClient {
       pageId: id,
       title,
       length: this.requireLength(page),
+      redirect: page.redirect === true,
     };
-  }
-
-  private async fetchLinkTargets(pageId: number): Promise<MediaWikiPage[]> {
-    const baseParams: Record<string, string> = {
-      action: "query",
-      generator: "links",
-      pageids: String(pageId),
-      gplnamespace: "0",
-      gpllimit: "max",
-      format: "json",
-      formatversion: "2",
-    };
-
-    const pages: MediaWikiPage[] = [];
-    let params = baseParams;
-    let requests = 0;
-
-    for (;;) {
-      requests += 1;
-      if (requests > MAX_LINK_CONTINUATION_REQUESTS) {
-        throw new WikipediaError(
-          "INVALID_RESPONSE",
-          "MediaWiki link continuation exceeded the allowed number of requests",
-        );
-      }
-
-      const body = await this.request<MediaWikiQueryResponse>(params);
-      for (const page of this.requirePagesArray(body)) {
-        pages.push(page);
-      }
-
-      const continuation = body.continue;
-      if (!continuation) {
-        break;
-      }
-
-      if (typeof continuation !== "object" || continuation === null) {
-        throw new WikipediaError(
-          "INVALID_RESPONSE",
-          "MediaWiki continuation data is malformed",
-        );
-      }
-
-      const gplcontinue = continuation.gplcontinue;
-      if (typeof gplcontinue !== "string" || gplcontinue.length === 0) {
-        throw new WikipediaError(
-          "INVALID_RESPONSE",
-          "MediaWiki continuation token is missing",
-        );
-      }
-
-      const nextParams: Record<string, string> = {
-        ...baseParams,
-        gplcontinue,
-      };
-
-      if (typeof continuation.continue === "string") {
-        nextParams.continue = continuation.continue;
-      }
-
-      params = nextParams;
-    }
-
-    return pages;
   }
 
   private singlePage(body: MediaWikiQueryResponse): MediaWikiPage {
     const pages = this.requirePagesArray(body);
-    if (pages.length === 0) {
+    if (pages.length !== 1) {
       throw new WikipediaError(
         "INVALID_RESPONSE",
         "MediaWiki query response missing pages",
@@ -676,44 +429,36 @@ export class MediaWikiClient {
     body: MediaWikiQueryResponse,
     requestedTitle: string,
   ): string {
-    const redirects = body.query?.redirects;
-    if (Array.isArray(redirects) && redirects.length > 0) {
-      return this.resolveTitleTarget(redirects);
+    const hops = new Map<string, string>();
+    for (const entries of [body.query?.normalized, body.query?.redirects]) {
+      if (entries === undefined) continue;
+      if (!Array.isArray(entries)) {
+        throw new WikipediaError(
+          "INVALID_RESPONSE",
+          "Malformed title mappings",
+        );
+      }
+      for (const entry of entries) {
+        const from = normalizeMediaWikiTitle(entry?.from);
+        const to = normalizeMediaWikiTitle(entry?.to);
+        if (from === null || to === null) {
+          throw new WikipediaError(
+            "INVALID_RESPONSE",
+            "Malformed title mapping",
+          );
+        }
+        if (from !== to) hops.set(from, to);
+      }
     }
-
-    const normalized = body.query?.normalized;
-    if (Array.isArray(normalized) && normalized.length > 0) {
-      return this.resolveTitleTarget(normalized);
+    let title = requestedTitle;
+    const seen = new Set<string>();
+    while (hops.has(title)) {
+      if (seen.has(title)) {
+        throw new WikipediaError("INVALID_RESPONSE", "Cyclic title mapping");
+      }
+      seen.add(title);
+      title = hops.get(title)!;
     }
-
-    const requested = normalizeMediaWikiTitle(requestedTitle);
-    if (requested === null) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "MediaWiki resolution returned an invalid title",
-      );
-    }
-
-    return requested;
-  }
-
-  private resolveTitleTarget(entries: unknown[]): string {
-    const last = entries[entries.length - 1];
-    if (typeof last !== "object" || last === null) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "MediaWiki resolution returned a malformed title mapping",
-      );
-    }
-
-    const to = normalizeMediaWikiTitle((last as { to?: unknown }).to);
-    if (to === null) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "MediaWiki resolution returned an invalid target title",
-      );
-    }
-
-    return to;
+    return title;
   }
 }

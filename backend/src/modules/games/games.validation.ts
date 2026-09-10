@@ -2,6 +2,7 @@ import type {
   GameDifficulty,
   GameMode,
 } from "../../generated/prisma/client.js";
+import { normalizeMediaWikiTitle } from "../wikipedia/wikipedia.validation.js";
 import {
   asObject,
   isUuid,
@@ -17,7 +18,8 @@ export type GameStatusFilter = (typeof GAME_STATUS_FILTERS)[number];
 
 export function isGameMode(value: unknown): value is GameMode {
   return (
-    typeof value === "string" && (GAME_MODES as readonly string[]).includes(value)
+    typeof value === "string" &&
+    (GAME_MODES as readonly string[]).includes(value)
   );
 }
 
@@ -34,7 +36,7 @@ export interface CreateGameInput {
 }
 
 export interface MoveInput {
-  toPageId: number;
+  toTitle: string;
 }
 
 /** Route param `:gameId` — a UUID (the `games.id` column type). */
@@ -84,15 +86,13 @@ export function parseGameStatusFilter(
 /** POST /api/games/:gameId/moves body. */
 export function parseMoveInput(body: unknown): MoveInput {
   const obj = asObject(body, "Invalid move request");
-  rejectUnknownKeys(obj, ["toPageId"], "Invalid move request");
-
-  const { toPageId } = obj;
-
-  // Number.isSafeInteger already rejects non-numbers, NaN, fractions and values
-  // outside the safe-integer range.
-  if (typeof toPageId !== "number" || !Number.isSafeInteger(toPageId) || toPageId <= 0) {
-    throw validationError("toPageId must be a positive integer");
+  rejectUnknownKeys(obj, ["toTitle"], "Invalid move request");
+  const toTitle = normalizeMediaWikiTitle(obj.toTitle);
+  if (toTitle === null) {
+    throw validationError(
+      "toTitle must be a valid Wikipedia article title (maximum 255 UTF-8 bytes)",
+    );
   }
 
-  return { toPageId };
+  return { toTitle };
 }

@@ -31,7 +31,7 @@ test("fetches a normalized article with playable internal links", { skip }, asyn
   assert.ok(Array.isArray(article.links));
   assert.ok(article.links.length > 0);
   for (const link of article.links) {
-    assert.ok(link.pageId > 0);
+    assert.equal("pageId" in link, false);
     assert.ok(link.title.length > 0);
   }
 });

@@ -2,15 +2,9 @@ import { TARGET_PAGE_ID } from "../../config/game.js";
 import { ArticleParserService } from "./article-parser.service.js";
 import { MediaWikiClient } from "./mediawiki.client.js";
 import { WikipediaError } from "./wikipedia.errors.js";
-import {
-  isValidMediaWikiPageId,
-  normalizeMediaWikiTitle,
-} from "./wikipedia.validation.js";
+import { normalizeMediaWikiTitle } from "./wikipedia.validation.js";
 import type {
-  MediaWikiLink,
-  MediaWikiRandomItem,
   NormalizedArticle,
-  PlayableLink,
   WikipediaArticleSource,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
@@ -33,30 +27,21 @@ export interface WikipediaServiceOptions {
   startingPageFilter?: StartingPageFilterConfig;
 }
 
-function isValidRandomCandidate(candidate: MediaWikiRandomItem): boolean {
-  return (
-    isValidMediaWikiPageId(candidate.id) &&
-    candidate.ns === 0 &&
-    normalizeMediaWikiTitle(candidate.title) !== null
-  );
-}
-
-function hasSuitableArticleLength(
-  length: unknown,
-  minArticleLengthBytes: number,
-): boolean {
-  return (
-    typeof length === "number" &&
-    Number.isFinite(length) &&
-    Number.isInteger(length) &&
-    length >= minArticleLengthBytes
-  );
-}
+const ARTICLE_CACHE_SIZE = 32;
+const ARTICLE_CACHE_TTL_MS = 60_000;
 
 export class WikipediaService implements WikipediaArticleSource {
   private readonly client: MediaWikiClient;
   private readonly parser: ArticleParserService;
   private readonly filter: StartingPageFilterConfig;
+  // One bounded cache also shares in-flight loads. Failed loads are removed.
+  private readonly articles = new Map<
+    number,
+    {
+      expiresAt: number;
+      article: Promise<NormalizedArticle>;
+    }
+  >();
 
   constructor(options: WikipediaServiceOptions = {}) {
     this.client = options.client ?? new MediaWikiClient();
@@ -65,188 +50,110 @@ export class WikipediaService implements WikipediaArticleSource {
   }
 
   async getArticle(pageId: number): Promise<NormalizedArticle> {
-    const article = await this.resolveArticle(pageId);
-
-    return this.parser.normalize(
-      { pageId: article.pageId, title: article.title },
-      article.html,
-      article.playableLinks,
-    );
-  }
-
-  // The authoritative set of moves available from a page: exactly the links
-  // that survive into the sanitized article the player sees. Delegating to
-  // `getArticle` keeps a single definition of "playable link" shared by article
-  // rendering and navigation validation, so the two can never drift apart.
-  async getValidInternalLinks(pageId: number): Promise<PlayableLink[]> {
-    const article = await this.getArticle(pageId);
-    return article.links.map(({ pageId: resolvedPageId, title }) => ({
-      pageId: resolvedPageId,
-      title,
-    }));
-  }
-
-  async isValidNavigation(
-    fromPageId: number,
-    targetPageId: number,
-  ): Promise<boolean> {
-    const links = await this.getValidInternalLinks(fromPageId);
-    return links.some((link) => link.pageId === targetPageId);
-  }
-
-  async getRandomStartingPage(): Promise<WikipediaPageIdentity> {
-    for (let attempt = 0; attempt < this.filter.maxRandomAttempts; attempt += 1) {
-      const candidates = await this.client.getRandomArticles(1);
-      const candidate = candidates[0];
-
-      if (!candidate) {
-        continue;
-      }
-
-      if (!isValidRandomCandidate(candidate)) {
-        continue;
-      }
-
-      const title = normalizeMediaWikiTitle(candidate.title);
-      if (title === null) {
-        continue;
-      }
-
-      const canonical = await this.resolveCandidate(title, candidate.id);
-
-      if (canonical === null) {
-        continue;
-      }
-
-      if (canonical.pageId === TARGET_PAGE_ID) {
-        continue;
-      }
-
-      if (await this.isSuitableStartingPage(canonical)) {
-        return canonical;
-      }
+    const cached = this.articles.get(pageId);
+    if (cached && cached.expiresAt > Date.now()) {
+      this.articles.delete(pageId);
+      this.articles.set(pageId, cached);
+      return structuredClone(await cached.article);
     }
-
-    throw new WikipediaError(
-      "NO_SUITABLE_STARTING_PAGE",
-      "No suitable starting page found after the maximum number of attempts",
+    return structuredClone(
+      await this.cacheArticle(pageId, this.loadArticle(pageId)),
     );
+  }
+
+  async resolveNavigation(
+    fromPageId: number,
+    toTitle: string,
+  ): Promise<WikipediaPageIdentity | null> {
+    const title = normalizeMediaWikiTitle(toTitle);
+    if (title === null) return null;
+    const article = await this.getArticle(fromPageId);
+    if (!article.links.some((link) => link.title === title)) return null;
+    // Only the clicked, reachable title is resolved, including redirects.
+    return this.client.resolveTitle(title);
   }
 
   async resolvePage(title: string): Promise<WikipediaPageIdentity | null> {
     return this.client.resolveTitle(title);
   }
 
-  private async resolveCandidate(
-    title: string,
-    directPageId: number,
-  ): Promise<WikipediaPageIdentity | null> {
-    const resolutions = await this.client.resolveTitles([
-      { pageId: directPageId, title },
-    ]);
-    const resolution = resolutions.get(title);
-
-    if (!resolution || resolution.kind === "UNRESOLVED") {
-      return null;
+  async getRandomStartingPage(): Promise<WikipediaPageIdentity> {
+    const seen = new Set<number>();
+    for (
+      let attempt = 0;
+      attempt < this.filter.maxRandomAttempts;
+      attempt += 1
+    ) {
+      const [candidate] = await this.client.getRandomArticles(1);
+      if (
+        !candidate ||
+        candidate.id === TARGET_PAGE_ID ||
+        seen.has(candidate.id)
+      )
+        continue;
+      seen.add(candidate.id);
+      const info = await this.client.getPageInfo(candidate.id);
+      // Recheck redirects: the page may have changed since list=random.
+      if (
+        info.redirect ||
+        info.pageId === TARGET_PAGE_ID ||
+        info.length === undefined ||
+        info.length < this.filter.minArticleLengthBytes
+      )
+        continue;
+      const article = await this.cacheArticle(
+        info.pageId,
+        this.loadArticle(info.pageId, info),
+      );
+      if (article.links.length >= this.filter.minEligibleLinks) {
+        return { pageId: article.pageId, title: article.title };
+      }
     }
-
-    return resolution.canonical;
+    throw new WikipediaError(
+      "NO_SUITABLE_STARTING_PAGE",
+      "No suitable starting page found after the maximum number of attempts",
+    );
   }
 
-  // Single authoritative derivation of an article's playable links: fetch the
-  // HTML and raw links, apply contextual filtering, then canonical resolution.
-  // Article rendering, navigation validation and starting-page eligibility all
-  // consume this same result so the meaning of "playable link" never diverges.
-  private async resolveArticle(pageId: number): Promise<{
-    pageId: number;
-    title: string;
-    html: string;
-    length?: number;
-    playableLinks: PlayableLink[];
-  }> {
-    const [html, links] = await Promise.all([
-      this.client.getArticleHtml(pageId),
-      this.client.getArticleLinks(pageId),
-    ]);
-
-    const playableLinks = await this.resolvePlayableLinks(links.links, html.html);
-
-    return {
-      pageId: links.pageId,
-      title: links.title,
-      html: html.html,
-      length: links.length,
-      playableLinks,
-    };
+  private cacheArticle(
+    pageId: number,
+    article: Promise<NormalizedArticle>,
+  ): Promise<NormalizedArticle> {
+    const entry = { expiresAt: Date.now() + ARTICLE_CACHE_TTL_MS, article };
+    this.articles.delete(pageId);
+    this.articles.set(pageId, entry);
+    if (this.articles.size > ARTICLE_CACHE_SIZE) {
+      this.articles.delete(this.articles.keys().next().value!);
+    }
+    void article.then(
+      () => {
+        entry.expiresAt = Date.now() + ARTICLE_CACHE_TTL_MS;
+      },
+      () => {
+        if (this.articles.get(pageId) === entry) this.articles.delete(pageId);
+      },
+    );
+    return article;
   }
 
-  private async resolvePlayableLinks(
-    links: MediaWikiLink[],
-    html: string,
-  ): Promise<PlayableLink[]> {
-    const sourceById = new Map<string, number>();
-
-    for (const link of links) {
-      if (link.ns !== 0 || !isValidMediaWikiPageId(link.pageid)) {
-        continue;
-      }
-
-      const title = normalizeMediaWikiTitle(link.title);
-      if (title === null || sourceById.has(title)) {
-        continue;
-      }
-      sourceById.set(title, link.pageid);
+  private async loadArticle(
+    pageId: number,
+    info?: Awaited<ReturnType<MediaWikiClient["getPageInfo"]>>,
+  ): Promise<NormalizedArticle> {
+    const page = info ?? (await this.client.getPageInfo(pageId));
+    if (page.redirect) {
+      throw new WikipediaError(
+        "PAGE_NOT_FOUND",
+        "The stored article is now a redirect",
+      );
     }
-
-    const playableTitles = this.parser.collectPlayableTitles(html);
-
-    const sources: { pageId: number; title: string }[] = [];
-    for (const title of playableTitles) {
-      const pageId = sourceById.get(title);
-      if (pageId === undefined) {
-        continue;
-      }
-      sources.push({ pageId, title });
+    const parsed = await this.client.getArticleHtml(pageId);
+    if (parsed.title !== page.title) {
+      throw new WikipediaError(
+        "INVALID_RESPONSE",
+        "Article changed while loading",
+      );
     }
-
-    return this.resolveSources(sources);
-  }
-
-  private async resolveSources(
-    sources: { pageId: number; title: string }[],
-  ): Promise<PlayableLink[]> {
-    const resolutions = await this.client.resolveTitles(sources);
-
-    const playable: PlayableLink[] = [];
-
-    for (const source of sources) {
-      const resolution = resolutions.get(source.title);
-
-      // Fail closed: a link without a trustworthy canonical identity is
-      // excluded rather than falling back to a redirect's own id/title.
-      if (!resolution || resolution.kind === "UNRESOLVED") {
-        continue;
-      }
-
-      playable.push({
-        pageId: resolution.canonical.pageId,
-        title: resolution.canonical.title,
-        sourceTitle: source.title,
-      });
-    }
-
-    return playable;
-  }
-
-  private async isSuitableStartingPage(
-    candidate: WikipediaPageIdentity,
-  ): Promise<boolean> {
-    const article = await this.resolveArticle(candidate.pageId);
-
-    if (!hasSuitableArticleLength(article.length, this.filter.minArticleLengthBytes)) {
-      return false;
-    }
-
-    return article.playableLinks.length >= this.filter.minEligibleLinks;
+    return this.parser.normalize({ pageId, title: parsed.title }, parsed.html);
   }
 }

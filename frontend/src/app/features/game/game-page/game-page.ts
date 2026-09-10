@@ -121,14 +121,14 @@ export class GamePage implements OnInit {
 
   // --- User actions -------------------------------------------------------
 
-  onNavigate(toPageId: number): void {
+  onNavigate(toTitle: string): void {
     if (!this.game() || this.busy() || this.phase() !== 'playing') {
       return;
     }
     this.busy.set(true);
     this.notice.set(null);
 
-    this.games.move(this.id(), toPageId).subscribe({
+    this.games.move(this.id(), toTitle).subscribe({
       next: (updated) => {
         this.applyGame(updated);
         if (this.phase() === 'completed') return;
@@ -350,7 +350,7 @@ export class GamePage implements OnInit {
     // server-side sanitizer (tag allowlist, every href removed, no URL schemes)
     // before it is ever sent here (docs/architecture.md §8–9, AGENTS.md §11).
     // We bypass Angular's sanitizer only so it does not strip the backend's
-    // `data-page-id` / `data-page-title` attributes, which drive in-sandbox
+    // `data-page-title` attributes, which drive in-sandbox
     // navigation.
     // NEVER pass raw MediaWiki HTML, or any other external / user-provided HTML,
     // through this bypass — only ArticleDto.contentHtml from our own API.

@@ -1,5 +1,9 @@
+import { normalizeMediaWikiTitle } from "../modules/wikipedia/wikipedia.validation.js";
 import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../config/game.js";
-import type { StartingPage, StartingPageProvider } from "../modules/games/starting-page.provider.js";
+import type {
+  StartingPage,
+  StartingPageProvider,
+} from "../modules/games/starting-page.provider.js";
 import type {
   NormalizedArticle,
   PlayableLink,
@@ -57,7 +61,7 @@ function linksOf(pageId: number): PlayableLink[] {
   if (!page) {
     return [];
   }
-  return page.links.map((id) => ({ pageId: id, title: titleOf(id) }));
+  return page.links.map((id) => ({ title: titleOf(id) }));
 }
 
 function escapeHtml(value: string): string {
@@ -69,7 +73,7 @@ function escapeHtml(value: string): string {
 }
 
 // Mirrors the shape produced by the real ArticleParserService: playable links
-// are <a data-page-id data-page-title> anchors with no href, so the Angular
+// are <a data-page-title> anchors with no href, so the Angular
 // article renderer turns them into game actions.
 function renderContentHtml(pageId: number): string {
   const title = titleOf(pageId);
@@ -78,7 +82,7 @@ function renderContentHtml(pageId: number): string {
   const anchors = links
     .map(
       (link) =>
-        `<a data-page-id="${link.pageId}" data-page-title="${escapeHtml(
+        `<a data-page-title="${escapeHtml(
           link.title,
         )}">${escapeHtml(link.title)}</a>`,
     )
@@ -105,8 +109,11 @@ export function createE2EWikipediaService(): WikipediaArticleSource {
       };
     },
 
-    async getValidInternalLinks(pageId: number): Promise<PlayableLink[]> {
-      return linksOf(pageId);
+    async resolveNavigation(pageId: number, toTitle: string) {
+      const title = normalizeMediaWikiTitle(toTitle);
+      if (!linksOf(pageId).some((link) => link.title === title)) return null;
+      const target = [...PAGES].find(([, page]) => page.title === title);
+      return target ? { pageId: target[0], title: target[1].title } : null;
     },
   };
 }

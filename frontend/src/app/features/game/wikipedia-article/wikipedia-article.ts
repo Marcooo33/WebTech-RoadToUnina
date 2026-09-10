@@ -24,8 +24,8 @@ export class WikipediaArticle {
   /** When true, playable links are inert (a move is already in flight). */
   readonly disabled = input(false);
 
-  /** Emits the MediaWiki `pageId` of a playable link the user activated. */
-  readonly navigate = output<number>();
+  /** Emits the normalized title of the link the user activated. */
+  readonly navigate = output<string>();
 
   onClick(event: MouseEvent): void {
     const target = event.target;
@@ -40,14 +40,13 @@ export class WikipediaArticle {
       event.preventDefault();
     }
 
-    const playable = target.closest('a[data-page-id]');
+    const playable = target.closest('a[data-page-title]');
     if (!playable) {
       return;
     }
 
-    const raw = playable.getAttribute('data-page-id');
-    const pageId = Number(raw);
-    if (raw === null || raw.trim() === '' || !Number.isSafeInteger(pageId) || pageId <= 0) {
+    const title = playable.getAttribute('data-page-title');
+    if (title === null || title.trim() === '') {
       return;
     }
 
@@ -55,6 +54,6 @@ export class WikipediaArticle {
       return;
     }
 
-    this.navigate.emit(pageId);
+    this.navigate.emit(title);
   }
 }

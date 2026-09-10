@@ -7,12 +7,8 @@ import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../../src/config/game.js";
 import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
-import type { MediaWikiClient } from "../../src/modules/wikipedia/mediawiki.client.js";
+import { MediaWikiClient } from "../../src/modules/wikipedia/mediawiki.client.js";
 import { WikipediaService } from "../../src/modules/wikipedia/wikipedia.service.js";
-import type {
-  TitleResolution,
-  TitleResolutionSource,
-} from "../../src/modules/wikipedia/wikipedia.types.js";
 
 let server: Server;
 let baseUrl: string;
@@ -57,7 +53,7 @@ interface GameBody {
   pageId?: number;
   title?: string;
   contentHtml?: string;
-  links?: PageRef[];
+  links?: { title: string }[];
   error?: { code?: string; message?: string };
 }
 
@@ -86,12 +82,13 @@ const linkGraph = new Map<number, PageRef[]>([
 
 function makeFakeWikipedia(): WikipediaService {
   return {
-    getValidInternalLinks: async (pageId: number) => linkGraph.get(pageId) ?? [],
+    resolveNavigation: async (pageId: number, title: string) =>
+      linkGraph.get(pageId)?.find((link) => link.title === title) ?? null,
     getArticle: async (pageId: number) => ({
       pageId,
       title: titleFor(pageId),
       contentHtml: `<p>Article for page ${pageId}</p>`,
-      links: linkGraph.get(pageId) ?? [],
+      links: (linkGraph.get(pageId) ?? []).map(({ title }) => ({ title })),
     }),
   } as unknown as WikipediaService;
 }
@@ -137,7 +134,9 @@ async function post(
   cookie?: string,
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
   if (cookie) {
     headers.Cookie = `access_token=${cookie}`;
   }
@@ -149,7 +148,10 @@ async function post(
   });
 
   const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
+  return {
+    status: res.status,
+    body: text ? (JSON.parse(text) as GameBody) : {},
+  };
 }
 
 async function get(
@@ -164,7 +166,10 @@ async function get(
 
   const res = await fetch(`${base}${path}`, { headers });
   const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
+  return {
+    status: res.status,
+    body: text ? (JSON.parse(text) as GameBody) : {},
+  };
 }
 
 async function createGame(
@@ -179,10 +184,15 @@ async function createGame(
 async function move(
   cookie: string,
   gameId: string,
-  toPageId: number,
+  target: number | string,
   base: string = baseUrl,
 ): Promise<{ status: number; body: GameBody }> {
-  return post(`/api/games/${gameId}/moves`, { toPageId }, cookie, base);
+  return post(
+    `/api/games/${gameId}/moves`,
+    { toTitle: typeof target === "number" ? titleFor(target) : target },
+    cookie,
+    base,
+  );
 }
 
 async function backtrack(
@@ -203,7 +213,10 @@ async function del(
     headers: { Cookie: `access_token=${cookie}` },
   });
   const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
+  return {
+    status: res.status,
+    body: text ? (JSON.parse(text) as GameBody) : {},
+  };
 }
 
 const fakeStartingPageProvider: StartingPageProvider = {
@@ -224,7 +237,8 @@ async function createTestApp(wikipediaService: WikipediaService): Promise<{
   const address = appServer.address() as AddressInfo;
   return {
     baseUrl: `http://127.0.0.1:${address.port}`,
-    close: () => new Promise<void>((resolve) => appServer.close(() => resolve())),
+    close: () =>
+      new Promise<void>((resolve) => appServer.close(() => resolve())),
   };
 }
 
@@ -384,7 +398,7 @@ test("a move body carrying a legacy version field is rejected as a validation er
 
   const { status, body } = await post(
     `/api/games/${created.body.id}/moves`,
-    { toPageId: 2, version: 0 },
+    { toTitle: "Page 2", version: 0 },
     cookie,
   );
 
@@ -444,10 +458,7 @@ test("two identical concurrent moves both persist as sequential moves", async ()
 
   // Both are real user actions; neither is rejected and the move sequence stays
   // consistent (the loser of the sequence-number race retries once).
-  assert.deepEqual(
-    results.map((r) => r.status).sort(),
-    [200, 200],
-  );
+  assert.deepEqual(results.map((r) => r.status).sort(), [200, 200]);
 
   const moves = await persistedMoves(created.body.id!);
   assert.equal(moves.length, 2);
@@ -647,11 +658,7 @@ test("navigating to the target page completes the game atomically", async () => 
   const created = await createGame(cookie);
   assert.equal(created.status, 201);
 
-  const { status, body } = await move(
-    cookie,
-    created.body.id!,
-    TARGET_PAGE_ID,
-  );
+  const { status, body } = await move(cookie, created.body.id!, TARGET_PAGE_ID);
 
   assert.equal(status, 200);
   assert.equal(body.status, "COMPLETED");
@@ -721,38 +728,44 @@ test("deleting a completed game is rejected; the game is preserved", async () =>
 // ---------------------------------------------------------------------------
 
 test("a redirect link to the target completes the game in one navigation", async () => {
-  const redirectClient = {
-    getArticleLinks: async (pageId: number) => {
-      if (pageId === 1) {
-        return {
-          pageId: 1,
-          title: "Page 1",
-          length: 2000,
-          links: [{ ns: 0, title: "Unina", pageid: 487631 }],
+  const requests: URLSearchParams[] = [];
+  const redirectClient = new MediaWikiClient({
+    fetch: (async (url: string) => {
+      const params = new URL(url).searchParams;
+      requests.push(params);
+      let body;
+      if (params.get("prop") === "info") {
+        body = {
+          query: {
+            pages: [{ pageid: 1, ns: 0, title: "Page 1", length: 2000 }],
+          },
+        };
+      } else if (params.get("action") === "parse") {
+        body = {
+          parse: {
+            pageid: 1,
+            title: "Page 1",
+            text: '<p><a href="/wiki/Unina">Unina</a></p>',
+          },
+        };
+      } else {
+        assert.equal(params.get("titles"), "Unina");
+        body = {
+          query: {
+            redirects: [{ from: "Unina", to: TARGET_PAGE_TITLE }],
+            pages: [
+              { pageid: TARGET_PAGE_ID, ns: 0, title: TARGET_PAGE_TITLE },
+            ],
+          },
         };
       }
-      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
-    },
-    getArticleHtml: async (pageId: number) => ({
-      pageId,
-      title: titleFor(pageId),
-      html: '<p><a href="/wiki/Unina">Unina</a></p>',
-    }),
-    resolveTitles: async (sources: TitleResolutionSource[]) => {
-      const map = new Map<string, TitleResolution>();
-      for (const source of sources) {
-        if (source.title === "Unina") {
-          map.set(source.title, {
-            kind: "REDIRECT",
-            canonical: { pageId: TARGET_PAGE_ID, title: TARGET_PAGE_TITLE },
-          });
-        }
-      }
-      return map;
-    },
-  } as unknown as MediaWikiClient;
+      return new Response(JSON.stringify(body), { status: 200 });
+    }) as typeof fetch,
+  });
 
-  const app = await createTestApp(new WikipediaService({ client: redirectClient }));
+  const app = await createTestApp(
+    new WikipediaService({ client: redirectClient }),
+  );
 
   try {
     const { cookie } = await register(unique("redir"), app.baseUrl);
@@ -766,12 +779,28 @@ test("a redirect link to the target completes the game in one navigation", async
     );
     assert.equal(article.status, 200);
     assert.equal(article.body.links!.length, 1);
-    assert.equal(article.body.links![0].pageId, TARGET_PAGE_ID);
+    assert.deepEqual(article.body.links, [{ title: "Unina" }]);
+    assert.equal(requests.length, 2);
+
+    const forged = await move(
+      cookie,
+      created.body.id!,
+      TARGET_PAGE_TITLE,
+      app.baseUrl,
+    );
+    assert.equal(forged.status, 422);
+    assert.equal(forged.body.error?.code, "INVALID_MOVE");
+    assert.equal((await persistedMoves(created.body.id!)).length, 0);
+    assert.equal(
+      requests.length,
+      2,
+      "forged title must not trigger resolution",
+    );
 
     const { status, body } = await move(
       cookie,
       created.body.id!,
-      TARGET_PAGE_ID,
+      "Unina",
       app.baseUrl,
     );
 
@@ -784,6 +813,13 @@ test("a redirect link to the target completes the game in one navigation", async
     const moves = await persistedMoves(created.body.id!);
     assert.equal(moves.length, 1);
     assert.equal(moves[0].toPageId, TARGET_PAGE_ID);
+    assert.equal(moves[0].toPageTitle, TARGET_PAGE_TITLE);
+    assert.equal(body.currentPageTitle, TARGET_PAGE_TITLE);
+    assert.equal(
+      requests.length,
+      3,
+      "the accepted move resolves only the clicked title",
+    );
   } finally {
     await app.close();
   }
@@ -795,35 +831,21 @@ test("a redirect link to the target completes the game in one navigation", async
 
 function makeContextualWikipediaService(): WikipediaService {
   const client = {
-    getArticleLinks: async (pageId: number) => {
-      if (pageId === 1) {
-        return {
-          pageId: 1,
-          title: "Page 1",
-          length: 2000,
-          links: [
-            { ns: 0, title: "B", pageid: 2 },
-            { ns: 0, title: "C", pageid: 3 },
-          ],
-        };
-      }
-      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
-    },
+    getPageInfo: async (pageId: number) => ({
+      pageId,
+      title: titleFor(pageId),
+      length: 2000,
+      redirect: false,
+    }),
     getArticleHtml: async (pageId: number) => ({
       pageId,
       title: titleFor(pageId),
       html: '<p>Normal <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
     }),
-    resolveTitles: async (sources: TitleResolutionSource[]) =>
-      new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          } as TitleResolution,
-        ]),
-      ),
+    resolveTitle: async (title: string) => ({
+      pageId: title === "C" || title === "Biblio Target" ? 3 : 2,
+      title,
+    }),
   } as unknown as MediaWikiClient;
 
   return new WikipediaService({ client });
@@ -843,11 +865,16 @@ test("a normal body link remains navigable", async () => {
     );
     assert.equal(article.status, 200);
     assert.deepEqual(
-      article.body.links!.map((link) => link.pageId),
-      [2],
+      article.body.links!.map((link) => link.title),
+      ["B"],
     );
 
-    const { status, body } = await move(cookie, created.body.id!, 2, app.baseUrl);
+    const { status, body } = await move(
+      cookie,
+      created.body.id!,
+      "B",
+      app.baseUrl,
+    );
 
     assert.equal(status, 200);
     assert.equal(body.currentPageId, 2);
@@ -874,14 +901,26 @@ test("a citation-only link is rejected with INVALID_MOVE and mutates nothing", a
       app.baseUrl,
     );
     assert.equal(article.status, 200);
-    assert.equal(article.body.links!.some((link) => link.pageId === 3), false);
+    assert.equal(
+      article.body.links!.some((link) => link.title === "C"),
+      false,
+    );
 
-    const { status, body } = await move(cookie, created.body.id!, 3, app.baseUrl);
+    const { status, body } = await move(
+      cookie,
+      created.body.id!,
+      "C",
+      app.baseUrl,
+    );
 
     assert.equal(status, 422);
     assert.equal(body.error?.code, "INVALID_MOVE");
 
-    const after = await get(`/api/games/${created.body.id}`, cookie, app.baseUrl);
+    const after = await get(
+      `/api/games/${created.body.id}`,
+      cookie,
+      app.baseUrl,
+    );
     assert.equal(after.body.currentPageId, created.body.currentPageId);
     assert.equal(after.body.clickCount, 0);
     assert.equal(after.body.status, "IN_PROGRESS");
@@ -895,35 +934,21 @@ test("a citation-only link is rejected with INVALID_MOVE and mutates nothing", a
 
 test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE", async () => {
   const client = {
-    getArticleLinks: async (pageId: number) => {
-      if (pageId === 1) {
-        return {
-          pageId: 1,
-          title: "Page 1",
-          length: 2000,
-          links: [
-            { ns: 0, title: "Normal", pageid: 2 },
-            { ns: 0, title: "Biblio Target", pageid: 3 },
-          ],
-        };
-      }
-      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
-    },
+    getPageInfo: async (pageId: number) => ({
+      pageId,
+      title: titleFor(pageId),
+      length: 2000,
+      redirect: false,
+    }),
     getArticleHtml: async (pageId: number) => ({
       pageId,
       title: titleFor(pageId),
       html: '<p><a href="/wiki/Normal">normal</a></p><h2 id="Bibliografia">Bibliografia</h2><ul><li><a href="/wiki/Biblio_Target">book</a></li></ul>',
     }),
-    resolveTitles: async (sources: TitleResolutionSource[]) =>
-      new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          } as TitleResolution,
-        ]),
-      ),
+    resolveTitle: async (title: string) => ({
+      pageId: title === "C" || title === "Biblio Target" ? 3 : 2,
+      title,
+    }),
   } as unknown as MediaWikiClient;
 
   const app = await createTestApp(new WikipediaService({ client }));
@@ -939,11 +964,16 @@ test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE",
     );
     assert.equal(article.status, 200);
     assert.deepEqual(
-      article.body.links!.map((link) => link.pageId),
-      [2],
+      article.body.links!.map((link) => link.title),
+      ["Normal"],
     );
 
-    const { status, body } = await move(cookie, created.body.id!, 3, app.baseUrl);
+    const { status, body } = await move(
+      cookie,
+      created.body.id!,
+      "Biblio Target",
+      app.baseUrl,
+    );
 
     assert.equal(status, 422);
     assert.equal(body.error?.code, "INVALID_MOVE");
@@ -957,32 +987,21 @@ test("a heading-delimited bibliography-only link is rejected with INVALID_MOVE",
 
 test("a legitimate section heading containing 'fonti' keeps its links navigable", async () => {
   const client = {
-    getArticleLinks: async (pageId: number) => {
-      if (pageId === 1) {
-        return {
-          pageId: 1,
-          title: "Page 1",
-          length: 2000,
-          links: [{ ns: 0, title: "Energy Sources", pageid: 2 }],
-        };
-      }
-      return { pageId, title: titleFor(pageId), length: 2000, links: [] };
-    },
+    getPageInfo: async (pageId: number) => ({
+      pageId,
+      title: titleFor(pageId),
+      length: 2000,
+      redirect: false,
+    }),
     getArticleHtml: async (pageId: number) => ({
       pageId,
       title: titleFor(pageId),
       html: '<h2 id="Fonti_energetiche">Fonti energetiche</h2><p>See <a href="/wiki/Energy_Sources">energy</a>.</p>',
     }),
-    resolveTitles: async (sources: TitleResolutionSource[]) =>
-      new Map(
-        sources.map((source) => [
-          source.title,
-          {
-            kind: "DIRECT",
-            canonical: { pageId: source.pageId, title: source.title },
-          } as TitleResolution,
-        ]),
-      ),
+    resolveTitle: async (title: string) => ({
+      pageId: title === "C" || title === "Biblio Target" ? 3 : 2,
+      title,
+    }),
   } as unknown as MediaWikiClient;
 
   const app = await createTestApp(new WikipediaService({ client }));
@@ -991,7 +1010,12 @@ test("a legitimate section heading containing 'fonti' keeps its links navigable"
     const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
     assert.equal(created.status, 201);
 
-    const { status, body } = await move(cookie, created.body.id!, 2, app.baseUrl);
+    const { status, body } = await move(
+      cookie,
+      created.body.id!,
+      "Energy Sources",
+      app.baseUrl,
+    );
 
     assert.equal(status, 200);
     assert.equal(body.currentPageId, 2);

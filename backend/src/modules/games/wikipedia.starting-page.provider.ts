@@ -1,5 +1,8 @@
 import { WikipediaService } from "../wikipedia/wikipedia.service.js";
-import type { StartingPage, StartingPageProvider } from "./starting-page.provider.js";
+import type {
+  StartingPage,
+  StartingPageProvider,
+} from "./starting-page.provider.js";
 
 export class WikipediaStartingPageProvider implements StartingPageProvider {
   constructor(private readonly wikipedia: WikipediaService) {}
@@ -9,7 +12,3 @@ export class WikipediaStartingPageProvider implements StartingPageProvider {
     return { pageId: page.pageId, title: page.title };
   }
 }
-
-export const wikipediaStartingPageProvider = new WikipediaStartingPageProvider(
-  new WikipediaService(),
-);

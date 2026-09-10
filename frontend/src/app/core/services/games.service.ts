@@ -52,11 +52,11 @@ export class GamesService {
   }
 
   /**
-   * Requests a NAVIGATION move to `toPageId` (docs/api.md §5.6). The backend
+   * Requests a NAVIGATION move to `toTitle` (docs/api.md §5.6). The backend
    * validates ownership, that the game is in progress, and link reachability.
    */
-  move(gameId: string, toPageId: number): Observable<GameDto> {
-    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toPageId });
+  move(gameId: string, toTitle: string): Observable<GameDto> {
+    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toTitle });
   }
 
   /** Requests a BACKTRACK action (docs/api.md §5.7). */

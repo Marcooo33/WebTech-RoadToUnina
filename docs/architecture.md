@@ -300,11 +300,30 @@ It should not contain ROADTOUNINA game rules.
 Provides application-friendly operations such as:
 
 - `getArticle(pageId)`
-- `getValidInternalLinks(pageId)`
 - `getRandomStartingPage()`
-- `isValidNavigation(fromPageId, targetPageId)`
+- `resolveNavigation(fromPageId, toTitle)` → canonical identity or no valid move
 
 Exact method names are implementation details.
+
+An uncached article uses two bounded MediaWiki requests: `query&prop=info`
+(namespace, identity, size) and `parse&prop=text` (HTML). Playable titles come
+from the sanitized HTML; no link generator, exhaustive continuation or bulk
+title/redirect resolution is used. Only the clicked, reachable title is resolved
+to a canonical page ID when a move occurs. Persistence and victory retain IDs.
+
+One in-memory article cache (32 entries, 60-second TTL, LRU eviction) shares
+in-flight requests and is reused by starting-page selection, rendering and move
+validation. Failed loads are removed. Cache misses remain correct: a move uses
+three requests when cold, one when the source article is cached. The subsequent
+destination article load is a separate operation. No graph is prefetched.
+
+Random selection examines one main-namespace, non-redirect candidate at a time,
+up to 10 candidates. It checks the existing size/link thresholds and excludes
+the target; an accepted first candidate uses three requests and its article is
+cached for rendering. HTTP 429 gets at most two retries with 1/2-second backoff
+and Retry-After support. If Retry-After exceeds the 10-second wait budget, the
+operation fails without an early retry. No outer retry layer multiplies these
+attempts.
 
 ### Article Parser / Normalizer
 

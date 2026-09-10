@@ -10,7 +10,7 @@ test("reaching the target page completes the game", async ({ page, context }) =>
   await page.goto(`/game/${game.id}`);
 
   for (const step of WIN_PATH) {
-    await page.locator(`.wiki__body a[data-page-id="${step.pageId}"]`).click();
+    await page.locator(`.wiki__body a[data-page-title="${step.title}"]`).click();
   }
 
   await expect(page.getByTestId("game-result")).toBeVisible();

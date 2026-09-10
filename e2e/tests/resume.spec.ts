@@ -7,9 +7,9 @@ test("resuming an in-progress game restores its authoritative state", async ({ p
   const game = await createGameInContext(context, "CLICK", "EASY");
 
   await page.goto(`/game/${game.id}`);
-  await page.locator(`.wiki__body a[data-page-id="${PAGE.golfoDiNapoli.pageId}"]`).click();
+  await page.locator(`.wiki__body a[data-page-title="${PAGE.golfoDiNapoli.title}"]`).click();
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.golfoDiNapoli.title);
-  await page.locator(`.wiki__body a[data-page-id="${PAGE.napoli.pageId}"]`).click();
+  await page.locator(`.wiki__body a[data-page-title="${PAGE.napoli.title}"]`).click();
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.napoli.title);
   await expect(page.getByTestId("hud-clicks")).toHaveText("2");
 

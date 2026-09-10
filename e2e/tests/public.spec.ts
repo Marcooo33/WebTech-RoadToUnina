@@ -3,7 +3,7 @@ import { createGameInContext, registerInContext, uniqueUser } from "../support/u
 import { playThroughApi } from "../support/api.js";
 import { WIN_PATH } from "../support/constants.js";
 
-const winPageIds = WIN_PATH.map((p) => p.pageId);
+const winTitles = WIN_PATH.map((p) => p.title);
 
 test("a completed game is visible in the anonymous public history", async ({
   browser,
@@ -13,7 +13,7 @@ test("a completed game is visible in the anonymous public history", async ({
   await registerInContext(context, user);
   // TIME / HARD: a bucket no other completing spec uses (see constants.ts).
   const game = await createGameInContext(context, "TIME", "HARD");
-  await playThroughApi(context, game.id, winPageIds);
+  await playThroughApi(context, game.id, winTitles);
 
   const anon = await browser.newContext();
   const anonPage = await anon.newPage();
@@ -42,7 +42,7 @@ test("a completed game appears on the leaderboard for its mode and difficulty", 
   // CLICK / MEDIUM: the only completing spec that touches this bucket, so the
   // asserted row is always rank 1 and can never fall off the top-N board.
   const game = await createGameInContext(context, "CLICK", "MEDIUM");
-  await playThroughApi(context, game.id, winPageIds);
+  await playThroughApi(context, game.id, winTitles);
 
   const anon = await browser.newContext();
   const anonPage = await anon.newPage();

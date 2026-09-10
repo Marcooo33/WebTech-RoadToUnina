@@ -1,10 +1,10 @@
 import { render } from "dom-serializer";
 import type { Element, Node, Text } from "domhandler";
 import { ElementType, parseDocument } from "htmlparser2";
-import sanitizeHtml, { type IOptions } from "sanitize-html";
+import sanitizeHtml from "sanitize-html";
+import { normalizeMediaWikiTitle } from "./wikipedia.validation.js";
 import type {
   NormalizedArticle,
-  PlayableLink,
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
@@ -56,13 +56,66 @@ const ALLOWED_TAGS = [
 
 const ARTICLE_PATH_PREFIX = "/wiki/";
 
-function normalizeTitle(title: string): string {
-  return title.replace(/_/g, " ").trim();
-}
-
-function matchingTitle(link: PlayableLink): string {
-  return normalizeTitle(link.sourceTitle ?? link.title);
-}
+// Italian Wikipedia namespace names, canonical names and aliases from siteinfo.
+// This is local filtering only; the selected page's namespace is checked by the client.
+const NON_ARTICLE_PREFIXES = new Set([
+  "media",
+  "speciale",
+  "special",
+  "discussione",
+  "talk",
+  "utente",
+  "user",
+  "discussioni utente",
+  "user talk",
+  "wikipedia",
+  "project",
+  "wp",
+  "discussioni wikipedia",
+  "project talk",
+  "wikipedia talk",
+  "dw",
+  "file",
+  "image",
+  "immagine",
+  "discussioni file",
+  "file talk",
+  "discussioni immagine",
+  "image talk",
+  "mediawiki",
+  "discussioni mediawiki",
+  "mediawiki talk",
+  "template",
+  "t",
+  "discussioni template",
+  "template talk",
+  "aiuto",
+  "help",
+  "discussioni aiuto",
+  "help talk",
+  "categoria",
+  "category",
+  "cat",
+  "discussioni categoria",
+  "category talk",
+  "portale",
+  "discussioni portale",
+  "progetto",
+  "discussioni progetto",
+  "dp",
+  "bozza",
+  "discussioni bozza",
+  "timedtext",
+  "timedtext talk",
+  "modulo",
+  "module",
+  "discussioni modulo",
+  "module talk",
+  "evento",
+  "event",
+  "discussioni evento",
+  "event talk",
+]);
 
 function extractArticleTitle(href: string | undefined): string | null {
   if (typeof href !== "string") {
@@ -122,27 +175,42 @@ function extractArticleTitle(href: string | undefined): string | null {
     return null;
   }
 
-  title = normalizeTitle(title);
-  return title.length > 0 ? title : null;
+  const normalized = normalizeMediaWikiTitle(title);
+  if (normalized === null || normalized.startsWith(":")) return null;
+  const colon = normalized.indexOf(":");
+  if (
+    colon !== -1 &&
+    NON_ARTICLE_PREFIXES.has(normalized.slice(0, colon).toLowerCase())
+  )
+    return null;
+  return normalized;
 }
 
-function isCitationMarker(frame: { tag: string; attribs: Record<string, string> }): boolean {
+function isCitationMarker(frame: {
+  tag: string;
+  attribs: Record<string, string>;
+}): boolean {
   const cls = frame.attribs.class ?? "";
   const id = frame.attribs.id ?? "";
 
   return (
-    frame.tag === "sup" &&
-    (/\breference\b/.test(cls) || /^cite_/.test(id))
+    frame.tag === "sup" && (/\breference\b/.test(cls) || /^cite_/.test(id))
   );
 }
 
-function isReferenceList(frame: { tag: string; attribs: Record<string, string> }): boolean {
+function isReferenceList(frame: {
+  tag: string;
+  attribs: Record<string, string>;
+}): boolean {
   const cls = frame.attribs.class ?? "";
 
   return /\breferences\b|\breflist\b|mw-references/.test(cls);
 }
 
-function isExcludedFrame(frame: { tag: string; attribs: Record<string, string> }): boolean {
+function isExcludedFrame(frame: {
+  tag: string;
+  attribs: Record<string, string>;
+}): boolean {
   return isCitationMarker(frame) || isReferenceList(frame);
 }
 
@@ -288,99 +356,48 @@ function neutralizeCitationAnchors(html: string): string {
 }
 
 export class ArticleParserService {
-  // First-pass: collect the normalized, contextually playable source titles
-  // present in the raw article HTML. Citation/reference/bibliography contexts
-  // are excluded using the same rules as `normalize`, so the collected targets
-  // cannot drift from what gets rendered as playable.
-  collectPlayableTitles(html: string): string[] {
-    const titles = new Set<string>();
-
-    sanitizeHtml(neutralizeCitationAnchors(html), {
+  normalize(page: WikipediaPageIdentity, html: string): NormalizedArticle {
+    const contentHtml = sanitizeHtml(neutralizeCitationAnchors(html), {
       allowedTags: ALLOWED_TAGS,
-      allowedAttributes: {},
+      allowedAttributes: { a: ["data-page-title"] },
       allowedSchemes: [],
       allowProtocolRelative: false,
       transformTags: {
-        a: (_tagName, attribs) => {
-          const title = extractArticleTitle(attribs.href);
-          if (title !== null) {
-            titles.add(title);
-          }
-          return { tagName: "span", attribs: {} };
+        a: (
+          _tagName,
+          attribs,
+        ): { tagName: string; attribs: Record<string, string> } => {
+          const excluded =
+            /(?:^|\\s)(?:new|extiw|external|interwiki)(?:\\s|$)/i.test(
+              attribs.class ?? "",
+            ) || /Interwiki/i.test(attribs.rel ?? "");
+          const title = excluded ? null : extractArticleTitle(attribs.href);
+          return title === null
+            ? { tagName: "span", attribs: {} }
+            : { tagName: "a", attribs: { "data-page-title": title } };
         },
       },
       exclusiveFilter: (frame) => isExcludedFrame(frame),
     });
 
-    return [...titles];
-  }
-
-  normalize(
-    page: WikipediaPageIdentity,
-    html: string,
-    links: PlayableLink[],
-  ): NormalizedArticle {
-    const linksByTitle = new Map<string, PlayableLink>();
-    for (const link of links) {
-      linksByTitle.set(matchingTitle(link), link);
-    }
-
-    const usedTitles = new Set<string>();
-    const contentHtml = sanitizeHtml(
-      neutralizeCitationAnchors(html),
-      this.options(linksByTitle, usedTitles),
-    );
-
-    const playableLinks = links
-      .filter((link) => usedTitles.has(matchingTitle(link)))
-      .map((link) => ({ pageId: link.pageId, title: link.title }));
-
+    // Collect only anchors that actually survived sanitization, including
+    // removal of script/style and reference containers.
+    const titles = new Set<string>();
+    const collect = (nodes: Node[]): void => {
+      for (const node of nodes) {
+        if (node.type !== ElementType.Tag) continue;
+        const element = node as Element;
+        if (element.name === "a" && element.attribs["data-page-title"]) {
+          titles.add(element.attribs["data-page-title"]);
+        }
+        collect(element.children);
+      }
+    };
+    collect(parseDocument(contentHtml).children);
     return {
-      pageId: page.pageId,
-      title: page.title,
+      ...page,
       contentHtml,
-      links: playableLinks,
-    };
-  }
-
-  private options(
-    linksByTitle: Map<string, PlayableLink>,
-    usedTitles: Set<string>,
-  ): IOptions {
-    return {
-      allowedTags: ALLOWED_TAGS,
-      allowedAttributes: {
-        a: ["data-page-id", "data-page-title"],
-      },
-      allowedSchemes: [],
-      allowProtocolRelative: false,
-      transformTags: {
-        a: (_tagName, attribs) => this.transformAnchor(attribs, linksByTitle, usedTitles),
-      },
-      exclusiveFilter: (frame) => isExcludedFrame(frame),
-    };
-  }
-
-  private transformAnchor(
-    attribs: Record<string, string>,
-    linksByTitle: Map<string, PlayableLink>,
-    usedTitles: Set<string>,
-  ): { tagName: string; attribs: Record<string, string> } {
-    const title = extractArticleTitle(attribs.href);
-    const link = title ? linksByTitle.get(normalizeTitle(title)) : undefined;
-
-    if (!link) {
-      return { tagName: "span", attribs: {} };
-    }
-
-    usedTitles.add(matchingTitle(link));
-
-    return {
-      tagName: "a",
-      attribs: {
-        "data-page-id": String(link.pageId),
-        "data-page-title": link.title,
-      },
+      links: [...titles].map((title) => ({ title })),
     };
   }
 }

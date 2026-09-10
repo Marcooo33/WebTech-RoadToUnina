@@ -3,28 +3,8 @@ export interface WikipediaPageIdentity {
   title: string;
 }
 
-// A source-link target submitted for canonical resolution. `pageId` is the
-// generator/random-page id, retained as metadata for the caller; the resolution
-// result carries its own authoritative canonical identity.
-export interface TitleResolutionSource {
-  pageId: number;
-  title: string;
-}
-
-// Outcome of resolving a single source-link title against MediaWiki redirects.
-// `DIRECT` and `REDIRECT` both carry the authoritative canonical identity that
-// was validated by the latest resolution request. `UNRESOLVED` means the title
-// could not be trusted (missing/malformed/non-main namespace canonical target)
-// and must be excluded.
-export type TitleResolution =
-  | { kind: "DIRECT"; canonical: WikipediaPageIdentity }
-  | { kind: "REDIRECT"; canonical: WikipediaPageIdentity }
-  | { kind: "UNRESOLVED" };
-
 export interface PlayableLink {
-  pageId: number;
   title: string;
-  sourceTitle?: string;
 }
 
 export interface NormalizedArticle {
@@ -40,7 +20,10 @@ export interface NormalizedArticle {
 // composition root can swap them without the games module knowing.
 export interface WikipediaArticleSource {
   getArticle(pageId: number): Promise<NormalizedArticle>;
-  getValidInternalLinks(pageId: number): Promise<PlayableLink[]>;
+  resolveNavigation(
+    fromPageId: number,
+    toTitle: string,
+  ): Promise<WikipediaPageIdentity | null>;
 }
 
 export interface MediaWikiApiError {
@@ -58,31 +41,19 @@ export interface MediaWikiNormalized {
   to: string;
 }
 
-export interface MediaWikiLink {
-  ns: number;
-  title: string;
-  pageid?: number;
-}
-
 export interface MediaWikiPage {
   pageid?: number;
   ns?: number;
   title?: string;
   missing?: boolean;
   length?: number;
-  links?: MediaWikiLink[];
+  redirect?: boolean;
 }
 
 export interface MediaWikiRandomItem {
   id: number;
   ns: number;
   title: string;
-}
-
-export interface MediaWikiContinue {
-  continue?: string;
-  gplcontinue?: string;
-  [key: string]: string | undefined;
 }
 
 export interface MediaWikiQueryResponse {
@@ -92,7 +63,6 @@ export interface MediaWikiQueryResponse {
     redirects?: MediaWikiRedirect[];
     normalized?: MediaWikiNormalized[];
   };
-  continue?: MediaWikiContinue;
   error?: MediaWikiApiError;
 }
 
@@ -104,11 +74,4 @@ export interface MediaWikiParseResponse {
     redirects?: MediaWikiRedirect[];
   };
   error?: MediaWikiApiError;
-}
-
-export interface MediaWikiArticleLinks {
-  pageId: number;
-  title: string;
-  length?: number;
-  links: MediaWikiLink[];
 }

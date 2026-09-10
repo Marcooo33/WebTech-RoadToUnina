@@ -1,11 +1,9 @@
-import { PageRef } from './game.model';
-
 /**
- * Sanitized current-article representation for the active game (docs/api.md §3.9).
+ * Sanitized current-article representation for the active game (docs/api.md §3.7).
  *
  * `contentHtml` is already normalized/sanitized by the ROADTOUNINA backend
  * (strict tag allowlist, no `href`, no schemes); playable internal links are
- * `<a data-page-id data-page-title>` elements. The client checks `pageId`
+ * `<a data-page-title>` elements. The client checks `pageId`
  * against the game's current page and reloads the article if they disagree.
  */
 export interface ArticleDto {
@@ -13,5 +11,5 @@ export interface ArticleDto {
   pageId: number;
   title: string;
   contentHtml: string;
-  links: PageRef[];
+  links: { title: string }[];
 }

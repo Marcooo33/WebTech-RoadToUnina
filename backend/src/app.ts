@@ -7,7 +7,7 @@ import type { StartingPageProvider } from "./modules/games/starting-page.provide
 import { createHistoryRouter } from "./modules/history/history.routes.js";
 import { createLeaderboardsRouter } from "./modules/leaderboards/leaderboards.routes.js";
 import { createMeRouter } from "./modules/me/me.routes.js";
-import { wikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
+import { WikipediaStartingPageProvider } from "./modules/games/wikipedia.starting-page.provider.js";
 import { WikipediaService } from "./modules/wikipedia/wikipedia.service.js";
 import type { WikipediaArticleSource } from "./modules/wikipedia/wikipedia.types.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
@@ -27,13 +27,15 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     res.status(200).json({ status: "ok" });
   });
 
-  const wikipediaService = dependencies.wikipediaService ?? new WikipediaService();
+  const defaultWikipedia = new WikipediaService();
+  const wikipediaService = dependencies.wikipediaService ?? defaultWikipedia;
 
   app.use("/api/auth", authRouter);
   app.use(
     "/api/games",
     createGamesRouter(
-      dependencies.startingPageProvider ?? wikipediaStartingPageProvider,
+      dependencies.startingPageProvider ??
+        new WikipediaStartingPageProvider(defaultWikipedia),
       wikipediaService,
     ),
   );

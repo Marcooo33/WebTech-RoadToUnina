@@ -9,10 +9,13 @@ import {
 } from "./games.validation.js";
 
 test("parseCreateGameInput accepts a valid mode / difficulty pair", () => {
-  assert.deepEqual(parseCreateGameInput({ mode: "CLICK", difficulty: "EASY" }), {
-    mode: "CLICK",
-    difficulty: "EASY",
-  });
+  assert.deepEqual(
+    parseCreateGameInput({ mode: "CLICK", difficulty: "EASY" }),
+    {
+      mode: "CLICK",
+      difficulty: "EASY",
+    },
+  );
   assert.deepEqual(parseCreateGameInput({ mode: "TIME", difficulty: "HARD" }), {
     mode: "TIME",
     difficulty: "HARD",
@@ -38,9 +41,14 @@ test("parseCreateGameInput rejects invalid, missing or lower-case enum values", 
 });
 
 test("parseCreateGameInput rejects client-supplied authoritative fields", () => {
-  for (const extra of [{ userId: "x" }, { status: "COMPLETED" }, { clickCount: 1 }]) {
+  for (const extra of [
+    { userId: "x" },
+    { status: "COMPLETED" },
+    { clickCount: 1 },
+  ]) {
     assert.throws(
-      () => parseCreateGameInput({ mode: "CLICK", difficulty: "EASY", ...extra }),
+      () =>
+        parseCreateGameInput({ mode: "CLICK", difficulty: "EASY", ...extra }),
       ApiError,
     );
   }
@@ -60,22 +68,40 @@ test("parseGameId accepts a UUID and rejects anything else", () => {
   assert.throws(() => parseGameId("not-a-uuid"), ApiError);
 });
 
-test("parseMoveInput accepts a positive integer toPageId", () => {
-  assert.deepEqual(parseMoveInput({ toPageId: 123456 }), { toPageId: 123456 });
+test("parseMoveInput normalizes a title and accepts no authoritative fields", () => {
+  assert.deepEqual(parseMoveInput({ toTitle: "  università__di_Napoli " }), {
+    toTitle: "Università di Napoli",
+  });
 });
 
-test("parseMoveInput rejects a missing, non-positive or non-integer toPageId", () => {
-  for (const toPageId of [0, -1, 1.5, Number.NaN, "123", null, 2 ** 53]) {
-    assert.throws(
-      () => parseMoveInput({ toPageId }),
-      ApiError,
-      `expected toPageId=${String(toPageId)} to be rejected`,
-    );
+test("parseMoveInput rejects missing, malformed and oversized titles", () => {
+  for (const toTitle of [
+    0,
+    null,
+    undefined,
+    {},
+    [],
+    "",
+    "   ",
+    "A|B",
+    "A#B",
+    "A\nB",
+    "x".repeat(256),
+    "à".repeat(128),
+  ]) {
+    assert.throws(() => parseMoveInput({ toTitle }), ApiError);
   }
   assert.throws(() => parseMoveInput({}), ApiError);
 });
 
-test("parseMoveInput rejects undocumented fields (e.g. a legacy version)", () => {
-  assert.throws(() => parseMoveInput({ toPageId: 123, version: 0 }), ApiError);
-  assert.throws(() => parseMoveInput({ toPageId: 123, clickCount: 1 }), ApiError);
+test("parseMoveInput rejects page IDs, version and authoritative counters", () => {
+  assert.throws(() => parseMoveInput({ toPageId: 123 }), ApiError);
+  assert.throws(
+    () => parseMoveInput({ toTitle: "Napoli", version: 0 }),
+    ApiError,
+  );
+  assert.throws(
+    () => parseMoveInput({ toTitle: "Napoli", clickCount: 1 }),
+    ApiError,
+  );
 });

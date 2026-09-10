@@ -235,7 +235,6 @@ export class GamesService {
       title: article.title,
       contentHtml: article.contentHtml,
       links: article.links.map((link) => ({
-        pageId: link.pageId,
         title: link.title,
       })),
     };
@@ -275,8 +274,10 @@ export class GamesService {
       throw gameNotInProgress();
     }
 
-    const links = await this.wikipedia.getValidInternalLinks(game.currentPageId);
-    const destination = links.find((link) => link.pageId === input.toPageId);
+    const destination = await this.wikipedia.resolveNavigation(
+      game.currentPageId,
+      input.toTitle,
+    );
 
     if (!destination) {
       throw invalidMove();
@@ -284,7 +285,7 @@ export class GamesService {
 
     const fromPageId = game.currentPageId;
     const fromPageTitle = game.currentPageTitle;
-    const isTarget = input.toPageId === TARGET_PAGE_ID;
+    const isTarget = destination.pageId === TARGET_PAGE_ID;
 
     return withSequenceRetry(() =>
       prisma.$transaction(async (tx) => {
@@ -316,7 +317,7 @@ export class GamesService {
         await tx.game.update({
           where: { id: gameId },
           data: {
-            currentPageId: input.toPageId,
+            currentPageId: destination.pageId,
             currentPageTitle: destination.title,
             clickCount: { increment: 1 },
             ...timingData,
@@ -331,7 +332,7 @@ export class GamesService {
             type: "NAVIGATION",
             fromPageId,
             fromPageTitle,
-            toPageId: input.toPageId,
+            toPageId: destination.pageId,
             toPageTitle: destination.title,
           },
         });

@@ -34,7 +34,8 @@ const linkGraph = new Map<number, { pageId: number; title: string }[]>([
 
 function makeFakeWikipedia(): WikipediaService {
   return {
-    getValidInternalLinks: async (pageId: number) => linkGraph.get(pageId) ?? [],
+    resolveNavigation: async (pageId: number, title: string) =>
+      linkGraph.get(pageId)?.find((link) => link.title === title) ?? null,
     getArticle: async (pageId: number) => ({
       pageId,
       title: titleFor(pageId),
@@ -212,7 +213,7 @@ test("a valid move refreshes lastHeartbeatAt as proof of activity", async () => 
   });
 
   const moved = await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: 2,
+    toTitle: titleFor(2),
   });
   assert.equal(moved.status, 200);
 
@@ -233,7 +234,7 @@ test("the winning move finalizes effective time up to now and clears pending sta
   });
 
   const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: TARGET_PAGE_ID,
+    toTitle: TARGET_PAGE_TITLE,
   });
   assert.equal(win.status, 200);
   assert.equal(win.body.status, "COMPLETED");
@@ -252,7 +253,7 @@ test("a completed game rejects heartbeats and its effective time is final", asyn
   const gameId = await createGame(cookie);
   await req("GET", `/api/games/${gameId}`, cookie);
   await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: TARGET_PAGE_ID,
+    toTitle: TARGET_PAGE_TITLE,
   });
 
   const finalTime = (await timingRow(gameId)).effectivePlayTimeMs;
@@ -303,7 +304,7 @@ test("a stale resume write cannot overwrite a game the winning move already comp
 
   // The winning move completes the game and finalizes effective time.
   const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: TARGET_PAGE_ID,
+    toTitle: TARGET_PAGE_TITLE,
   });
   assert.equal(win.body.status, "COMPLETED");
   const finalized = await timingRow(gameId);
@@ -336,7 +337,7 @@ test("GET and the winning move issued concurrently leave the completed game cons
 
   const [, win] = await Promise.all([
     req("GET", `/api/games/${gameId}`, cookie),
-    req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: TARGET_PAGE_ID }),
+    req("POST", `/api/games/${gameId}/moves`, cookie, { toTitle: TARGET_PAGE_TITLE }),
   ]);
 
   assert.equal(win.status, 200);
@@ -361,7 +362,7 @@ test("a heartbeat racing the winning move cannot resurrect lastHeartbeatAt on th
 
   const [hb, win] = await Promise.all([
     req("POST", `/api/games/${gameId}/heartbeat`, cookie),
-    req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: TARGET_PAGE_ID }),
+    req("POST", `/api/games/${gameId}/moves`, cookie, { toTitle: TARGET_PAGE_TITLE }),
   ]);
 
   assert.equal(win.body.status, "COMPLETED");
@@ -399,7 +400,7 @@ test("a heartbeat immediately before the winning move does not cap effective tim
 
   // 2. the winning move immediately after
   const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: TARGET_PAGE_ID,
+    toTitle: TARGET_PAGE_TITLE,
   });
   assert.equal(win.body.status, "COMPLETED");
 
@@ -425,7 +426,7 @@ test("a gameplay action before the first GET leaves playStartedAt null; completi
   assert.equal(fresh.lastHeartbeatAt, null);
 
   // No GET / resume — a direct API client moves straight away.
-  const m1 = await req("POST", `/api/games/${gameId}/moves`, cookie, { toPageId: 2 });
+  const m1 = await req("POST", `/api/games/${gameId}/moves`, cookie, { toTitle: titleFor(2) });
   assert.equal(m1.status, 200);
 
   const mid = await timingRow(gameId);
@@ -435,7 +436,7 @@ test("a gameplay action before the first GET leaves playStartedAt null; completi
   // Completion with playStartedAt still null must add 0 — never a negative or a
   // garbage value — and still clear the timing fields.
   const win = await req("POST", `/api/games/${gameId}/moves`, cookie, {
-    toPageId: TARGET_PAGE_ID,
+    toTitle: TARGET_PAGE_TITLE,
   });
   assert.equal(win.status, 200);
   assert.equal(win.body.status, "COMPLETED");

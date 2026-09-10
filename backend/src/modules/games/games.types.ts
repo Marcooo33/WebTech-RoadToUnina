@@ -10,7 +10,7 @@ export interface ArticleDto {
   pageId: number;
   title: string;
   contentHtml: string;
-  links: PageRefDto[];
+  links: { title: string }[];
 }
 
 export type GameWithMoves = Game & { moves: GameMove[] };

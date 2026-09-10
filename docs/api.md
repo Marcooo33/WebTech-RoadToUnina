@@ -75,7 +75,7 @@ Every error uses the standard shape established by the Milestone 3 backend found
 {
   "error": {
     "code": "VALIDATION_ERROR",
-    "message": "toPageId must be a positive integer"
+    "message": "toTitle must be a valid Wikipedia article title (maximum 255 UTF-8 bytes)"
   }
 }
 ```
@@ -154,7 +154,7 @@ All timestamps are ISO 8601 strings in UTC, with millisecond precision, e.g.:
 - Database primary keys (`User.id`, `Game.id`, `GameMove.id`) are **UUID strings**.
 - MediaWiki page identifiers (`startPageId`, `currentPageId`, `fromPageId`, `toPageId`, and any `pageId`) are **integers** (MediaWiki `pageid`).
 
-The frontend never supplies MediaWiki titles or URLs for authoritative navigation; it supplies page ids, which the backend validates.
+Navigation requests supply a normalized Wikipedia article title (`toTitle`), never a URL or an authoritative page ID. The backend verifies that the clicked title is a playable link from the current article, then resolves that selected title to its canonical page ID. Game state, paths and persisted moves retain canonical page IDs.
 
 ### 2.11 Concurrency
 
@@ -177,7 +177,7 @@ The frontend MUST NOT send authoritative values. In particular the backend never
 - score or ranking values;
 - `userId` for ownership.
 
-The frontend sends **requested actions** (e.g. "navigate to page id `X`", "backtrack", "heartbeat") and the backend validates and applies them. Victory, counters, timing, and completion are always decided server-side.
+The frontend sends **requested actions** (e.g. "follow the link titled `Informatica`", "backtrack", "heartbeat") and the backend validates and applies them. Victory, counters, timing, and completion are always decided server-side.
 
 ---
 
@@ -316,15 +316,14 @@ The current article representation for the active game.
   "pageId": 200,
   "title": "…",
   "contentHtml": "<p>sanitized content…</p>",
-  "links": [
-    { "pageId": 123456, "title": "…" },
-    { "pageId": 789012, "title": "…" }
-  ]
+  "links": [{ "title": "Informatica" }, { "title": "Unina" }]
 }
 ```
 
 - `contentHtml` is normalized and sanitized HTML; external/non-playable links are removed.
-- `links` lists the playable internal Wikipedia links. The frontend maps clicks on these to a move request using `pageId`.
+- `links` lists unique playable source titles extracted from the HTML that survives sanitization. It does not contain IDs or eagerly resolved redirect destinations.
+- Playable anchors are `<a data-page-title="Informatica">…</a>` with no `href`. Angular intercepts them and sends the title as `toTitle`.
+- A redirect link retains its clicked title (e.g. `Unina`) until the backend resolves it during a move. Links that become missing or resolve outside the main namespace are rejected at that point.
 - The client checks `pageId` against the game's `currentPageId` and reloads if they disagree.
 
 ### 3.8 CompletedGameSummaryDto
@@ -665,15 +664,17 @@ POST /api/games/:gameId/moves
 
 ```json
 {
-  "toPageId": 123456
+  "toTitle": "Informatica"
 }
 ```
 
-| Field | Type | Constraints |
-|---|---|---|
-| `toPageId` | integer | required; target MediaWiki page id |
+| Field     | Type   | Constraints                                                           |
+| --------- | ------ | --------------------------------------------------------------------- |
+| `toTitle` | string | required; normalized Wikipedia article title; maximum 255 UTF-8 bytes |
 
-**Behavior:** the backend verifies ownership and `IN_PROGRESS` status, then verifies `toPageId` is reachable through a valid internal link from the current page. In one transaction it stores a `NAVIGATION` `GameMove`, increments `clickCount`, updates the current page, refreshes `lastHeartbeatAt` (the move is proof of activity), and checks for victory — on victory it also finalizes `effectivePlayTimeMs` and clears the timing fields. Backtracking does not count here.
+Titles use Unicode NFC, spaces instead of underscores, trimmed/collapsed spaces and Italian Wikipedia's first-letter capitalization; the remaining letters are case-sensitive. The parser decodes URL escapes once when extracting HTML links. The request contains a title, so the REST boundary does not URL-decode it. Empty titles, control characters, `|#<>[]{}` and oversized titles are validation errors. Unknown fields, including `toPageId` and `version`, are rejected.
+
+**Behavior:** the backend verifies ownership and `IN_PROGRESS` status, then checks the normalized `toTitle` against the playable source titles of the current sanitized article. A forged title returns `INVALID_MOVE` before any target resolution, even if it is the canonical destination of a different, reachable redirect. Only a reachable clicked title is resolved through MediaWiki's normalization/redirect mappings; missing or non-main-namespace destinations return `INVALID_MOVE`. In one transaction the backend stores a `NAVIGATION` `GameMove` using the resolved canonical ID/title, increments `clickCount`, updates the current page, refreshes `lastHeartbeatAt` (the move is proof of activity), and checks the canonical ID for victory — on victory it also finalizes `effectivePlayTimeMs` and clears the timing fields. Backtracking does not count here.
 
 **Success:** `200 OK` with the updated `GameDto` (when the target is reached, `status: COMPLETED`, `completedAt` set, `playStartedAt: null`).
 
