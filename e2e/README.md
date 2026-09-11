@@ -18,7 +18,7 @@ rejection, the 11th-game 409) are covered by the backend integration tests
 | `backtracking.spec.ts` | EASY backtrack steps the path back without a click |
 | `resume.spec.ts` | resume restores current page / clicks / path |
 | `completion.spec.ts` | reaching the target shows the completed result |
-| `public.spec.ts` | completed game in anonymous history + detail; on the leaderboard under its filter |
+| `public.spec.ts` | ranked completed games in anonymous History, filtering, and detail navigation |
 
 ## How it stays deterministic
 

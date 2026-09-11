@@ -47,7 +47,7 @@ no separate play-session table (see §7).
 
 Do not create initial tables for:
 
-- Leaderboard;
+- History rankings;
 - UserStatistics;
 - WikipediaPage.
 
@@ -211,7 +211,7 @@ tracked with three fields on `Game`:
 
 | Field | Meaning |
 |---|---|
-| `effectivePlayTimeMs` | Play time already finalized/accounted. Authoritative for completed games, history, statistics and leaderboards. |
+| `effectivePlayTimeMs` | Play time already finalized/accounted. Authoritative for completed games, History rankings and statistics. |
 | `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
 | `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
 
@@ -247,7 +247,7 @@ There is **no expiration process** and no state transition: a stale
 `lastHeartbeatAt` is just data, used only to bound the interval at the next open.
 If a browser disappears, the time after the last heartbeat is not counted.
 
-The TIME leaderboard uses `effectivePlayTimeMs`, never `completedAt - startedAt`.
+The TIME History view uses `effectivePlayTimeMs`, never `completedAt - startedAt`.
 
 The frontend timer is display-only and never authoritative.
 
@@ -323,19 +323,19 @@ Retrieve a user's games by status:
 (userId, status)
 ```
 
-### Public completed history
+### Public completed History
 
 ```text
 (status, completedAt)
 ```
 
-### CLICK leaderboard
+### CLICK History ranking
 
 ```text
 (status, mode, difficulty, clickCount)
 ```
 
-### TIME leaderboard
+### TIME History ranking
 
 ```text
 (status, mode, difficulty, effectivePlayTimeMs)
@@ -532,9 +532,9 @@ Account deletion policy is not yet finalized and should not be invented by the c
 
 ## 14. Derived Data
 
-Do not create an authoritative leaderboard table initially.
+Do not create an authoritative History ranking table initially.
 
-Leaderboard rankings are queries over completed `Game` rows.
+History rankings are queries over completed `Game` rows.
 
 Do not create `UserStatistics` initially.
 

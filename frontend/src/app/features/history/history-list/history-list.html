@@ -1,28 +1,33 @@
 <section class="stack">
-  <h1 class="page-title">Completed games</h1>
+  <h1 class="page-title">History</h1>
 
-  <div class="filters">
-    <label>
-      <span>Mode</span>
-      <select [value]="filters().mode ?? 'ALL'" (change)="onModeChange($any($event.target).value)">
-        <option value="ALL">All</option>
-        <option value="CLICK">CLICK</option>
-        <option value="TIME">TIME</option>
-      </select>
-    </label>
-
-    <label>
-      <span>Difficulty</span>
-      <select
-        [value]="filters().difficulty ?? 'ALL'"
-        (change)="onDifficultyChange($any($event.target).value)"
+  <div class="tabs" role="tablist" aria-label="History mode">
+    @for (mode of modes; track mode) {
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        [class.tab--active]="selection().mode === mode"
+        [attr.aria-selected]="selection().mode === mode"
+        (click)="selectMode(mode)"
       >
-        <option value="ALL">All</option>
-        <option value="EASY">EASY</option>
-        <option value="MEDIUM">MEDIUM</option>
-        <option value="HARD">HARD</option>
-      </select>
-    </label>
+        {{ mode }}
+      </button>
+    }
+  </div>
+
+  <div class="filters" aria-label="Difficulty">
+    @for (difficulty of difficulties; track difficulty) {
+      <button
+        type="button"
+        class="chip"
+        [class.chip--active]="selection().difficulty === difficulty"
+        [attr.aria-pressed]="selection().difficulty === difficulty"
+        (click)="selectDifficulty(difficulty)"
+      >
+        {{ difficulty }}
+      </button>
+    }
   </div>
 
   <app-error-banner [message]="error()" />
@@ -35,11 +40,10 @@
         <table class="table table--responsive">
           <thead>
             <tr>
+              <th>#</th>
               <th>Player</th>
-              <th>Mode</th>
-              <th>Difficulty</th>
-              <th>Clicks</th>
-              <th>Time</th>
+              <th [class.is-primary]="primaryMetric() === 'clicks'">Clicks</th>
+              <th [class.is-primary]="primaryMetric() === 'time'">Time</th>
               <th>Completed</th>
               <th></th>
             </tr>
@@ -47,11 +51,14 @@
           <tbody>
             @for (item of items; track item.gameId) {
               <tr>
-                <td>{{ item.player.username }}</td>
-                <td>{{ item.mode }}</td>
-                <td>{{ item.difficulty }}</td>
-                <td>{{ item.clickCount }}</td>
-                <td>{{ item.effectivePlayTimeMs | duration }}</td>
+                <td>{{ item.rank }}</td>
+                <td>
+                  <a [routerLink]="['/history', item.gameId]">{{ item.username }}</a>
+                </td>
+                <td [class.is-primary]="primaryMetric() === 'clicks'">{{ item.clickCount }}</td>
+                <td [class.is-primary]="primaryMetric() === 'time'">
+                  {{ item.effectivePlayTimeMs | duration }}
+                </td>
                 <td>{{ item.completedAt | date: 'short' }}</td>
                 <td><a [routerLink]="['/history', item.gameId]">Details</a></td>
               </tr>

@@ -7,20 +7,20 @@ import {
   HistoryListDto,
   HistoryListQuery,
 } from '../../shared/models/history.model';
+import { GameMode } from '../../shared/models/game.model';
 
-/** Thin typed wrapper over the public `/api/history` endpoints (docs/api.md §7.1). */
+/** Thin typed wrapper over the public `/api/history` endpoints. */
 @Injectable({ providedIn: 'root' })
 export class HistoryService {
   private readonly http = inject(HttpClient);
   private readonly base = `${API_BASE}/history`;
 
-  list(query: HistoryListQuery = {}): Observable<HistoryListDto> {
-    let params = new HttpParams();
-    if (query.mode) params = params.set('mode', query.mode);
-    if (query.difficulty) params = params.set('difficulty', query.difficulty);
+  list(mode: GameMode, query: HistoryListQuery): Observable<HistoryListDto> {
+    let params = new HttpParams().set('difficulty', query.difficulty);
     if (query.page != null) params = params.set('page', query.page);
     if (query.limit != null) params = params.set('limit', query.limit);
-    return this.http.get<HistoryListDto>(this.base, { params });
+    const view = mode === 'CLICK' ? 'click' : 'time';
+    return this.http.get<HistoryListDto>(`${this.base}/${view}`, { params });
   }
 
   get(gameId: string): Observable<CompletedGameDetailDto> {

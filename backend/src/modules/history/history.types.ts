@@ -10,19 +10,17 @@ export interface UserSummaryDto {
   avatarUrl: string | null;
 }
 
-/** Item in the public completed-game history list (docs/api.md §3.10). */
-export interface CompletedGameSummaryDto {
+/** Ranked item in a paginated public History view. */
+export interface HistoryEntryDto {
+  rank: number;
   gameId: string;
-  mode: "CLICK" | "TIME";
-  difficulty: "EASY" | "MEDIUM" | "HARD";
+  username: string;
   clickCount: number;
   effectivePlayTimeMs: number;
-  startPageTitle: string;
   completedAt: string;
-  player: UserSummaryDto;
 }
 
-/** Public detail of a completed game (docs/api.md §3.11). */
+/** Public detail of a completed game (docs/api.md §3.9). */
 export interface CompletedGameDetailDto {
   gameId: string;
   mode: "CLICK" | "TIME";
@@ -38,10 +36,13 @@ export interface CompletedGameDetailDto {
   player: UserSummaryDto;
 }
 
-/** Paginated public history list envelope (docs/api.md §2.7 / §7.1.1). */
+/** Paginated public History view, ordered according to its mode. */
 export interface HistoryListDto {
-  items: CompletedGameSummaryDto[];
+  mode: "CLICK" | "TIME";
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  items: HistoryEntryDto[];
   page: number;
   limit: number;
   total: number;
+  totalPages: number;
 }

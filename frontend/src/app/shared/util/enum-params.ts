@@ -1,8 +1,8 @@
 import { GameDifficulty, GameMode } from '../models/game.model';
 
 /**
- * Safe parsing of enum-valued query parameters shared by the public history and
- * leaderboard screens. Unknown/missing values return `null` so callers can fall
+ * Safe parsing of enum-valued query parameters used by public History. Unknown
+ * or missing values return `null` so callers can fall
  * back to a valid default instead of forwarding junk to the API (docs/api.md §2.8,
  * validation is case-sensitive).
  */

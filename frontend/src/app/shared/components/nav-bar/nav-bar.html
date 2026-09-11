@@ -18,10 +18,9 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="closeMenu()"
-        >Home</a
+      >Home</a
       >
       <a routerLink="/history" routerLinkActive="active" (click)="closeMenu()">History</a>
-      <a routerLink="/leaderboard" routerLinkActive="active" (click)="closeMenu()">Leaderboard</a>
 
       @if (isAuthenticated()) {
         <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">Dashboard</a>

@@ -1,16 +1,18 @@
 import type {
   Game,
+  GameMode,
   GameMove,
+  Prisma,
   User,
 } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
 import { toGameMoveDto } from "../games/game-move.js";
 import { reconstructActivePath } from "../games/game-path.js";
-import type { HistoryListQuery } from "./history.validation.js";
+import type { HistoryQuery } from "./history.validation.js";
 import type {
   CompletedGameDetailDto,
-  CompletedGameSummaryDto,
+  HistoryEntryDto,
   HistoryListDto,
   UserSummaryDto,
 } from "./history.types.js";
@@ -42,21 +44,6 @@ function toUserSummaryDto(user: User): UserSummaryDto {
   };
 }
 
-function toCompletedGameSummaryDto(
-  game: GameWithPlayer,
-): CompletedGameSummaryDto {
-  return {
-    gameId: game.id,
-    mode: game.mode,
-    difficulty: game.difficulty,
-    clickCount: game.clickCount,
-    effectivePlayTimeMs: game.effectivePlayTimeMs,
-    startPageTitle: game.startPageTitle,
-    completedAt: requireCompletedAt(game),
-    player: toUserSummaryDto(game.user),
-  };
-}
-
 function toCompletedGameDetailDto(
   game: GameWithPlayerAndMoves,
 ): CompletedGameDetailDto {
@@ -81,35 +68,84 @@ function toCompletedGameDetailDto(
   };
 }
 
+type RankableGame = {
+  id: string;
+  clickCount: number;
+  effectivePlayTimeMs: number;
+  completedAt: Date | null;
+  user: { username: string };
+};
+
+/** Maps an already ordered page and keeps ranks global across pagination. */
+export function toHistoryEntries(
+  orderedGames: RankableGame[],
+  startingRank: number,
+): HistoryEntryDto[] {
+  return orderedGames.map((game, index) => ({
+    rank: startingRank + index,
+    gameId: game.id,
+    username: game.user.username,
+    clickCount: game.clickCount,
+    effectivePlayTimeMs: game.effectivePlayTimeMs,
+    completedAt: requireCompletedAt(game),
+  }));
+}
+
+// The score and metric tie-breaks are the game rules. Completion time and id
+// keep pagination deterministic when both metrics are equal.
+const ORDER_BY: Record<GameMode, Prisma.GameOrderByWithRelationInput[]> = {
+  CLICK: [
+    { clickCount: "asc" },
+    { effectivePlayTimeMs: "asc" },
+    { completedAt: "asc" },
+    { id: "asc" },
+  ],
+  TIME: [
+    { effectivePlayTimeMs: "asc" },
+    { clickCount: "asc" },
+    { completedAt: "asc" },
+    { id: "asc" },
+  ],
+};
+
 export async function listCompletedGames(
-  query: HistoryListQuery,
+  mode: GameMode,
+  query: HistoryQuery,
 ): Promise<HistoryListDto> {
-  const { mode, difficulty, page, limit } = query;
+  const { difficulty, page, limit } = query;
+  const skip = (page - 1) * limit;
 
   const where = {
     status: "COMPLETED" as const,
-    ...(mode ? { mode } : {}),
-    ...(difficulty ? { difficulty } : {}),
+    mode,
+    difficulty,
   };
 
   const [total, games] = await prisma.$transaction([
     prisma.game.count({ where }),
     prisma.game.findMany({
       where,
-      // completedAt DESC is the contract ordering (docs/api.md §7.1.1); id ASC is
-      // a stable tie-break so pagination does not reshuffle same-instant rows.
-      orderBy: [{ completedAt: "desc" }, { id: "asc" }],
-      skip: (page - 1) * limit,
+      orderBy: ORDER_BY[mode],
+      skip,
       take: limit,
-      include: { user: true },
+      select: {
+        id: true,
+        clickCount: true,
+        effectivePlayTimeMs: true,
+        completedAt: true,
+        user: { select: { username: true } },
+      },
     }),
   ]);
 
   return {
-    items: games.map(toCompletedGameSummaryDto),
+    mode,
+    difficulty,
+    items: toHistoryEntries(games, skip + 1),
     page,
     limit,
     total,
+    totalPages: Math.ceil(total / limit),
   };
 }
 
@@ -118,7 +154,7 @@ export async function getCompletedGameDetail(
 ): Promise<CompletedGameDetailDto> {
   const game = await prisma.game.findFirst({
     // A non-COMPLETED game is indistinguishable from a missing one here
-    // (docs/api.md §7.1.2 uses the generic NOT_FOUND, never GAME_NOT_FOUND).
+    // (docs/api.md §6.2 uses the generic NOT_FOUND, never GAME_NOT_FOUND).
     where: { id: gameId, status: "COMPLETED" },
     include: { user: true, moves: { orderBy: { sequence: "asc" } } },
   });

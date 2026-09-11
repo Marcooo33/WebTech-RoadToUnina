@@ -50,7 +50,7 @@ Do not convert the repository to microservices or introduce additional applicati
 - Angular Router
 - Angular HttpClient
 - Reactive Forms
-- SCSS
+- CSS
 - standalone Angular architecture where appropriate
 
 Do not introduce NgRx unless a concrete requirement appears later.
@@ -128,8 +128,7 @@ Responsible for:
 - difficulty enforcement;
 - starting-page selection;
 - Wikipedia integration;
-- leaderboard queries;
-- history queries;
+- ranked History queries and completed-game details;
 - persistence.
 
 ### PostgreSQL
@@ -176,7 +175,7 @@ backend/src/
 │   ├── users/
 │   ├── games/
 │   ├── wikipedia/
-│   └── leaderboards/
+│   └── history/
 └── shared/
 ```
 
@@ -397,7 +396,6 @@ frontend/src/app/
 │   ├── dashboard/
 │   ├── game/
 │   ├── history/
-│   ├── leaderboard/
 │   └── profile/
 └── app.routes.ts
 ```
@@ -504,9 +502,8 @@ the next move-sequence number is resolved by recomputing and retrying once.
 
 Public capabilities include:
 
-- completed-game history;
-- completed-game details;
-- leaderboards;
+- ranked, paginated completed-game History with CLICK and TIME views;
+- completed-game details opened from History;
 - landing/how-to-play content.
 
 Authenticated capabilities include:
@@ -526,9 +523,9 @@ Exact endpoints belong in `docs/api.md`.
 
 ## 16. Database Authority
 
-Leaderboard and statistics data should initially be calculated from `Game` records.
+History rankings and statistics should initially be calculated from `Game` records.
 
-Do not create separate authoritative `Leaderboard` or `UserStatistics` tables unless profiling later proves they are needed.
+Do not create separate authoritative ranking or `UserStatistics` tables unless profiling later proves they are needed.
 
 Do not persist complete Wikipedia HTML/articles in PostgreSQL in the initial version.
 

@@ -48,7 +48,7 @@ Initialize:
 - Angular
 - TypeScript
 - routing
-- SCSS
+- CSS
 - current recommended standalone Angular architecture
 
 Do not implement application pages yet.
@@ -100,7 +100,7 @@ Do not create application models or migrations in this milestone.
 - game logic
 - MediaWiki
 - effective play time
-- leaderboard
+- ranked History
 - database application tables
 - UI pages
 - Docker
@@ -264,7 +264,7 @@ The maximum of 10 in-progress games per user remains application/domain logic an
 - game creation API
 - MediaWiki requests
 - frontend database access
-- leaderboard logic
+- History ranking logic
 
 ## Validation
 
@@ -339,7 +339,7 @@ Keep `/health`.
 - games
 - MediaWiki
 - effective play time
-- leaderboards
+- ranked History
 
 ## Validation
 
@@ -398,14 +398,9 @@ Document at least:
 
 ### Public History
 
-- list completed games
-- get completed game details
-
-### Leaderboards
-
-- CLICK leaderboard
-- TIME leaderboard
+- paginated CLICK and TIME views ordered by ranking rules
 - difficulty filters
+- get completed game details
 
 ### Profile / Statistics
 
@@ -490,7 +485,7 @@ Never:
 - game creation
 - game navigation
 - Wikipedia
-- leaderboards
+- ranked History
 
 ## Validation
 
@@ -562,7 +557,7 @@ At this milestone, starting-page selection may be abstracted/stubbed if MediaWik
 - game moves
 - backtracking
 - effective play time / heartbeat
-- leaderboards
+- ranked History
 
 ## Validation
 
@@ -626,7 +621,7 @@ Do not scatter raw MediaWiki HTTP calls through game controllers/services.
 
 - complete navigation engine
 - effective-time accounting
-- leaderboard
+- ranked History
 
 ## Validation
 
@@ -779,7 +774,7 @@ Test:
 - a heartbeat updates timing but creates no other row;
 - a completed game rejects the heartbeat and its effective time stays final;
 - effective time is non-negative and monotonic across a game;
-- TIME leaderboard orders by `effectivePlayTimeMs`.
+- TIME History orders by `effectivePlayTimeMs`.
 
 ## Completion Criteria
 
@@ -793,7 +788,7 @@ feat: track effective play time on the game record
 
 ---
 
-# Milestone 10 — Public History and Game Details
+# Milestone 10 — Ranked Public History and Game Details
 
 ## Goal
 
@@ -803,7 +798,9 @@ Expose completed games to unauthenticated users.
 
 Implement:
 
-- completed-game list;
+- paginated CLICK and TIME completed-game views;
+- EASY/MEDIUM/HARD difficulty filtering;
+- ranking position using the mode-specific score rules;
 - completed-game details;
 - starting page;
 - reconstructed path;
@@ -813,6 +810,10 @@ Implement:
 - mode;
 - difficulty;
 - player identity/public username as approved.
+
+CLICK orders by clicks then effective time. TIME orders by effective time then
+clicks. The collection remains browsable rather than stopping at a fixed Top N,
+and every entry links to its completed-game detail.
 
 In-progress games must never be exposed publicly through these endpoints.
 
@@ -837,37 +838,13 @@ feat: add public game history
 
 ---
 
-# Milestone 11 — Leaderboards and Statistics
+# Milestone 11 — Statistics
 
 ## Goal
 
-Implement ranking and personal statistics derived from completed games.
+Implement personal statistics derived from completed games.
 
 ## Scope
-
-Implement leaderboard queries for:
-
-### CLICK
-
-Separate by difficulty.
-
-Ordering:
-
-1. `clickCount ASC`
-2. `effectivePlayTimeMs ASC`
-
-### TIME
-
-Separate by difficulty.
-
-Ordering:
-
-1. `effectivePlayTimeMs ASC`
-2. `clickCount ASC`
-
-Use completed games only.
-
-Do not create an authoritative leaderboard table.
 
 Implement personal statistics such as:
 
@@ -882,18 +859,16 @@ Exact statistics should remain simple and useful.
 
 ## Validation
 
-Test deterministic ranking with seeded completed games.
-
-Verify difficulty separation.
+Test statistics with seeded completed games.
 
 ## Completion Criteria
 
-Public rankings and authenticated personal statistics work.
+Authenticated personal statistics work.
 
 Recommended commit:
 
 ```text
-feat: add leaderboards and player statistics
+feat: add player statistics
 ```
 
 ---
@@ -916,7 +891,6 @@ Create routes/pages for:
 - game
 - history
 - completed game detail
-- leaderboard
 - profile
 
 Implement:
@@ -1084,7 +1058,7 @@ feat: implement gameplay interface
 
 ---
 
-# Milestone 15 — History, Leaderboard and Profile UI
+# Milestone 15 — History and Profile UI
 
 ## Goal
 
@@ -1096,9 +1070,9 @@ Implement frontend screens for:
 
 - public completed-game history;
 - completed-game detail/path;
-- CLICK leaderboard;
-- TIME leaderboard;
+- CLICK and TIME ranking views;
 - difficulty filtering;
+- pagination and links from each entry to its completed-game detail;
 - personal profile/statistics.
 
 Keep the UI focused. Do not introduce social-network features.
@@ -1114,7 +1088,7 @@ All major product surfaces required by the specification are usable.
 Recommended commit:
 
 ```text
-feat: add history leaderboard and profile UI
+feat: add history and profile UI
 ```
 
 ---
@@ -1148,7 +1122,7 @@ Target at least 12–15 meaningful scenarios rather than exactly ten.
 11. game resume preserves state;
 12. reaching target completes game;
 13. completed game visible in public history;
-14. leaderboard shows completed result in correct mode/difficulty.
+14. History shows the completed result at the correct rank for its mode/difficulty.
 
 The suite currently has 13 browser-driven scenarios (≥ 10 required).
 
@@ -1242,7 +1216,7 @@ Verify the student can explain:
 - the minimal heartbeat;
 - why there is no session entity, expiration job, or version field;
 - Wikipedia sandboxing;
-- leaderboard queries;
+- ranked History queries;
 - difficulty rules.
 
 ## Validation
@@ -1278,7 +1252,7 @@ Do not implement them automatically.
 
 All users receive the same starting page for a specific day.
 
-Requires a precise rule for daily challenge identity, timing and leaderboard separation before implementation.
+Requires a precise rule for daily challenge identity, timing and History ranking separation before implementation.
 
 ## Optional B — Extended Statistics
 

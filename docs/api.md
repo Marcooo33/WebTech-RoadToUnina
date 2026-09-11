@@ -7,7 +7,7 @@ This document defines the REST contract for the entire initial application. It i
 The contract is consistent with:
 
 - `docs/architecture.md` — Express backend is authoritative; Angular requests actions only;
-- `docs/game-rules.md` — game rules, difficulty, effective play time, leaderboards;
+- `docs/game-rules.md` — game rules, difficulty, effective play time, and History ordering;
 - `docs/database.md` — Prisma entities and enums.
 
 No endpoint trusts the frontend for authoritative game state. Every resource's ownership is derived from the authenticated identity, never from a client-supplied `userId`.
@@ -121,14 +121,15 @@ Rules:
 
 ### 2.7 Pagination
 
-Used only by the public history list (`GET /api/history`).
+Used by both public History collection views (`GET /api/history/click` and
+`GET /api/history/time`).
 
 - Offset-based:
   - `page` (1-based, default `1`);
   - `limit` (default `20`, max `100`).
-- Response includes `page`, `limit`, `total`, and `items`.
+- Response includes `page`, `limit`, `total`, `totalPages`, and `items`.
 
-`GET /api/games` and leaderboards are not paginated (a user has at most 10 in-progress games; leaderboards return a fixed top-`N`).
+`GET /api/games` is not paginated because a user has at most 10 in-progress games.
 
 ### 2.8 Enum serialization
 
@@ -326,24 +327,19 @@ The current article representation for the active game.
 - A redirect link retains its clicked title (e.g. `Unina`) until the backend resolves it during a move. Links that become missing or resolve outside the main namespace are rejected at that point.
 - The client checks `pageId` against the game's `currentPageId` and reloads if they disagree.
 
-### 3.8 CompletedGameSummaryDto
+### 3.8 HistoryEntryDto
 
-Item in the public history list.
+Ranked item in either public History view. Both score metrics are present; the
+selected view determines their ordering (§6.1).
 
 ```json
 {
+  "rank": 1,
   "gameId": "…",
-  "mode": "CLICK",
-  "difficulty": "MEDIUM",
+  "username": "marco",
   "clickCount": 12,
   "effectivePlayTimeMs": 420000,
-  "startPageTitle": "…",
-  "completedAt": "2026-08-28T10:20:00.000Z",
-  "player": {
-    "id": "…",
-    "username": "marco",
-    "avatarUrl": null
-  }
+  "completedAt": "2026-08-28T10:20:00.000Z"
 }
 ```
 
@@ -377,18 +373,19 @@ Public detail of a completed game.
 }
 ```
 
-### 3.10 LeaderboardEntryDto
+### 3.10 HistoryListDto
 
-Ranking entry. Both metrics are always present; ordering differs by leaderboard (§6.2).
+Paginated envelope for a ranked History view.
 
 ```json
 {
-  "rank": 1,
-  "gameId": "…",
-  "username": "marco",
-  "clickCount": 8,
-  "effectivePlayTimeMs": 300000,
-  "completedAt": "2026-08-28T10:20:00.000Z"
+  "mode": "CLICK",
+  "difficulty": "EASY",
+  "items": [ { "…": "HistoryEntryDto" } ],
+  "page": 1,
+  "limit": 20,
+  "total": 137,
+  "totalPages": 7
 }
 ```
 
@@ -749,16 +746,15 @@ the next time the game is opened (§5.3).
 
 ---
 
-## 6. Public History & Leaderboards
+## 6. Public History
 
 These endpoints are public (no auth). They expose only `COMPLETED` games. `IN_PROGRESS` games can never appear.
 
-### 6.1 Public history
-
-#### 6.1.1 List completed games
+### 6.1 Ranked completed-game collection
 
 ```http
-GET /api/history
+GET /api/history/click
+GET /api/history/time
 ```
 
 **Auth:** none.
@@ -767,27 +763,38 @@ GET /api/history
 
 | Param | Type | Default | Notes |
 |---|---|---|---|
-| `mode` | `GameMode` | omitted | optional filter |
-| `difficulty` | `GameDifficulty` | omitted | optional filter |
+| `difficulty` | `GameDifficulty` | **required** | EASY \| MEDIUM \| HARD |
 | `page` | integer | `1` | 1-based |
 | `limit` | integer | `20` | max `100` |
 
-**Behavior:** returns completed games only, ordered by `completedAt` descending.
+**Behavior:** History is the browsable public collection of completed games.
+The route chooses the mode and `difficulty` chooses the ranking category:
+
+- `click` → `clickCount ASC`, then `effectivePlayTimeMs ASC`;
+- `time` → `effectivePlayTimeMs ASC`, then `clickCount ASC`.
+
+When both metrics are tied, `completedAt ASC` then `gameId ASC` makes the order
+deterministic. Ranks are consecutive, 1-based positions across the entire
+filtered collection, so the first item on page 2 with `limit=20` has rank 21.
+The collection has no arbitrary Top-N cutoff.
 
 **Success:** `200 OK`.
 
 ```json
 {
-  "items": [ { "…": "CompletedGameSummaryDto" } ],
+  "mode": "CLICK",
+  "difficulty": "EASY",
+  "items": [ { "…": "HistoryEntryDto" } ],
   "page": 1,
   "limit": 20,
-  "total": 137
+  "total": 137,
+  "totalPages": 7
 }
 ```
 
-**Errors:** `400 VALIDATION_ERROR`.
+**Errors:** `400 VALIDATION_ERROR` for missing/invalid `difficulty` or invalid pagination.
 
-#### 6.1.2 Get completed game details
+### 6.2 Get completed game details
 
 ```http
 GET /api/history/:gameId
@@ -805,57 +812,6 @@ GET /api/history/:gameId
 
 - `400 VALIDATION_ERROR`;
 - `404 NOT_FOUND` — the game does not exist or is not `COMPLETED` (in-progress games are never exposed).
-
-### 6.2 Leaderboards
-
-Two endpoints, one per mode, each filtered by `difficulty`. Rankings are derived from completed `Game` records; there is no `Leaderboard` table.
-
-```http
-GET /api/leaderboards/click
-GET /api/leaderboards/time
-```
-
-**Auth:** none.
-
-**Query parameters:**
-
-| Param | Type | Default | Notes |
-|---|---|---|---|
-| `difficulty` | `GameDifficulty` | **required** | EASY \| MEDIUM \| HARD |
-| `limit` | integer | `10` | max `100` |
-
-**Ordering:**
-
-- `click` → `clickCount ASC`, tie-break `effectivePlayTimeMs ASC`;
-- `time` → `effectivePlayTimeMs ASC`, tie-break `clickCount ASC`.
-
-When entries are still tied after the mode's tie-break, the order is fully
-determined by `completedAt ASC`, then `gameId ASC` (the earlier achiever ranks
-higher). `rank` is the 1-based position in the returned list; tied entries
-receive consecutive distinct ranks, not a shared rank.
-
-Only `COMPLETED` games participate. Rankings are per difficulty.
-
-**Success:** `200 OK`.
-
-```json
-{
-  "mode": "CLICK",
-  "difficulty": "EASY",
-  "items": [
-    {
-      "rank": 1,
-      "gameId": "…",
-      "username": "marco",
-      "clickCount": 8,
-      "effectivePlayTimeMs": 300000,
-      "completedAt": "2026-08-28T10:20:00.000Z"
-    }
-  ]
-}
-```
-
-**Errors:** `400 VALIDATION_ERROR` (including a missing/invalid `difficulty`).
 
 ---
 
@@ -905,7 +861,7 @@ browser disappears is never counted — there is no expiration process.
 
 ### 8.4 Completion
 
-Victory is decided server-side when a `NAVIGATION` reaches the configured target page id (`Università degli Studi di Napoli Federico II`). In one transaction completion sets `COMPLETED`, `completedAt`, folds the final interval into `effectivePlayTimeMs`, and clears `playStartedAt` / `lastHeartbeatAt`. The frontend cannot mark a game completed directly. Once completed, the game becomes eligible for public history and leaderboards, and further moves/backtracks/heartbeats are rejected with `409 GAME_NOT_IN_PROGRESS`.
+Victory is decided server-side when a `NAVIGATION` reaches the configured target page id (`Università degli Studi di Napoli Federico II`). In one transaction completion sets `COMPLETED`, `completedAt`, folds the final interval into `effectivePlayTimeMs`, and clears `playStartedAt` / `lastHeartbeatAt`. The frontend cannot mark a game completed directly. Once completed, the game becomes eligible for ranked public History, and further moves/backtracks/heartbeats are rejected with `409 GAME_NOT_IN_PROGRESS`.
 
 ---
 
@@ -914,7 +870,7 @@ Victory is decided server-side when a `NAVIGATION` reaches the configured target
 This contract has been checked against the approved documents:
 
 - **Game rules** — two statuses only; 10-game limit; CLICK/TIME modes; EASY/MEDIUM/HARD backtracking rules; navigation only through validated internal links; backtracking does not increment clicks; effective time excludes idle/offline time; server-side victory; completed games only in public surfaces.
-- **Database** — endpoints map 1:1 onto `User`, `Game`, `GameMove` and their enums; effective play time is three fields on `Game`, not a table; no `Leaderboard`, `UserStatistics`, or `WikipediaPage` tables are assumed; leaderboards/statistics are derived from `Game` records; `passwordHash` is never exposed; there is no `version` field.
+- **Database** — endpoints map 1:1 onto `User`, `Game`, `GameMove` and their enums; effective play time is three fields on `Game`, not a table; no ranking, `UserStatistics`, or `WikipediaPage` tables are assumed; History rankings/statistics are derived from `Game` records; `passwordHash` is never exposed; there is no `version` field.
 - **Architecture** — Express authoritative; Angular requests actions; ownership from authentication; no client-authoritative game state; MediaWiki navigation controlled by ROADTOUNINA; a minimal heartbeat updates timing only; no iframe navigation.
 - **Milestone 3 error shape** — all errors use `{ error: { code, message } }`.
 

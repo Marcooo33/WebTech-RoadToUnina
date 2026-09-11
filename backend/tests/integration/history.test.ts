@@ -6,13 +6,6 @@ import { after, before, test } from "node:test";
 import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
 
-// GET /api/history is a global, unauthenticated endpoint. No other integration
-// file seeds completed games with future `completedAt` values, and tests within
-// one file run sequentially, so this file dates its seeded games far in the
-// future and asserts only on the identity / relative order of its own ids
-// (plus `total >= seeded`) — never on exact global totals or absolute offsets.
-const FAR_FUTURE = Date.UTC(2999, 0, 1);
-
 let server: Server;
 let baseUrl: string;
 const createdUserIds: string[] = [];
@@ -28,6 +21,23 @@ interface Move {
   fromPageTitle: string;
   toPageId: number;
   toPageTitle: string;
+}
+
+interface SeedOptions {
+  userId: string;
+  id?: string;
+  mode?: "CLICK" | "TIME";
+  difficulty?: "EASY" | "MEDIUM" | "HARD";
+  status?: "IN_PROGRESS" | "COMPLETED";
+  completedAt?: Date;
+  clickCount?: number;
+  backtrackCount?: number;
+  effectivePlayTimeMs?: number;
+  startPageId?: number;
+  startPageTitle?: string;
+  currentPageId?: number;
+  currentPageTitle?: string;
+  moves?: Move[];
 }
 
 function unique(prefix: string): string {
@@ -47,29 +57,13 @@ async function createUser(): Promise<{ id: string; username: string }> {
   return { id: user.id, username: user.username };
 }
 
-interface SeedOptions {
-  userId: string;
-  mode?: "CLICK" | "TIME";
-  difficulty?: "EASY" | "MEDIUM" | "HARD";
-  status?: "IN_PROGRESS" | "COMPLETED";
-  completedAtMs?: number;
-  clickCount?: number;
-  backtrackCount?: number;
-  effectivePlayTimeMs?: number;
-  startPageId?: number;
-  startPageTitle?: string;
-  currentPageId?: number;
-  currentPageTitle?: string;
-  moves?: Move[];
-}
-
 async function seedGame(options: SeedOptions): Promise<string> {
   const status = options.status ?? "COMPLETED";
   const startPageId = options.startPageId ?? 100;
   const startPageTitle = options.startPageTitle ?? "Start";
-
   const game = await prisma.game.create({
     data: {
+      ...(options.id ? { id: options.id } : {}),
       userId: options.userId,
       mode: options.mode ?? "CLICK",
       difficulty: options.difficulty ?? "EASY",
@@ -81,10 +75,10 @@ async function seedGame(options: SeedOptions): Promise<string> {
       clickCount: options.clickCount ?? 0,
       backtrackCount: options.backtrackCount ?? 0,
       effectivePlayTimeMs: options.effectivePlayTimeMs ?? 0,
-      startedAt: new Date(FAR_FUTURE - 60_000),
+      startedAt: new Date("2026-01-01T00:00:00.000Z"),
       completedAt:
         status === "COMPLETED"
-          ? new Date(options.completedAtMs ?? FAR_FUTURE)
+          ? (options.completedAt ?? new Date("2026-01-01T00:10:00.000Z"))
           : null,
     },
   });
@@ -97,9 +91,12 @@ async function seedGame(options: SeedOptions): Promise<string> {
 }
 
 async function get(path: string): Promise<{ status: number; body: Json }> {
-  const res = await fetch(`${baseUrl}${path}`);
-  const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as Json) : {} };
+  const response = await fetch(`${baseUrl}${path}`);
+  const text = await response.text();
+  return {
+    status: response.status,
+    body: text ? (JSON.parse(text) as Json) : {},
+  };
 }
 
 function items(body: Json): Json[] {
@@ -122,87 +119,222 @@ before(async () => {
 after(async () => {
   await new Promise((resolve) => server.close(resolve));
   if (createdUserIds.length > 0) {
-    // Games / moves cascade from the user rows.
     await prisma.user.deleteMany({ where: { id: { in: createdUserIds } } });
   }
   await prisma.$disconnect();
 });
 
-test("unauthenticated user lists completed games, newest first, without private fields", async () => {
+test("CLICK History orders by clicks, then effective time", async () => {
   const user = await createUser();
-  const older = await seedGame({
+  const slowTie = await seedGame({
     userId: user.id,
-    completedAtMs: FAR_FUTURE + 1_000,
-    clickCount: 7,
-    effectivePlayTimeMs: 300_000,
-    startPageTitle: "Older start",
+    clickCount: 0,
+    effectivePlayTimeMs: 300,
   });
-  const newer = await seedGame({
+  const fastTie = await seedGame({
     userId: user.id,
-    completedAtMs: FAR_FUTURE + 2_000,
-    clickCount: 4,
-    effectivePlayTimeMs: 120_000,
-    startPageTitle: "Newer start",
+    clickCount: 0,
+    effectivePlayTimeMs: 100,
   });
-  const inProgress = await seedGame({ userId: user.id, status: "IN_PROGRESS" });
+  const moreClicks = await seedGame({
+    userId: user.id,
+    clickCount: 1,
+    effectivePlayTimeMs: 1,
+  });
+  const known = new Set([slowTie, fastTie, moreClicks]);
 
-  const { status, body } = await get("/api/history?limit=100");
+  const { status, body } = await get(
+    "/api/history/click?difficulty=EASY&page=1&limit=100",
+  );
 
   assert.equal(status, 200);
-  assert.equal(body.page, 1);
-  assert.equal(body.limit, 100);
-  assert.equal(typeof body.total, "number");
+  assert.equal(body.mode, "CLICK");
+  assert.equal(body.difficulty, "EASY");
+  assert.deepEqual(idsInOrder(items(body), known), [fastTie, slowTie, moreClicks]);
 
-  const list = items(body);
-  const ours = idsInOrder(list, new Set([older, newer, inProgress]));
-  assert.deepEqual(ours, [newer, older], "newest completedAt first, no in-progress");
-
-  const newerItem = list.find((entry) => entry.gameId === newer) as Json;
-  assert.equal(newerItem.mode, "CLICK");
-  assert.equal(newerItem.difficulty, "EASY");
-  assert.equal(newerItem.clickCount, 4);
-  assert.equal(newerItem.effectivePlayTimeMs, 120_000);
-  assert.equal(newerItem.startPageTitle, "Newer start");
-  assert.equal(typeof newerItem.completedAt, "string");
-
-  assert.deepEqual(Object.keys(newerItem.player as Json).sort(), [
-    "avatarUrl",
-    "id",
-    "username",
-  ]);
-  const player = newerItem.player as Json;
-  assert.equal(player.id, user.id);
-  assert.equal(player.username, user.username);
-  assert.equal(player.avatarUrl, null);
-
-  const serialized = JSON.stringify(newerItem);
-  assert.ok(!serialized.includes("email"), "list item must not expose email");
-  assert.ok(!serialized.includes("@example.com"));
-  assert.ok(!serialized.includes("passwordHash"));
-  assert.ok(!serialized.includes("not-a-real-hash"));
+  const entry = items(body).find((item) => item.gameId === fastTie) as Json;
+  assert.equal(entry.username, user.username);
+  assert.equal(entry.clickCount, 0);
+  assert.equal(entry.effectivePlayTimeMs, 100);
+  assert.equal(typeof entry.rank, "number");
+  assert.equal(typeof entry.completedAt, "string");
+  assert.ok(!JSON.stringify(entry).includes("email"));
+  assert.ok(!JSON.stringify(entry).includes("passwordHash"));
 });
 
-test("completed game detail reconstructs the active path and full move history", async () => {
+test("TIME History orders by effective time, then clicks", async () => {
   const user = await createUser();
-  // 100 -> 200 -> 300 -> 400, backtrack to 300, then 300 -> 500.
+  const moreClicks = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    clickCount: 5,
+    effectivePlayTimeMs: 0,
+  });
+  const fewerClicks = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    clickCount: 3,
+    effectivePlayTimeMs: 0,
+  });
+  const slower = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    clickCount: 1,
+    effectivePlayTimeMs: 1,
+  });
+  const known = new Set([moreClicks, fewerClicks, slower]);
+
+  const { status, body } = await get(
+    "/api/history/time?difficulty=EASY&page=1&limit=100",
+  );
+
+  assert.equal(status, 200);
+  assert.equal(body.mode, "TIME");
+  assert.deepEqual(idsInOrder(items(body), known), [fewerClicks, moreClicks, slower]);
+});
+
+test("fully tied scores use completion time then game id", async () => {
+  const user = await createUser();
+  const earlier = await seedGame({
+    userId: user.id,
+    mode: "CLICK",
+    difficulty: "MEDIUM",
+    clickCount: 0,
+    effectivePlayTimeMs: 0,
+    completedAt: new Date("2025-01-01T00:00:00.000Z"),
+  });
+  const laterHighId = "ffffffff-ffff-4fff-8fff-ffffffffffff";
+  const laterLowId = "00000000-0000-4000-8000-000000000001";
+  await seedGame({
+    id: laterHighId,
+    userId: user.id,
+    mode: "CLICK",
+    difficulty: "MEDIUM",
+    clickCount: 0,
+    effectivePlayTimeMs: 0,
+    completedAt: new Date("2025-01-02T00:00:00.000Z"),
+  });
+  await seedGame({
+    id: laterLowId,
+    userId: user.id,
+    mode: "CLICK",
+    difficulty: "MEDIUM",
+    clickCount: 0,
+    effectivePlayTimeMs: 0,
+    completedAt: new Date("2025-01-02T00:00:00.000Z"),
+  });
+
+  const response = await get(
+    "/api/history/click?difficulty=MEDIUM&page=1&limit=100",
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(
+    idsInOrder(items(response.body), new Set([earlier, laterLowId, laterHighId])),
+    [earlier, laterLowId, laterHighId],
+  );
+});
+
+test("difficulty filters History and completed games only", async () => {
+  const user = await createUser();
+  const medium = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    difficulty: "MEDIUM",
+    effectivePlayTimeMs: 0,
+  });
+  const hard = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    difficulty: "HARD",
+    effectivePlayTimeMs: 0,
+  });
+  const inProgress = await seedGame({
+    userId: user.id,
+    mode: "TIME",
+    difficulty: "MEDIUM",
+    status: "IN_PROGRESS",
+  });
+
+  const response = await get(
+    "/api/history/time?difficulty=MEDIUM&page=1&limit=100",
+  );
+  assert.equal(response.status, 200);
+  const resultIds = idsInOrder(
+    items(response.body),
+    new Set([medium, hard, inProgress]),
+  );
+  assert.deepEqual(resultIds, [medium]);
+});
+
+test("History pagination returns metadata and global ranks", async () => {
+  const user = await createUser();
+  const first = await seedGame({
+    userId: user.id,
+    difficulty: "HARD",
+    clickCount: 0,
+    effectivePlayTimeMs: 10,
+  });
+  const second = await seedGame({
+    userId: user.id,
+    difficulty: "HARD",
+    clickCount: 0,
+    effectivePlayTimeMs: 20,
+  });
+  const third = await seedGame({
+    userId: user.id,
+    difficulty: "HARD",
+    clickCount: 0,
+    effectivePlayTimeMs: 30,
+  });
+
+  const pageOne = await get(
+    "/api/history/click?difficulty=HARD&page=1&limit=2",
+  );
+  assert.equal(pageOne.status, 200);
+  assert.equal(pageOne.body.page, 1);
+  assert.equal(pageOne.body.limit, 2);
+  assert.equal(typeof pageOne.body.total, "number");
+  assert.equal(
+    pageOne.body.totalPages,
+    Math.ceil((pageOne.body.total as number) / 2),
+  );
+  assert.deepEqual(
+    items(pageOne.body).slice(0, 2).map((entry) => entry.gameId),
+    [first, second],
+  );
+  assert.deepEqual(
+    items(pageOne.body).slice(0, 2).map((entry) => entry.rank),
+    [1, 2],
+  );
+
+  const pageTwo = await get(
+    "/api/history/click?difficulty=HARD&page=2&limit=2",
+  );
+  assert.equal(pageTwo.status, 200);
+  assert.equal(pageTwo.body.page, 2);
+  assert.equal((items(pageTwo.body)[0] as Json).gameId, third);
+  assert.equal((items(pageTwo.body)[0] as Json).rank, 3);
+});
+
+test("completed-game detail remains public and reconstructs path and moves", async () => {
+  const user = await createUser();
   const moves: Move[] = [
     { sequence: 1, type: "NAVIGATION", fromPageId: 100, fromPageTitle: "A", toPageId: 200, toPageTitle: "B" },
     { sequence: 2, type: "NAVIGATION", fromPageId: 200, fromPageTitle: "B", toPageId: 300, toPageTitle: "C" },
-    { sequence: 3, type: "NAVIGATION", fromPageId: 300, fromPageTitle: "C", toPageId: 400, toPageTitle: "D" },
-    { sequence: 4, type: "BACKTRACK", fromPageId: 400, fromPageTitle: "D", toPageId: 300, toPageTitle: "C" },
-    { sequence: 5, type: "NAVIGATION", fromPageId: 300, fromPageTitle: "C", toPageId: 500, toPageTitle: "E" },
+    { sequence: 3, type: "BACKTRACK", fromPageId: 300, fromPageTitle: "C", toPageId: 200, toPageTitle: "B" },
+    { sequence: 4, type: "NAVIGATION", fromPageId: 200, fromPageTitle: "B", toPageId: 500, toPageTitle: "Target" },
   ];
   const gameId = await seedGame({
     userId: user.id,
     mode: "TIME",
     difficulty: "MEDIUM",
-    clickCount: 4,
+    clickCount: 3,
     backtrackCount: 1,
     effectivePlayTimeMs: 420_000,
     startPageId: 100,
     startPageTitle: "A",
     currentPageId: 500,
-    currentPageTitle: "E",
+    currentPageTitle: "Target",
     moves,
   });
 
@@ -212,153 +344,60 @@ test("completed game detail reconstructs the active path and full move history",
   assert.equal(body.gameId, gameId);
   assert.equal(body.mode, "TIME");
   assert.equal(body.difficulty, "MEDIUM");
-  assert.equal(body.clickCount, 4);
+  assert.equal(body.clickCount, 3);
   assert.equal(body.backtrackCount, 1);
   assert.equal(body.effectivePlayTimeMs, 420_000);
-  assert.equal(body.startPageId, 100);
-  assert.equal(body.startPageTitle, "A");
-  assert.equal(typeof body.completedAt, "string");
-
   assert.deepEqual(body.path, [
     { pageId: 100, title: "A" },
     { pageId: 200, title: "B" },
-    { pageId: 300, title: "C" },
-    { pageId: 500, title: "E" },
+    { pageId: 500, title: "Target" },
   ]);
-
-  const detailMoves = body.moves as Json[];
-  assert.equal(detailMoves.length, 5);
   assert.deepEqual(
-    detailMoves.map((move) => move.type),
-    ["NAVIGATION", "NAVIGATION", "NAVIGATION", "BACKTRACK", "NAVIGATION"],
+    (body.moves as Json[]).map((move) => move.sequence),
+    [1, 2, 3, 4],
   );
-  assert.deepEqual(
-    detailMoves.map((move) => move.sequence),
-    [1, 2, 3, 4, 5],
-  );
-
-  assert.deepEqual(Object.keys(body.player as Json).sort(), [
-    "avatarUrl",
-    "id",
-    "username",
-  ]);
-  const serialized = JSON.stringify(body);
-  assert.ok(!serialized.includes("email"));
-  assert.ok(!serialized.includes("@example.com"));
-  assert.ok(!serialized.includes("passwordHash"));
+  assert.equal((body.player as Json).username, user.username);
+  assert.ok(!JSON.stringify(body).includes("email"));
 });
 
-test("in-progress games are never exposed through the public history", async () => {
+test("missing, in-progress and invalid detail ids are rejected", async () => {
   const user = await createUser();
   const inProgress = await seedGame({ userId: user.id, status: "IN_PROGRESS" });
 
-  const list = await get("/api/history?limit=100");
-  assert.equal(list.status, 200);
-  assert.ok(
-    !items(list.body).some((entry) => entry.gameId === inProgress),
-    "in-progress game must not appear in the list",
-  );
+  for (const gameId of [inProgress, randomUUID()]) {
+    const response = await get(`/api/history/${gameId}`);
+    assert.equal(response.status, 404);
+    assert.equal((response.body.error as Json).code, "NOT_FOUND");
+  }
 
-  const detail = await get(`/api/history/${inProgress}`);
-  assert.equal(detail.status, 404);
-  assert.equal((detail.body.error as Json | undefined)?.code, "NOT_FOUND");
+  const invalid = await get("/api/history/not-a-uuid");
+  assert.equal(invalid.status, 400);
+  assert.equal((invalid.body.error as Json).code, "VALIDATION_ERROR");
 });
 
-test("detail for a non-existent game returns 404 NOT_FOUND", async () => {
-  const { status, body } = await get(`/api/history/${randomUUID()}`);
-  assert.equal(status, 404);
-  assert.equal((body.error as Json | undefined)?.code, "NOT_FOUND");
+test("invalid History collection queries return VALIDATION_ERROR", async () => {
+  for (const suffix of [
+    "",
+    "?difficulty=easy",
+    "?difficulty=EASY&page=0",
+    "?difficulty=EASY&limit=101",
+  ]) {
+    for (const view of ["click", "time"]) {
+      const response = await get(`/api/history/${view}${suffix}`);
+      assert.equal(response.status, 400, `${view}${suffix}`);
+      assert.equal((response.body.error as Json).code, "VALIDATION_ERROR");
+    }
+  }
 });
 
-test("detail with an invalid gameId returns 400 VALIDATION_ERROR", async () => {
-  const { status, body } = await get("/api/history/not-a-uuid");
-  assert.equal(status, 400);
-  assert.equal((body.error as Json | undefined)?.code, "VALIDATION_ERROR");
-});
-
-test("mode and difficulty filters restrict the completed-game list", async () => {
-  const user = await createUser();
-  const clickEasy = await seedGame({
-    userId: user.id,
-    mode: "CLICK",
-    difficulty: "EASY",
-    completedAtMs: FAR_FUTURE + 10_000,
-  });
-  const timeHard = await seedGame({
-    userId: user.id,
-    mode: "TIME",
-    difficulty: "HARD",
-    completedAtMs: FAR_FUTURE + 11_000,
-  });
-
-  const byMode = await get("/api/history?limit=100&mode=CLICK");
-  assert.equal(byMode.status, 200);
-  const modeIds = idsInOrder(items(byMode.body), new Set([clickEasy, timeHard]));
-  assert.deepEqual(modeIds, [clickEasy]);
-
-  const byDifficulty = await get("/api/history?limit=100&difficulty=HARD");
-  assert.equal(byDifficulty.status, 200);
-  const difficultyIds = idsInOrder(
-    items(byDifficulty.body),
-    new Set([clickEasy, timeHard]),
-  );
-  assert.deepEqual(difficultyIds, [timeHard]);
-});
-
-test("pagination slices the ordered result consistently and echoes metadata", async () => {
-  const user = await createUser();
-  const g1 = await seedGame({ userId: user.id, completedAtMs: FAR_FUTURE + 20_000 });
-  const g2 = await seedGame({ userId: user.id, completedAtMs: FAR_FUTURE + 21_000 });
-  const g3 = await seedGame({ userId: user.id, completedAtMs: FAR_FUTURE + 22_000 });
-  const known = new Set([g1, g2, g3]);
-
-  const full = await get("/api/history?limit=100");
-  assert.equal(full.status, 200);
-  const fullList = items(full.body);
-
-  // These three rows carry the latest `completedAt` in the table (far future,
-  // later than any row seeded by other tests), so they always occupy the first
-  // three slots of the newest-first ordering, in the order g3, g2, g1. Rows
-  // beyond them belong to parallel test files that insert and delete COMPLETED
-  // games concurrently, so neither `total` nor the list tail is asserted here.
-  assert.deepEqual(idsInOrder(fullList, known), [g3, g2, g1]);
-  assert.deepEqual(
-    fullList.slice(0, 3).map((entry) => entry.gameId),
-    [g3, g2, g1],
-  );
-  assert.equal(typeof full.body.total, "number");
-
-  // Fixed small page size: the offset math must page through the stable head of
-  // the list — page 1 is [g3, g2], and page 2 starts at g1.
-  const page1 = await get("/api/history?limit=2&page=1");
-  assert.equal(page1.status, 200);
-  assert.equal(page1.body.page, 1);
-  assert.equal(page1.body.limit, 2);
-  assert.deepEqual(
-    items(page1.body).map((entry) => entry.gameId),
-    [g3, g2],
-  );
-
-  const page2 = await get("/api/history?limit=2&page=2");
-  assert.equal(page2.status, 200);
-  assert.equal(page2.body.page, 2);
-  assert.equal(page2.body.limit, 2);
-  assert.equal((items(page2.body)[0] as Json).gameId, g1);
-});
-
-test("a page beyond the last returns an empty list with metadata intact", async () => {
-  const { status, body } = await get("/api/history?page=99999&limit=20");
-  assert.equal(status, 200);
-  assert.deepEqual(body.items, []);
-  assert.equal(body.page, 99999);
-  assert.equal(body.limit, 20);
-  assert.equal(typeof body.total, "number");
-});
-
-test("invalid pagination parameters are rejected with 400 VALIDATION_ERROR", async () => {
-  for (const query of ["limit=101", "page=0", "limit=-1", "page=1.0", "limit=abc"]) {
-    const { status, body } = await get(`/api/history?${query}`);
-    assert.equal(status, 400, `expected 400 for ${query}`);
-    assert.equal((body.error as Json | undefined)?.code, "VALIDATION_ERROR");
+test("obsolete collection and leaderboard routes are removed", async () => {
+  for (const path of [
+    "/api/history",
+    "/api/leaderboards/click?difficulty=EASY",
+    "/api/leaderboards/time?difficulty=EASY",
+  ]) {
+    const response = await get(path);
+    assert.equal(response.status, 404, path);
+    assert.equal((response.body.error as Json).code, "NOT_FOUND");
   }
 });

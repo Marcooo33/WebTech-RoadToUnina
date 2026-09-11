@@ -42,18 +42,10 @@ export const routes: Routes = [
     title: 'History · ROADTOUNINA',
   },
   {
-    path: 'history/:id',
+    path: 'history/:gameId',
     loadComponent: () =>
       import('./features/history/history-detail/history-detail').then((m) => m.HistoryDetail),
     title: 'Completed game · ROADTOUNINA',
-  },
-  {
-    path: 'leaderboard',
-    loadComponent: () =>
-      import('./features/leaderboard/leaderboard-page/leaderboard-page').then(
-        (m) => m.LeaderboardPage,
-      ),
-    title: 'Leaderboard · ROADTOUNINA',
   },
   {
     path: 'profile',

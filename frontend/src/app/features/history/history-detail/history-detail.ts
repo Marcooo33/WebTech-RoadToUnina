@@ -10,7 +10,7 @@ import { ErrorBanner } from '../../../shared/components/error-banner/error-banne
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
 
 /**
- * Public completed-game detail (docs/api.md §7.1.2): the completed facts, the
+ * Public completed-game detail (docs/api.md §6.2): the completed facts, the
  * reconstructed path and the full chronological move history. Read-only and
  * anonymous — no game state is mutated here.
  */
@@ -24,15 +24,15 @@ import { LoadingSpinner } from '../../../shared/components/loading-spinner/loadi
 export class HistoryDetail implements OnInit {
   private readonly history = inject(HistoryService);
 
-  /** `history/:id` path parameter (bound via router input binding). */
-  readonly id = input.required<string>();
+  /** `history/:gameId` path parameter (bound via router input binding). */
+  readonly gameId = input.required<string>();
 
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly game = signal<CompletedGameDetailDto | null>(null);
 
   ngOnInit(): void {
-    this.history.get(this.id()).subscribe({
+    this.history.get(this.gameId()).subscribe({
       next: (game) => {
         this.game.set(game);
         this.loading.set(false);

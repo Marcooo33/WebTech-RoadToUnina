@@ -2,30 +2,29 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { EMPTY, catchError, map, switchMap, tap } from 'rxjs';
+import { EMPTY, catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs';
 import { HistoryService } from '../../../core/services/history.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { GameDifficulty, GameMode } from '../../../shared/models/game.model';
-import { CompletedGameSummaryDto, HistoryListDto } from '../../../shared/models/history.model';
+import { HistoryEntryDto, HistoryListDto } from '../../../shared/models/history.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { parseDifficulty, parseMode, parsePage } from '../../../shared/util/enum-params';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
 
-/** `limit` fixed by the API contract for the public history list (docs/api.md §2.7). */
 const PAGE_SIZE = 20;
+const DEFAULT_MODE: GameMode = 'CLICK';
+const DEFAULT_DIFFICULTY: GameDifficulty = 'EASY';
 
-interface HistoryFilters {
-  mode: GameMode | null;
-  difficulty: GameDifficulty | null;
+interface HistorySelection {
+  mode: GameMode;
+  difficulty: GameDifficulty;
   page: number;
 }
 
 /**
- * Public completed-game history (docs/api.md §7.1). Filter (mode / difficulty)
- * and pagination state live entirely in the URL query string, so browser
- * back/forward restores the exact view. `All` is a UI-only state and is never
- * serialized — the corresponding query parameter is simply omitted.
+ * Public completed-game History uses two ranked views, with selection and
+ * pagination persisted in the URL.
  */
 @Component({
   selector: 'app-history-list',
@@ -39,16 +38,27 @@ export class HistoryList {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
+  readonly modes: readonly GameMode[] = ['CLICK', 'TIME'];
+  readonly difficulties: readonly GameDifficulty[] = ['EASY', 'MEDIUM', 'HARD'];
+
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly result = signal<HistoryListDto | null>(null);
-  readonly filters = signal<HistoryFilters>({ mode: null, difficulty: null, page: 1 });
+  readonly selection = signal<HistorySelection>({
+    mode: DEFAULT_MODE,
+    difficulty: DEFAULT_DIFFICULTY,
+    page: 1,
+  });
+
+  readonly primaryMetric = computed<'clicks' | 'time'>(() =>
+    this.selection().mode === 'TIME' ? 'time' : 'clicks',
+  );
 
   /** Derived paging summary for the template (`Page X, showing N–M of total`). */
   readonly pagination = computed(() => {
     const res = this.result();
     if (!res) return null;
-    const totalPages = Math.max(1, Math.ceil(res.total / res.limit));
+    const totalPages = Math.max(1, res.totalPages);
     const start = res.total === 0 || res.items.length === 0 ? 0 : (res.page - 1) * res.limit + 1;
     const end = Math.min(res.page * res.limit, res.total);
     return {
@@ -65,45 +75,53 @@ export class HistoryList {
     };
   });
 
-  get items(): CompletedGameSummaryDto[] {
+  get items(): HistoryEntryDto[] {
     return this.result()?.items ?? [];
   }
 
-  get filtered(): boolean {
-    const f = this.filters();
-    return f.mode !== null || f.difficulty !== null;
-  }
-
-  /** Empty-results message, distinguishing "nothing at all" from "nothing on
-   *  this (over-range) page". */
   get emptyMessage(): string {
     const p = this.pagination();
     if (p && p.page > 1) {
       return 'No completed games on this page.';
     }
-    return this.filtered ? 'No completed games match these filters.' : 'No completed games yet.';
+    return 'No completed games in this category yet.';
   }
 
   constructor() {
     this.route.queryParamMap
       .pipe(
-        map((params): HistoryFilters => ({
-          mode: parseMode(params.get('mode')),
-          difficulty: parseDifficulty(params.get('difficulty')),
+        map((params) => ({
+          mode: parseMode(params.get('mode')) ?? DEFAULT_MODE,
+          difficulty: parseDifficulty(params.get('difficulty')) ?? DEFAULT_DIFFICULTY,
           page: parsePage(params.get('page')),
+          rawMode: params.get('mode'),
+          rawDifficulty: params.get('difficulty'),
         })),
-        tap((filters) => {
-          this.filters.set(filters);
+        tap(({ mode, difficulty, rawMode, rawDifficulty }) => {
+          if (rawMode !== mode || rawDifficulty !== difficulty) {
+            void this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { mode, difficulty },
+              queryParamsHandling: 'merge',
+              replaceUrl: true,
+            });
+          }
+        }),
+        map(({ mode, difficulty, page }): HistorySelection => ({ mode, difficulty, page })),
+        distinctUntilChanged(
+          (a, b) => a.mode === b.mode && a.difficulty === b.difficulty && a.page === b.page,
+        ),
+        tap((selection) => {
+          this.selection.set(selection);
           this.loading.set(true);
           this.error.set(null);
         }),
-        switchMap((filters) =>
+        switchMap((selection) =>
           this.history
-            .list({
-              page: filters.page,
+            .list(selection.mode, {
+              difficulty: selection.difficulty,
+              page: selection.page,
               limit: PAGE_SIZE,
-              ...(filters.mode ? { mode: filters.mode } : {}),
-              ...(filters.difficulty ? { difficulty: filters.difficulty } : {}),
             })
             .pipe(
               catchError((err: ApiError) => {
@@ -125,12 +143,12 @@ export class HistoryList {
       });
   }
 
-  onModeChange(value: string): void {
-    this.updateQuery({ mode: value === 'ALL' ? null : value, page: null });
+  selectMode(mode: GameMode): void {
+    this.updateQuery({ mode, page: null });
   }
 
-  onDifficultyChange(value: string): void {
-    this.updateQuery({ difficulty: value === 'ALL' ? null : value, page: null });
+  selectDifficulty(difficulty: GameDifficulty): void {
+    this.updateQuery({ difficulty, page: null });
   }
 
   goToPage(page: number): void {

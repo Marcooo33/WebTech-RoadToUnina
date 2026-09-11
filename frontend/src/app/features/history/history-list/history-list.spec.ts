@@ -11,24 +11,37 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { errorInterceptor } from '../../../core/interceptors/error.interceptor';
-import { CompletedGameSummaryDto, HistoryListDto } from '../../../shared/models/history.model';
+import { HistoryListDto } from '../../../shared/models/history.model';
 import { HistoryList } from './history-list';
 
-function summary(id: string): CompletedGameSummaryDto {
+function historyPage(over: Partial<HistoryListDto> = {}): HistoryListDto {
   return {
-    gameId: id,
     mode: 'CLICK',
     difficulty: 'EASY',
-    clickCount: 5,
-    effectivePlayTimeMs: 60_000,
-    startPageTitle: 'Start',
-    completedAt: '2026-08-01T00:00:00.000Z',
-    player: { id: 'u1', username: 'marco', avatarUrl: null },
+    items: [
+      {
+        rank: 1,
+        gameId: 'g1',
+        username: 'marco',
+        clickCount: 6,
+        effectivePlayTimeMs: 300_000,
+        completedAt: '2026-08-01T00:00:00.000Z',
+      },
+      {
+        rank: 2,
+        gameId: 'g2',
+        username: 'lucia',
+        clickCount: 8,
+        effectivePlayTimeMs: 200_000,
+        completedAt: '2026-08-02T00:00:00.000Z',
+      },
+    ],
+    page: 1,
+    limit: 20,
+    total: 2,
+    totalPages: 1,
+    ...over,
   };
-}
-
-function page(over: Partial<HistoryListDto> = {}): HistoryListDto {
-  return { items: [summary('g1'), summary('g2')], page: 1, limit: 20, total: 2, ...over };
 }
 
 describe('HistoryList', () => {
@@ -36,6 +49,11 @@ describe('HistoryList', () => {
   let fixture: ComponentFixture<HistoryList>;
   let queryParamMap: BehaviorSubject<ParamMap>;
   let navigate: ReturnType<typeof vi.spyOn>;
+
+  function create(): void {
+    fixture = TestBed.createComponent(HistoryList);
+    fixture.detectChanges();
+  }
 
   beforeEach(async () => {
     queryParamMap = new BehaviorSubject<ParamMap>(convertToParamMap({}));
@@ -53,75 +71,102 @@ describe('HistoryList', () => {
 
     http = TestBed.inject(HttpTestingController);
     navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
-    fixture = TestBed.createComponent(HistoryList);
-    fixture.detectChanges();
   });
 
   afterEach(() => http.verify());
 
-  it('loads the first page with defaults from an empty query string', () => {
-    const req = http.expectOne('/api/history?page=1&limit=20');
-    expect(req.request.method).toBe('GET');
-    req.flush(page());
-    fixture.detectChanges();
+  it('defaults to CLICK / EASY, loads page one and canonicalises the URL', () => {
+    create();
 
-    expect((fixture.nativeElement as HTMLElement).querySelectorAll('tbody tr')).toHaveLength(2);
+    const request = http.expectOne(
+      '/api/history/click?difficulty=EASY&page=1&limit=20',
+    );
+    expect(request.request.method).toBe('GET');
+    request.flush(historyPage());
+
+    expect(navigate).toHaveBeenCalledWith(
+      [],
+      expect.objectContaining({
+        queryParams: { mode: 'CLICK', difficulty: 'EASY' },
+        replaceUrl: true,
+      }),
+    );
   });
 
-  it('reflects mode + difficulty + page from the URL in the API request', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
-
-    queryParamMap.next(convertToParamMap({ mode: 'CLICK', difficulty: 'MEDIUM', page: '2' }));
+  it('reads mode, difficulty and page from the URL', () => {
+    queryParamMap.next(
+      convertToParamMap({ mode: 'TIME', difficulty: 'HARD', page: '2' }),
+    );
+    create();
 
     http
-      .expectOne('/api/history?mode=CLICK&difficulty=MEDIUM&page=2&limit=20')
-      .flush(page({ page: 2 }));
+      .expectOne('/api/history/time?difficulty=HARD&page=2&limit=20')
+      .flush(historyPage({ mode: 'TIME', difficulty: 'HARD', page: 2 }));
+    expect(navigate).not.toHaveBeenCalled();
   });
 
-  it('ignores invalid query parameters and falls back to defaults', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
+  it('falls back to valid mode and difficulty defaults', () => {
+    queryParamMap.next(convertToParamMap({ mode: 'nope', difficulty: 'nope' }));
+    create();
 
-    queryParamMap.next(convertToParamMap({ mode: 'BOGUS', difficulty: 'x', page: '-3' }));
-
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
+    http
+      .expectOne('/api/history/click?difficulty=EASY&page=1&limit=20')
+      .flush(historyPage());
   });
 
-  it('omits the parameter entirely when a filter is set to All', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
-    fixture.detectChanges();
+  it('changes ranked views and resets pagination', () => {
+    queryParamMap.next(convertToParamMap({ mode: 'CLICK', difficulty: 'EASY', page: '3' }));
+    create();
+    http
+      .expectOne('/api/history/click?difficulty=EASY&page=3&limit=20')
+      .flush(historyPage({ page: 3 }));
 
-    fixture.componentInstance.onDifficultyChange('MEDIUM');
-    expect(navigate).toHaveBeenLastCalledWith(
-      [],
-      expect.objectContaining({ queryParams: { difficulty: 'MEDIUM', page: null } }),
-    );
-
-    fixture.componentInstance.onDifficultyChange('ALL');
-    expect(navigate).toHaveBeenLastCalledWith(
-      [],
-      expect.objectContaining({ queryParams: { difficulty: null, page: null } }),
-    );
-  });
-
-  it('resets page to 1 when a filter changes', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
-
-    fixture.componentInstance.onModeChange('TIME');
+    fixture.componentInstance.selectMode('TIME');
     expect(navigate).toHaveBeenLastCalledWith(
       [],
       expect.objectContaining({ queryParams: { mode: 'TIME', page: null } }),
     );
+
+    fixture.componentInstance.selectDifficulty('MEDIUM');
+    expect(navigate).toHaveBeenLastCalledWith(
+      [],
+      expect.objectContaining({ queryParams: { difficulty: 'MEDIUM', page: null } }),
+    );
   });
 
-  it('paginates with Next / Previous', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page({ total: 45 }));
+  it('renders API ranking order and links every entry to its detail', () => {
+    queryParamMap.next(convertToParamMap({ mode: 'TIME', difficulty: 'EASY' }));
+    create();
+    http
+      .expectOne('/api/history/time?difficulty=EASY&page=1&limit=20')
+      .flush(historyPage({ mode: 'TIME' }));
     fixture.detectChanges();
 
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.textContent).toContain('Page 1 of 3, showing 1–20 of 45');
+    const rows = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('tbody tr'),
+    );
+    expect(rows.map((row) => row.querySelector('td')?.textContent?.trim())).toEqual(['1', '2']);
+    expect(rows.map((row) => row.querySelector('td:nth-child(2)')?.textContent?.trim())).toEqual([
+      'marco',
+      'lucia',
+    ]);
+    expect(rows[0].querySelector('a')?.getAttribute('href')).toBe('/history/g1');
+    expect(rows[1].querySelector('a')?.getAttribute('href')).toBe('/history/g2');
+  });
 
-    const [prev, next] = Array.from(el.querySelectorAll('.pager button')) as HTMLButtonElement[];
-    expect(prev.disabled).toBe(true);
+  it('paginates with global metadata in the URL', () => {
+    create();
+    http
+      .expectOne('/api/history/click?difficulty=EASY&page=1&limit=20')
+      .flush(historyPage({ total: 45, totalPages: 3 }));
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.textContent).toContain('Page 1 of 3, showing 1–20 of 45');
+    const [previous, next] = Array.from(
+      element.querySelectorAll('.pager button'),
+    ) as HTMLButtonElement[];
+    expect(previous.disabled).toBe(true);
     expect(next.disabled).toBe(false);
 
     next.click();
@@ -131,44 +176,25 @@ describe('HistoryList', () => {
     );
   });
 
-  it('shows an empty state with no completed games', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page({ items: [], total: 0 }));
-    fixture.detectChanges();
-
-    expect((fixture.nativeElement as HTMLElement).textContent).toContain('No completed games yet.');
-  });
-
-  it('keeps a working Previous control on an over-range page', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
-    queryParamMap.next(convertToParamMap({ page: '3' }));
-    http.expectOne('/api/history?page=3&limit=20').flush(page({ items: [], page: 3, total: 2 }));
-    fixture.detectChanges();
-
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.textContent).toContain('No completed games on this page.');
-
-    const [prev] = Array.from(el.querySelectorAll('.pager button')) as HTMLButtonElement[];
-    expect(prev.disabled).toBe(false);
-    prev.click();
-    expect(navigate).toHaveBeenLastCalledWith(
-      [],
-      expect.objectContaining({ queryParams: { page: null } }),
-    );
-  });
-
-  it('drops the previous page when a reload fails', () => {
-    http.expectOne('/api/history?page=1&limit=20').flush(page());
-    queryParamMap.next(convertToParamMap({ mode: 'TIME' }));
+  it('shows empty and error states without stale rows', () => {
+    create();
     http
-      .expectOne('/api/history?mode=TIME&page=1&limit=20')
+      .expectOne('/api/history/click?difficulty=EASY&page=1&limit=20')
+      .flush(historyPage({ items: [], total: 0, totalPages: 0 }));
+    fixture.detectChanges();
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain(
+      'No completed games in this category yet.',
+    );
+
+    queryParamMap.next(convertToParamMap({ mode: 'TIME', difficulty: 'EASY' }));
+    http
+      .expectOne('/api/history/time?difficulty=EASY&page=1&limit=20')
       .flush(
         { error: { code: 'INTERNAL_ERROR', message: 'boom' } },
         { status: 500, statusText: 'Error' },
       );
     fixture.detectChanges();
 
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('table')).toBeNull();
-    expect(el.querySelector('.pager')).toBeNull();
+    expect((fixture.nativeElement as HTMLElement).querySelector('table')).toBeNull();
   });
 });

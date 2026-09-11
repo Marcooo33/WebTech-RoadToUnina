@@ -1,17 +1,24 @@
 import type { Request, Response } from "express";
 import { parseGameId } from "../games/games.validation.js";
 import { getCompletedGameDetail, listCompletedGames } from "./history.service.js";
-import { parseHistoryListQuery } from "./history.validation.js";
+import { parseHistoryQuery } from "./history.validation.js";
 
 export interface HistoryController {
-  listHistoryHandler: (req: Request, res: Response) => Promise<void>;
+  clickHistoryHandler: (req: Request, res: Response) => Promise<void>;
+  timeHistoryHandler: (req: Request, res: Response) => Promise<void>;
   getHistoryDetailHandler: (req: Request, res: Response) => Promise<void>;
 }
 
 export function createHistoryController(): HistoryController {
   return {
-    async listHistoryHandler(req: Request, res: Response): Promise<void> {
-      const result = await listCompletedGames(parseHistoryListQuery(req.query));
+    async clickHistoryHandler(req: Request, res: Response): Promise<void> {
+      const result = await listCompletedGames("CLICK", parseHistoryQuery(req.query));
+
+      res.status(200).json(result);
+    },
+
+    async timeHistoryHandler(req: Request, res: Response): Promise<void> {
+      const result = await listCompletedGames("TIME", parseHistoryQuery(req.query));
 
       res.status(200).json(result);
     },

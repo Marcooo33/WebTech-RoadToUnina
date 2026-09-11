@@ -73,7 +73,7 @@ describe('HistoryDetail', () => {
 
     http = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(HistoryDetail);
-    fixture.componentRef.setInput('id', 'g1');
+    fixture.componentRef.setInput('gameId', 'g1');
   });
 
   afterEach(() => http.verify());

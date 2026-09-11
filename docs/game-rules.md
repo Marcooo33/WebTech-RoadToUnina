@@ -241,7 +241,7 @@ server-authoritative and stored with three fields directly on `Game`:
 
 | Field | Meaning |
 |---|---|
-| `effectivePlayTimeMs` | Play time already finalized/accounted. The authoritative value for completed games, history, statistics and leaderboards. |
+| `effectivePlayTimeMs` | Play time already finalized/accounted. The authoritative value for completed games, History rankings and statistics. |
 | `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
 | `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
 
@@ -336,15 +336,16 @@ If yes:
 3. the final play interval is finalized into `effectivePlayTimeMs` (up to the moment of the winning move) and `playStartedAt` / `lastHeartbeatAt` are cleared;
 4. all of the above is persisted atomically in one transaction;
 5. the completed game becomes eligible for public history;
-6. the game may contribute to the relevant leaderboard.
+6. the game receives a position in the relevant History ranking view.
 
 The frontend must not be able to mark a game as completed directly.
 
 ---
 
-## 18. Leaderboards
+## 18. History Ranking Views
 
-CLICK and TIME rankings are separate.
+History is the public collection of completed games. It has separate CLICK and
+TIME ranking views, and every entry can be opened to inspect the completed game.
 
 Difficulty levels must also remain separate because EASY, MEDIUM, and HARD provide different gameplay conditions.
 
@@ -357,7 +358,9 @@ Conceptually there are six ranking combinations:
 - TIME / MEDIUM
 - TIME / HARD
 
-The UI may represent these as two tabs plus a difficulty filter.
+The UI represents these as two tabs plus a difficulty filter. Each combination
+is paginated so the entire matching collection remains browsable; it is not
+limited to an arbitrary Top N.
 
 ### CLICK ordering
 
@@ -375,7 +378,7 @@ Primary:
 Tie-breaker:
 `clickCount ASC`
 
-Leaderboard data must be derived from completed games rather than stored in a separate authoritative leaderboard table.
+History ranking data must be derived from completed games rather than stored in a separate authoritative ranking table.
 
 ---
 
@@ -385,7 +388,7 @@ Unauthenticated users may:
 
 - browse completed games;
 - inspect completed-game details;
-- view leaderboards;
+- switch between CLICK and TIME History rankings and filter by difficulty;
 - view the landing/how-to-play experience.
 
 Authenticated users may additionally:

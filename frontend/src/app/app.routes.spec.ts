@@ -3,9 +3,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { routes } from './app.routes';
 
 /**
- * Access rules for the Milestone 15 product surfaces: the public history and
- * leaderboard screens must be reachable without authentication; the personal
- * profile must be protected.
+ * Access rules for the public History surfaces and authenticated profile.
  */
 describe('app routes — Milestone 15 access rules', () => {
   const byPath = (path: string): Route => {
@@ -19,11 +17,11 @@ describe('app routes — Milestone 15 access rules', () => {
   });
 
   it('exposes public completed-game detail to anonymous users', () => {
-    expect(byPath('history/:id').canActivate ?? []).toEqual([]);
+    expect(byPath('history/:gameId').canActivate ?? []).toEqual([]);
   });
 
-  it('exposes public leaderboards to anonymous users', () => {
-    expect(byPath('leaderboard').canActivate ?? []).toEqual([]);
+  it('does not expose a separate leaderboard route', () => {
+    expect(routes.some((route) => route.path === 'leaderboard')).toBe(false);
   });
 
   it('protects the personal profile behind the auth guard', () => {
