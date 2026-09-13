@@ -15,7 +15,9 @@ export interface NormalizedArticle {
 }
 
 // The subset of the Wikipedia integration that the games module depends on: the
-// authoritative current article and its playable internal links. `WikipediaService`
+// authoritative current article and its playable internal links. Navigation
+// resolution also ensures a non-target destination is safely loaded before the
+// caller persists the move. `WikipediaService`
 // (real MediaWiki) and the deterministic E2E fake both implement this, so the
 // composition root can swap them without the games module knowing.
 export interface WikipediaArticleSource {

@@ -9,6 +9,7 @@ function fixture(
   options: {
     html?: string;
     info?: (id: number) => Record<string, unknown>;
+    parse?: (id: number) => Record<string, unknown>;
     random?: () => unknown[];
     resolution?: (title: string) => unknown;
   } = {},
@@ -33,17 +34,18 @@ function fixture(
               options.info?.(id) ?? {
                 pageid: id,
                 ns: 0,
-                title: "Start",
+                title: id === 1 ? "Start" : "Napoli",
                 length: 1000,
               },
             ],
           },
         };
       } else if (params.get("action") === "parse") {
-        body = {
+        const id = Number(params.get("pageid"));
+        body = options.parse?.(id) ?? {
           parse: {
-            pageid: Number(params.get("pageid")),
-            title: "Start",
+            pageid: id,
+            title: id === 1 ? "Start" : "Napoli",
             text:
               options.html ??
               '<p><a href="/wiki/Unina">Unina</a><a href="/wiki/Napoli">Napoli</a></p>',
@@ -104,7 +106,7 @@ test("a 6000-link article is complete in two requests without continuation", asy
   );
 });
 
-test("a warm move resolves only the clicked redirect and returns its canonical identity", async () => {
+test("a winning warm move resolves only the clicked redirect and skips its article", async () => {
   const { service, requests } = fixture();
   await service.getArticle(1);
   requests.length = 0;
@@ -117,13 +119,16 @@ test("a warm move resolves only the clicked redirect and returns its canonical i
   assert.equal(requests[0].get("redirects"), "1");
 });
 
-test("a cold move needs at most three requests and works without a cache entry", async () => {
+test("a cold move loads the source, resolves, and parses the destination in four requests", async () => {
   const { service, requests } = fixture();
   assert.deepEqual(await service.resolveNavigation(1, "Napoli"), {
     pageId: 2,
     title: "Napoli",
   });
-  assert.equal(requests.length, 3);
+  assert.equal(requests.length, 4);
+  assert.equal(requests[3].get("action"), "parse");
+  await service.getArticle(2);
+  assert.equal(requests.length, 4);
 });
 
 test("forged canonical titles cannot bypass validation of the actual clicked alias", async () => {
@@ -167,7 +172,7 @@ test("the selected title's latest canonical ID is used without caching resolutio
   });
   assert.equal((await service.resolveNavigation(1, "Napoli"))?.pageId, 2);
   assert.equal((await service.resolveNavigation(1, "Napoli"))?.pageId, 3);
-  assert.equal(requests.length, 4);
+  assert.equal(requests.length, 6);
 });
 
 test("concurrent/repeated article calls share one load and cannot mutate cached links", async () => {
@@ -182,13 +187,112 @@ test("concurrent/repeated article calls share one load and cannot mutate cached 
   assert.equal(requests.length, 2);
 });
 
-test("article TTL expiry refetches and validates the fresh link set", async (t) => {
+test("article cache remains valid after 60 seconds", async (t) => {
   t.mock.timers.enable({ apis: ["Date"], now: 0 });
   const { service, requests } = fixture();
   await service.getArticle(1);
   t.mock.timers.setTime(60_001);
   await service.getArticle(1);
+  assert.equal(requests.length, 2);
+});
+
+test("article cache expires after 300 seconds", async (t) => {
+  t.mock.timers.enable({ apis: ["Date"], now: 0 });
+  const { service, requests } = fixture();
+  await service.getArticle(1);
+  t.mock.timers.setTime(300_001);
+  await service.getArticle(1);
   assert.equal(requests.length, 4);
+});
+
+test("a warm move parses an uncached destination once and warms getArticle", async () => {
+  const { service, requests } = fixture();
+  await service.getArticle(1);
+  requests.length = 0;
+
+  assert.deepEqual(await service.resolveNavigation(1, "Napoli"), {
+    pageId: 2,
+    title: "Napoli",
+  });
+  assert.equal(requests.filter((p) => p.has("titles")).length, 1);
+  assert.equal(requests.filter((p) => p.get("action") === "parse").length, 1);
+
+  await service.getArticle(2);
+  assert.equal(requests.length, 2);
+});
+
+test("concurrent destination loads share the same in-flight parse", async () => {
+  const { service, requests } = fixture();
+  await service.getArticle(1);
+  requests.length = 0;
+
+  await Promise.all([
+    service.resolveNavigation(1, "Napoli"),
+    service.resolveNavigation(1, "Napoli"),
+  ]);
+  assert.equal(requests.filter((p) => p.has("titles")).length, 2);
+  assert.equal(requests.filter((p) => p.get("action") === "parse").length, 1);
+});
+
+test("failed destination loads are removed and can be retried", async () => {
+  let parseAttempts = 0;
+  const { service } = fixture({
+    parse: (id) =>
+      id === 1
+        ? { parse: { pageid: 1, title: "Start", text: '<a href="/wiki/Napoli">Napoli</a>' } }
+        : ++parseAttempts === 1
+        ? {}
+        : { parse: { pageid: id, title: "Napoli", text: "<p>ok</p>" } },
+  });
+  await service.getArticle(1);
+
+  await assert.rejects(
+    () => service.resolveNavigation(1, "Napoli"),
+    WikipediaError,
+  );
+  assert.equal((await service.resolveNavigation(1, "Napoli"))?.pageId, 2);
+  assert.equal(parseAttempts, 2);
+});
+
+test("redirect destinations are cached under their canonical page ID", async () => {
+  const canonicalId = 77;
+  const { service, requests } = fixture({
+    resolution: (title) => ({
+      query: {
+        redirects: [{ from: title, to: "Canonical" }],
+        pages: [{ pageid: canonicalId, ns: 0, title: "Canonical" }],
+      },
+    }),
+    parse: (id) =>
+      id === 1
+        ? { parse: { pageid: 1, title: "Start", text: '<a href="/wiki/Napoli">Napoli</a>' } }
+        : { parse: { pageid: id, title: "Canonical", text: "<p>canonical</p>" } },
+  });
+  await service.getArticle(1);
+  requests.length = 0;
+
+  await service.resolveNavigation(1, "Napoli");
+  await service.getArticle(canonicalId);
+  assert.equal(requests.length, 2);
+});
+
+test("resolution and parse identity mismatches are rejected", async () => {
+  for (const parsed of [
+    { pageid: 3, title: "Napoli", text: "<p>x</p>" },
+    { pageid: 2, title: "Different", text: "<p>x</p>" },
+  ]) {
+    const { service } = fixture({
+      parse: (id) =>
+        id === 1
+          ? { parse: { pageid: 1, title: "Start", text: '<a href="/wiki/Napoli">Napoli</a>' } }
+          : { parse: parsed },
+    });
+    await service.getArticle(1);
+    await assert.rejects(
+      () => service.resolveNavigation(1, "Napoli"),
+      WikipediaError,
+    );
+  }
 });
 
 test("article cache evicts least recently used entries after 32 pages", async () => {
@@ -238,6 +342,9 @@ test("random selection rejects target, redirects, short and missing lengths befo
   const ids = [TARGET_PAGE_ID, 2, 3, 4, 5];
   const { service, requests } = fixture({
     html: eligibleHtml,
+    parse: (id) => ({
+      parse: { pageid: id, title: "Start", text: eligibleHtml },
+    }),
     random: () => [{ id: ids[attempt++], ns: 0, title: "Start" }],
     info: (id) => ({
       pageid: id,

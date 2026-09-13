@@ -28,7 +28,7 @@ export interface WikipediaServiceOptions {
 }
 
 const ARTICLE_CACHE_SIZE = 32;
-const ARTICLE_CACHE_TTL_MS = 60_000;
+const ARTICLE_CACHE_TTL_MS = 300_000;
 
 export class WikipediaService implements WikipediaArticleSource {
   private readonly client: MediaWikiClient;
@@ -70,7 +70,17 @@ export class WikipediaService implements WikipediaArticleSource {
     const article = await this.getArticle(fromPageId);
     if (!article.links.some((link) => link.title === title)) return null;
     // Only the clicked, reachable title is resolved, including redirects.
-    return this.client.resolveTitle(title);
+    const destination = await this.client.resolveTitle(title);
+    if (destination === null) return null;
+
+    // Winning moves do not need article content. Every other destination is
+    // loaded before persistence so a failed parse cannot commit a move, and the
+    // following GET /article can reuse the warmed canonical cache entry.
+    if (destination.pageId !== TARGET_PAGE_ID) {
+      await this.getOrLoadResolvedArticle(destination);
+    }
+
+    return destination;
   }
 
   async resolvePage(title: string): Promise<WikipediaPageIdentity | null> {
@@ -134,6 +144,41 @@ export class WikipediaService implements WikipediaArticleSource {
       },
     );
     return article;
+  }
+
+  private async getOrLoadResolvedArticle(
+    destination: WikipediaPageIdentity,
+  ): Promise<NormalizedArticle> {
+    const cached = this.articles.get(destination.pageId);
+    if (cached && cached.expiresAt > Date.now()) {
+      const article = await cached.article;
+      if (article.title === destination.title) {
+        this.articles.delete(destination.pageId);
+        this.articles.set(destination.pageId, cached);
+        return article;
+      }
+    }
+
+    return this.cacheArticle(
+      destination.pageId,
+      this.loadResolvedArticle(destination),
+    );
+  }
+
+  private async loadResolvedArticle(
+    destination: WikipediaPageIdentity,
+  ): Promise<NormalizedArticle> {
+    const parsed = await this.client.getArticleHtml(destination.pageId);
+    if (
+      parsed.pageId !== destination.pageId ||
+      parsed.title !== destination.title
+    ) {
+      throw new WikipediaError(
+        "INVALID_RESPONSE",
+        "Article changed while loading",
+      );
+    }
+    return this.parser.normalize(destination, parsed.html);
   }
 
   private async loadArticle(

@@ -8,6 +8,7 @@ import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
 import { MediaWikiClient } from "../../src/modules/wikipedia/mediawiki.client.js";
+import { WikipediaError } from "../../src/modules/wikipedia/wikipedia.errors.js";
 import { WikipediaService } from "../../src/modules/wikipedia/wikipedia.service.js";
 
 let server: Server;
@@ -839,7 +840,7 @@ function makeContextualWikipediaService(): WikipediaService {
     }),
     getArticleHtml: async (pageId: number) => ({
       pageId,
-      title: titleFor(pageId),
+      title: pageId === 2 ? "B" : titleFor(pageId),
       html: '<p>Normal <a href="/wiki/B">B</a>.</p><span class="citation">See <a href="/wiki/C">C</a>.</span>',
     }),
     resolveTitle: async (title: string) => ({
@@ -883,6 +884,60 @@ test("a normal body link remains navigable", async () => {
     const moves = await persistedMoves(created.body.id!);
     assert.equal(moves.length, 1);
     assert.equal(moves[0].type, "NAVIGATION");
+  } finally {
+    await app.close();
+  }
+});
+
+test("a destination parse failure leaves the move uncommitted and retry succeeds", async () => {
+  let destinationParseAttempts = 0;
+  const client = {
+    getPageInfo: async (pageId: number) => ({
+      pageId,
+      title: titleFor(pageId),
+      length: 2000,
+      redirect: false,
+    }),
+    getArticleHtml: async (pageId: number) => {
+      if (pageId === 2 && ++destinationParseAttempts === 1) {
+        throw new WikipediaError("NETWORK", "Transient parse failure");
+      }
+      return {
+        pageId,
+        title: titleFor(pageId),
+        html:
+          pageId === START_PAGE_ID
+            ? '<p><a href="/wiki/Page_2">Page 2</a></p>'
+            : "<p>Destination</p>",
+      };
+    },
+    resolveTitle: async (title: string) => ({ pageId: 2, title }),
+  } as unknown as MediaWikiClient;
+
+  const app = await createTestApp(new WikipediaService({ client }));
+  try {
+    const { cookie } = await register(unique("prefail"), app.baseUrl);
+    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
+    const gameId = created.body.id!;
+
+    const failed = await move(cookie, gameId, "Page 2", app.baseUrl);
+    assert.equal(failed.status, 502);
+    assert.equal(failed.body.error?.code, "WIKIPEDIA_UNAVAILABLE");
+
+    const unchanged = await prisma.game.findUniqueOrThrow({
+      where: { id: gameId },
+    });
+    assert.equal(unchanged.currentPageId, START_PAGE_ID);
+    assert.equal(unchanged.currentPageTitle, titleFor(START_PAGE_ID));
+    assert.equal(unchanged.clickCount, 0);
+    assert.equal((await persistedMoves(gameId)).length, 0);
+
+    const retried = await move(cookie, gameId, "Page 2", app.baseUrl);
+    assert.equal(retried.status, 200);
+    assert.equal(retried.body.currentPageId, 2);
+    assert.equal(retried.body.clickCount, 1);
+    assert.equal((await persistedMoves(gameId)).length, 1);
+    assert.equal(destinationParseAttempts, 2);
   } finally {
     await app.close();
   }
@@ -995,7 +1050,7 @@ test("a legitimate section heading containing 'fonti' keeps its links navigable"
     }),
     getArticleHtml: async (pageId: number) => ({
       pageId,
-      title: titleFor(pageId),
+      title: pageId === 2 ? "Energy Sources" : titleFor(pageId),
       html: '<h2 id="Fonti_energetiche">Fonti energetiche</h2><p>See <a href="/wiki/Energy_Sources">energy</a>.</p>',
     }),
     resolveTitle: async (title: string) => ({
