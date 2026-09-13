@@ -75,11 +75,14 @@ function fixture(
   return { service: new WikipediaService({ client }), requests };
 }
 
-test("article loading uses two requests and returns source titles without eager resolution", async () => {
-  const { service, requests } = fixture();
+test("infobox article loading uses two requests without eager resolution", async () => {
+  const { service, requests } = fixture({
+    html: '<table class="infobox"><tr><td><a href="/wiki/Unina">Unina</a></td></tr></table><p><a href="/wiki/Napoli">Napoli</a></p>',
+  });
   const article = await service.getArticle(1);
   assert.equal(article.pageId, 1);
   assert.equal(article.title, "Start");
+  assert.match(article.contentHtml, /<table class="infobox">/);
   assert.deepEqual(article.links, [{ title: "Unina" }, { title: "Napoli" }]);
   assert.match(article.contentHtml, /data-page-title="Unina"/);
   assert.doesNotMatch(article.contentHtml, /href=|data-page-id/);

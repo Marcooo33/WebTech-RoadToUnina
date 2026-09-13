@@ -3,7 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { WikipediaArticle } from './wikipedia-article';
 
 const HTML = `
-  <p>Intro with a <a data-page-title="Playable">playable link</a> inside.</p>
+  <table class="infobox"><tbody><tr><td>
+    <a data-page-title="Playable"><span>playable link</span></a>
+  </td></tr></tbody></table>
   <p>A <a data-page-title="">empty</a>, a <a data-page-title="   ">whitespace</a> and a
      <a data-page-id="123">legacy id</a>.</p>
   <p>An <a href="https://evil.example/attack">escaped external</a> anchor and plain
@@ -27,13 +29,16 @@ describe('WikipediaArticle', () => {
     fixture.detectChanges();
   });
 
-  function click(selector: string): void {
+  function click(selector: string): MouseEvent {
     const el = (fixture.nativeElement as HTMLElement).querySelector(selector) as HTMLElement;
-    el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+    el.dispatchEvent(event);
+    return event;
   }
 
-  it('emits the title when a playable link is activated', () => {
-    click('a[data-page-title="Playable"]');
+  it('delegates a nested infobox click once and prevents browser navigation', () => {
+    const event = click('.infobox a[data-page-title="Playable"] span');
+    expect(event.defaultPrevented).toBe(true);
     expect(emitted).toEqual(['Playable']);
   });
 
@@ -53,7 +58,7 @@ describe('WikipediaArticle', () => {
   });
 
   it('does nothing when the user clicks plain text', () => {
-    click('span');
+    click('p span');
     click('p');
     expect(emitted).toEqual([]);
   });

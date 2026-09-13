@@ -347,7 +347,7 @@ export class GamePage implements OnInit {
     // SECURITY TRUST BOUNDARY.
     // `contentHtml` comes from ArticleDto returned by the ROADTOUNINA backend,
     // which fetches the MediaWiki article and runs it through a strict
-    // server-side sanitizer (tag allowlist, every href removed, no URL schemes)
+    // server-side sanitizer (tag allowlist, every href removed, validated HTTPS images)
     // before it is ever sent here (docs/architecture.md §8–9, AGENTS.md §11).
     // We bypass Angular's sanitizer only so it does not strip the backend's
     // `data-page-title` attributes, which drive in-sandbox

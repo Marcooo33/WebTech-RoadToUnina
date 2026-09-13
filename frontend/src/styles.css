@@ -172,3 +172,86 @@ h3 {
     overflow-x: auto;
   }
 }
+
+/* Injected article descendants do not receive Angular encapsulation attributes. */
+app-wikipedia-article .wiki__body :is(h2, h3, h4) {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  margin-top: var(--space-5);
+}
+
+app-wikipedia-article .wiki__body p {
+  margin: var(--space-3) 0;
+}
+
+/* Playable links: styled like ordinary Wikipedia links. Non-playable links were
+   flattened to <span> by the backend and render as plain text. */
+app-wikipedia-article .wiki__body a[data-page-title] {
+  color: var(--color-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+app-wikipedia-article .wiki__body a[data-page-title]:hover {
+  text-decoration: underline;
+}
+
+app-wikipedia-article .wiki__body img {
+  max-width: 100%;
+  height: auto;
+}
+
+app-wikipedia-article .wiki__body table:not(.infobox):not(.sinottico) {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+app-wikipedia-article .wiki__body table:is(.infobox, .sinottico) {
+  float: right;
+  width: min(18rem, 45%);
+  max-width: 100%;
+  margin: 0 0 var(--space-4) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-collapse: collapse;
+  background: var(--color-bg);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) :is(th, td) {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+  text-align: left;
+}
+
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) th {
+  background: var(--color-primary-tint);
+}
+
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) th:not([colspan]) {
+  width: 35%;
+}
+
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) :is(caption, [colspan]) {
+  text-align: center;
+}
+
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) figure {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  app-wikipedia-article .wiki__body table:is(.infobox, .sinottico) {
+    float: none;
+    width: 100%;
+    table-layout: fixed;
+    margin-left: 0;
+  }
+}

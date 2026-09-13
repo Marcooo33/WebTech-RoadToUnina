@@ -450,3 +450,73 @@ test("Italian namespace aliases, drafts, modules and events are excluded", () =>
     );
   }
 });
+
+test("preserves infobox structure and only its playable article links", () => {
+  for (const classes of ["infobox sinottico unrelated", "sinottico unrelated"]) {
+    const result = normalize(`
+      <table class="${classes}" style="float:right">
+        <caption>University</caption>
+        <thead><tr class="template-header"><th colspan="2" scope="colgroup">Details</th></tr></thead>
+        <tbody><tr><th rowspan="2" scope="row">Location</th>
+          <td><a href="/wiki/Napoli"><b>Napoli</b></a></td></tr>
+          <tr><td><a href="/wiki/File:Campus.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Campus.jpg" alt="Campus"></a></td></tr>
+          <tr><td colspan="0" rowspan="-1">Text</td><th scope="invalid">Label</th></tr>
+        </tbody>
+      </table>`);
+    assert.match(result.contentHtml, /<table class="(?:infobox )?sinottico">/);
+    assert.match(result.contentHtml, /<caption>University<\/caption>/);
+    assert.match(result.contentHtml, /<thead><tr><th colspan="2" scope="colgroup">Details<\/th><\/tr><\/thead>/);
+    assert.match(result.contentHtml, /<tbody><tr><th rowspan="2" scope="row">Location<\/th>/);
+    assert.match(result.contentHtml, /<a data-page-title="Napoli"><b>Napoli<\/b><\/a>/);
+    assert.match(result.contentHtml, /<span><img [^>]+><\/span>/);
+    assert.match(result.contentHtml, /<td>Text<\/td><th>Label<\/th>/);
+    assert.doesNotMatch(result.contentHtml, /unrelated|template-header|style=|href=|data-page-title="File:/);
+    assert.deepEqual(result.links, [{ title: "Napoli" }]);
+  }
+});
+
+test("preserves approved Wikimedia images with only safe attributes", () => {
+  for (const source of [
+    "https://upload.wikimedia.org/wikipedia/commons/a/ab/Campus.jpg",
+    "//thumb.wikimedia.org/wikipedia/it/thumb/a/ab/Campus.jpg/260px-Campus.jpg",
+  ]) {
+    const result = normalize(`<img src="${source}" alt="Campus &amp; garden" width="260" height="177"
+      srcset="https://evil.example/x.png 2x" style="position:fixed" onerror="alert(1)" data-extra="x" loading="eager">`);
+    assert.match(result.contentHtml, /<img src="https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\//);
+    assert.match(result.contentHtml, /alt="Campus &amp; garden"/);
+    assert.match(result.contentHtml, /width="260" height="177"/);
+    assert.match(result.contentHtml, /loading="lazy"/);
+    assert.doesNotMatch(result.contentHtml, /srcset|style=|onerror|data-extra|evil\.example|eager/);
+    assert.deepEqual(result.links, []);
+  }
+  for (const source of [
+    "https://evil.example/wikipedia/x.png",
+    "https://upload.wikimedia.org.evil.example/wikipedia/x.png",
+    "http://upload.wikimedia.org/wikipedia/x.png",
+    "data:image/png;base64,AAAA",
+    "https://user:password@upload.wikimedia.org/wikipedia/x.png",
+    "https://upload.wikimedia.org:444/wikipedia/x.png",
+    "https://upload.wikimedia.org/other/x.png",
+    "https://upload.wikimedia.org/wikipedia/../other/x.png",
+    "https://upload.wikimedia.org/wikipedia/%FF.png",
+    "https://[invalid/wikipedia/x.png",
+    "https:/upload.wikimedia.org/wikipedia/x.png",
+    "https:///upload.wikimedia.org/wikipedia/x.png",
+    "",
+  ]) {
+    assert.doesNotMatch(normalize(`<img src="${source}">`).contentHtml, /<img/, source);
+  }
+  assert.doesNotMatch(normalize('<img alt="No source">').contentHtml, /<img/);
+  assert.doesNotMatch(
+    normalize('<img src="https://upload.wikimedia.org/wikipedia/x.png" width="-1" height="1.5">').contentHtml,
+    /width=|height=/,
+  );
+});
+
+test("excludes anchor class tokens surrounded by other classes", () => {
+  for (const token of ["extiw", "new", "external", "interwiki"]) {
+    const result = normalize(`<a class="other ${token}\tlast" href="/wiki/Foreign">foreign</a>`);
+    assert.deepEqual(result.links, []);
+    assert.equal(result.contentHtml, "<span>foreign</span>");
+  }
+});

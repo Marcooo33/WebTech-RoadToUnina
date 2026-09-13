@@ -52,9 +52,54 @@ const ALLOWED_TAGS = [
   "caption",
   "figure",
   "figcaption",
+  "img",
 ];
 
 const ARTICLE_PATH_PREFIX = "/wiki/";
+const IMAGE_HOSTS = new Set(["upload.wikimedia.org", "thumb.wikimedia.org"]);
+
+function normalizeImageSource(source: string | undefined): string | null {
+  if (!source || /[\s\u0000-\u001f\u007f\\]/u.test(source)) return null;
+  const absolute = source.startsWith("//") ? `https:${source}` : source;
+  if (!/^https:\/\/[^/]/.test(absolute)) return null;
+
+  try {
+    decodeURI(absolute);
+    const url = new URL(absolute);
+    if (
+      url.protocol !== "https:" ||
+      !IMAGE_HOSTS.has(url.hostname) ||
+      url.username ||
+      url.password ||
+      url.port ||
+      !url.pathname.startsWith("/wikipedia/")
+    ) {
+      return null;
+    }
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+function positiveInteger(value: string | undefined): string | undefined {
+  if (value === undefined || !/^\d+$/.test(value)) return undefined;
+  const number = Number(value);
+  return Number.isSafeInteger(number) && number > 0 ? String(number) : undefined;
+}
+
+function normalizeCell(tagName: string, attribs: Record<string, string>) {
+  const normalized = { ...attribs };
+  for (const name of ["colspan", "rowspan"]) {
+    const value = positiveInteger(attribs[name]);
+    if (value === undefined) delete normalized[name];
+    else normalized[name] = value;
+  }
+  if (!["row", "col", "rowgroup", "colgroup"].includes(attribs.scope ?? "")) {
+    delete normalized.scope;
+  }
+  return { tagName, attribs: normalized };
+}
 
 // Italian Wikipedia namespace names, canonical names and aliases from siteinfo.
 // This is local filtering only; the selected page's namespace is checked by the client.
@@ -359,16 +404,40 @@ export class ArticleParserService {
   normalize(page: WikipediaPageIdentity, html: string): NormalizedArticle {
     const contentHtml = sanitizeHtml(neutralizeCitationAnchors(html), {
       allowedTags: ALLOWED_TAGS,
-      allowedAttributes: { a: ["data-page-title"] },
+      allowedAttributes: {
+        a: ["data-page-title"],
+        table: ["class"],
+        th: ["colspan", "rowspan", "scope"],
+        td: ["colspan", "rowspan"],
+        img: ["src", "alt", "width", "height", "loading"],
+      },
+      allowedClasses: { table: ["infobox", "sinottico"] },
       allowedSchemes: [],
+      allowedSchemesByTag: { img: ["https"] },
       allowProtocolRelative: false,
       transformTags: {
+        th: normalizeCell,
+        td: normalizeCell,
+        img: (_tagName, attribs) => {
+          const src = normalizeImageSource(attribs.src);
+          const safe: Record<string, string> = {};
+          if (src !== null) {
+            safe.src = src;
+            safe.loading = "lazy";
+            if (attribs.alt !== undefined) safe.alt = attribs.alt;
+            for (const name of ["width", "height"]) {
+              const value = positiveInteger(attribs[name]);
+              if (value !== undefined) safe[name] = value;
+            }
+          }
+          return { tagName: "img", attribs: safe };
+        },
         a: (
           _tagName,
           attribs,
         ): { tagName: string; attribs: Record<string, string> } => {
           const excluded =
-            /(?:^|\\s)(?:new|extiw|external|interwiki)(?:\\s|$)/i.test(
+            /(?:^|\s)(?:new|extiw|external|interwiki)(?:\s|$)/i.test(
               attribs.class ?? "",
             ) || /Interwiki/i.test(attribs.rel ?? "");
           const title = excluded ? null : extractArticleTitle(attribs.href);
@@ -377,7 +446,8 @@ export class ArticleParserService {
             : { tagName: "a", attribs: { "data-page-title": title } };
         },
       },
-      exclusiveFilter: (frame) => isExcludedFrame(frame),
+      exclusiveFilter: (frame) =>
+        isExcludedFrame(frame) || (frame.tag === "img" && !frame.attribs.src),
     });
 
     // Collect only anchors that actually survived sanitization, including
