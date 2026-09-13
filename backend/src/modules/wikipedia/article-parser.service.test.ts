@@ -162,6 +162,19 @@ test("fragment-only links are excluded", () => {
   assert.deepEqual(result.links, []);
 });
 
+test("assigns safe unique ROADTOUNINA ids to sanitized headings", () => {
+  const result = normalize([
+    '<h2 id="source-id" onclick="bad()">Storia</h2>',
+    '<h3 id="storia">Storia</h3>',
+    '<h4 id="&quot; onmouseover=&quot;bad()"><span></span></h4>',
+  ].join(""));
+
+  assert.match(result.contentHtml, /<h2 id="rtu-section-storia">Storia<\/h2>/);
+  assert.match(result.contentHtml, /<h3 id="rtu-section-storia-2">Storia<\/h3>/);
+  assert.match(result.contentHtml, /<h4 id="rtu-section-3"><span><\/span><\/h4>/);
+  assert.doesNotMatch(result.contentHtml, /source-id|on(?:click|mouseover)/);
+});
+
 test("reference/citation markers and reference lists are removed", () => {
   const html = [
     '<p>Text<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup></p>',
@@ -283,7 +296,7 @@ test("preserves structural and text markup for readability", () => {
 
   const result = normalize(html);
 
-  assert.match(result.contentHtml, /<h2>Heading<\/h2>/);
+  assert.match(result.contentHtml, /<h2 id="rtu-section-heading">Heading<\/h2>/);
   assert.match(result.contentHtml, /<em>emphasis<\/em>/);
   assert.match(result.contentHtml, /<strong>bold<\/strong>/);
   assert.match(result.contentHtml, /<ul><li>one<\/li><li>two<\/li><\/ul>/);

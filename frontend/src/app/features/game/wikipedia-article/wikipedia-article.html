@@ -1,5 +1,27 @@
 <article class="wiki" [class.wiki--disabled]="disabled()">
   <h1 class="wiki__title">{{ title() }}</h1>
+  @if (tocEntries().length > 0) {
+    <ng-template #tocList>
+      <ul class="wiki__toc-list">
+        @for (entry of tocEntries(); track entry.id) {
+          <li [attr.data-heading-level]="entry.level">
+            <a [href]="'#' + entry.id" (click)="onTocClick($event, entry.id)">{{ entry.label }}</a>
+          </li>
+        }
+      </ul>
+    </ng-template>
+
+    <nav class="wiki__toc-desktop" aria-label="Indice dell'articolo">
+      <h2>Indice</h2>
+      <ng-container *ngTemplateOutlet="tocList" />
+    </nav>
+
+    <details class="wiki__toc-compact">
+      <summary>Indice</summary>
+      <ng-container *ngTemplateOutlet="tocList" />
+    </details>
+  }
+
   <!-- Sanitized backend HTML; playable links are delegated via (click). -->
-  <div class="wiki__body" [innerHTML]="html()" (click)="onClick($event)"></div>
+  <div #articleBody class="wiki__body" [innerHTML]="html()" (click)="onClick($event)"></div>
 </article>

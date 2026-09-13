@@ -15,7 +15,116 @@
   display: flow-root;
 }
 
+.wiki__toc-desktop {
+  display: none;
+}
+
+.wiki__toc-compact {
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+.wiki__toc-compact summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.wiki__toc-list {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.wiki__toc-list li + li {
+  margin-top: var(--space-2);
+}
+
+.wiki__toc-list li[data-heading-level='3'] {
+  padding-left: var(--space-3);
+}
+
+.wiki__toc-list li[data-heading-level='4'] {
+  padding-left: var(--space-5);
+}
+
+.wiki__toc-list li[data-heading-level='5'] {
+  padding-left: var(--space-6);
+}
+
+.wiki__toc-list li[data-heading-level='6'] {
+  padding-left: var(--space-8);
+}
+
+.wiki__toc-list a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.wiki__toc-list a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
 .wiki--disabled .wiki__body {
   opacity: 0.6;
   pointer-events: none;
+}
+
+@media (min-width: 1200px) {
+  .wiki {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 42rem);
+    column-gap: var(--space-5);
+    max-width: none;
+    align-items: start;
+  }
+
+  .wiki__title,
+  .wiki__body {
+    grid-column: 2;
+  }
+
+  .wiki__title {
+    grid-row: 1;
+  }
+
+  .wiki__body {
+    grid-row: 2;
+  }
+
+  .wiki__toc-desktop {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: var(--space-4);
+    max-height: calc(100vh - 2 * var(--space-4));
+    overflow-y: auto;
+    font-family:
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
+
+  .wiki__toc-desktop h2 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .wiki__toc-compact {
+    display: none;
+  }
 }

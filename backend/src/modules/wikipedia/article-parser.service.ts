@@ -400,9 +400,48 @@ function neutralizeCitationAnchors(html: string): string {
   return render(document);
 }
 
+function headingSlug(text: string): string {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function addSectionIds(html: string): string {
+  const document = parseDocument(html);
+  const usedIds = new Set<string>();
+  let headingOrdinal = 0;
+
+  const visit = (nodes: Node[]): void => {
+    for (const node of nodes) {
+      if (node.type !== ElementType.Tag) continue;
+      const element = node as Element;
+      if (headingLevelOf(element.name) !== null) {
+        headingOrdinal += 1;
+        const slug = headingSlug(textContentOf(element));
+        const baseId = `rtu-section-${slug || headingOrdinal}`;
+        let id = baseId;
+        let suffix = 2;
+        while (usedIds.has(id)) {
+          id = `${baseId}-${suffix}`;
+          suffix += 1;
+        }
+        usedIds.add(id);
+        element.attribs.id = id;
+      }
+      visit(element.children);
+    }
+  };
+
+  visit(document.children);
+  return render(document, { encodeEntities: "utf8" });
+}
+
 export class ArticleParserService {
   normalize(page: WikipediaPageIdentity, html: string): NormalizedArticle {
-    const contentHtml = sanitizeHtml(neutralizeCitationAnchors(html), {
+    const sanitizedHtml = sanitizeHtml(neutralizeCitationAnchors(html), {
       allowedTags: ALLOWED_TAGS,
       allowedAttributes: {
         a: ["data-page-title"],
@@ -449,6 +488,7 @@ export class ArticleParserService {
       exclusiveFilter: (frame) =>
         isExcludedFrame(frame) || (frame.tag === "img" && !frame.attribs.src),
     });
+    const contentHtml = addSectionIds(sanitizedHtml);
 
     // Collect only anchors that actually survived sanitization, including
     // removal of script/style and reference containers.

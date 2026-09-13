@@ -32,3 +32,16 @@
     top: var(--space-4);
   }
 }
+
+@media (min-width: 1200px) {
+  .game {
+    position: relative;
+    left: 50%;
+    width: min(78rem, calc(100vw - 2 * var(--space-4)));
+    transform: translateX(-50%);
+  }
+
+  .game__layout {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+  }
+}

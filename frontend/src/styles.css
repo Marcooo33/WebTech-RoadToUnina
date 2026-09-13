@@ -184,6 +184,10 @@ app-wikipedia-article .wiki__body :is(h2, h3, h4) {
   margin-top: var(--space-5);
 }
 
+app-wikipedia-article .wiki__body :is(h2, h3, h4, h5, h6) {
+  scroll-margin-top: var(--space-4);
+}
+
 app-wikipedia-article .wiki__body p {
   margin: var(--space-3) 0;
 }
