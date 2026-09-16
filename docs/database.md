@@ -99,6 +99,7 @@ Fields:
 | avatarUrl | text | nullable |
 | createdAt | timestamptz | required |
 | updatedAt | timestamptz | required |
+| deletedAt | timestamptz | nullable; set when an account is soft-deleted |
 
 Relations:
 
@@ -107,6 +108,11 @@ Relations:
 Password hashes, never plaintext passwords, are stored.
 
 Email normalization should be enforced at application level before insertion.
+
+Application account deletion is a soft deletion. Deleted accounts keep their
+User row so completed games retain their owner relation, but identifying and
+authentication fields are replaced with internal tombstones. Those tombstones
+must never be exposed through public APIs.
 
 ---
 
@@ -395,6 +401,7 @@ model User {
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
 
   games Game[]
 
@@ -526,7 +533,21 @@ Not deletable by its normal owner.
 
 This preserves public history, rankings, and derived statistics.
 
-Account deletion policy is not yet finalized and should not be invented by the coding agent without explicit instruction.
+### User deletes their account
+
+In one transaction:
+
+- set `User.deletedAt`;
+- replace username and email with unique internal tombstones;
+- replace the password hash with a bcrypt hash of a random secret and clear the avatar;
+- delete the user's `IN_PROGRESS` games (their moves cascade);
+- retain `COMPLETED` games and their moves.
+
+Public History renders retained games under the neutral identity `Deleted user`.
+The original username and normalized email become available for registration.
+The required `Game.userId` relation remains unchanged. A direct physical User
+deletion would still cascade to every Game, but it is not the application
+account-deletion operation.
 
 ---
 

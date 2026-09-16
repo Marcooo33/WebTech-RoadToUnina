@@ -3,8 +3,10 @@ import { test } from "node:test";
 import { ApiError } from "../../shared/errors.js";
 import {
   normalizeEmail,
+  parseChangePasswordInput,
   parseLoginInput,
   parseRegisterInput,
+  parseUpdateProfileInput,
 } from "./auth.validation.js";
 
 const validRegistration = {
@@ -31,7 +33,8 @@ test("parseRegisterInput rejects a username shorter than 3 or longer than 30", (
     ApiError,
   );
   assert.throws(
-    () => parseRegisterInput({ ...validRegistration, username: "x".repeat(31) }),
+    () =>
+      parseRegisterInput({ ...validRegistration, username: "x".repeat(31) }),
     ApiError,
   );
 });
@@ -42,13 +45,19 @@ test("parseRegisterInput rejects a password shorter than 8 or longer than 128", 
     ApiError,
   );
   assert.throws(
-    () => parseRegisterInput({ ...validRegistration, password: "x".repeat(129) }),
+    () =>
+      parseRegisterInput({ ...validRegistration, password: "x".repeat(129) }),
     ApiError,
   );
 });
 
 test("parseRegisterInput rejects an invalid email", () => {
-  for (const email of ["not-an-email", "a@b", "a b@example.com", "@example.com"]) {
+  for (const email of [
+    "not-an-email",
+    "a@b",
+    "a b@example.com",
+    "@example.com",
+  ]) {
     assert.throws(
       () => parseRegisterInput({ ...validRegistration, email }),
       ApiError,
@@ -77,4 +86,48 @@ test("parseLoginInput requires a non-empty identifier and password", () => {
 
 test("normalizeEmail trims and lowercases", () => {
   assert.equal(normalizeEmail("  Marco@Example.com  "), "marco@example.com");
+});
+
+test("parseUpdateProfileInput accepts one or both valid account fields", () => {
+  assert.deepEqual(parseUpdateProfileInput({ username: "  new-name  " }), {
+    username: "new-name",
+  });
+  assert.deepEqual(parseUpdateProfileInput({ email: " New@Example.com " }), {
+    email: "New@Example.com",
+  });
+});
+
+test("parseUpdateProfileInput rejects an empty or invalid update", () => {
+  assert.throws(() => parseUpdateProfileInput({}), ApiError);
+  assert.throws(() => parseUpdateProfileInput({ username: "ab" }), ApiError);
+  assert.throws(
+    () => parseUpdateProfileInput({ email: "not-an-email" }),
+    ApiError,
+  );
+});
+
+test("parseChangePasswordInput validates both passwords", () => {
+  assert.deepEqual(
+    parseChangePasswordInput({
+      currentPassword: "old-password",
+      newPassword: "new-password",
+    }),
+    { currentPassword: "old-password", newPassword: "new-password" },
+  );
+  assert.throws(
+    () =>
+      parseChangePasswordInput({
+        currentPassword: "",
+        newPassword: "new-password",
+      }),
+    ApiError,
+  );
+  assert.throws(
+    () =>
+      parseChangePasswordInput({
+        currentPassword: "old-password",
+        newPassword: "short",
+      }),
+    ApiError,
+  );
 });

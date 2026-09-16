@@ -24,7 +24,7 @@ export interface CompletedGameDetailDto {
   completedAt: string;
   path: PageRef[];
   moves: GameMoveDto[];
-  player: UserSummaryDto;
+  player: UserSummaryDto | null;
 }
 
 /** Paginated public History view, ordered according to its mode. */

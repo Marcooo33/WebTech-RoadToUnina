@@ -93,6 +93,12 @@ describe('HistoryDetail', () => {
     expect(el.textContent).toContain('2:05'); // 125s effective time
   });
 
+  it('renders a neutral identity for a deleted player', () => {
+    const el = load(detail({ player: null }));
+    expect(el.textContent).toContain('Deleted user');
+    expect(el.textContent).not.toContain('marco');
+  });
+
   it('renders the reconstructed path with a "target" badge on the final node', () => {
     const el = load();
     const titles = Array.from(el.querySelectorAll('.path__title')).map((n) =>

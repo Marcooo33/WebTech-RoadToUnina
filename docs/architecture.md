@@ -454,12 +454,18 @@ Initial expected capabilities:
 - logout / token lifecycle as defined during the API milestone;
 - password hashing;
 - authorization middleware.
+- authenticated username, email and password changes;
+- transactional soft account deletion with anonymized retained completed History.
 
 Do not store plaintext passwords.
 
 Do not trust user identifiers supplied by the frontend for resource ownership.
 
 Ownership comes from the authenticated identity.
+
+Authentication middleware also verifies that the JWT subject still belongs to
+an active (`deletedAt IS NULL`) User. This makes outstanding JWT cookies unusable
+after soft account deletion without adding a session or token-revocation table.
 
 ---
 

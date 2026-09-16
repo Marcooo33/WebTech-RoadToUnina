@@ -11,6 +11,16 @@ export interface LoginInput {
   password: string;
 }
 
+export interface UpdateProfileInput {
+  username?: string;
+  email?: string;
+}
+
+export interface ChangePasswordInput {
+  currentPassword: string;
+  newPassword: string;
+}
+
 const USERNAME_MIN = 3;
 const USERNAME_MAX = 30;
 const PASSWORD_MIN = 8;
@@ -71,6 +81,53 @@ export function parseLoginInput(body: unknown): LoginInput {
   }
 
   return { identifier, password };
+}
+
+export function parseUpdateProfileInput(body: unknown): UpdateProfileInput {
+  const obj = asObject(body);
+  const input: UpdateProfileInput = {};
+
+  if ("username" in obj) {
+    const username = requireString(obj, "username").trim();
+    if (username.length < USERNAME_MIN || username.length > USERNAME_MAX) {
+      throw validationError(
+        `username must be between ${USERNAME_MIN} and ${USERNAME_MAX} characters`,
+      );
+    }
+    input.username = username;
+  }
+
+  if ("email" in obj) {
+    const email = requireString(obj, "email").trim();
+    if (email.length > EMAIL_MAX || !EMAIL_PATTERN.test(email)) {
+      throw validationError("email must be a valid email address");
+    }
+    input.email = email;
+  }
+
+  if (input.username === undefined && input.email === undefined) {
+    throw validationError("username or email is required");
+  }
+
+  return input;
+}
+
+export function parseChangePasswordInput(body: unknown): ChangePasswordInput {
+  const obj = asObject(body);
+  const currentPassword = requireString(obj, "currentPassword");
+  const newPassword = requireString(obj, "newPassword");
+
+  if (currentPassword.length === 0) {
+    throw validationError("currentPassword is required");
+  }
+
+  if (newPassword.length < PASSWORD_MIN || newPassword.length > PASSWORD_MAX) {
+    throw validationError(
+      `newPassword must be between ${PASSWORD_MIN} and ${PASSWORD_MAX} characters`,
+    );
+  }
+
+  return { currentPassword, newPassword };
 }
 
 export function normalizeEmail(email: string): string {

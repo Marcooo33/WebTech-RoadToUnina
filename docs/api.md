@@ -200,6 +200,9 @@ Public representation of a player. Excludes email and any credential fields.
 
 `avatarUrl` is `null` when unset.
 
+For a retained completed game whose owner deleted their account, History uses
+the neutral label `Deleted user` and does not serialize `UserSummaryDto`.
+
 ### 3.2 UserProfileDto
 
 The authenticated user's own profile (returned only for the current user).
@@ -292,7 +295,15 @@ Full representation of an owned game (used to resume).
     { "pageId": 200, "title": "…" }
   ],
   "moves": [
-    { "sequence": 1, "type": "NAVIGATION", "fromPageId": 100, "fromPageTitle": "…", "toPageId": 150, "toPageTitle": "…", "createdAt": "…" }
+    {
+      "sequence": 1,
+      "type": "NAVIGATION",
+      "fromPageId": 100,
+      "fromPageTitle": "…",
+      "toPageId": 150,
+      "toPageTitle": "…",
+      "createdAt": "…"
+    }
   ]
 }
 ```
@@ -360,10 +371,21 @@ Public detail of a completed game.
   "completedAt": "2026-08-28T10:20:00.000Z",
   "path": [
     { "pageId": 100, "title": "…" },
-    { "pageId": 123456, "title": "Università degli Studi di Napoli Federico II" }
+    {
+      "pageId": 123456,
+      "title": "Università degli Studi di Napoli Federico II"
+    }
   ],
   "moves": [
-    { "sequence": 1, "type": "NAVIGATION", "fromPageId": 100, "fromPageTitle": "…", "toPageId": 123456, "toPageTitle": "…", "createdAt": "…" }
+    {
+      "sequence": 1,
+      "type": "NAVIGATION",
+      "fromPageId": 100,
+      "fromPageTitle": "…",
+      "toPageId": 123456,
+      "toPageTitle": "…",
+      "createdAt": "…"
+    }
   ],
   "player": {
     "id": "…",
@@ -372,6 +394,10 @@ Public detail of a completed game.
   }
 }
 ```
+
+`player` is `null` when the owning account has been deleted. The list entry's
+`username` is then `Deleted user`; internal anonymization tombstones are never
+part of an API response.
 
 ### 3.10 HistoryListDto
 
@@ -514,6 +540,68 @@ GET /api/auth/me
 - `401 AUTHENTICATION_REQUIRED` — not authenticated.
 
 This endpoint is also the "profile" endpoint used by the Profile/Statistics surface (§7.1).
+
+### 4.5 Update current user
+
+```http
+PATCH /api/auth/me
+```
+
+**Auth:** required; deleted accounts are rejected.
+
+**Body:** at least one of `username` or `email`. Username is trimmed and must be
+3–30 characters. Email is trimmed, validated, limited to 255 characters and
+stored lowercase.
+
+```json
+{ "username": "new-name" }
+```
+
+**Success:** `200 OK` with the updated `UserProfileDto`.
+
+**Errors:** `400 VALIDATION_ERROR`, `401 AUTHENTICATION_REQUIRED`,
+`409 USERNAME_TAKEN`, `409 EMAIL_TAKEN`.
+
+### 4.6 Change password
+
+```http
+PATCH /api/auth/me/password
+```
+
+**Auth:** required.
+
+```json
+{
+  "currentPassword": "old password",
+  "newPassword": "new password"
+}
+```
+
+The current password is verified with bcrypt. The new password must be 8–128
+characters and is stored as a new bcrypt hash. Confirmation is a frontend-only
+usability check and is not sent to the API.
+
+**Success:** `204 No Content`. Existing JWT sessions remain valid.
+
+**Errors:** `400 VALIDATION_ERROR`, `401 AUTHENTICATION_REQUIRED`, or
+`401 INVALID_CREDENTIALS` when the current password is incorrect.
+
+### 4.7 Delete current account
+
+```http
+DELETE /api/auth/me
+```
+
+**Auth:** required. **Body:** none.
+
+In one transaction the User is marked deleted and anonymized, and their
+`IN_PROGRESS` games are deleted. `COMPLETED` games and moves remain in public
+History under `Deleted user`. The response clears the current access-token
+cookie, and authentication rejects every outstanding JWT for the deleted User.
+
+**Success:** `204 No Content`.
+
+**Errors:** `401 AUTHENTICATION_REQUIRED`.
 
 ---
 
@@ -819,7 +907,8 @@ GET /api/history/:gameId
 
 ### 7.1 Profile
 
-Reuses the current-user endpoint `GET /api/auth/me` (§4.4). Returns `UserProfileDto`.
+Uses the current-user account endpoints in §4.4–§4.7. Returns `UserProfileDto`
+for reads and username/email updates.
 
 ### 7.2 Personal statistics
 

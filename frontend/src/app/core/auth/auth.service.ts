@@ -54,6 +54,23 @@ export class AuthService {
       .pipe(tap((user) => this.setUser(user)));
   }
 
+  updateProfile(input: { username?: string; email?: string }): Observable<UserProfileDto> {
+    return this.http
+      .patch<UserProfileDto>(`${API_BASE}/auth/me`, input)
+      .pipe(tap((user) => this.setUser(user)));
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.patch<void>(`${API_BASE}/auth/me/password`, {
+      currentPassword,
+      newPassword,
+    });
+  }
+
+  deleteAccount(): Observable<void> {
+    return this.http.delete<void>(`${API_BASE}/auth/me`).pipe(tap(() => this.clearUser()));
+  }
+
   /**
    * Calls the logout endpoint and always drops local auth state afterwards, even
    * if the request fails. Navigation after logout is the caller's responsibility

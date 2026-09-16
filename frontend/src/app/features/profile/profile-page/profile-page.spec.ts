@@ -1,13 +1,13 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { errorInterceptor } from '../../../core/interceptors/error.interceptor';
-import { StatisticsDto } from '../../../shared/models/stats.model';
+import { UserProfileDto } from '../../../shared/models/user.model';
 import { ProfilePage } from './profile-page';
 
-const USER = {
+const USER: UserProfileDto = {
   id: 'u1',
   username: 'marco',
   email: 'marco@example.com',
@@ -15,33 +15,10 @@ const USER = {
   createdAt: '2026-01-01T00:00:00.000Z',
 };
 
-function stats(over: Partial<StatisticsDto> = {}): StatisticsDto {
-  return {
-    completedGames: 4,
-    inProgressGames: 1,
-    bestClick: {
-      gameId: 'gc',
-      difficulty: 'EASY',
-      clickCount: 7,
-      effectivePlayTimeMs: 240_000,
-      completedAt: '2026-08-01T00:00:00.000Z',
-    },
-    bestTime: {
-      gameId: 'gt',
-      difficulty: 'HARD',
-      clickCount: 15,
-      effectivePlayTimeMs: 180_000,
-      completedAt: '2026-08-02T00:00:00.000Z',
-    },
-    averageClicks: 12.36,
-    averageEffectiveTimeMs: 300_000,
-    ...over,
-  };
-}
-
 describe('ProfilePage', () => {
   let http: HttpTestingController;
   let fixture: ComponentFixture<ProfilePage>;
+  let component: ProfilePage;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,60 +27,84 @@ describe('ProfilePage', () => {
         provideRouter([]),
         provideHttpClient(withInterceptors([errorInterceptor])),
         provideHttpClientTesting(),
-        { provide: AuthService, useValue: { user: () => USER, clearUser: vi.fn() } },
       ],
     }).compileComponents();
 
     http = TestBed.inject(HttpTestingController);
+    TestBed.inject(AuthService).login('marco', 'password123').subscribe();
+    http.expectOne('/api/auth/login').flush(USER);
+
     fixture = TestBed.createComponent(ProfilePage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const dialog = (fixture.nativeElement as HTMLElement).querySelector('dialog')!;
+    Object.defineProperty(dialog, 'showModal', {
+      value: vi.fn(() => dialog.setAttribute('open', '')),
+      configurable: true,
+    });
+    Object.defineProperty(dialog, 'close', {
+      value: vi.fn(() => dialog.removeAttribute('open')),
+      configurable: true,
+    });
   });
 
   afterEach(() => http.verify());
 
-  function load(dto = stats()): HTMLElement {
+  it('renders account management without loading duplicate statistics', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    expect(el.textContent).toContain('Account information');
+    expect(el.textContent).toContain('Security');
+    expect(el.textContent).toContain('Delete account');
+    expect(el.textContent).not.toContain('Statistics');
+    http.expectNone('/api/me/stats');
+  });
+
+  it('updates the username and authenticated user state', () => {
+    component.usernameForm.controls.username.setValue('new-marco');
+    component.changeUsername();
+
+    const req = http.expectOne('/api/auth/me');
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ username: 'new-marco' });
+    req.flush({ ...USER, username: 'new-marco' });
     fixture.detectChanges();
-    http.expectOne('/api/me/stats').flush(dto);
-    fixture.detectChanges();
-    return fixture.nativeElement as HTMLElement;
-  }
 
-  it('renders profile info and statistics', () => {
-    const el = load();
-    expect(el.textContent).toContain('marco');
-    expect(el.textContent).toContain('marco@example.com');
-    expect(el.textContent).toContain('Completed games');
-    expect(el.textContent).toContain('4');
+    expect(TestBed.inject(AuthService).user()?.username).toBe('new-marco');
+    expect(component.usernameSuccess()).toBe('Username updated.');
   });
 
-  it('shows best-result tie-break values and difficulty, linked to public history', () => {
-    const el = load();
+  it('blocks a password change when confirmation does not match', () => {
+    component.passwordForm.setValue({
+      currentPassword: 'password123',
+      newPassword: 'new-password-123',
+      confirmPassword: 'different-password',
+    });
+    component.changePassword();
 
-    const clickLink = el.querySelector('a[href="/history/gc"]');
-    expect(clickLink?.textContent).toContain('7 clicks');
-    expect(clickLink?.textContent).toContain('4:00'); // 240s tie-break time
-    expect(clickLink?.textContent).toContain('EASY');
-
-    const timeLink = el.querySelector('a[href="/history/gt"]');
-    expect(timeLink?.textContent).toContain('3:00'); // 180s
-    expect(timeLink?.textContent).toContain('15 clicks');
-    expect(timeLink?.textContent).toContain('HARD');
+    http.expectNone('/api/auth/me/password');
+    expect(component.passwordForm.hasError('passwordMismatch')).toBe(true);
   });
 
-  it('formats average clicks to one decimal place', () => {
-    const el = load();
-    expect(el.textContent).toContain('12.4');
+  it('cancels account deletion without sending a request', () => {
+    component.openDeleteDialog();
+    component.cancelDelete();
+
+    http.expectNone('/api/auth/me');
+    const dialog = (fixture.nativeElement as HTMLElement).querySelector('dialog')!;
+    expect(dialog.hasAttribute('open')).toBe(false);
   });
 
-  it('renders — for null best results and null averages', () => {
-    const el = load(
-      stats({
-        bestClick: null,
-        bestTime: null,
-        averageClicks: null,
-        averageEffectiveTimeMs: null,
-      }),
-    );
-    expect(el.querySelector('a[href^="/history/"]')).toBeNull();
-    expect(el.textContent).toContain('—');
+  it('deletes the account, clears auth state, and navigates home', () => {
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    component.openDeleteDialog();
+    component.confirmDelete();
+
+    const req = http.expectOne('/api/auth/me');
+    expect(req.request.method).toBe('DELETE');
+    req.flush(null, { status: 204, statusText: 'No Content' });
+
+    expect(TestBed.inject(AuthService).isAuthenticated()).toBe(false);
+    expect(navigate).toHaveBeenCalledWith(['/']);
   });
 });

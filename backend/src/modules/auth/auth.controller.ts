@@ -3,8 +3,21 @@ import {
   clearAccessTokenCookie,
   setAccessTokenCookie,
 } from "../../shared/cookies.js";
-import { getCurrentUser, login, register, toUserProfileDto } from "./auth.service.js";
-import { parseLoginInput, parseRegisterInput } from "./auth.validation.js";
+import {
+  changePassword,
+  deleteCurrentUser,
+  getCurrentUser,
+  login,
+  register,
+  toUserProfileDto,
+  updateCurrentUser,
+} from "./auth.service.js";
+import {
+  parseChangePasswordInput,
+  parseLoginInput,
+  parseRegisterInput,
+  parseUpdateProfileInput,
+} from "./auth.validation.js";
 
 export async function registerHandler(
   req: Request,
@@ -34,4 +47,32 @@ export async function logoutHandler(
 export async function meHandler(req: Request, res: Response): Promise<void> {
   const user = await getCurrentUser(req.auth!.userId);
   res.status(200).json(toUserProfileDto(user));
+}
+
+export async function updateMeHandler(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  const user = await updateCurrentUser(
+    req.auth!.userId,
+    parseUpdateProfileInput(req.body),
+  );
+  res.status(200).json(toUserProfileDto(user));
+}
+
+export async function changePasswordHandler(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  await changePassword(req.auth!.userId, parseChangePasswordInput(req.body));
+  res.status(204).end();
+}
+
+export async function deleteMeHandler(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  await deleteCurrentUser(req.auth!.userId);
+  clearAccessTokenCookie(res);
+  res.status(204).end();
 }

@@ -1,5 +1,6 @@
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { verifyAccessToken } from "../lib/jwt.js";
+import { findActiveUserById } from "../modules/auth/auth.repository.js";
 import { ACCESS_TOKEN_COOKIE } from "../shared/cookies.js";
 import { ApiError, ErrorCode } from "../shared/errors.js";
 import { isUuid } from "../shared/validation.js";
@@ -25,31 +26,48 @@ function authenticationRequired(): ApiError {
   );
 }
 
-export function authenticate(
-  req: Request,
-  _res: Response,
-  next: NextFunction,
-): void {
-  const token = req.cookies?.[ACCESS_TOKEN_COOKIE];
+type ActiveUserLookup = (userId: string) => Promise<unknown | null>;
 
-  if (!token) {
-    next(authenticationRequired());
-    return;
-  }
+export function createAuthenticate(
+  findActiveUser: ActiveUserLookup = findActiveUserById,
+): RequestHandler {
+  return async (
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const token = req.cookies?.[ACCESS_TOKEN_COOKIE];
 
-  let sub: string | undefined;
-  try {
-    sub = verifyAccessToken(token);
-  } catch {
-    next(authenticationRequired());
-    return;
-  }
+    if (!token) {
+      next(authenticationRequired());
+      return;
+    }
 
-  if (!isUuid(sub)) {
-    next(authenticationRequired());
-    return;
-  }
+    let sub: string | undefined;
+    try {
+      sub = verifyAccessToken(token);
+    } catch {
+      next(authenticationRequired());
+      return;
+    }
 
-  req.auth = { userId: sub };
-  next();
+    if (!isUuid(sub)) {
+      next(authenticationRequired());
+      return;
+    }
+
+    try {
+      if (!(await findActiveUser(sub))) {
+        next(authenticationRequired());
+        return;
+      }
+
+      req.auth = { userId: sub };
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
 }
+
+export const authenticate = createAuthenticate();

@@ -7,13 +7,14 @@ function row(
   clickCount: number,
   effectivePlayTimeMs: number,
   username = "player",
+  deletedAt: Date | null = null,
 ) {
   return {
     id,
     clickCount,
     effectivePlayTimeMs,
     completedAt: new Date("2026-08-28T10:20:00.000Z"),
-    user: { username },
+    user: { username, deletedAt },
   };
 }
 
@@ -30,6 +31,15 @@ test("toHistoryEntries assigns ranks relative to the page offset", () => {
       [22, "b"],
     ],
   );
+});
+
+test("toHistoryEntries hides a deleted user's internal username", () => {
+  const [entry] = toHistoryEntries(
+    [row("g1", 8, 300_000, "del_internal", new Date())],
+    1,
+  );
+
+  assert.equal(entry.username, "Deleted user");
 });
 
 test("toHistoryEntries maps the public player and score fields", () => {

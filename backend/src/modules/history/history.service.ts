@@ -44,6 +44,10 @@ function toUserSummaryDto(user: User): UserSummaryDto {
   };
 }
 
+function publicUsername(user: Pick<User, "username" | "deletedAt">): string {
+  return user.deletedAt ? "Deleted user" : user.username;
+}
+
 function toCompletedGameDetailDto(
   game: GameWithPlayerAndMoves,
 ): CompletedGameDetailDto {
@@ -64,7 +68,7 @@ function toCompletedGameDetailDto(
     completedAt: requireCompletedAt(game),
     path,
     moves: game.moves.map(toGameMoveDto),
-    player: toUserSummaryDto(game.user),
+    player: game.user.deletedAt ? null : toUserSummaryDto(game.user),
   };
 }
 
@@ -73,7 +77,7 @@ type RankableGame = {
   clickCount: number;
   effectivePlayTimeMs: number;
   completedAt: Date | null;
-  user: { username: string };
+  user: { username: string; deletedAt: Date | null };
 };
 
 /** Maps an already ordered page and keeps ranks global across pagination. */
@@ -84,7 +88,7 @@ export function toHistoryEntries(
   return orderedGames.map((game, index) => ({
     rank: startingRank + index,
     gameId: game.id,
-    username: game.user.username,
+    username: publicUsername(game.user),
     clickCount: game.clickCount,
     effectivePlayTimeMs: game.effectivePlayTimeMs,
     completedAt: requireCompletedAt(game),
@@ -133,7 +137,7 @@ export async function listCompletedGames(
         clickCount: true,
         effectivePlayTimeMs: true,
         completedAt: true,
-        user: { select: { username: true } },
+        user: { select: { username: true, deletedAt: true } },
       },
     }),
   ]);

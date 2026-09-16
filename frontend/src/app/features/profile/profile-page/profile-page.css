@@ -1,0 +1,65 @@
+.profile {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.profile h2,
+.delete-dialog h2 {
+  margin: 0;
+}
+
+.profile form {
+  max-width: 480px;
+}
+
+.success {
+  color: #216e39;
+}
+
+.danger-zone {
+  border-color: var(--color-danger-border);
+  background: var(--color-danger-bg);
+}
+
+.danger-zone h2 {
+  color: var(--color-danger-text);
+}
+
+.btn--danger {
+  border-color: var(--color-danger-text);
+  background: var(--color-danger-text);
+  color: var(--color-primary-text);
+}
+
+.delete-dialog {
+  width: min(calc(100% - 2 * var(--space-4)), 30rem);
+  max-height: calc(100dvh - 2 * var(--space-4));
+  overflow: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  color: var(--color-text);
+}
+
+.delete-dialog::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+@media (max-width: 720px) {
+  .profile form,
+  .profile .btn,
+  .dialog-actions .btn {
+    width: 100%;
+  }
+
+  .dialog-actions {
+    flex-direction: column;
+  }
+}

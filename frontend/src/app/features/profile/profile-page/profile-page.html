@@ -1,82 +1,176 @@
-<section class="stack">
+<section class="profile stack">
   <h1 class="page-title">Profile</h1>
 
   @if (user(); as u) {
-    <div class="card">
-      <table class="table table--responsive">
-        <tbody>
-          <tr>
-            <th>Username</th>
-            <td>{{ u.username }}</td>
-          </tr>
-          <tr>
-            <th>Email</th>
-            <td>{{ u.email }}</td>
-          </tr>
-          <tr>
-            <th>Member since</th>
-            <td>{{ u.createdAt | date: 'mediumDate' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  }
-
-  <app-error-banner [message]="error()" />
-
-  @if (loading()) {
-    <app-loading-spinner label="Loading statistics…" />
-  } @else if (statistics(); as s) {
     <div class="card stack">
-      <h2>Statistics</h2>
-      <table class="table table--responsive">
-        <tbody>
-          <tr>
-            <th>Completed games</th>
-            <td>{{ s.completedGames }}</td>
-          </tr>
-          <tr>
-            <th>In progress</th>
-            <td>{{ s.inProgressGames }}</td>
-          </tr>
-          <tr>
-            <th>Best CLICK</th>
-            <td>
-              @if (s.bestClick; as b) {
-                <a [routerLink]="['/history', b.gameId]">
-                  {{ b.clickCount }} clicks · {{ b.effectivePlayTimeMs | duration }} ·
-                  {{ b.difficulty }}
-                </a>
-              } @else {
-                —
-              }
-            </td>
-          </tr>
-          <tr>
-            <th>Best TIME</th>
-            <td>
-              @if (s.bestTime; as b) {
-                <a [routerLink]="['/history', b.gameId]">
-                  {{ b.effectivePlayTimeMs | duration }} · {{ b.clickCount }} clicks ·
-                  {{ b.difficulty }}
-                </a>
-              } @else {
-                —
-              }
-            </td>
-          </tr>
-          <tr>
-            <th>Average clicks</th>
-            <td>{{ s.averageClicks != null ? (s.averageClicks | number: '1.0-1') : '—' }}</td>
-          </tr>
-          <tr>
-            <th>Average time</th>
-            <td>
-              {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <h2>Account information</h2>
+        <p class="muted">Member since {{ u.createdAt | date: 'mediumDate' }}</p>
+      </div>
+
+      <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+        <div class="field">
+          <label for="profile-username">Username</label>
+          <input
+            id="profile-username"
+            type="text"
+            formControlName="username"
+            autocomplete="username"
+          />
+          @if (usernameForm.controls.username.touched && usernameForm.controls.username.invalid) {
+            <span class="field__error">Username must be between 3 and 30 characters.</span>
+          }
+        </div>
+        <app-error-banner [message]="usernameError()" />
+        @if (usernameSuccess(); as message) {
+          <p class="success" role="status">{{ message }}</p>
+        }
+        <button
+          class="btn"
+          type="submit"
+          [disabled]="
+            usernameSubmitting() || usernameForm.controls.username.value.trim() === u.username
+          "
+        >
+          {{ usernameSubmitting() ? 'Saving…' : 'Change username' }}
+        </button>
+      </form>
+
+      <form [formGroup]="emailForm" (ngSubmit)="changeEmail()">
+        <div class="field">
+          <label for="profile-email">Email</label>
+          <input id="profile-email" type="email" formControlName="email" autocomplete="email" />
+          @if (emailForm.controls.email.touched && emailForm.controls.email.invalid) {
+            <span class="field__error">Enter a valid email address.</span>
+          }
+        </div>
+        <app-error-banner [message]="emailError()" />
+        @if (emailSuccess(); as message) {
+          <p class="success" role="status">{{ message }}</p>
+        }
+        <button
+          class="btn"
+          type="submit"
+          [disabled]="
+            emailSubmitting() ||
+            emailForm.controls.email.value.trim().toLowerCase() === u.email.toLowerCase()
+          "
+        >
+          {{ emailSubmitting() ? 'Saving…' : 'Change email' }}
+        </button>
+      </form>
+    </div>
+
+    <div class="card stack">
+      <h2>Security</h2>
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+        <div class="field">
+          <label for="current-password">Current password</label>
+          <input
+            id="current-password"
+            type="password"
+            formControlName="currentPassword"
+            autocomplete="current-password"
+          />
+        </div>
+        <div class="field">
+          <label for="new-password">New password</label>
+          <input
+            id="new-password"
+            type="password"
+            formControlName="newPassword"
+            autocomplete="new-password"
+          />
+          @if (
+            passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.invalid
+          ) {
+            <span class="field__error">Password must be between 8 and 128 characters.</span>
+          }
+        </div>
+        <div class="field">
+          <label for="confirm-password">Confirm new password</label>
+          <input
+            id="confirm-password"
+            type="password"
+            formControlName="confirmPassword"
+            autocomplete="new-password"
+          />
+          @if (
+            passwordForm.controls.confirmPassword.touched &&
+            passwordForm.hasError('passwordMismatch')
+          ) {
+            <span class="field__error">Passwords do not match.</span>
+          }
+        </div>
+        <app-error-banner [message]="passwordError()" />
+        @if (passwordSuccess(); as message) {
+          <p class="success" role="status">{{ message }}</p>
+        }
+        <button class="btn" type="submit" [disabled]="passwordSubmitting()">
+          {{ passwordSubmitting() ? 'Changing…' : 'Change password' }}
+        </button>
+      </form>
+    </div>
+
+    <div class="card stack">
+      <h2>Session</h2>
+      <p class="muted">Sign out of ROADTOUNINA on this browser.</p>
+      <div>
+        <button
+          class="btn btn--secondary"
+          type="button"
+          [disabled]="loggingOut()"
+          (click)="logout()"
+        >
+          {{ loggingOut() ? 'Logging out…' : 'Log out' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="card danger-zone stack">
+      <h2>Delete account</h2>
+      <p>
+        This permanently removes your account and in-progress games. Completed games remain in
+        public History under “Deleted user”.
+      </p>
+      <div>
+        <button class="btn btn--danger" type="button" (click)="openDeleteDialog()">
+          Delete account
+        </button>
+      </div>
     </div>
   }
 </section>
+
+<dialog
+  #deleteDialog
+  class="delete-dialog"
+  aria-labelledby="delete-dialog-title"
+  (cancel)="onDialogCancel($event)"
+>
+  <div class="stack">
+    <h2 id="delete-dialog-title">Delete account permanently?</h2>
+    <p>Your account and in-progress games will be removed. This action cannot be undone.</p>
+    <p class="muted">Completed games will remain in public History under “Deleted user”.</p>
+    <app-error-banner [message]="deleteError()" />
+    <div class="dialog-actions">
+      <button
+        class="btn btn--secondary"
+        type="button"
+        autofocus
+        [disabled]="deleting()"
+        (click)="cancelDelete()"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn--danger"
+        type="button"
+        [disabled]="deleting()"
+        (click)="confirmDelete()"
+      >
+        {{ deleting() ? 'Deleting…' : 'Delete account' }}
+      </button>
+    </div>
+  </div>
+</dialog>

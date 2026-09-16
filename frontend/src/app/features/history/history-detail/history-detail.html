@@ -6,14 +6,16 @@
   @if (loading()) {
     <app-loading-spinner label="Loading game…" />
   } @else if (game(); as g) {
-    <h1 class="page-title">{{ g.player.username }} · {{ g.mode }} / {{ g.difficulty }}</h1>
+    <h1 class="page-title">
+      {{ g.player?.username ?? 'Deleted user' }} · {{ g.mode }} / {{ g.difficulty }}
+    </h1>
 
     <div class="card">
       <table class="table table--responsive">
         <tbody>
           <tr>
             <th>Player</th>
-            <td>{{ g.player.username }}</td>
+            <td>{{ g.player?.username ?? 'Deleted user' }}</td>
           </tr>
           <tr>
             <th>Mode</th>
