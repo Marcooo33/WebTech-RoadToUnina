@@ -19,9 +19,8 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/dashboard/dashboard').then((m) => m.Dashboard),
-    title: 'Dashboard · ROADTOUNINA',
+    redirectTo: '',
+    pathMatch: 'full',
   },
   {
     path: 'new-game',

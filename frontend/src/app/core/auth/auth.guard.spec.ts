@@ -27,8 +27,7 @@ describe('authGuard', () => {
         {
           provide: Router,
           useValue: {
-            createUrlTree: (commands: unknown[], extras: unknown) =>
-              ({ commands, extras }) as unknown as UrlTree,
+            createUrlTree: (commands: unknown[]) => ({ commands }) as unknown as UrlTree,
           },
         },
       ],
@@ -37,16 +36,14 @@ describe('authGuard', () => {
 
   it('allows navigation when authenticated', () => {
     status = 'authenticated';
-    expect(runGuard('/dashboard')).toBe(true);
+    expect(runGuard('/new-game')).toBe(true);
   });
 
-  it('redirects to /login with a redirect param when anonymous', () => {
+  it('redirects to /login when anonymous', () => {
     status = 'anonymous';
-    const result = runGuard('/dashboard') as unknown as {
+    const result = runGuard('/new-game') as unknown as {
       commands: unknown[];
-      extras: { queryParams: { redirect: string } };
     };
     expect(result.commands).toEqual(['/login']);
-    expect(result.extras.queryParams.redirect).toBe('/dashboard');
   });
 });

@@ -4,7 +4,10 @@ import { createGameInContext, registerInContext, uniqueUser } from "../support/u
 test("create a CLICK / EASY game and land on the gameplay screen", async ({ page, context }) => {
   await registerInContext(context, uniqueUser());
 
-  await page.goto("/new-game");
+  await page.goto("/");
+  await expect(page.locator("nav").getByRole("link", { name: "New game" })).toHaveCount(0);
+  await page.getByRole("link", { name: "New game" }).click();
+  await expect(page).toHaveURL(/\/new-game$/);
   await page.getByText("CLICK", { exact: true }).click();
   await page.getByText("EASY", { exact: true }).click();
   await page.getByRole("button", { name: "Start game" }).click();
@@ -34,7 +37,7 @@ test("delete an in-progress game from the dashboard", async ({ page, context }) 
   await registerInContext(context, uniqueUser());
   await createGameInContext(context, "CLICK", "EASY");
 
-  await page.goto("/dashboard");
+  await page.goto("/");
   await expect(page.getByTestId("game-row")).toHaveCount(1);
 
   await page.getByRole("button", { name: "Delete" }).click();
@@ -53,7 +56,7 @@ test("the dashboard blocks a new game once the 10 in-progress limit is reached",
     await createGameInContext(context, "CLICK", "EASY");
   }
 
-  await page.goto("/dashboard");
+  await page.goto("/");
   await expect(page.getByText("In-progress games (10/10)")).toBeVisible();
   await expect(page.getByRole("status")).toContainText("10-game limit");
   await expect(page.getByRole("button", { name: "New game" })).toBeDisabled();

@@ -119,12 +119,12 @@ describe('GamePage', () => {
     expect((fixture.nativeElement as HTMLElement).textContent).toContain('Target reached');
   });
 
-  it('redirects to the dashboard when the game is not found', () => {
+  it('redirects to the root dashboard when the game is not found', () => {
     const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     fixture.detectChanges();
     http.expectOne('/api/games/g1').flush(...apiError('GAME_NOT_FOUND', 404));
 
-    expect(navigate).toHaveBeenCalledWith(['/dashboard']);
+    expect(navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('applies a successful navigation and reloads the article for the new page', () => {

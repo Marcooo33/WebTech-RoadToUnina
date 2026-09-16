@@ -27,4 +27,16 @@ describe('app routes — Milestone 15 access rules', () => {
   it('protects the personal profile behind the auth guard', () => {
     expect(byPath('profile').canActivate).toContain(authGuard);
   });
+
+  it('uses the public root as the application entry point', () => {
+    expect(byPath('').canActivate ?? []).toEqual([]);
+    expect(byPath('').loadComponent).toBeDefined();
+  });
+
+  it('redirects the legacy dashboard route to the canonical root', () => {
+    expect(byPath('dashboard').redirectTo).toBe('');
+    expect(byPath('dashboard').pathMatch).toBe('full');
+    expect(byPath('dashboard').loadComponent).toBeUndefined();
+    expect(byPath('dashboard').canActivate ?? []).toEqual([]);
+  });
 });

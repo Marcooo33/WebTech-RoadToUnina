@@ -28,7 +28,7 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      void this.router.navigateByUrl('/dashboard');
+      void this.router.navigateByUrl('/');
     }
   }
 
@@ -43,7 +43,7 @@ export class Register implements OnInit {
     const { username, email, password } = this.form.getRawValue();
     this.auth.register(username, email, password).subscribe({
       next: () => {
-        void this.router.navigateByUrl('/dashboard');
+        void this.router.navigateByUrl('/');
       },
       error: (err: ApiError) => {
         this.submitting.set(false);

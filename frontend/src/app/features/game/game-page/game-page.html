@@ -18,7 +18,7 @@
         <p>This game could not be loaded right now.</p>
         <div class="actions">
           <button type="button" class="btn" (click)="retry()">Try again</button>
-          <a class="btn btn--secondary" routerLink="/dashboard">Back to dashboard</a>
+          <a class="btn btn--secondary" routerLink="/">Back to dashboard</a>
         </div>
       </div>
     }
@@ -61,7 +61,7 @@
               <h2 class="game__aside-title">Path</h2>
               <app-game-path [path]="g.path" />
             </div>
-            <a routerLink="/dashboard">Leave game</a>
+            <a routerLink="/">Leave game</a>
           </aside>
         </div>
       }

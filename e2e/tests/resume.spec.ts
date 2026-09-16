@@ -14,7 +14,7 @@ test("resuming an in-progress game restores its authoritative state", async ({ p
   await expect(page.getByTestId("hud-clicks")).toHaveText("2");
 
   // Leave the game and come back — state persists via Game + GameMove.
-  await page.goto("/dashboard");
+  await page.goto("/");
   const row = page.getByTestId("game-row");
   await expect(row).toHaveCount(1);
   await expect(row).toContainText(PAGE.napoli.title);

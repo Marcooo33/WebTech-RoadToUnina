@@ -225,7 +225,7 @@ export class GamePage implements OnInit {
 
   private onInitialError(err: ApiError): void {
     if (err.code === 'GAME_NOT_FOUND') {
-      void this.router.navigate(['/dashboard']);
+      void this.router.navigate(['/']);
       return;
     }
     this.error.set(err.message);
@@ -237,7 +237,7 @@ export class GamePage implements OnInit {
 
     switch (err.code) {
       case 'GAME_NOT_FOUND':
-        void this.router.navigate(['/dashboard']);
+        void this.router.navigate(['/']);
         return;
       case 'GAME_NOT_IN_PROGRESS':
         this.load();
@@ -283,7 +283,7 @@ export class GamePage implements OnInit {
         this.notice.set('Wikipedia is temporarily unavailable. Please try again.');
         return;
       case 'GAME_NOT_FOUND':
-        void this.router.navigate(['/dashboard']);
+        void this.router.navigate(['/']);
         return;
       default:
         this.error.set(err.message);

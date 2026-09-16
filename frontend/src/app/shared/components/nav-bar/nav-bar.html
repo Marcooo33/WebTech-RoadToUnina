@@ -13,18 +13,26 @@
     </button>
 
     <div class="nav__links" [class.nav__links--open]="menuOpen()">
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="closeMenu()"
-      >Home</a
-      >
+      @if (isAuthenticated()) {
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+          >Dashboard</a
+        >
+      } @else {
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+          >Home</a
+        >
+      }
       <a routerLink="/history" routerLinkActive="active" (click)="closeMenu()">History</a>
 
       @if (isAuthenticated()) {
-        <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">Dashboard</a>
-        <a routerLink="/new-game" routerLinkActive="active" (click)="closeMenu()">New game</a>
         <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
         <span class="nav__user">{{ user()?.username }}</span>
         <button type="button" class="nav__logout" (click)="logout()">Log out</button>
