@@ -15,6 +15,11 @@ export interface ArticleDto {
 
 export type GameWithMoves = Game & { moves: GameMove[] };
 
+export interface PreparedGameState {
+  game: GameWithMoves;
+  article: ArticleDto | null;
+}
+
 export interface GameMoveDto {
   sequence: number;
   type: "NAVIGATION" | "BACKTRACK";

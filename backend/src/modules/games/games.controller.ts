@@ -23,6 +23,14 @@ export interface GamesController {
   heartbeatHandler: (req: Request, res: Response) => Promise<void>;
 }
 
+function gameRequestStartedAt(res: Response): Date {
+  const value: unknown = res.locals.gameRequestStartedAt;
+  if (!(value instanceof Date)) {
+    throw new Error("Game request boundary was not initialized");
+  }
+  return value;
+}
+
 export function createGamesController(service: GamesService): GamesController {
   return {
     async createGameHandler(req: Request, res: Response): Promise<void> {
@@ -41,9 +49,16 @@ export function createGamesController(service: GamesService): GamesController {
 
     async getGameHandler(req: Request, res: Response): Promise<void> {
       const gameId = parseGameId(req.params.gameId);
-      const game = await service.get(req.auth!.userId, gameId);
+      const state = await service.get(
+        req.auth!.userId,
+        gameId,
+        gameRequestStartedAt(res),
+      );
 
-      res.status(200).json(toGameDto(game, game.moves));
+      res.status(200).json({
+        game: toGameDto(state.game, state.game.moves),
+        article: state.article,
+      });
     },
 
     async deleteGameHandler(req: Request, res: Response): Promise<void> {
@@ -65,9 +80,17 @@ export function createGamesController(service: GamesService): GamesController {
       const gameId = parseGameId(req.params.gameId);
       const input = parseMoveInput(req.body);
 
-      const game = await service.move(req.auth!.userId, gameId, input);
+      const state = await service.move(
+        req.auth!.userId,
+        gameId,
+        input,
+        gameRequestStartedAt(res),
+      );
 
-      res.status(200).json(toGameDto(game, game.moves));
+      res.status(200).json({
+        game: toGameDto(state.game, state.game.moves),
+        article: state.article,
+      });
     },
 
     async backtrackHandler(req: Request, res: Response): Promise<void> {
@@ -79,9 +102,16 @@ export function createGamesController(service: GamesService): GamesController {
         "Invalid backtrack request",
       );
 
-      const game = await service.backtrack(req.auth!.userId, gameId);
+      const state = await service.backtrack(
+        req.auth!.userId,
+        gameId,
+        gameRequestStartedAt(res),
+      );
 
-      res.status(200).json(toGameDto(game, game.moves));
+      res.status(200).json({
+        game: toGameDto(state.game, state.game.moves),
+        article: state.article,
+      });
     },
 
     async heartbeatHandler(req: Request, res: Response): Promise<void> {

@@ -8,6 +8,7 @@ import {
   GameDto,
   GameListItemDto,
   GameMode,
+  PreparedGameStateDto,
   GameStatus,
 } from '../../shared/models/game.model';
 
@@ -30,12 +31,11 @@ export class GamesService {
   }
 
   /**
-   * Loads an owned game. For an in-progress game the backend also re-establishes
-   * the effective-time interval as part of this call (docs/api.md §5.3) — this is
-   * the resume flow; there is no separate "start session" request.
+   * Loads an owned game and its prepared article. For an in-progress game the
+   * backend starts timing only after preparing that article (docs/api.md §5.3).
    */
-  get(gameId: string): Observable<GameDto> {
-    return this.http.get<GameDto>(`${this.base}/${gameId}`);
+  get(gameId: string): Observable<PreparedGameStateDto> {
+    return this.http.get<PreparedGameStateDto>(`${this.base}/${gameId}`);
   }
 
   create(mode: GameMode, difficulty: GameDifficulty): Observable<GameDto> {
@@ -55,13 +55,13 @@ export class GamesService {
    * Requests a NAVIGATION move to `toTitle` (docs/api.md §5.6). The backend
    * validates ownership, that the game is in progress, and link reachability.
    */
-  move(gameId: string, toTitle: string): Observable<GameDto> {
-    return this.http.post<GameDto>(`${this.base}/${gameId}/moves`, { toTitle });
+  move(gameId: string, toTitle: string): Observable<PreparedGameStateDto> {
+    return this.http.post<PreparedGameStateDto>(`${this.base}/${gameId}/moves`, { toTitle });
   }
 
-  /** Requests a BACKTRACK action (docs/api.md §5.7). */
-  backtrack(gameId: string): Observable<GameDto> {
-    return this.http.post<GameDto>(`${this.base}/${gameId}/backtrack`, {});
+  /** Requests a BACKTRACK action and its prepared destination article. */
+  backtrack(gameId: string): Observable<PreparedGameStateDto> {
+    return this.http.post<PreparedGameStateDto>(`${this.base}/${gameId}/backtrack`, {});
   }
 
   /**

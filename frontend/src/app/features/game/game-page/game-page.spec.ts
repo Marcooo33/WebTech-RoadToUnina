@@ -44,6 +44,13 @@ function articleDto(over: Record<string, unknown> = {}) {
   };
 }
 
+function preparedState(
+  game = playingGame(),
+  article: Record<string, unknown> | null = articleDto(),
+) {
+  return { game, article };
+}
+
 function apiError(code: string, status: number) {
   return [{ error: { code, message: `msg:${code}` } }, { status, statusText: 'Conflict' }] as const;
 }
@@ -80,27 +87,23 @@ describe('GamePage', () => {
     http.verify();
   });
 
-  /** Drives the init handshake (GET game → GET article) to a `playing` state. */
+  /** Drives the combined game + prepared article response to a playing state. */
   function reachPlaying(
     game = playingGame(),
     article: Record<string, unknown> = articleDto(),
   ): void {
     fixture.detectChanges();
-    http.expectOne('/api/games/g1').flush(game);
-    http.expectOne('/api/games/g1/article').flush(article);
+    http.expectOne('/api/games/g1').flush(preparedState(game, article));
   }
 
-  it('initializes with GET game → GET article (no session call) and ends playing', () => {
+  it('initializes from one prepared game response without a second article request', () => {
     fixture.detectChanges();
 
     const gameReq = http.expectOne('/api/games/g1');
     expect(gameReq.request.method).toBe('GET');
-    gameReq.flush(playingGame());
+    gameReq.flush(preparedState());
 
-    const articleReq = http.expectOne('/api/games/g1/article');
-    expect(articleReq.request.method).toBe('GET');
-    articleReq.flush(articleDto());
-
+    http.expectNone('/api/games/g1/article');
     http.expectNone('/api/games/g1/session');
     expect(component.phase()).toBe('playing');
     expect(component.busy()).toBe(false);
@@ -110,7 +113,12 @@ describe('GamePage', () => {
     fixture.detectChanges();
     http
       .expectOne('/api/games/g1')
-      .flush(playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }));
+      .flush(
+        preparedState(
+          playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }),
+          null,
+        ),
+      );
 
     http.expectNone('/api/games/g1/article');
     expect(component.phase()).toBe('completed');
@@ -127,16 +135,21 @@ describe('GamePage', () => {
     expect(navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('applies a successful navigation and reloads the article for the new page', () => {
+  it('uses the article returned by a successful navigation without another request', () => {
     reachPlaying();
 
     component.onNavigate('Next');
     const move = http.expectOne('/api/games/g1/moves');
     expect(move.request.method).toBe('POST');
     expect(move.request.body).toEqual({ toTitle: 'Next' });
-    move.flush(playingGame({ currentPageId: 200, currentPageTitle: 'Next', clickCount: 1 }));
+    move.flush(
+      preparedState(
+        playingGame({ currentPageId: 200, currentPageTitle: 'Next', clickCount: 1 }),
+        articleDto({ pageId: 200, title: 'Next' }),
+      ),
+    );
 
-    http.expectOne('/api/games/g1/article').flush(articleDto({ pageId: 200, title: 'Next' }));
+    http.expectNone('/api/games/g1/article');
 
     expect(component.game()?.clickCount).toBe(1);
     expect(component.article()?.pageId).toBe(200);
@@ -148,14 +161,17 @@ describe('GamePage', () => {
 
     component.onNavigate('Forged');
     http.expectOne('/api/games/g1/moves').flush(
-      playingGame({
-        status: 'COMPLETED',
-        currentPageId: 999,
-        currentPageTitle: 'Federico II',
-        completedAt: '2026-08-01T01:00:00.000Z',
-        effectivePlayTimeMs: 123_456,
-        playStartedAt: null,
-      }),
+      preparedState(
+        playingGame({
+          status: 'COMPLETED',
+          currentPageId: 999,
+          currentPageTitle: 'Federico II',
+          completedAt: '2026-08-01T01:00:00.000Z',
+          effectivePlayTimeMs: 123_456,
+          playStartedAt: null,
+        }),
+        null,
+      ),
     );
 
     http.expectNone('/api/games/g1/article');
@@ -186,7 +202,12 @@ describe('GamePage', () => {
     // load() re-runs: GET game (now completed) → result state, no article call.
     http
       .expectOne('/api/games/g1')
-      .flush(playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }));
+      .flush(
+        preparedState(
+          playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }),
+          null,
+        ),
+      );
     http.expectNone('/api/games/g1/article');
     expect(component.phase()).toBe('completed');
   });
@@ -209,9 +230,40 @@ describe('GamePage', () => {
 
     http
       .expectOne('/api/games/g1')
-      .flush(playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }));
+      .flush(
+        preparedState(
+          playingGame({ status: 'COMPLETED', completedAt: '2026-08-01T01:00:00.000Z' }),
+          null,
+        ),
+      );
     expect(component.phase()).toBe('completed');
     http.expectNone('/api/games/g1/moves');
+  });
+
+  it('reloads a coherent prepared state when a move is rejected as GAME_STATE_CHANGED', () => {
+    reachPlaying();
+
+    component.onNavigate('Next');
+    http.expectOne('/api/games/g1/moves').flush(...apiError('GAME_STATE_CHANGED', 409));
+
+    const changedGame = playingGame({
+      currentPageId: 200,
+      currentPageTitle: 'Other tab destination',
+      clickCount: 1,
+    });
+    http
+      .expectOne('/api/games/g1')
+      .flush(
+        preparedState(
+          changedGame,
+          articleDto({ pageId: 200, title: 'Other tab destination' }),
+        ),
+      );
+
+    expect(component.phase()).toBe('playing');
+    expect(component.busy()).toBe(false);
+    expect(component.game()?.currentPageId).toBe(200);
+    expect(component.article()?.pageId).toBe(200);
   });
 
   it('does not fire a second move request while one is already in flight', () => {
@@ -224,8 +276,10 @@ describe('GamePage', () => {
     expect(move.request.body).toEqual({ toTitle: 'Next' });
     http.expectNone('/api/games/g1/moves');
 
-    move.flush(playingGame({ currentPageId: 200 }));
-    http.expectOne('/api/games/g1/article').flush(articleDto({ pageId: 200 }));
+    move.flush(
+      preparedState(playingGame({ currentPageId: 200 }), articleDto({ pageId: 200 })),
+    );
+    http.expectNone('/api/games/g1/article');
   });
 
   it('refreshes the article when a move is rejected as INVALID_MOVE', () => {
@@ -239,18 +293,72 @@ describe('GamePage', () => {
     expect(component.phase()).toBe('playing');
   });
 
-  it('reloads once when the fetched article does not match the current page', () => {
+  it('keeps the current article usable and continuous timing after MediaWiki failure', () => {
+    reachPlaying(playingGame({ effectivePlayTimeMs: 20_000 }));
+    const currentArticle = component.article();
+    component.onNavigate('Next');
+    vi.advanceTimersByTime(5_000);
+
+    http
+      .expectOne('/api/games/g1/moves')
+      .flush(...apiError('WIKIPEDIA_UNAVAILABLE', 502));
+
+    expect(component.busy()).toBe(false);
+    expect(component.article()).toBe(currentArticle);
+    expect(component.notice()).toContain('temporarily unavailable');
+    expect(component.displayTimeMs()).toBeGreaterThanOrEqual(25_000);
+  });
+
+  it.each(['BACKTRACK_NOT_ALLOWED', 'BACKTRACK_LIMIT_REACHED'])(
+    'keeps playing without a timing-mutating reload after %s',
+    (code) => {
+      reachPlaying(playingGame({ effectivePlayTimeMs: 20_000 }));
+      const currentArticle = component.article();
+      component.onBacktrack();
+      vi.advanceTimersByTime(2_000);
+
+      http.expectOne('/api/games/g1/backtrack').flush(...apiError(code, 422));
+
+      http.expectNone('/api/games/g1');
+      http.expectNone('/api/games/g1/article');
+      expect(component.phase()).toBe('playing');
+      expect(component.busy()).toBe(false);
+      expect(component.article()).toBe(currentArticle);
+      expect(component.displayTimeMs()).toBeGreaterThanOrEqual(22_000);
+
+      vi.advanceTimersByTime(10_000);
+      http
+        .expectOne('/api/games/g1/heartbeat')
+        .flush(null, { status: 204, statusText: 'No Content' });
+    },
+  );
+
+  it('uses the prepared article returned by backtracking', () => {
+    reachPlaying();
+    component.onBacktrack();
+
+    http.expectOne('/api/games/g1/backtrack').flush(
+      preparedState(
+        playingGame({ currentPageId: 1, currentPageTitle: 'Start', backtrackCount: 1 }),
+        articleDto({ pageId: 1, title: 'Start' }),
+      ),
+    );
+
+    http.expectNone('/api/games/g1/article');
+    expect(component.article()?.pageId).toBe(1);
+    expect(component.game()?.backtrackCount).toBe(1);
+  });
+
+  it('rejects a mismatched combined initial payload', () => {
     fixture.detectChanges();
-    http.expectOne('/api/games/g1').flush(playingGame({ currentPageId: 100 }));
-    // Article is for a different page than the game's current page.
-    http.expectOne('/api/games/g1/article').flush(articleDto({ pageId: 200 }));
+    http
+      .expectOne('/api/games/g1')
+      .flush(
+        preparedState(playingGame({ currentPageId: 100 }), articleDto({ pageId: 200 })),
+      );
 
     expect(component.article()).toBeNull();
-
-    http.expectOne('/api/games/g1').flush(playingGame({ currentPageId: 200 }));
-    http.expectOne('/api/games/g1/article').flush(articleDto({ pageId: 200 }));
-    expect(component.phase()).toBe('playing');
-    expect(component.article()?.pageId).toBe(200);
+    expect(component.phase()).toBe('error');
   });
 
   it('animates the display timer locally from the server baseline while playing', () => {
@@ -259,5 +367,56 @@ describe('GamePage', () => {
     expect(component.displayTimeMs()).toBe(60_000);
     vi.advanceTimersByTime(10_000);
     expect(component.displayTimeMs()).toBeGreaterThanOrEqual(70_000);
+  });
+
+  it('freezes the visual timer and suppresses heartbeats while navigation is loading', () => {
+    reachPlaying(playingGame({ effectivePlayTimeMs: 60_000 }));
+    vi.advanceTimersByTime(3_000);
+    const before = component.displayTimeMs();
+
+    component.onNavigate('Next');
+    vi.advanceTimersByTime(24_000);
+
+    expect(component.displayTimeMs()).toBe(before);
+    http.expectNone('/api/games/g1/heartbeat');
+
+    http.expectOne('/api/games/g1/moves').flush(
+      preparedState(
+        playingGame({
+          currentPageId: 200,
+          effectivePlayTimeMs: 63_000,
+          playStartedAt: '2026-08-01T00:00:30.000Z',
+        }),
+        articleDto({ pageId: 200 }),
+      ),
+    );
+  });
+
+  it('does not re-add MediaWiki preparation when reseeding from the authoritative response', () => {
+    reachPlaying(playingGame({ effectivePlayTimeMs: 25_000 }));
+    vi.advanceTimersByTime(4_000);
+    const authoritativeAtClick = component.displayTimeMs();
+    component.onNavigate('Next');
+    vi.advanceTimersByTime(3_000);
+
+    expect(component.displayTimeMs()).toBe(authoritativeAtClick);
+
+    http.expectOne('/api/games/g1/moves').flush(
+      preparedState(
+        playingGame({
+          currentPageId: 200,
+          // Derived from the server boundary represented by the frozen HUD;
+          // the separate backend integration test derives this value across two
+          // real prepared-response cycles.
+          effectivePlayTimeMs: authoritativeAtClick,
+        }),
+        articleDto({ pageId: 200 }),
+      ),
+    );
+
+    expect(component.displayTimeMs()).toBe(authoritativeAtClick);
+    expect(component.displayTimeMs()).not.toBe(authoritativeAtClick + 3_000);
+    vi.advanceTimersByTime(2_000);
+    expect(component.displayTimeMs()).toBeGreaterThanOrEqual(authoritativeAtClick + 2_000);
   });
 });

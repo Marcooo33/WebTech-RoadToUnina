@@ -9,8 +9,8 @@ import type { Game } from "../../generated/prisma/client.js";
  * - `effectivePlayTimeMs` — play time already finalized/accounted;
  * - `playStartedAt`       — start of the current unfinalized play interval
  *                           (`null` when nothing is pending);
- * - `lastHeartbeatAt`     — most recent proof the player was active (a heartbeat,
- *                           or a valid move/backtrack).
+ * - `lastHeartbeatAt`     — most recent proof the current playable interval was
+ *                           active; transitions reset it with the new interval.
  *
  * These functions return the `data` fragment a caller folds into a single
  * `prisma.game.update`. They never touch the database themselves.
@@ -41,11 +41,22 @@ export function pendingIntervalMs(
  * browser only cost time up to its final heartbeat — the offline gap is never
  * counted.
  */
-export function resumeIntervalData(state: TimingState, now: Date) {
+export function resumeIntervalData(
+  state: TimingState,
+  now: Date,
+  maximumPreviousBoundary?: Date,
+) {
+  const lastHeartbeatAt =
+    maximumPreviousBoundary &&
+    state.lastHeartbeatAt &&
+    state.lastHeartbeatAt > maximumPreviousBoundary
+      ? maximumPreviousBoundary
+      : state.lastHeartbeatAt;
+
   return {
     effectivePlayTimeMs:
       state.effectivePlayTimeMs +
-      pendingIntervalMs(state.playStartedAt, state.lastHeartbeatAt),
+      pendingIntervalMs(state.playStartedAt, lastHeartbeatAt),
     playStartedAt: now,
     lastHeartbeatAt: now,
   };
@@ -60,6 +71,25 @@ export function activityData(state: Pick<Game, "playStartedAt">, now: Date) {
   return {
     lastHeartbeatAt: now,
     ...(state.playStartedAt ? {} : { playStartedAt: now }),
+  };
+}
+
+/**
+ * Successful article transition: account play only up to the server-observed
+ * action boundary, then start a fresh interval once the destination article is
+ * ready. MediaWiki work between the two timestamps is deliberately excluded.
+ */
+export function transitionTimingData(
+  playStartedAt: Date | null,
+  actionStartedAt: Date,
+  restartedAt: Date,
+) {
+  return {
+    effectivePlayTimeMs: {
+      increment: pendingIntervalMs(playStartedAt, actionStartedAt),
+    },
+    playStartedAt: restartedAt,
+    lastHeartbeatAt: restartedAt,
   };
 }
 

@@ -242,7 +242,7 @@ Conceptual responsibilities:
 - perform backtracking;
 - apply difficulty rules;
 - increment counters;
-- refresh the activity timestamp (`lastHeartbeatAt`);
+- split effective timing around successful article transitions;
 - detect victory;
 - complete game (finalizing effective play time).
 
@@ -266,7 +266,7 @@ WikipediaService validates target link
 database transaction
         ↓
 store GameMove
-update Game (counter, current page, lastHeartbeatAt)
+update Game (counter, current page, split timing interval)
 check victory → on victory, finalize effectivePlayTimeMs
 ```
 
@@ -428,6 +428,12 @@ Displays:
 - click count;
 - remaining/used backtracking information.
 
+During a server-owned article transition Angular freezes the display-only timer,
+suppresses its normal heartbeat, and prevents another action. The successful
+response supplies both authoritative game state and the prepared article; the
+client reseeds its visual baseline and resumes normal play without sending any
+pause/resume command.
+
 ### WikipediaArticle
 
 Renders sanitized article content with a Wikipedia-like experience.
@@ -476,13 +482,21 @@ server-authoritative and stored in three fields on `Game`:
 `effectivePlayTimeMs` (finalized total), `playStartedAt` (start of the current
 unfinalized interval), and `lastHeartbeatAt` (most recent proof of activity).
 
-- Opening/resuming an in-progress game (`GET /api/games/:id`) finalizes any
-  pending interval up to its last heartbeat and starts a fresh one.
+- Opening/resuming an in-progress game (`GET /api/games/:id`) prepares the
+  current article, then finalizes any pending interval up to its last heartbeat
+  (capped at the preparation-start boundary) and starts a fresh one. The short
+  timing reconciliation and heartbeats use the same transaction-local row lock;
+  its restart is the transaction's final database write, so article loading and
+  avoidable response-state query work are not playable time.
 - Angular sends a minimal heartbeat (`POST /api/games/:id/heartbeat`, ~every
-  12 s) that only sets `lastHeartbeatAt = now`. Every valid move/backtrack does
-  the same in its own transaction.
-- The winning move finalizes the last interval up to that moment, inside the
-  completion transaction.
+  12 s while playable) that only sets `lastHeartbeatAt = now`.
+- A successful move/backtrack finalizes time at a request timestamp captured by
+  the games router before asynchronous authentication, prepares the destination
+  article, then atomically starts a fresh interval with the transaction's final
+  database write.
+  The move response includes that article, avoiding another normal fetch.
+- The winning move finalizes at its navigation-start boundary inside the
+  completion transaction and starts no new interval.
 - A stale `lastHeartbeatAt` causes no state transition: there is no expiration
   job. Time after a browser disappears is simply not counted at the next open.
 
@@ -493,14 +507,16 @@ in `docs/game-rules.md` §12.
 
 ## 14. Concurrency
 
-There is no `Game.version` field and no optimistic-concurrency token, session
-token, lock, or lease. Simultaneous multi-tab / multi-device editing is not a
-project requirement.
+There is no `Game.version` field, optimistic-concurrency token, session token,
+or persistent lock/lease. Simultaneous multi-tab / multi-device editing is not
+a project requirement.
 
 State-changing game operations run in a database transaction where multiple
 records or counters must stay consistent (a navigation move updates the `Game`
-row and appends a `GameMove`; completion also finalizes timing). A rare race for
-the next move-sequence number is resolved by recomputing and retrying once.
+row and appends a `GameMove`; completion also finalizes timing). After external
+article preparation, a short PostgreSQL row lock verifies that the source page,
+counters and timing interval still match the prepared operation. A stale move or
+backtrack is rejected with `GAME_STATE_CHANGED`.
 
 ---
 

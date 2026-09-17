@@ -59,3 +59,9 @@ export interface GameDto {
   path: PageRef[];
   moves: GameMoveDto[];
 }
+
+/** Authoritative game state plus the article already prepared by the backend. */
+export interface PreparedGameStateDto {
+  game: GameDto;
+  article: import('./article.model').ArticleDto | null;
+}

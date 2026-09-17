@@ -105,6 +105,7 @@ The following codes extend the four already implemented in Milestone 3 (`VALIDAT
 | 409 | `EMAIL_TAKEN` | Email is already registered. |
 | 409 | `GAME_LIMIT_REACHED` | User already has 10 `IN_PROGRESS` games. |
 | 409 | `GAME_NOT_IN_PROGRESS` | Operation requires an `IN_PROGRESS` game (e.g. a move/backtrack/heartbeat/delete on a completed game). |
+| 409 | `GAME_STATE_CHANGED` | The game changed concurrently while its article was being prepared; reload the gameplay state. |
 | 422 | `INVALID_MOVE` | Requested target page is not a valid playable link from the current page. |
 | 422 | `BACKTRACK_NOT_ALLOWED` | Backtracking is forbidden for `HARD` difficulty, or is impossible because the active path is already at the starting page. |
 | 422 | `BACKTRACK_LIMIT_REACHED` | `MEDIUM` backtracking limit (3) has been reached. |
@@ -164,7 +165,9 @@ and `heartbeat` carry no version or session id — the backend authorizes each
 request from the authenticated identity and the game's current persisted state
 (ownership, `IN_PROGRESS`, valid link, difficulty rules). Simultaneous multi-tab /
 multi-device editing is not a project requirement; ordinary database transactions
-protect integrity for the single-player flow.
+protect integrity for the single-player flow. Short transaction-local row locks
+serialize timing reconciliation and reject a move/backtrack if the authoritative
+source state changed while its article was prepared.
 
 ### 2.12 Authority rules
 
@@ -338,7 +341,24 @@ The current article representation for the active game.
 - A redirect link retains its clicked title (e.g. `Unina`) until the backend resolves it during a move. Links that become missing or resolve outside the main namespace are rejected at that point.
 - The client checks `pageId` against the game's `currentPageId` and reloads if they disagree.
 
-### 3.8 HistoryEntryDto
+### 3.8 PreparedGameStateDto
+
+Gameplay open/resume, successful navigation and successful backtracking return
+the authoritative game together with the article that the backend prepared for
+that state:
+
+```json
+{
+  "game": { "…": "GameDto" },
+  "article": { "…": "ArticleDto" }
+}
+```
+
+`article` is `null` when `game.status` is `COMPLETED`. Preparing the article
+before returning this payload prevents the client from needing a second request
+before play can continue.
+
+### 3.9 HistoryEntryDto
 
 Ranked item in either public History view. Both score metrics are present; the
 selected view determines their ordering (§6.1).
@@ -354,7 +374,7 @@ selected view determines their ordering (§6.1).
 }
 ```
 
-### 3.9 CompletedGameDetailDto
+### 3.10 CompletedGameDetailDto
 
 Public detail of a completed game.
 
@@ -399,7 +419,7 @@ Public detail of a completed game.
 `username` is then `Deleted user`; internal anonymization tombstones are never
 part of an API response.
 
-### 3.10 HistoryListDto
+### 3.11 HistoryListDto
 
 Paginated envelope for a ranked History view.
 
@@ -415,7 +435,7 @@ Paginated envelope for a ranked History view.
 }
 ```
 
-### 3.11 StatisticsDto
+### 3.12 StatisticsDto
 
 Personal statistics derived from the current user's completed/ongoing games.
 
@@ -676,20 +696,27 @@ GET /api/games/:gameId
 
 **Path parameters:** `gameId` (UUID).
 
-**Behavior:** returns the full resume payload (`path`, `moves`, timing fields).
-For an `IN_PROGRESS` game owned by the caller this is also the **resume flow**:
+**Behavior:** prepares the current sanitized article and returns it with the full
+resume payload (`path`, `moves`, timing fields). For an `IN_PROGRESS` game owned
+by the caller this is also the **resume flow**: only after the article is ready,
 the backend finalizes any pending play interval up to its last heartbeat and
-starts a fresh interval (`playStartedAt = lastHeartbeatAt = now`), so the returned
-`effectivePlayTimeMs` / `playStartedAt` are current. A `COMPLETED` game is
-returned unchanged. There is no separate "start session" request.
+the request's preparation-start boundary, whichever is earlier, then starts a
+fresh interval (`playStartedAt = lastHeartbeatAt = now`). The reconciliation is
+serialized with heartbeat writes, and the restart is the transaction's final
+database write after response state is loaded. Initial/resume MediaWiki loading
+and avoidable response-state query time are therefore excluded. A `COMPLETED` game is
+returned unchanged with `article: null`. There is no separate "start session"
+request.
 
-**Success:** `200 OK` with `GameDto`.
+**Success:** `200 OK` with `PreparedGameStateDto`.
 
 **Errors:**
 
 - `400 VALIDATION_ERROR` — invalid `gameId`;
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND` — not found or not owned.
+- `409 GAME_STATE_CHANGED` — the current page changed while its article was prepared; retry.
+- `502 WIKIPEDIA_UNAVAILABLE` — the current article could not be prepared; timing is not restarted.
 
 ### 5.4 Delete owned IN_PROGRESS game
 
@@ -759,9 +786,9 @@ POST /api/games/:gameId/moves
 
 Titles use Unicode NFC, spaces instead of underscores, trimmed/collapsed spaces and Italian Wikipedia's first-letter capitalization; the remaining letters are case-sensitive. The parser decodes URL escapes once when extracting HTML links. The request contains a title, so the REST boundary does not URL-decode it. Empty titles, control characters, `|#<>[]{}` and oversized titles are validation errors. Unknown fields, including `toPageId` and `version`, are rejected.
 
-**Behavior:** the backend verifies ownership and `IN_PROGRESS` status, then checks the normalized `toTitle` against the playable source titles of the current sanitized article. A forged title returns `INVALID_MOVE` before any target resolution, even if it is the canonical destination of a different, reachable redirect. Only a reachable clicked title is resolved through MediaWiki's normalization/redirect mappings; missing or non-main-namespace destinations return `INVALID_MOVE`. In one transaction the backend stores a `NAVIGATION` `GameMove` using the resolved canonical ID/title, increments `clickCount`, updates the current page, refreshes `lastHeartbeatAt` (the move is proof of activity), and checks the canonical ID for victory — on victory it also finalizes `effectivePlayTimeMs` and clears the timing fields. Backtracking does not count here.
+**Behavior:** the games router records a server-side navigation-start boundary before asynchronous authentication. The backend then verifies ownership and `IN_PROGRESS` status, checks the normalized `toTitle` against the playable source titles of the current sanitized article, resolves the destination, and prepares its sanitized article. A forged title returns `INVALID_MOVE` before target resolution. Only when all work succeeds does one transaction lock the game briefly, verify that the prepared source state is still current, store the move and update the game. Play time is finalized through the navigation-start boundary; after the authoritative response state is loaded, the transaction's final database write starts the fresh interval. A winning move instead finalizes at the navigation-start boundary, completes the game, and starts no new interval. Rejected, stale and failed operations do not split timing.
 
-**Success:** `200 OK` with the updated `GameDto` (when the target is reached, `status: COMPLETED`, `completedAt` set, `playStartedAt: null`).
+**Success:** `200 OK` with `PreparedGameStateDto`. For a winning move, `game.status` is `COMPLETED`, `game.playStartedAt` and `article` are `null`.
 
 **Errors:**
 
@@ -769,6 +796,7 @@ Titles use Unicode NFC, spaces instead of underscores, trimmed/collapsed spaces 
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND`;
 - `409 GAME_NOT_IN_PROGRESS` — game already completed;
+- `409 GAME_STATE_CHANGED` — the source state changed while the move was prepared; reload;
 - `422 INVALID_MOVE` — target not a valid playable link from the current page;
 - `502 WIKIPEDIA_UNAVAILABLE` — the upstream MediaWiki link resolution failed; retry.
 
@@ -784,7 +812,7 @@ POST /api/games/:gameId/backtrack
 
 **Body:** none (`{}` or empty).
 
-**Behavior:** a dedicated action separate from navigation. In one transaction the backend stores a `BACKTRACK` `GameMove`, moves the active path one step back, increments `backtrackCount`, and refreshes `lastHeartbeatAt`. It does **not** increment `clickCount`. When the active path contains only the starting page there is no previous page to return to, so backtracking is rejected with `BACKTRACK_NOT_ALLOWED`.
+**Behavior:** a dedicated action separate from navigation. Its server-owned boundary is captured before asynchronous authentication. The backend prepares the previous path article, then briefly locks and verifies the prepared source state before one transaction stores a `BACKTRACK` move, updates the active page and counter, loads the response state, and restarts timing with its final database write. It does **not** increment `clickCount`. Rejected or stale backtracks do not split timing.
 
 Difficulty enforcement:
 
@@ -792,7 +820,7 @@ Difficulty enforcement:
 - `MEDIUM` — at most 3 (rejects the 4th);
 - `HARD` — rejected.
 
-**Success:** `200 OK` with the updated `GameDto`.
+**Success:** `200 OK` with `PreparedGameStateDto`.
 
 **Errors:**
 
@@ -800,6 +828,7 @@ Difficulty enforcement:
 - `401 AUTHENTICATION_REQUIRED`;
 - `404 GAME_NOT_FOUND`;
 - `409 GAME_NOT_IN_PROGRESS`;
+- `409 GAME_STATE_CHANGED` — the source state changed while backtracking was prepared; reload;
 - `422 BACKTRACK_NOT_ALLOWED` — `HARD` difficulty, or the active path is already at the starting page;
 - `422 BACKTRACK_LIMIT_REACHED` — `MEDIUM` already used 3 backtracks.
 
@@ -942,11 +971,11 @@ Simultaneous multi-tab / multi-device editing is not specially coordinated.
 
 Server-authoritative, tracked with `Game.effectivePlayTimeMs`, `Game.playStartedAt`
 and `Game.lastHeartbeatAt` (see `docs/game-rules.md` §12 and `docs/database.md`
-§7). Opening an in-progress game (`GET /api/games/:id`) finalizes any pending
-interval up to its last heartbeat and starts a new one; the heartbeat
-(`POST /api/games/:id/heartbeat`) and every valid move/backtrack refresh
-`lastHeartbeatAt`; the winning move finalizes the last interval. Time after a
-browser disappears is never counted — there is no expiration process.
+§7). Opening an in-progress game prepares its article before restarting timing.
+A successful move/backtrack finalizes at its server-observed start and restarts
+after the destination article is prepared; a winning move finalizes at that same
+start boundary. Heartbeats advance `lastHeartbeatAt` only while the frontend is
+playable. Time after a browser disappears is never counted.
 
 ### 8.4 Completion
 

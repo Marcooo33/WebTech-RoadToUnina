@@ -219,17 +219,20 @@ tracked with three fields on `Game`:
 |---|---|
 | `effectivePlayTimeMs` | Play time already finalized/accounted. Authoritative for completed games, History rankings and statistics. |
 | `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
-| `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
+| `lastHeartbeatAt` | Most recent proof the current playable interval was active; a heartbeat advances it and a successful article transition resets it with the new interval. |
 
 ### The algorithm
 
-**Open / resume** (`GET /api/games/:id` by the owner, game `IN_PROGRESS`), in one update:
+**Open / resume** (`GET /api/games/:id` by the owner, game `IN_PROGRESS`): first
+capture the preparation-start boundary and prepare the current article, then use
+a short transaction-local row lock for the timing read/update:
 
 ```text
-if playStartedAt is not null and lastHeartbeatAt > playStartedAt:
-    effectivePlayTimeMs += lastHeartbeatAt - playStartedAt   # finalize stale interval
+boundary = min(lastHeartbeatAt, preparationStartedAt)
+if playStartedAt is not null and boundary > playStartedAt:
+    effectivePlayTimeMs += boundary - playStartedAt          # finalize stale interval
 playStartedAt   = now
-lastHeartbeatAt = now                                        # start a fresh interval
+lastHeartbeatAt = now  # final transaction write after response state is loaded
 ```
 
 **Heartbeat** (`POST /api/games/:id/heartbeat`, ~every 12 s while playing):
@@ -238,13 +241,25 @@ lastHeartbeatAt = now                                        # start a fresh int
 lastHeartbeatAt = now
 ```
 
-**Valid move / backtrack** — folds `lastHeartbeatAt = now` into the same
-transaction as the game mutation.
+**Valid move / backtrack** — the games router captures `navigationStartedAt`
+before asynchronous authentication. A successful article transition splits the
+active interval in the same transaction as the game mutation:
+
+```text
+effectivePlayTimeMs += navigationStartedAt - playStartedAt
+persist game mutation and GameMove
+load authoritative response state
+playStartedAt   = restartedAt       # final database write in the transaction
+lastHeartbeatAt = restartedAt
+```
+
+The timestamps are server-controlled and the update is atomic with the move.
+Rejected or failed actions leave the continuous interval unchanged.
 
 **Winning move** — inside the completion transaction:
 
 ```text
-effectivePlayTimeMs += now - playStartedAt   # 0 if playStartedAt is null
+effectivePlayTimeMs += navigationStartedAt - playStartedAt   # 0 if null
 status = COMPLETED; completedAt = now
 playStartedAt = null; lastHeartbeatAt = null
 ```
@@ -261,17 +276,17 @@ The frontend timer is display-only and never authoritative.
 
 ## 8. Concurrency
 
-There is no `Game.version` field, no optimistic-concurrency token, and no locks
-or leases. Simultaneous multi-tab / multi-device editing is not a project
+There is no `Game.version` field, optimistic-concurrency token, or persistent
+lock/lease. Simultaneous multi-tab / multi-device editing is not a project
 requirement.
 
 A navigation move updates the `Game` row and appends a `GameMove` in one
-transaction; completion also finalizes timing in that same transaction. The only
-unique constraint a gameplay write can hit is `game_moves (gameId, sequence)`
-when two requests for the same game race for the next sequence number — the loser
-recomputes and retries once. Ordinary transactions plus authoritative backend
-checks (ownership, `IN_PROGRESS`, valid link, difficulty rules) are sufficient
-for the single-player flow the project targets.
+transaction; completion also finalizes timing in that same transaction. After
+MediaWiki preparation, move/backtrack transactions briefly lock the game row and
+verify that the source page, counters and timing interval still match their
+prepared snapshot. A stale operation is rejected rather than applied to a newer
+state. The prepared-state GET and heartbeat use the same short lock so their
+timing read/update steps cannot overwrite each other.
 
 ---
 

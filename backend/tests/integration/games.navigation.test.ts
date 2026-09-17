@@ -33,6 +33,8 @@ interface MoveBody {
 }
 
 interface GameBody {
+  game?: GameBody;
+  article?: GameBody | null;
   id?: string;
   mode?: string;
   difficulty?: string;
@@ -56,6 +58,10 @@ interface GameBody {
   contentHtml?: string;
   links?: { title: string }[];
   error?: { code?: string; message?: string };
+}
+
+function unwrapPreparedBody(body: GameBody): GameBody {
+  return body.game ? { ...body.game, article: body.article } : body;
 }
 
 interface RegisterBody {
@@ -91,6 +97,39 @@ function makeFakeWikipedia(): WikipediaService {
       contentHtml: `<p>Article for page ${pageId}</p>`,
       links: (linkGraph.get(pageId) ?? []).map(({ title }) => ({ title })),
     }),
+  } as unknown as WikipediaService;
+}
+
+function twoRequestBarrier(): () => Promise<void> {
+  let arrivals = 0;
+  let release!: () => void;
+  const bothArrived = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+
+  return async () => {
+    arrivals += 1;
+    if (arrivals === 2) release();
+    await bothArrived;
+  };
+}
+
+function makeBarrierWikipedia(
+  shouldWaitForArticle: (pageId: number) => boolean,
+  waitForBoth: () => Promise<void>,
+): WikipediaService {
+  return {
+    resolveNavigation: async (pageId: number, title: string) =>
+      linkGraph.get(pageId)?.find((link) => link.title === title) ?? null,
+    getArticle: async (pageId: number) => {
+      if (shouldWaitForArticle(pageId)) await waitForBoth();
+      return {
+        pageId,
+        title: titleFor(pageId),
+        contentHtml: `<p>Article for page ${pageId}</p>`,
+        links: (linkGraph.get(pageId) ?? []).map(({ title }) => ({ title })),
+      };
+    },
   } as unknown as WikipediaService;
 }
 
@@ -151,7 +190,7 @@ async function post(
   const text = await res.text();
   return {
     status: res.status,
-    body: text ? (JSON.parse(text) as GameBody) : {},
+    body: text ? unwrapPreparedBody(JSON.parse(text) as GameBody) : {},
   };
 }
 
@@ -169,7 +208,7 @@ async function get(
   const text = await res.text();
   return {
     status: res.status,
-    body: text ? (JSON.parse(text) as GameBody) : {},
+    body: text ? unwrapPreparedBody(JSON.parse(text) as GameBody) : {},
   };
 }
 
@@ -341,6 +380,7 @@ test("valid navigation persists a NAVIGATION move and updates counters", async (
 
   assert.equal(status, 200);
   assert.equal(body.currentPageId, 2);
+  assert.equal(body.article?.pageId, 2);
   assert.equal(body.currentPageTitle, "Page 2");
   assert.equal(body.clickCount, 1);
   assert.equal(body.backtrackCount, 0);
@@ -447,29 +487,88 @@ test("completed games reject further navigation", async () => {
   assert.equal(body.error?.code, "GAME_NOT_IN_PROGRESS");
 });
 
-test("two identical concurrent moves both persist as sequential moves", async () => {
-  const { cookie } = await register(unique("conc1"));
-  const created = await createGame(cookie);
-  assert.equal(created.status, 201);
-
-  const results = await Promise.all([
-    move(cookie, created.body.id!, 2),
-    move(cookie, created.body.id!, 3),
-  ]);
-
-  // Both are real user actions; neither is rejected and the move sequence stays
-  // consistent (the loser of the sequence-number race retries once).
-  assert.deepEqual(results.map((r) => r.status).sort(), [200, 200]);
-
-  const moves = await persistedMoves(created.body.id!);
-  assert.equal(moves.length, 2);
-  assert.deepEqual(
-    moves.map((m) => m.sequence),
-    [1, 2],
+test("concurrent moves prepared from one source reject the stale mutation", async () => {
+  const waitForBoth = twoRequestBarrier();
+  const app = await createTestApp(
+    makeBarrierWikipedia((pageId) => pageId === 2 || pageId === 3, waitForBoth),
   );
+  try {
+    const { cookie } = await register(unique("conc1"), app.baseUrl);
+    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
+    const gameId = created.body.id!;
+    const startedAt = new Date(Date.now() - 5_000);
+    await prisma.game.update({
+      where: { id: gameId },
+      data: { effectivePlayTimeMs: 0, playStartedAt: startedAt, lastHeartbeatAt: startedAt },
+    });
 
-  const after = await get(`/api/games/${created.body.id}`, cookie);
-  assert.equal(after.body.clickCount, 2);
+    const results = await Promise.all([
+      move(cookie, gameId, 2, app.baseUrl),
+      move(cookie, gameId, 3, app.baseUrl),
+    ]);
+    assert.deepEqual(results.map((result) => result.status).sort(), [200, 409]);
+    const stale = results.find((result) => result.status === 409)!;
+    assert.equal(stale.body.error?.code, "GAME_STATE_CHANGED");
+
+    const row = await prisma.game.findUniqueOrThrow({ where: { id: gameId } });
+    const moves = await persistedMoves(gameId);
+    assert.equal(row.clickCount, 1);
+    assert.equal(moves.length, 1);
+    assert.equal(moves[0].fromPageId, START_PAGE_ID);
+    assert.equal(moves[0].toPageId, row.currentPageId);
+    assert.ok(row.effectivePlayTimeMs >= 4_500);
+    assert.ok(row.effectivePlayTimeMs < 6_500);
+
+    const after = await get(`/api/games/${gameId}`, cookie, app.baseUrl);
+    assert.equal(after.body.path?.at(-1)?.pageId, after.body.currentPageId);
+  } finally {
+    await app.close();
+  }
+});
+
+test("concurrent backtracks from one source reject the stale mutation", async () => {
+  const waitForBoth = twoRequestBarrier();
+  let barrierEnabled = false;
+  const app = await createTestApp(
+    makeBarrierWikipedia((pageId) => barrierEnabled && pageId === 2, waitForBoth),
+  );
+  try {
+    const { cookie } = await register(unique("conc_back"), app.baseUrl);
+    const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
+    const gameId = created.body.id!;
+    assert.equal((await move(cookie, gameId, 2, app.baseUrl)).status, 200);
+    assert.equal((await move(cookie, gameId, 3, app.baseUrl)).status, 200);
+    const startedAt = new Date(Date.now() - 5_000);
+    await prisma.game.update({
+      where: { id: gameId },
+      data: { playStartedAt: startedAt, lastHeartbeatAt: startedAt },
+    });
+
+    barrierEnabled = true;
+    const results = await Promise.all([
+      backtrack(cookie, gameId, app.baseUrl),
+      backtrack(cookie, gameId, app.baseUrl),
+    ]);
+    assert.deepEqual(results.map((result) => result.status).sort(), [200, 409]);
+    assert.equal(
+      results.find((result) => result.status === 409)?.body.error?.code,
+      "GAME_STATE_CHANGED",
+    );
+
+    const row = await prisma.game.findUniqueOrThrow({ where: { id: gameId } });
+    const moves = await persistedMoves(gameId);
+    assert.equal(row.currentPageId, 2);
+    assert.equal(row.backtrackCount, 1);
+    assert.equal(moves.length, 3);
+    assert.equal(moves[2].fromPageId, 3);
+    assert.equal(moves[2].toPageId, 2);
+
+    barrierEnabled = false;
+    const after = await get(`/api/games/${gameId}`, cookie, app.baseUrl);
+    assert.equal(after.body.path?.at(-1)?.pageId, after.body.currentPageId);
+  } finally {
+    await app.close();
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -490,6 +589,7 @@ test("EASY backtracking succeeds and decrements the active path", async () => {
   assert.equal(body.backtrackCount, 1);
   assert.equal(body.clickCount, 2);
   assert.equal(body.currentPageId, 2);
+  assert.equal(body.article?.pageId, 2);
   assert.deepEqual(body.path, [
     { pageId: 1, title: "Page 1" },
     { pageId: 2, title: "Page 2" },
@@ -919,6 +1019,9 @@ test("a destination parse failure leaves the move uncommitted and retry succeeds
     const { cookie } = await register(unique("prefail"), app.baseUrl);
     const created = await createGame(cookie, "CLICK", "EASY", app.baseUrl);
     const gameId = created.body.id!;
+    const opened = await get(`/api/games/${gameId}`, cookie, app.baseUrl);
+    assert.equal(opened.status, 200);
+    const timingBefore = await prisma.game.findUniqueOrThrow({ where: { id: gameId } });
 
     const failed = await move(cookie, gameId, "Page 2", app.baseUrl);
     assert.equal(failed.status, 502);
@@ -930,6 +1033,8 @@ test("a destination parse failure leaves the move uncommitted and retry succeeds
     assert.equal(unchanged.currentPageId, START_PAGE_ID);
     assert.equal(unchanged.currentPageTitle, titleFor(START_PAGE_ID));
     assert.equal(unchanged.clickCount, 0);
+    assert.equal(unchanged.effectivePlayTimeMs, timingBefore.effectivePlayTimeMs);
+    assert.equal(unchanged.playStartedAt?.getTime(), timingBefore.playStartedAt?.getTime());
     assert.equal((await persistedMoves(gameId)).length, 0);
 
     const retried = await move(cookie, gameId, "Page 2", app.baseUrl);

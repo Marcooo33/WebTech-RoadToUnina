@@ -6,6 +6,7 @@ import { after, before, test } from "node:test";
 import { createApp } from "../../src/app.js";
 import { prisma } from "../../src/lib/prisma.js";
 import type { StartingPageProvider } from "../../src/modules/games/starting-page.provider.js";
+import type { WikipediaArticleSource } from "../../src/modules/wikipedia/wikipedia.types.js";
 
 let server: Server;
 let baseUrl: string;
@@ -21,6 +22,8 @@ interface RegisterBody {
 }
 
 interface GameBody {
+  game?: GameBody;
+  article?: unknown;
   id?: string;
   mode?: string;
   difficulty?: string;
@@ -40,6 +43,10 @@ interface GameBody {
   moves?: unknown[];
   items?: GameListItemBody[];
   error?: { code?: string; message?: string };
+}
+
+function unwrapPreparedBody(body: GameBody): GameBody {
+  return body.game ? { ...body.game, article: body.article } : body;
 }
 
 interface GameListItemBody {
@@ -121,7 +128,10 @@ async function post(
   });
 
   const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
+  return {
+    status: res.status,
+    body: text ? unwrapPreparedBody(JSON.parse(text) as GameBody) : {},
+  };
 }
 
 async function get(
@@ -135,7 +145,10 @@ async function get(
 
   const res = await fetch(`${baseUrl}${path}`, { headers });
   const text = await res.text();
-  return { status: res.status, body: text ? (JSON.parse(text) as GameBody) : {} };
+  return {
+    status: res.status,
+    body: text ? unwrapPreparedBody(JSON.parse(text) as GameBody) : {},
+  };
 }
 
 async function del(
@@ -166,8 +179,25 @@ const fakeStartingPageProvider: StartingPageProvider = {
   },
 };
 
+const fakeWikipedia: WikipediaArticleSource = {
+  async getArticle(pageId) {
+    return {
+      pageId,
+      title: "ROADTOUNINA test start page",
+      contentHtml: "<p>Test article</p>",
+      links: [],
+    };
+  },
+  async resolveNavigation() {
+    return null;
+  },
+};
+
 before(async () => {
-  server = createApp({ startingPageProvider: fakeStartingPageProvider }).listen(0);
+  server = createApp({
+    startingPageProvider: fakeStartingPageProvider,
+    wikipediaService: fakeWikipedia,
+  }).listen(0);
   await new Promise((resolve) => server.once("listening", resolve));
   const address = server.address() as AddressInfo;
   baseUrl = `http://127.0.0.1:${address.port}`;

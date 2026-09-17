@@ -14,6 +14,7 @@ import { interval } from 'rxjs';
 import { GamesService } from '../../../core/services/games.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { GameDto } from '../../../shared/models/game.model';
+import { ArticleDto } from '../../../shared/models/article.model';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
 import { GameHud } from '../game-hud/game-hud';
@@ -78,6 +79,8 @@ export class GamePage implements OnInit {
   readonly notice = signal<string | null>(null);
   /** A gameplay mutation or an article fetch is in flight. */
   readonly busy = signal(false);
+  /** Display value captured when a server-controlled article transition starts. */
+  private readonly frozenTimeMs = signal<number | null>(null);
   /** Show a "retry" affordance for a failed article fetch. */
   readonly wikipediaRetry = signal(false);
 
@@ -95,6 +98,8 @@ export class GamePage implements OnInit {
   readonly displayTimeMs = computed(() => {
     const game = this.game();
     if (!game) return 0;
+    const frozen = this.frozenTimeMs();
+    if (frozen !== null) return frozen;
     if (this.phase() === 'playing' && this.baselineClientTs !== 0) {
       return this.baselineEffectiveMs + Math.max(0, this.tick() - this.baselineClientTs);
     }
@@ -126,14 +131,20 @@ export class GamePage implements OnInit {
       return;
     }
     this.busy.set(true);
+    this.freezeTimer();
     this.notice.set(null);
 
     this.games.move(this.id(), toTitle).subscribe({
-      next: (updated) => {
-        this.applyGame(updated);
+      next: (state) => {
+        this.applyGame(state.game);
         if (this.phase() === 'completed') return;
-        this.article.set(null);
-        this.fetchArticle();
+        if (!state.article || state.article.pageId !== state.game.currentPageId) {
+          this.load();
+          return;
+        }
+        this.applyPreparedArticle(state.article);
+        this.seedTimerBaseline(state.game);
+        this.finishNavigation();
       },
       error: (err: ApiError) => this.onGameplayError(err),
     });
@@ -144,14 +155,20 @@ export class GamePage implements OnInit {
       return;
     }
     this.busy.set(true);
+    this.freezeTimer();
     this.notice.set(null);
 
     this.games.backtrack(this.id()).subscribe({
-      next: (updated) => {
-        this.applyGame(updated);
+      next: (state) => {
+        this.applyGame(state.game);
         if (this.phase() === 'completed') return;
-        this.article.set(null);
-        this.fetchArticle();
+        if (!state.article || state.article.pageId !== state.game.currentPageId) {
+          this.load();
+          return;
+        }
+        this.applyPreparedArticle(state.article);
+        this.seedTimerBaseline(state.game);
+        this.finishNavigation();
       },
       error: (err: ApiError) => this.onGameplayError(err),
     });
@@ -173,10 +190,8 @@ export class GamePage implements OnInit {
   // --- Load / reconcile -------------------------------------------------
 
   /**
-   * Loads the game and its article. `GET /api/games/:id` doubles as the resume
-   * flow: for an in-progress game the backend finalizes any stale interval and
-   * starts a fresh one, so the response's `effectivePlayTimeMs` is current and
-   * becomes the visual-timer baseline.
+   * Loads the game and its already-prepared article in one response. The backend
+   * starts the resumed interval only after that article is ready.
    */
   private load(): void {
     this.phase.set('loading');
@@ -184,13 +199,22 @@ export class GamePage implements OnInit {
     this.notice.set(null);
 
     this.games.get(this.id()).subscribe({
-      next: (game) => {
-        this.applyGame(game);
+      next: (state) => {
+        this.applyGame(state.game);
         if (this.phase() === 'completed') {
           return;
         }
-        this.seedTimerBaseline(game);
-        this.fetchArticle();
+        if (!state.article || state.article.pageId !== state.game.currentPageId) {
+          this.onInitialError(
+            new ApiError(500, 'INTERNAL_ERROR', 'The game and article state did not match.'),
+          );
+          return;
+        }
+        this.applyPreparedArticle(state.article);
+        this.seedTimerBaseline(state.game);
+        this.phase.set('playing');
+        this.busy.set(false);
+        this.frozenTimeMs.set(null);
       },
       error: (err: ApiError) => this.onInitialError(err),
     });
@@ -224,6 +248,8 @@ export class GamePage implements OnInit {
   // --- Error handling --------------------------------------------------
 
   private onInitialError(err: ApiError): void {
+    this.busy.set(false);
+    this.frozenTimeMs.set(null);
     if (err.code === 'GAME_NOT_FOUND') {
       void this.router.navigate(['/']);
       return;
@@ -234,6 +260,7 @@ export class GamePage implements OnInit {
 
   private onArticleError(err: ApiError): void {
     this.busy.set(false);
+    this.resumeVisualTimer();
 
     switch (err.code) {
       case 'GAME_NOT_FOUND':
@@ -263,10 +290,16 @@ export class GamePage implements OnInit {
 
   private onGameplayError(err: ApiError): void {
     this.busy.set(false);
+    this.resumeVisualTimer();
 
     switch (err.code) {
       case 'GAME_NOT_IN_PROGRESS':
         // The game completed or changed elsewhere — reconcile with the server.
+        this.load();
+        return;
+      case 'GAME_STATE_CHANGED':
+        // Another request committed while this action's article was prepared.
+        // Reload the coherent authoritative game/article pair.
         this.load();
         return;
       case 'INVALID_MOVE':
@@ -277,7 +310,6 @@ export class GamePage implements OnInit {
       case 'BACKTRACK_NOT_ALLOWED':
       case 'BACKTRACK_LIMIT_REACHED':
         this.notice.set(err.message);
-        this.refreshGameOnly();
         return;
       case 'WIKIPEDIA_UNAVAILABLE':
         this.notice.set('Wikipedia is temporarily unavailable. Please try again.');
@@ -310,25 +342,12 @@ export class GamePage implements OnInit {
     this.phase.set('completed');
     this.article.set(null);
     this.busy.set(false);
+    this.frozenTimeMs.set(null);
     this.notice.set(null);
   }
 
-  private refreshGameOnly(): void {
-    this.games.get(this.id()).subscribe({
-      next: (game) => {
-        this.applyGame(game);
-        if (this.phase() !== 'completed') {
-          this.seedTimerBaseline(game);
-        }
-      },
-      error: () => {
-        // Non-critical: the HUD stays as-is until the next authoritative response.
-      },
-    });
-  }
-
   private sendHeartbeat(): void {
-    if (this.phase() !== 'playing') {
+    if (this.phase() !== 'playing' || this.busy()) {
       return;
     }
     this.games.heartbeat(this.id()).subscribe({
@@ -355,5 +374,27 @@ export class GamePage implements OnInit {
     // NEVER pass raw MediaWiki HTML, or any other external / user-provided HTML,
     // through this bypass — only ArticleDto.contentHtml from our own API.
     return this.sanitizer.bypassSecurityTrustHtml(contentHtml);
+  }
+
+  private applyPreparedArticle(dto: ArticleDto): void {
+    this.article.set({
+      pageId: dto.pageId,
+      title: dto.title,
+      html: this.trustArticleHtml(dto.contentHtml),
+    });
+  }
+
+  private freezeTimer(): void {
+    this.frozenTimeMs.set(this.displayTimeMs());
+  }
+
+  private resumeVisualTimer(): void {
+    this.tick.set(Date.now());
+    this.frozenTimeMs.set(null);
+  }
+
+  private finishNavigation(): void {
+    this.busy.set(false);
+    this.frozenTimeMs.set(null);
   }
 }

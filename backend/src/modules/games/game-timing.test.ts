@@ -5,6 +5,7 @@ import {
   completionTimingData,
   pendingIntervalMs,
   resumeIntervalData,
+  transitionTimingData,
 } from "./game-timing.js";
 
 const at = (iso: string) => new Date(iso);
@@ -14,6 +15,22 @@ test("pendingIntervalMs returns the bounded interval length", () => {
     pendingIntervalMs(at("2026-01-01T18:00:00Z"), at("2026-01-01T18:07:00Z")),
     7 * 60_000,
   );
+});
+
+test("transitionTimingData excludes the article-loading gap", () => {
+  const actionStartedAt = at("2026-01-01T18:05:00Z");
+  const restartedAt = at("2026-01-01T18:05:08Z");
+  const data = transitionTimingData(
+    at("2026-01-01T18:00:00Z"),
+    actionStartedAt,
+    restartedAt,
+  );
+
+  assert.deepEqual(data, {
+    effectivePlayTimeMs: { increment: 5 * 60_000 },
+    playStartedAt: restartedAt,
+    lastHeartbeatAt: restartedAt,
+  });
 });
 
 test("pendingIntervalMs is 0 when nothing is pending or timestamps are inconsistent", () => {
@@ -53,6 +70,24 @@ test("resumeIntervalData on a brand-new game adds nothing and starts the first i
   );
 
   assert.equal(data.effectivePlayTimeMs, 0);
+  assert.equal(data.playStartedAt, now);
+  assert.equal(data.lastHeartbeatAt, now);
+});
+
+test("resumeIntervalData caps a heartbeat received after preparation began", () => {
+  const preparationStartedAt = at("2026-01-01T18:05:00Z");
+  const now = at("2026-01-01T18:05:08Z");
+  const data = resumeIntervalData(
+    {
+      effectivePlayTimeMs: 30_000,
+      playStartedAt: at("2026-01-01T18:00:00Z"),
+      lastHeartbeatAt: at("2026-01-01T18:05:04Z"),
+    },
+    now,
+    preparationStartedAt,
+  );
+
+  assert.equal(data.effectivePlayTimeMs, 30_000 + 5 * 60_000);
   assert.equal(data.playStartedAt, now);
   assert.equal(data.lastHeartbeatAt, now);
 });

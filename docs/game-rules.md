@@ -243,22 +243,30 @@ server-authoritative and stored with three fields directly on `Game`:
 |---|---|
 | `effectivePlayTimeMs` | Play time already finalized/accounted. The authoritative value for completed games, History rankings and statistics. |
 | `playStartedAt` | Start of the current unfinalized play interval. `null` when nothing is pending. |
-| `lastHeartbeatAt` | Most recent proof the player was active — a heartbeat, or a valid move/backtrack. |
+| `lastHeartbeatAt` | Most recent proof the current playable interval was active; successful article transitions reset it with the new interval. |
 
 Rules:
 
 - **Opening / resuming an in-progress game** (`GET /api/games/:id` by the owner)
-  finalizes any pending interval up to its `lastHeartbeatAt`
-  (`effectivePlayTimeMs += lastHeartbeatAt - playStartedAt`), then starts a fresh
-  interval (`playStartedAt = lastHeartbeatAt = now`). The offline gap between the
-  last heartbeat and reopening is never counted.
+  first prepares the current article, then finalizes any pending interval up to
+  its `lastHeartbeatAt`, capped at the server-observed preparation-start
+  boundary, and starts a fresh interval. A short row lock serializes this timing
+  reconciliation with heartbeats, and the restart is its final database write.
+  Initial/resume article loading, avoidable response-state query work and the
+  offline gap are not counted.
 - **Heartbeat** (`POST /api/games/:id/heartbeat`, roughly every 12 s while
   playing) only sets `lastHeartbeatAt = now`. It creates nothing and changes
   nothing else.
-- **A valid move or backtrack** also sets `lastHeartbeatAt = now` in the same
-  transaction — a real action is stronger proof of activity than a heartbeat.
-- **The winning move** finalizes the last interval up to now
-  (`effectivePlayTimeMs += now - playStartedAt`) inside the completion
+- **A successful move or backtrack** finalizes the current interval at the
+  server-observed request boundary captured before asynchronous authentication,
+  prepares the destination article, then starts a fresh interval as the final
+  database write after the authoritative response state has been loaded. This
+  timing change is atomic with the game mutation. The transaction first verifies
+  that the source page and relevant counters/timing interval still match the
+  state used for preparation; otherwise it rejects the stale operation. Rejected
+  or failed actions do not split time.
+- **The winning move** finalizes the last interval at its navigation-start
+  boundary inside the completion
   transaction, then clears `playStartedAt` and `lastHeartbeatAt`.
 - A stale `lastHeartbeatAt` is just data — there is no expiration process and no
   state transition. If a browser disappears, the time after the last heartbeat is

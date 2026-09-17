@@ -20,7 +20,7 @@ export interface HistoryEntryDto {
   completedAt: string;
 }
 
-/** Public detail of a completed game (docs/api.md §3.9). */
+/** Public detail of a completed game (docs/api.md §3.10). */
 export interface CompletedGameDetailDto {
   gameId: string;
   mode: "CLICK" | "TIME";
