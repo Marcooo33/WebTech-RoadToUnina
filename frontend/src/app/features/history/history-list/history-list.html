@@ -77,9 +77,7 @@
             @for (item of items; track item.gameId) {
               <tr>
                 <td class="rank" data-label="Rank">{{ item.rank }}</td>
-                <td class="player" data-label="Player">
-                  <a [routerLink]="['/history', item.gameId]">{{ item.username }}</a>
-                </td>
+                <td class="player" data-label="Player">{{ item.username }}</td>
                 <td data-label="Clicks" [class.is-primary]="primaryMetric() === 'clicks'">
                   {{ item.clickCount }}
                 </td>
@@ -88,7 +86,9 @@
                 </td>
                 <td data-label="Completed">{{ item.completedAt | date: 'short' }}</td>
                 <td class="view">
-                  <a [routerLink]="['/history', item.gameId]"
+                  <a
+                    [routerLink]="['/history', item.gameId]"
+                    [attr.aria-label]="'View game by ' + item.username"
                     >View game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
                   /></a>
                 </td>

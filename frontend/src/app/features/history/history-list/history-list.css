@@ -79,24 +79,26 @@
   overflow: hidden;
 }
 .ranking tbody tr {
+  position: relative;
+  cursor: pointer;
   transition: background var(--transition-fast);
 }
 .ranking tbody tr:hover {
   background: var(--color-surface-subtle);
+}
+.ranking tbody tr:has(.view a:focus-visible) {
+  z-index: 1;
+  outline: 2px solid var(--color-surface);
+  box-shadow: var(--focus-ring);
 }
 .rank {
   color: var(--color-brand);
   font-size: 1.05rem;
   font-weight: 800;
 }
-.player a {
+.player {
   color: var(--color-text);
   font-weight: 700;
-  text-decoration: none;
-}
-.player a:hover {
-  color: var(--color-accent);
-  text-decoration: underline;
 }
 .is-primary {
   color: var(--color-brand);
@@ -113,6 +115,11 @@
   font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
+}
+.view a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 .pager {
   display: flex;
