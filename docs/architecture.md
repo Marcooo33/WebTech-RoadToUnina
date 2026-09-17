@@ -89,7 +89,7 @@ Planned stack:
 
 The final project must contain at least ten automated E2E tests.
 
-The Playwright suite (`e2e/`) is 13 browser-driven scenarios that run against the
+The Playwright suite (`e2e/`) is 10 browser-driven scenarios that run against the
 real Angular and Express apps, but against a disposable Dockerised PostgreSQL and
 a deterministic in-memory MediaWiki adapter (`E2E_FAKE_WIKIPEDIA=1`, selected
 only in `backend/src/server.ts`). Server-authoritative rule edges (forged move,

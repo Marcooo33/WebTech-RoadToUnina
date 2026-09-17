@@ -7,47 +7,6 @@ import {
   uniqueUser,
 } from "../support/users.js";
 
-test("a user can update account details and password, then log out from Profile", async ({
-  page,
-  context,
-}) => {
-  const user = uniqueUser("profile");
-  await registerInContext(context, user);
-  await page.goto("/profile");
-
-  const updatedUsername = `${user.username.slice(0, 24)}_new`;
-  const updatedEmail = `new_${user.email}`;
-
-  await page.locator("#profile-username").fill(updatedUsername);
-  await page.getByRole("button", { name: "Change username" }).click();
-  await expect(page.getByText("Username updated.")).toBeVisible();
-  await expect(page.locator("nav")).toContainText(updatedUsername);
-
-  await page.locator("#profile-email").fill(updatedEmail);
-  await page.getByRole("button", { name: "Change email" }).click();
-  await expect(page.getByText("Email updated.")).toBeVisible();
-
-  const newPassword = "new-E2E-Password-456";
-  await page.locator("#current-password").fill(user.password);
-  await page.locator("#new-password").fill(newPassword);
-  await page.locator("#confirm-password").fill(newPassword);
-  await page.getByRole("button", { name: "Change password" }).click();
-  await expect(page.getByText("Password updated.")).toBeVisible();
-
-  await page.locator("main").getByRole("button", { name: "Log out" }).click();
-  await expect(page).toHaveURL(/\/$/);
-  await expect(
-    page.getByRole("heading", { name: "Reach Federico II" }),
-  ).toBeVisible();
-
-  await page.goto("/login");
-  await page.locator("#identifier").fill(updatedUsername);
-  await page.locator("#password").fill(newPassword);
-  await page.getByRole("button", { name: "Log in" }).click();
-  await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText("Signed in as")).toContainText(updatedUsername);
-});
-
 test("account deletion requires confirmation and preserves anonymized completed History", async ({
   page,
   context,

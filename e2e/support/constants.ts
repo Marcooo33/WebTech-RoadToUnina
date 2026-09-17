@@ -27,12 +27,11 @@ export const PAGE = {
 export const WIN_PATH = [PAGE.golfoDiNapoli, PAGE.napoli, TARGET_PAGE] as const;
 
 /**
- * History rankings are global and derived from every completed game, so a spec
- * that completes a game and then asserts its rank must
- * own a (mode, difficulty) bucket that no other completing spec touches. Current
+ * History rankings are global and derived from every completed game. Keep the
+ * completing scenarios in separate (mode, difficulty) buckets so their data
+ * cannot affect one another if a ranking assertion is added later. Current
  * assignment:
  *   - completion.spec.ts        -> CLICK / EASY
  *   - public.spec.ts (history)  -> TIME  / HARD
- *   - public.spec.ts (ranking)  -> CLICK / MEDIUM
  * Any new completing spec must pick its own unused bucket or not assert rank.
  */

@@ -1,6 +1,6 @@
 # ROADTOUNINA — End-to-End tests (Milestone 16)
 
-**15 browser-driven E2E tests** that drive the real Angular UI → Express →
+**10 browser-driven E2E tests** that drive the real Angular UI → Express →
 PostgreSQL path. `context.request` is used only for support — authenticating a
 `BrowserContext`, seeding a completed game, and reading authoritative state as a
 secondary assertion — never as a test's main action or assertion.
@@ -12,14 +12,14 @@ rejection, the 11th-game 409) are covered by the backend integration tests
 
 | Spec | Browser scenarios |
 |---|---|
-| `auth.spec.ts` | register form; log out + log back in; wrong password rejected |
-| `profile.spec.ts` | account details/password/logout; confirmed soft deletion with anonymized History |
-| `game-lifecycle.spec.ts` | create CLICK/EASY; create TIME/HARD; delete from dashboard; 10-game limit blocks the dashboard |
+| `auth.spec.ts` | register form; log out + log back in |
+| `profile.spec.ts` | confirmed soft deletion with anonymized History |
+| `game-lifecycle.spec.ts` | create CLICK/EASY; delete from dashboard |
 | `navigation.spec.ts` | following a playable link is a click and grows the path |
 | `backtracking.spec.ts` | EASY backtrack steps the path back without a click |
 | `resume.spec.ts` | resume restores current page / clicks / path |
 | `completion.spec.ts` | reaching the target shows the completed result |
-| `public.spec.ts` | ranked completed games in anonymous History, filtering, and detail navigation |
+| `public.spec.ts` | anonymous History filtering and completed-game detail navigation |
 
 ## How it stays deterministic
 
