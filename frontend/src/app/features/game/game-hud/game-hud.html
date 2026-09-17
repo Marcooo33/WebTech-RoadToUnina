@@ -1,27 +1,24 @@
 @let g = game();
-
 <div class="hud">
+  <div class="hud__goal">
+    <ng-icon name="lucideFlag" aria-hidden="true" />
+    <div><span>Target</span><strong>Federico II</strong></div>
+  </div>
+  <div class="hud__meta">
+    <span class="badge">{{ g.mode }}</span
+    ><span class="badge">{{ g.difficulty }}</span>
+  </div>
   <dl class="hud__stats">
-    <div class="hud__stat">
-      <dt>Mode</dt>
-      <dd>{{ g.mode }}</dd>
-    </div>
-    <div class="hud__stat">
-      <dt>Difficulty</dt>
-      <dd>{{ g.difficulty }}</dd>
-    </div>
     <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'TIME'">
-      <dt>Effective time</dt>
+      <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Effective time</dt>
       <dd>{{ displayTimeMs() | duration }}</dd>
     </div>
     <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'CLICK'">
-      <dt>Clicks</dt>
+      <dt><ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks</dt>
       <dd data-testid="hud-clicks">{{ g.clickCount }}</dd>
     </div>
   </dl>
-
-  <p class="hud__note muted">Timer is display only — the server keeps the official time.</p>
-
+  <p class="hud__note muted">The timer is visual feedback; official time is kept by the server.</p>
   <div class="hud__backtrack">
     @switch (g.difficulty) {
       @case ('EASY') {
@@ -34,7 +31,6 @@
         <span class="muted">Backtracking: not available</span>
       }
     }
-
     @if (g.difficulty !== 'HARD') {
       <button
         type="button"
@@ -42,7 +38,7 @@
         [disabled]="!canBacktrack()"
         (click)="backtrack.emit()"
       >
-        Backtrack
+        <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Backtrack
       </button>
     }
   </div>

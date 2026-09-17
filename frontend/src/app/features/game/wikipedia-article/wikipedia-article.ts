@@ -60,7 +60,9 @@ export class WikipediaArticle implements OnChanges {
     const body = this.articleBody().nativeElement;
     const heading = body.ownerDocument.getElementById(id);
     if (heading && body.contains(heading)) {
-      heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const reducedMotion =
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+      heading.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
     }
   }
 

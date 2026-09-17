@@ -1,124 +1,154 @@
-<section class="stack">
-  <h1 class="page-title">Dashboard</h1>
-  <p class="muted">
-    Signed in as <strong>{{ user()?.username }}</strong>
-  </p>
-
+<section class="dashboard stack">
+  <header class="page-header">
+    <div class="page-header__copy">
+      <p class="eyebrow">Player dashboard</p>
+      <h1 class="page-title">Welcome back, {{ user()?.username }}</h1>
+      <p class="muted">Resume a route or start a new path to Federico II.</p>
+      <span class="sr-only">Signed in as {{ user()?.username }}</span>
+    </div>
+    @if (limitReached) {
+      <button type="button" class="btn" disabled>
+        <ng-icon class="icon" name="lucidePlus" aria-hidden="true" />New game
+      </button>
+    } @else {
+      <a class="btn" routerLink="/new-game"
+        ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />New game</a
+      >
+    }
+  </header>
   <app-error-banner [message]="error()" />
-
   @if (loading()) {
-    <app-loading-spinner label="Loading your games…" />
+    <app-loading-spinner label="Loading your games and statistics…" />
   } @else {
-    <div class="card stack">
-      <div class="row">
-        <h2>In-progress games ({{ inProgress().length }}/{{ limit }})</h2>
-        @if (limitReached) {
-          <button type="button" class="btn" disabled>New game</button>
-        } @else {
-          <a class="btn" routerLink="/new-game">New game</a>
-        }
+    @if (statistics(); as s) {
+      <section class="stats-section" aria-labelledby="stats-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="stats-title">Your statistics</h2>
+          </div>
+        </div>
+        <dl class="stats">
+          <div>
+            <dt>Completed</dt>
+            <dd>{{ s.completedGames }}</dd>
+          </div>
+          <div>
+            <dt>In progress</dt>
+            <dd>{{ s.inProgressGames }}</dd>
+          </div>
+          <div class="stats__highlight">
+            <dt>Best CLICK</dt>
+            <dd>
+              <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />{{
+                s.bestClick ? s.bestClick.clickCount + ' clicks' : '—'
+              }}
+            </dd>
+          </div>
+          <div class="stats__highlight">
+            <dt>Best TIME</dt>
+            <dd>
+              <ng-icon class="icon" name="lucideClock3" aria-hidden="true" />{{
+                s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—'
+              }}
+            </dd>
+          </div>
+          <div>
+            <dt>Average clicks</dt>
+            <dd>{{ s.averageClicks ?? '—' }}</dd>
+          </div>
+          <div>
+            <dt>Average time</dt>
+            <dd>
+              {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
+            </dd>
+          </div>
+        </dl>
+      </section>
+    }
+    <section class="games card" aria-labelledby="games-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Saved routes</p>
+          <h2 id="games-title">In-progress games ({{ inProgress().length }}/{{ limit }})</h2>
+        </div>
+        <span class="games__count" aria-hidden="true">{{ inProgress().length }} / {{ limit }}</span>
       </div>
-
       @if (limitReached) {
-        <p class="muted" role="status">
+        <p class="status status--warning" role="status">
           You have reached the {{ limit }}-game limit. Finish or delete a game before starting a new
           one.
         </p>
       }
-
       @if (inProgress().length === 0) {
-        <p class="muted">No games in progress yet.</p>
+        <div class="empty-state">
+          <h3>No games in progress</h3>
+          <p class="muted">Your next Wikipedia route can start whenever you are ready.</p>
+          <a class="btn" routerLink="/new-game"
+            ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Start your first game</a
+          >
+        </div>
       } @else {
-        <table class="table table--responsive">
-          <thead>
-            <tr>
-              <th>Mode</th>
-              <th>Difficulty</th>
-              <th>Current page</th>
-              <th>Clicks</th>
-              <th>Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (game of inProgress(); track game.id) {
-              <tr data-testid="game-row">
-                <td>{{ game.mode }}</td>
-                <td>{{ game.difficulty }}</td>
-                <td>{{ game.currentPageTitle }}</td>
-                <td>{{ game.clickCount }}</td>
-                <td>{{ game.effectivePlayTimeMs | duration }}</td>
-                <td>
-                  <div class="actions">
-                    <a [routerLink]="['/game', game.id]">Resume</a>
-                    @if (confirmingId() === game.id) {
-                      <span class="confirm">
-                        <span class="muted">Delete?</span>
-                        <button
-                          type="button"
-                          class="link-btn link-btn--danger"
-                          [disabled]="deletingId() !== null"
-                          (click)="confirmDelete(game)"
-                        >
-                          {{ deletingId() === game.id ? 'Deleting…' : 'Yes' }}
-                        </button>
-                        <button
-                          type="button"
-                          class="link-btn"
-                          [disabled]="deletingId() === game.id"
-                          (click)="cancelDelete()"
-                        >
-                          Cancel
-                        </button>
-                      </span>
-                    } @else {
-                      <button
-                        type="button"
-                        class="link-btn link-btn--danger"
-                        [disabled]="deletingId() !== null"
-                        (click)="askDelete(game.id)"
-                      >
-                        Delete
-                      </button>
-                    }
+        <div class="game-list">
+          @for (game of inProgress(); track game.id) {
+            <article class="game-row" data-testid="game-row">
+              <div class="game-row__identity">
+                <div class="game-row__badges">
+                  <span class="badge">{{ game.mode }}</span
+                  ><span class="badge">{{ game.difficulty }}</span>
+                </div>
+                <h3>{{ game.currentPageTitle }}</h3>
+                <p>Started from {{ game.startPageTitle }}</p>
+              </div>
+              <dl class="game-row__metrics">
+                <div>
+                  <dt>
+                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks
+                  </dt>
+                  <dd>{{ game.clickCount }}</dd>
+                </div>
+                <div>
+                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Time</dt>
+                  <dd>{{ game.effectivePlayTimeMs | duration }}</dd>
+                </div>
+              </dl>
+              <div class="game-row__actions">
+                <a class="btn btn--secondary" [routerLink]="['/game', game.id]"
+                  ><ng-icon class="icon" name="lucidePlay" aria-hidden="true" />Resume</a
+                >
+                @if (confirmingId() === game.id) {
+                  <div class="confirm" role="group" aria-label="Confirm game deletion">
+                    <span>Delete this game?</span
+                    ><button
+                      type="button"
+                      class="link-btn link-btn--danger"
+                      [disabled]="deletingId() !== null"
+                      (click)="confirmDelete(game)"
+                    >
+                      {{ deletingId() === game.id ? 'Deleting…' : 'Delete' }}</button
+                    ><button
+                      type="button"
+                      class="link-btn"
+                      [disabled]="deletingId() === game.id"
+                      (click)="cancelDelete()"
+                    >
+                      Cancel
+                    </button>
                   </div>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
+                } @else {
+                  <button
+                    type="button"
+                    class="btn btn--quiet game-row__delete"
+                    [disabled]="deletingId() !== null"
+                    (click)="askDelete(game.id)"
+                  >
+                    <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />Delete
+                  </button>
+                }
+              </div>
+            </article>
+          }
+        </div>
       }
-    </div>
-
-    @if (statistics(); as s) {
-      <div class="card stack">
-        <h2>Your statistics</h2>
-        <ul class="stats">
-          <li>
-            <span>Completed games</span><strong>{{ s.completedGames }}</strong>
-          </li>
-          <li>
-            <span>In progress</span><strong>{{ s.inProgressGames }}</strong>
-          </li>
-          <li>
-            <span>Best CLICK</span
-            ><strong>{{ s.bestClick ? s.bestClick.clickCount + ' clicks' : '—' }}</strong>
-          </li>
-          <li>
-            <span>Best TIME</span
-            ><strong>{{ s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—' }}</strong>
-          </li>
-          <li>
-            <span>Average clicks</span><strong>{{ s.averageClicks ?? '—' }}</strong>
-          </li>
-          <li>
-            <span>Average time</span
-            ><strong>{{
-              s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—'
-            }}</strong>
-          </li>
-        </ul>
-      </div>
-    }
+    </section>
   }
 </section>

@@ -5,6 +5,13 @@ import { GamesService } from '../../../core/services/games.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { GameDifficulty, GameMode } from '../../../shared/models/game.model';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideArrowLeft,
+  lucideClock3,
+  lucideMousePointerClick,
+  lucidePlay,
+} from '@ng-icons/lucide';
 
 interface ModeOption {
   value: GameMode;
@@ -26,7 +33,8 @@ interface DifficultyOption {
 @Component({
   selector: 'app-new-game',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, RouterLink, ErrorBanner],
+  imports: [ReactiveFormsModule, RouterLink, ErrorBanner, NgIcon],
+  providers: [provideIcons({ lucideArrowLeft, lucideClock3, lucideMousePointerClick, lucidePlay })],
   templateUrl: './new-game.html',
   styleUrl: './new-game.css',
 })

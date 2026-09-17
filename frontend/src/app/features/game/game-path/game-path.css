@@ -1,37 +1,90 @@
 .path__list {
-  list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  list-style: none;
 }
-
 .path__item {
+  position: relative;
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: var(--space-2);
-  padding: var(--space-1) 0;
+  padding: 0.3rem 0 0.65rem 1rem;
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
-
+.path__item::before {
+  content: '';
+  position: absolute;
+  top: 0.72rem;
+  left: 0;
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 2px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+.path__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  bottom: -0.1rem;
+  left: 0.18rem;
+  width: 1px;
+  background: var(--color-border-strong);
+}
 .path__item--current {
   color: var(--color-text);
-  font-weight: 600;
+  font-weight: 700;
 }
-
+.path__item--current::before {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
 .path__title {
+  min-width: 0;
   overflow-wrap: anywhere;
 }
-
 .path__badge {
   flex: none;
-  font-size: 0.7rem;
-  text-transform: uppercase;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  color: var(--color-accent);
+  font-size: 0.62rem;
   letter-spacing: 0.04em;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius);
-  padding: 0 var(--space-1);
+  text-transform: uppercase;
+}
+@media (max-width: 899px) {
+  .path {
+    max-height: 9rem;
+    overflow-y: auto;
+  }
+  .path__list {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+  }
+  .path__item {
+    flex: 0 0 min(12rem, 45vw);
+    padding: 0.4rem 1.2rem 0.4rem 1rem;
+  }
+  .path__item:not(:last-child)::after {
+    top: 0.58rem;
+    right: 0;
+    bottom: auto;
+    left: 0.35rem;
+    width: calc(100% - 0.25rem);
+    height: 1px;
+  }
+  .path__item::before {
+    z-index: 1;
+    background: var(--color-surface);
+  }
+  .path__title,
+  .path__badge {
+    position: relative;
+    z-index: 2;
+    background: var(--color-surface);
+  }
 }

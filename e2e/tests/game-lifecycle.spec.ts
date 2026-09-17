@@ -41,10 +41,10 @@ test("delete an in-progress game from the dashboard", async ({ page, context }) 
   await expect(page.getByTestId("game-row")).toHaveCount(1);
 
   await page.getByRole("button", { name: "Delete" }).click();
-  await page.getByRole("button", { name: "Yes" }).click();
+  await page.getByRole("button", { name: "Delete", exact: true }).click();
 
   await expect(page.getByTestId("game-row")).toHaveCount(0);
-  await expect(page.getByText("No games in progress yet.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "No games in progress" })).toBeVisible();
 });
 
 test("the dashboard blocks a new game once the 10 in-progress limit is reached", async ({

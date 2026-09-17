@@ -70,7 +70,7 @@ describe('Dashboard', () => {
     flushLoad([game('g1'), game('g2')]);
 
     const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelectorAll('tbody tr')).toHaveLength(2);
+    expect(el.querySelectorAll('[data-testid="game-row"]')).toHaveLength(2);
     expect(el.textContent).toContain('In-progress games (2/10)');
     expect(el.textContent).toContain('Your statistics');
   });
@@ -81,7 +81,7 @@ describe('Dashboard', () => {
     const el = fixture.nativeElement as HTMLElement;
     expect(el.textContent).toContain('reached the 10-game limit');
     expect(el.querySelector('button.btn[disabled]')?.textContent).toContain('New game');
-    expect(el.querySelector('a.btn')).toBeNull();
+    expect(el.querySelector('.page-header a.btn')).toBeNull();
   });
 
   it('deletes an in-progress game after confirmation and drops the row', () => {

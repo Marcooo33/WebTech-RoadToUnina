@@ -1,34 +1,65 @@
-<section class="stack">
-  <div class="card stack">
-    <h1 class="page-title">Reach Federico II</h1>
-    <p>
-      Start from a random Italian Wikipedia article and navigate — using only the internal links
-      inside each article — to <strong>Università degli Studi di Napoli Federico II</strong>.
-    </p>
-    <p class="muted">
-      Play for the fewest clicks (CLICK mode) or the lowest effective time (TIME mode), across three
-      difficulty levels that change how much you can backtrack.
-    </p>
-    <div class="cta">
-      <a class="btn" routerLink="/register">Create an account</a>
-      <a class="btn btn--secondary" routerLink="/login">Log in</a>
+<section class="landing stack">
+  <div class="hero">
+    <div class="hero__copy">
+      <p class="eyebrow">The Wikipedia navigation game</p>
+      <h1>Reach Federico II through Wikipedia.</h1>
+      <p class="hero__lead">
+        Start from a random Italian Wikipedia article and reach
+        <strong>Università degli Studi di Napoli Federico II</strong> using only the links you find
+        along the way.
+      </p>
+      <div class="actions">
+        <a class="btn" routerLink="/register"
+          >Create an account <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
+        /></a>
+        <a class="btn btn--secondary" routerLink="/login">Log in</a>
+      </div>
+      <a class="hero__history" routerLink="/history">
+        <ng-icon class="icon" name="lucideHistory" aria-hidden="true" />
+        <span
+          ><strong>Explore ranked game history</strong
+          ><small>See completed routes and scores</small></span
+        >
+        <ng-icon class="icon hero__history-arrow" name="lucideArrowRight" aria-hidden="true" />
+      </a>
     </div>
+    <aside class="hero__route">
+      <ol>
+        <li><span>Storia</span></li>
+        <li><span>Napoli</span></li>
+        <li><span>Università</span></li>
+        <li class="hero__route-target"><span>Federico II</span></li>
+      </ol>
+      <p class="hero__route-note">Every link moves you one article closer.</p>
+    </aside>
   </div>
-
-  <div class="card stack">
-    <h2>How to play</h2>
-    <ul>
-      <li>Every game starts on a random article and ends when you reach the target page.</li>
-      <li>Only valid internal article links count as a move; the backend decides what is valid.</li>
+  <section class="how-to" aria-labelledby="how-to-title">
+    <div class="how-to__header">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-to-title">One destination. A different route every time.</h2>
+    </div>
+    <ol class="steps">
       <li>
-        <strong>EASY</strong>: unlimited backtracking. <strong>MEDIUM</strong>: 3 backtracks.
-        <strong>HARD</strong>: none.
+        <ng-icon name="lucideBookOpen" aria-hidden="true" />
+        <div>
+          <strong>Start anywhere</strong
+          ><span>A random Italian Wikipedia article begins every game.</span>
+        </div>
       </li>
-      <li>Backtracking never counts as a click.</li>
-      <li>Games are saved on the server — leave and resume any time, from any device.</li>
-    </ul>
-    <p class="muted">
-      Browse ranked <a routerLink="/history">completed-game History</a> without an account.
-    </p>
-  </div>
+      <li>
+        <ng-icon name="lucideMousePointerClick" aria-hidden="true" />
+        <div>
+          <strong>Follow the links</strong
+          ><span>Only valid internal article links move you forward.</span>
+        </div>
+      </li>
+      <li>
+        <ng-icon name="lucideFlag" aria-hidden="true" />
+        <div>
+          <strong>Reach the target</strong
+          ><span>Find Federico II in fewer clicks or less effective time.</span>
+        </div>
+      </li>
+    </ol>
+  </section>
 </section>

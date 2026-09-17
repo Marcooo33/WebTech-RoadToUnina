@@ -10,13 +10,24 @@ import { StatisticsDto } from '../../shared/models/stats.model';
 import { DurationPipe } from '../../shared/pipes/duration.pipe';
 import { ErrorBanner } from '../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../shared/components/loading-spinner/loading-spinner';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideClock3,
+  lucideMousePointerClick,
+  lucidePlay,
+  lucidePlus,
+  lucideTrash2,
+} from '@ng-icons/lucide';
 
 const IN_PROGRESS_LIMIT = 10;
 
 @Component({
   selector: 'app-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DurationPipe, ErrorBanner, LoadingSpinner],
+  imports: [RouterLink, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
+  providers: [
+    provideIcons({ lucideClock3, lucideMousePointerClick, lucidePlay, lucidePlus, lucideTrash2 }),
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

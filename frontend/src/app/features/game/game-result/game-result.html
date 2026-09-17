@@ -1,41 +1,44 @@
 @let g = game();
-
-<div class="card stack" data-testid="game-result">
-  <h2>Target reached 🎉</h2>
-  <p>
-    You reached <strong>{{ g.currentPageTitle }}</strong> from
-    <strong>{{ g.startPageTitle }}</strong
-    >.
-  </p>
-
-  <table class="table table--responsive">
-    <tbody>
-      <tr>
-        <th>Mode</th>
-        <td>{{ g.mode }}</td>
-      </tr>
-      <tr>
-        <th>Difficulty</th>
-        <td>{{ g.difficulty }}</td>
-      </tr>
-      <tr>
-        <th>Clicks</th>
-        <td>{{ g.clickCount }}</td>
-      </tr>
-      <tr>
-        <th>Backtracks</th>
-        <td>{{ g.backtrackCount }}</td>
-      </tr>
-      <tr>
-        <th>Effective time</th>
-        <td>{{ g.effectivePlayTimeMs | duration }}</td>
-      </tr>
-    </tbody>
-  </table>
-
+<section class="result card" data-testid="game-result">
+  <header class="result__header">
+    <ng-icon name="lucideCheckCircle2" aria-hidden="true" />
+    <div>
+      <p class="eyebrow">Route complete</p>
+      <h1>Target reached</h1>
+      <p>
+        You navigated from <strong>{{ g.startPageTitle }}</strong> to
+        <strong>{{ g.currentPageTitle }}</strong
+        >.
+      </p>
+    </div>
+  </header>
+  <dl class="result__metrics">
+    <div class="result__primary">
+      <dt>{{ g.mode === 'CLICK' ? 'Navigation clicks' : 'Effective time' }}</dt>
+      <dd>{{ g.mode === 'CLICK' ? g.clickCount : (g.effectivePlayTimeMs | duration) }}</dd>
+    </div>
+    <div>
+      <dt>{{ g.mode === 'CLICK' ? 'Effective time' : 'Navigation clicks' }}</dt>
+      <dd>{{ g.mode === 'CLICK' ? (g.effectivePlayTimeMs | duration) : g.clickCount }}</dd>
+    </div>
+    <div>
+      <dt>Backtracks</dt>
+      <dd>{{ g.backtrackCount }}</dd>
+    </div>
+    <div>
+      <dt>Challenge</dt>
+      <dd>
+        <span class="badge">{{ g.mode }}</span> <span class="badge">{{ g.difficulty }}</span>
+      </dd>
+    </div>
+  </dl>
   <div class="actions">
-    <a class="btn" routerLink="/">Back to dashboard</a>
-    <a class="btn btn--secondary" [routerLink]="['/history', g.id]">View in public history</a>
-    <a class="btn btn--secondary" routerLink="/history">History</a>
+    <a class="btn" [routerLink]="['/history', g.id]"
+      >View public game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" /></a
+    ><a class="btn btn--secondary" routerLink="/"
+      ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
+    ><a class="btn btn--quiet" routerLink="/history"
+      ><ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History</a
+    >
   </div>
-</div>
+</section>

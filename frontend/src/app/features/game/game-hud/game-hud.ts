@@ -1,6 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { GameDto } from '../../../shared/models/game.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideClock3,
+  lucideFlag,
+  lucideMousePointerClick,
+  lucideRotateCcw,
+} from '@ng-icons/lucide';
 
 const MEDIUM_BACKTRACK_LIMIT = 3;
 
@@ -13,7 +20,8 @@ const MEDIUM_BACKTRACK_LIMIT = 3;
 @Component({
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DurationPipe],
+  imports: [DurationPipe, NgIcon],
+  providers: [provideIcons({ lucideClock3, lucideFlag, lucideMousePointerClick, lucideRotateCcw })],
   templateUrl: './game-hud.html',
   styleUrl: './game-hud.css',
 })

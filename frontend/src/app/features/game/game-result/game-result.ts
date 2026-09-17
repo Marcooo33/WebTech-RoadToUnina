@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GameDto } from '../../../shared/models/game.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowRight, lucideCheckCircle2, lucideHistory, lucideHouse } from '@ng-icons/lucide';
 
 /**
  * Completion state for a game whose status is `COMPLETED`. Every value shown
@@ -11,8 +13,10 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 @Component({
   selector: 'app-game-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DurationPipe],
+  imports: [RouterLink, DurationPipe, NgIcon],
+  providers: [provideIcons({ lucideArrowRight, lucideCheckCircle2, lucideHistory, lucideHouse })],
   templateUrl: './game-result.html',
+  styleUrl: './game-result.css',
 })
 export class GameResult {
   readonly game = input.required<GameDto>();

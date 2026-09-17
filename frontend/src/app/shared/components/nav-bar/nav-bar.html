@@ -1,45 +1,67 @@
 <nav class="nav">
   <div class="nav__inner container">
-    <a class="nav__brand" routerLink="/" (click)="closeMenu()">ROADTOUNINA</a>
+    <a class="nav__brand" routerLink="/" (click)="closeMenu()" aria-label="ROADTOUNINA">
+      <span>ROAD<span>TO</span>UNINA</span>
+    </a>
 
     <button
       type="button"
       class="nav__toggle"
       [attr.aria-expanded]="menuOpen()"
+      aria-controls="primary-navigation"
       aria-label="Toggle navigation menu"
       (click)="toggleMenu()"
     >
-      <span></span><span></span><span></span>
+      <ng-icon class="icon" [name]="menuOpen() ? 'lucideX' : 'lucideMenu'" aria-hidden="true" />
     </button>
 
-    <div class="nav__links" [class.nav__links--open]="menuOpen()">
-      @if (isAuthenticated()) {
-        <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="closeMenu()"
-          >Dashboard</a
-        >
-      } @else {
-        <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="closeMenu()"
-          >Home</a
-        >
-      }
-      <a routerLink="/history" routerLinkActive="active" (click)="closeMenu()">History</a>
+    <div id="primary-navigation" class="nav__links" [class.nav__links--open]="menuOpen()">
+      <div class="nav__primary">
+        @if (isAuthenticated()) {
+          <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+            ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
+          >
+        } @else {
+          <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+            ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Home</a
+          >
+        }
+        <a routerLink="/history" routerLinkActive="active" (click)="closeMenu()">
+          <ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History
+        </a>
+      </div>
 
-      @if (isAuthenticated()) {
-        <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
-        <span class="nav__user">{{ user()?.username }}</span>
-        <button type="button" class="nav__logout" (click)="logout()">Log out</button>
-      } @else {
-        <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Log in</a>
-        <a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
-      }
+      <div class="nav__account">
+        @if (isAuthenticated()) {
+          <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">
+            <ng-icon class="icon" name="lucideUserRound" aria-hidden="true" />Profile
+          </a>
+          <span class="nav__user" [title]="user()?.username ?? ''">{{ user()?.username }}</span>
+          <button type="button" class="nav__logout" (click)="logout()">
+            <ng-icon class="icon" name="lucideLogOut" aria-hidden="true" />Log out
+          </button>
+        } @else {
+          <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">
+            <ng-icon class="icon" name="lucideLogIn" aria-hidden="true" />Log in
+          </a>
+          <a
+            class="nav__register"
+            routerLink="/register"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+          >
+            <ng-icon class="icon" name="lucideUserRoundPlus" aria-hidden="true" />Register
+          </a>
+        }
+      </div>
     </div>
   </div>
 </nav>

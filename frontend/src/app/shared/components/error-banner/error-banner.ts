@@ -6,17 +6,31 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (message()) {
-      <p class="error" role="alert">{{ message() }}</p>
+      <p class="error" role="alert"><span aria-hidden="true">!</span>{{ message() }}</p>
     }
   `,
   styles: `
     .error {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
       background: var(--color-danger-bg);
       border: 1px solid var(--color-danger-border);
       color: var(--color-danger-text);
       border-radius: var(--radius);
       padding: var(--space-3) var(--space-4);
       margin: var(--space-3) 0;
+    }
+    .error span {
+      display: grid;
+      flex: 0 0 1.35rem;
+      height: 1.35rem;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--color-danger-text);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 800;
     }
   `,
 })

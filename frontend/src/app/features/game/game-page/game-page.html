@@ -34,7 +34,7 @@
         <div class="game__layout">
           <main class="game__main">
             @if (busy() && article()) {
-              <app-loading-spinner label="Loading article…" />
+              <p class="game__transition" role="status">Opening the next article…</p>
             }
             @if (article(); as a) {
               <app-wikipedia-article

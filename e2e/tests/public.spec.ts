@@ -24,7 +24,7 @@ test("an anonymous user filters ranked History and opens a completed game", asyn
   const row = anonPage.locator("tbody tr", { hasText: user.username });
   await expect(row).toHaveCount(1);
 
-  await row.getByRole("link", { name: "Details" }).click();
+  await row.getByRole("link", { name: "View game" }).click();
   await expect(anonPage).toHaveURL(new RegExp(`/history/${game.id}$`));
   await expect(
     anonPage.getByRole("heading", { name: new RegExp(user.username) }),

@@ -1,5 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideHistory,
+  lucideHouse,
+  lucideLogIn,
+  lucideLogOut,
+  lucideMenu,
+  lucideUserRound,
+  lucideUserRoundPlus,
+  lucideX,
+} from '@ng-icons/lucide';
 import { AuthService } from '../../../core/auth/auth.service';
 
 /**
@@ -9,7 +20,19 @@ import { AuthService } from '../../../core/auth/auth.service';
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NgIcon],
+  providers: [
+    provideIcons({
+      lucideHistory,
+      lucideHouse,
+      lucideLogIn,
+      lucideLogOut,
+      lucideMenu,
+      lucideUserRound,
+      lucideUserRoundPlus,
+      lucideX,
+    }),
+  ],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 })

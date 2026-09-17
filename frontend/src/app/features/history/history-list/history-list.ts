@@ -11,6 +11,13 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { parseDifficulty, parseMode, parsePage } from '../../../shared/util/enum-params';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideArrowLeft,
+  lucideArrowRight,
+  lucideClock3,
+  lucideMousePointerClick,
+} from '@ng-icons/lucide';
 
 const PAGE_SIZE = 20;
 const DEFAULT_MODE: GameMode = 'CLICK';
@@ -29,7 +36,10 @@ interface HistorySelection {
 @Component({
   selector: 'app-history-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner],
+  imports: [RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
+  providers: [
+    provideIcons({ lucideArrowLeft, lucideArrowRight, lucideClock3, lucideMousePointerClick }),
+  ],
   templateUrl: './history-list.html',
   styleUrl: './history-list.css',
 })

@@ -1,0 +1,68 @@
+.result {
+  max-width: 800px;
+  margin: var(--space-6) auto;
+}
+.result__header {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+.result__header > ng-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex: none;
+  color: var(--color-success);
+}
+.result__header h1,
+.result__header p {
+  margin: 0;
+}
+.result__header h1 {
+  margin-top: var(--space-1);
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+}
+.result__header div > p:last-child {
+  margin-top: var(--space-3);
+  color: var(--color-muted);
+}
+.result__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+.result__metrics > div {
+  padding: var(--space-4);
+  border-left: 2px solid var(--color-border);
+}
+.result__metrics > .result__primary {
+  border-left-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+.result__metrics dt {
+  color: var(--color-muted);
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+.result__metrics dd {
+  margin: var(--space-1) 0 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.result__metrics dd .badge + .badge {
+  margin-top: var(--space-1);
+}
+@media (max-width: 700px) {
+  .result__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .result__header {
+    flex-direction: column;
+  }
+  .result .actions .btn {
+    width: 100%;
+  }
+}

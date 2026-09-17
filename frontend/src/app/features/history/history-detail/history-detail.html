@@ -1,87 +1,85 @@
-<section class="stack">
-  <p><a routerLink="/history">← All completed games</a></p>
-
+<section class="detail stack">
+  <a class="back-link" routerLink="/history"
+    ><ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />All completed games</a
+  >
   <app-error-banner [message]="error()" />
-
   @if (loading()) {
-    <app-loading-spinner label="Loading game…" />
+    <app-loading-spinner label="Loading completed game…" />
   } @else if (game(); as g) {
-    <h1 class="page-title">
-      {{ g.player?.username ?? 'Deleted user' }} · {{ g.mode }} / {{ g.difficulty }}
-    </h1>
-
-    <div class="card">
-      <table class="table table--responsive">
-        <tbody>
-          <tr>
-            <th>Player</th>
-            <td>{{ g.player?.username ?? 'Deleted user' }}</td>
-          </tr>
-          <tr>
-            <th>Mode</th>
-            <td>{{ g.mode }}</td>
-          </tr>
-          <tr>
-            <th>Difficulty</th>
-            <td>{{ g.difficulty }}</td>
-          </tr>
-          <tr>
-            <th>Clicks</th>
-            <td>{{ g.clickCount }}</td>
-          </tr>
-          <tr>
-            <th>Backtracks</th>
-            <td>{{ g.backtrackCount }}</td>
-          </tr>
-          <tr>
-            <th>Effective time</th>
-            <td>{{ g.effectivePlayTimeMs | duration }}</td>
-          </tr>
-          <tr>
-            <th>Start page</th>
-            <td>{{ g.startPageTitle }}</td>
-          </tr>
-          <tr>
-            <th>Completed</th>
-            <td>{{ g.completedAt | date: 'medium' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card stack">
-      <h2>Path</h2>
+    <header class="detail__header">
+      <div>
+        <p class="eyebrow">Completed route</p>
+        <h1 class="page-title">{{ g.player?.username ?? 'Deleted user' }}</h1>
+        <p class="muted">Completed {{ g.completedAt | date: 'medium' }}</p>
+      </div>
+      <div class="detail__badges">
+        <span class="badge">{{ g.mode }}</span
+        ><span class="badge">{{ g.difficulty }}</span>
+      </div>
+    </header>
+    <section class="route-summary" aria-label="Route summary">
+      <div>
+        <span>Started at</span><strong>{{ g.startPageTitle }}</strong>
+      </div>
+      <ng-icon name="lucideFlag" aria-hidden="true" />
+      <div><span>Reached</span><strong>Università degli Studi di Napoli Federico II</strong></div>
+    </section>
+    <dl class="detail__metrics">
+      <div [class.detail__metric--primary]="g.mode === 'CLICK'">
+        <dt><ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks</dt>
+        <dd>{{ g.clickCount }}</dd>
+      </div>
+      <div [class.detail__metric--primary]="g.mode === 'TIME'">
+        <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Effective time</dt>
+        <dd>{{ g.effectivePlayTimeMs | duration }}</dd>
+      </div>
+      <div>
+        <dt><ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Backtracks</dt>
+        <dd>{{ g.backtrackCount }}</dd>
+      </div>
+    </dl>
+    <section class="path-section">
+      <div class="section-heading">
+        <p class="eyebrow">The route</p>
+        <h2>Navigation path</h2>
+        <p class="muted">{{ g.path.length }} articles from start to target</p>
+      </div>
       <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Completed path" />
-    </div>
-
-    <div class="card stack">
-      <h2>Move history</h2>
+    </section>
+    <details class="moves-section">
+      <summary>
+        <span
+          ><strong>Move history</strong><small>{{ g.moves.length }} recorded actions</small></span
+        >
+      </summary>
       @if (g.moves.length === 0) {
         <p class="muted">No moves were recorded.</p>
       } @else {
-        <table class="table table--responsive moves">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Type</th>
-              <th>From</th>
-              <th>To</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (move of g.moves; track move.sequence) {
-              <tr [class.moves__row--backtrack]="move.type === 'BACKTRACK'">
-                <td>{{ move.sequence }}</td>
-                <td>{{ move.type }}</td>
-                <td>{{ move.fromPageTitle }}</td>
-                <td>{{ move.toPageTitle }}</td>
-                <td>{{ move.createdAt | date: 'short' }}</td>
+        <div class="moves-wrap">
+          <table class="table moves">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Time</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (move of g.moves; track move.sequence) {
+                <tr [class.moves__row--backtrack]="move.type === 'BACKTRACK'">
+                  <td>{{ move.sequence }}</td>
+                  <td>{{ move.type }}</td>
+                  <td>{{ move.fromPageTitle }}</td>
+                  <td>{{ move.toPageTitle }}</td>
+                  <td>{{ move.createdAt | date: 'short' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
-    </div>
+    </details>
   }
 </section>

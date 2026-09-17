@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideLogOut, lucideShield, lucideTrash2, lucideUserRound } from '@ng-icons/lucide';
 
 function passwordsMatch(control: AbstractControl): ValidationErrors | null {
   return control.get('newPassword')?.value === control.get('confirmPassword')?.value
@@ -28,7 +30,8 @@ function passwordsMatch(control: AbstractControl): ValidationErrors | null {
 @Component({
   selector: 'app-profile-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, DatePipe, ErrorBanner],
+  imports: [ReactiveFormsModule, DatePipe, ErrorBanner, NgIcon],
+  providers: [provideIcons({ lucideLogOut, lucideShield, lucideTrash2, lucideUserRound })],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })

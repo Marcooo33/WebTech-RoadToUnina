@@ -1,4 +1,4 @@
 .main {
-  padding-top: var(--space-6);
+  padding-top: clamp(var(--space-5), 4vw, var(--space-7));
   padding-bottom: var(--space-8);
 }

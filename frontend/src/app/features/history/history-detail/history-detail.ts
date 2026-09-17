@@ -8,6 +8,14 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { GamePath } from '../../game/game-path/game-path';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  lucideArrowLeft,
+  lucideClock3,
+  lucideFlag,
+  lucideMousePointerClick,
+  lucideRotateCcw,
+} from '@ng-icons/lucide';
 
 /**
  * Public completed-game detail (docs/api.md §6.2): the completed facts, the
@@ -17,7 +25,16 @@ import { LoadingSpinner } from '../../../shared/components/loading-spinner/loadi
 @Component({
   selector: 'app-history-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, DurationPipe, GamePath, ErrorBanner, LoadingSpinner],
+  imports: [RouterLink, DatePipe, DurationPipe, GamePath, ErrorBanner, LoadingSpinner, NgIcon],
+  providers: [
+    provideIcons({
+      lucideArrowLeft,
+      lucideClock3,
+      lucideFlag,
+      lucideMousePointerClick,
+      lucideRotateCcw,
+    }),
+  ],
   templateUrl: './history-detail.html',
   styleUrl: './history-detail.css',
 })
