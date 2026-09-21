@@ -75,7 +75,7 @@
           </thead>
           <tbody>
             @for (item of items; track item.gameId) {
-              <tr>
+              <tr [class.is-current-user]="currentUser()?.username === item.username">
                 <td class="rank" data-label="Rank">{{ item.rank }}</td>
                 <td class="player" data-label="Player">{{ item.username }}</td>
                 <td data-label="Clicks" [class.is-primary]="primaryMetric() === 'clicks'">

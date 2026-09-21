@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { EMPTY, catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs';
 import { HistoryService } from '../../../core/services/history.service';
+import { AuthService } from '../../../core/auth/auth.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { GameDifficulty, GameMode } from '../../../shared/models/game.model';
 import { HistoryEntryDto, HistoryListDto } from '../../../shared/models/history.model';
@@ -47,6 +48,7 @@ export class HistoryList {
   private readonly history = inject(HistoryService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  readonly currentUser = inject(AuthService).user;
 
   readonly modes: readonly GameMode[] = ['CLICK', 'TIME'];
   readonly difficulties: readonly GameDifficulty[] = ['EASY', 'MEDIUM', 'HARD'];

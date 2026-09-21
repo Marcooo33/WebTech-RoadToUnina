@@ -86,6 +86,10 @@
 .ranking tbody tr:hover {
   background: var(--color-surface-subtle);
 }
+.ranking tbody tr.is-current-user,
+.ranking tbody tr.is-current-user:hover {
+  background: var(--color-accent-soft);
+}
 .ranking tbody tr:has(.view a:focus-visible) {
   z-index: 1;
   outline: 2px solid var(--color-surface);
