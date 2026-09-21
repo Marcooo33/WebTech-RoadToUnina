@@ -7,7 +7,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { GamesService } from '../../core/services/games.service';
@@ -52,6 +52,7 @@ export class Dashboard implements OnInit {
   private readonly auth = inject(AuthService);
   private readonly games = inject(GamesService);
   private readonly stats = inject(StatsService);
+  private readonly router = inject(Router);
 
   readonly user = this.auth.user;
   readonly limit = IN_PROGRESS_LIMIT;
@@ -112,6 +113,23 @@ export class Dashboard implements OnInit {
 
   toggleCompleted(): void {
     this.showAllCompleted.update((showAll) => !showAll);
+  }
+
+  openGame(event: Event, game: GameListItemDto): void {
+    if (event.target instanceof Element && event.target.closest('a, button')) {
+      return;
+    }
+
+    void this.router.navigate([game.status === 'COMPLETED' ? '/history' : '/game', game.id]);
+  }
+
+  openGameFromKeyboard(event: Event, game: GameListItemDto): void {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    event.preventDefault();
+    this.openGame(event, game);
   }
 
   askDelete(gameId: string): void {

@@ -99,6 +99,15 @@
 .game-row:hover {
   background: var(--color-surface-subtle);
 }
+.game-row--clickable {
+  cursor: pointer;
+}
+.game-row--clickable:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--color-surface);
+  box-shadow: inset var(--focus-ring);
+}
 .game-row__identity {
   min-width: 0;
 }

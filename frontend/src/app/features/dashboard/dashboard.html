@@ -90,7 +90,16 @@
       } @else {
         <div class="game-list">
           @for (game of inProgress(); track game.id) {
-            <article class="game-row" data-testid="game-row">
+            <article
+              class="game-row game-row--clickable"
+              data-testid="game-row"
+              role="link"
+              tabindex="0"
+              [attr.aria-label]="'Resume game from ' + game.currentPageTitle"
+              (click)="openGame($event, game)"
+              (keydown.enter)="openGameFromKeyboard($event, game)"
+              (keydown.space)="openGameFromKeyboard($event, game)"
+            >
               <div class="game-row__identity">
                 <div class="game-row__badges">
                   <span class="badge">{{ game.mode }}</span
@@ -165,7 +174,16 @@
       } @else {
         <div class="game-list">
           @for (game of visibleCompleted(); track game.id) {
-            <article class="game-row" data-testid="completed-game-row">
+            <article
+              class="game-row game-row--clickable"
+              data-testid="completed-game-row"
+              role="link"
+              tabindex="0"
+              [attr.aria-label]="'View completed game from ' + game.startPageTitle"
+              (click)="openGame($event, game)"
+              (keydown.enter)="openGameFromKeyboard($event, game)"
+              (keydown.space)="openGameFromKeyboard($event, game)"
+            >
               <div class="game-row__identity">
                 <div class="game-row__badges">
                   <span class="badge">{{ game.mode }}</span
