@@ -511,23 +511,21 @@ Secrets belong in `.env`, while `.env.example` contains placeholders only.
 
 ### Test databases (never Supabase)
 
-Automated tests never touch the Supabase database. Both test suites run against a
-single local Docker PostgreSQL 17 instance (`e2e/docker-compose.yml`, host port
-`55432`) holding two **separate** databases:
+Automated tests never touch the Supabase database. The Playwright E2E suite runs
+against a local Docker PostgreSQL 17 instance (`e2e/docker-compose.yml`, host port
+`55432`) holding a dedicated `roadtounina_e2e` database:
 
 ```text
 Supabase PostgreSQL        -> application / production
 Local Docker PostgreSQL
-  ├── roadtounina_e2e         -> Playwright E2E suite  (e2e/)
-  └── roadtounina_integration -> backend integration suite (backend/tests/)
+  └── roadtounina_e2e         -> Playwright E2E suite  (e2e/)
 ```
 
-Both databases are schema-managed the same way as production: `prisma migrate
-deploy` against the target `DATABASE_URL`. Each suite has a positive allow-list
-guard (`e2e/support/db.ts`, `backend/tests/support/db.ts`) that aborts before any
-migration or destructive query unless the connection string is exactly its own
-local database — so a suite can never migrate or delete data in Supabase or in
-the other suite's database.
+The database is schema-managed the same way as production: `prisma migrate
+deploy` against the target `DATABASE_URL`. The suite has a positive allow-list
+guard (`e2e/support/db.ts`) that aborts before any migration or destructive
+query unless the connection string is exactly the local database — so it can
+never migrate or delete data in Supabase.
 
 ---
 
