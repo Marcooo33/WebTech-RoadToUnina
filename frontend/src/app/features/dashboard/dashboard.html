@@ -150,5 +150,58 @@
         </div>
       }
     </section>
+    <section class="games card" aria-labelledby="completed-games-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Completed games</p>
+          <h2 id="completed-games-title">Completed games</h2>
+        </div>
+        <span class="games__count">{{ completed().length }}</span>
+      </div>
+      @if (completed().length === 0) {
+        <div class="completed-empty">
+          <p class="muted">No completed games yet.</p>
+        </div>
+      } @else {
+        <div class="game-list">
+          @for (game of visibleCompleted(); track game.id) {
+            <article class="game-row" data-testid="completed-game-row">
+              <div class="game-row__identity">
+                <div class="game-row__badges">
+                  <span class="badge">{{ game.mode }}</span
+                  ><span class="badge">{{ game.difficulty }}</span>
+                </div>
+                <h3>{{ game.startPageTitle }}</h3>
+                <p>Completed {{ game.completedAt | date: 'short' }}</p>
+              </div>
+              <dl class="game-row__metrics">
+                <div>
+                  <dt>
+                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks
+                  </dt>
+                  <dd>{{ game.clickCount }}</dd>
+                </div>
+                <div>
+                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Time</dt>
+                  <dd>{{ game.effectivePlayTimeMs | duration }}</dd>
+                </div>
+              </dl>
+              <div class="game-row__actions">
+                <a class="btn btn--secondary" [routerLink]="['/history', game.id]"
+                  >View details<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
+                /></a>
+              </div>
+            </article>
+          }
+        </div>
+        @if (completed().length > 5) {
+          <div class="completed-toggle">
+            <button type="button" class="btn btn--quiet" (click)="toggleCompleted()">
+              {{ showAllCompleted() ? 'Show recent only' : 'View all completed games' }}
+            </button>
+          </div>
+        }
+      }
+    </section>
   }
 </section>

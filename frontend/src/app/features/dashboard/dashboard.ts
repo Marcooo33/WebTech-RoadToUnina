@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
@@ -17,16 +25,25 @@ import {
   lucidePlay,
   lucidePlus,
   lucideTrash2,
+  lucideArrowRight,
 } from '@ng-icons/lucide';
 
 const IN_PROGRESS_LIMIT = 10;
+const RECENT_COMPLETED_LIMIT = 5;
 
 @Component({
   selector: 'app-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
+  imports: [RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
   providers: [
-    provideIcons({ lucideClock3, lucideMousePointerClick, lucidePlay, lucidePlus, lucideTrash2 }),
+    provideIcons({
+      lucideArrowRight,
+      lucideClock3,
+      lucideMousePointerClick,
+      lucidePlay,
+      lucidePlus,
+      lucideTrash2,
+    }),
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
@@ -42,7 +59,12 @@ export class Dashboard implements OnInit {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly inProgress = signal<GameListItemDto[]>([]);
+  readonly completed = signal<GameListItemDto[]>([]);
+  readonly showAllCompleted = signal(false);
   readonly statistics = signal<StatisticsDto | null>(null);
+  readonly visibleCompleted = computed(() =>
+    this.showAllCompleted() ? this.completed() : this.completed().slice(0, RECENT_COMPLETED_LIMIT),
+  );
 
   /** Id of the game whose inline "delete?" confirmation is currently shown. */
   readonly confirmingId = signal<string | null>(null);
@@ -67,11 +89,17 @@ export class Dashboard implements OnInit {
       this.loading.set(true);
     }
     forkJoin({
-      games: this.games.list('IN_PROGRESS'),
+      inProgress: this.games.list('IN_PROGRESS'),
+      completed: this.games.list('COMPLETED'),
       stats: this.stats.get(),
     }).subscribe({
-      next: ({ games, stats }) => {
-        this.inProgress.set(games);
+      next: ({ inProgress, completed, stats }) => {
+        this.inProgress.set(inProgress);
+        this.completed.set(
+          [...completed].sort(
+            (a, b) => Date.parse(b.completedAt ?? '') - Date.parse(a.completedAt ?? ''),
+          ),
+        );
         this.statistics.set(stats);
         this.loading.set(false);
       },
@@ -80,6 +108,10 @@ export class Dashboard implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  toggleCompleted(): void {
+    this.showAllCompleted.update((showAll) => !showAll);
   }
 
   askDelete(gameId: string): void {
