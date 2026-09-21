@@ -9,6 +9,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:check": "tsx src/scripts/db-check.ts",
+    "db:seed-demo": "tsx src/scripts/seed-demo/seed-production-demo.ts",
     "test": "node --import tsx --test \"src/**/*.test.ts\"",
     "prisma:generate": "prisma generate"
   },
