@@ -1,11 +1,15 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  Injector,
   OnInit,
   computed,
   inject,
   input,
   signal,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -66,6 +70,8 @@ export class GamePage implements OnInit {
   private readonly games = inject(GamesService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly router = inject(Router);
+  private readonly injector = inject(Injector);
+  private readonly articleStart = viewChild<ElementRef<HTMLElement>>('articleStart');
 
   /** `game/:id` path parameter (router input binding). */
   readonly id = input.required<string>();
@@ -90,6 +96,9 @@ export class GamePage implements OnInit {
   private baselineEffectiveMs = 0;
   /** `Date.now()` captured when `baselineEffectiveMs` was set (0 = not yet). */
   private baselineClientTs = 0;
+  /** Last article for which the viewport position was handled. Kept separately
+   *  because a transient fetch error may clear `article` before retrying it. */
+  private lastDisplayedArticlePageId: number | null = null;
 
   private readonly tick = signal(Date.now());
 
@@ -377,11 +386,25 @@ export class GamePage implements OnInit {
   }
 
   private applyPreparedArticle(dto: ArticleDto): void {
+    const isNewPage = dto.pageId !== this.lastDisplayedArticlePageId;
+
     this.article.set({
       pageId: dto.pageId,
       title: dto.title,
       html: this.trustArticleHtml(dto.contentHtml),
     });
+
+    if (isNewPage) {
+      this.lastDisplayedArticlePageId = dto.pageId;
+      afterNextRender(
+        () =>
+          this.articleStart()?.nativeElement.scrollIntoView({
+            behavior: 'instant',
+            block: 'start',
+          }),
+        { injector: this.injector },
+      );
+    }
   }
 
   private freezeTimer(): void {

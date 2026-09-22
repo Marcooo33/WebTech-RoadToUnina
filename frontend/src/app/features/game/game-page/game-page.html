@@ -32,7 +32,7 @@
     @case ('playing') {
       @if (game(); as g) {
         <div class="game__layout">
-          <main class="game__main">
+          <main #articleStart class="game__main">
             @if (busy() && article()) {
               <p class="game__transition" role="status">Opening the next article…</p>
             }
