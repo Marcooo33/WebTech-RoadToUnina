@@ -11,12 +11,10 @@ import {
 
 const MEDIUM_BACKTRACK_LIMIT = 3;
 
-/**
- * Game HUD: mode, difficulty, the (display-only) effective timer, click count
- * and the backtracking status/control. The backend stays authoritative for
- * whether a backtrack is actually allowed; the button only reflects state the
- * client already knows so obviously-invalid requests are not sent.
- */
+// Mode, difficulty, the display-only effective timer, click count and the
+// backtracking control. The backend stays authoritative for whether a
+// backtrack is actually allowed; the button just avoids obviously-invalid
+// requests using state the client already has.
 @Component({
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,14 +25,14 @@ const MEDIUM_BACKTRACK_LIMIT = 3;
 })
 export class GameHud {
   readonly game = input.required<GameDto>();
-  /** Milliseconds to display; owned and computed by {@link GamePage}. */
+  // Milliseconds to display; owned and computed by GamePage.
   readonly displayTimeMs = input.required<number>();
-  /** A gameplay mutation (move/backtrack) is in flight. */
+  // A gameplay mutation (move/backtrack) is in flight.
   readonly busy = input(false);
 
   readonly backtrack = output<void>();
 
-  /** Remaining MEDIUM backtracks, never negative. */
+  // Remaining MEDIUM backtracks, never negative.
   readonly backtracksLeft = computed(() =>
     Math.max(0, MEDIUM_BACKTRACK_LIMIT - this.game().backtrackCount),
   );

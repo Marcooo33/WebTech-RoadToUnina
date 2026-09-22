@@ -1,7 +1,6 @@
 import { GameDifficulty, GameMode, GameMoveDto, PageRef } from './game.model';
 import { UserSummaryDto } from './user.model';
 
-/** Ranked item in a paginated public History view. */
 export interface HistoryEntryDto {
   rank: number;
   gameId: string;
@@ -11,7 +10,7 @@ export interface HistoryEntryDto {
   completedAt: string;
 }
 
-/** Public detail of a completed game (docs/api.md §3.10). */
+// Full detail of one completed game, shown on the public history page.
 export interface CompletedGameDetailDto {
   gameId: string;
   mode: GameMode;
@@ -27,7 +26,8 @@ export interface CompletedGameDetailDto {
   player: UserSummaryDto | null;
 }
 
-/** Paginated public History view, ordered according to its mode. */
+// Paginated ranking for one mode/difficulty pair: sorted by clicks for CLICK,
+// by effective time for TIME.
 export interface HistoryListDto {
   mode: GameMode;
   difficulty: GameDifficulty;
@@ -38,7 +38,6 @@ export interface HistoryListDto {
   totalPages: number;
 }
 
-/** Query parameters accepted by a mode-specific History collection endpoint. */
 export interface HistoryListQuery {
   difficulty: GameDifficulty;
   page?: number;

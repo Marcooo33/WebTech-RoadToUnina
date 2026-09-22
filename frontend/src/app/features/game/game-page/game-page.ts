@@ -34,23 +34,17 @@ interface RenderedArticle {
   html: SafeHtml;
 }
 
-/** Keep-alive cadence. The heartbeat only advances a timestamp on the game, so
- *  ~12s (docs/api.md §6) bounds how much pre-crash time can be lost while adding
- *  negligible load. */
+// Keep-alive cadence. The heartbeat only advances a timestamp on the game, so
+// ~12s bounds how much pre-crash time can be lost, without adding real load.
 const HEARTBEAT_INTERVAL_MS = 12_000;
 const TIMER_TICK_MS = 1_000;
 
-/**
- * Gameplay orchestrator. Owns the authoritative game/article state and every API
- * call; the child components are presentational.
- *
- * Authority rules (AGENTS.md §5, docs/game-rules.md §20): this component only
- * *requests* actions (navigate to a page id, backtrack, heartbeat). Counters,
- * timing, completion and validation are decided by the backend; every
- * authoritative value shown here comes from a server response. The displayed
- * timer is animated locally for smoothness and is never sent back — the backend
- * remains authoritative for the persisted/final effective play time.
- */
+// Gameplay orchestrator: owns the authoritative game/article state and every
+// API call, the child components are presentational. This component only
+// requests actions (navigate, backtrack, heartbeat); counters, timing,
+// completion and move validation are all decided by the backend. The
+// displayed timer is animated locally for smoothness and never sent back,
+// the backend stays authoritative for the persisted effective play time.
 @Component({
   selector: 'app-game-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,37 +67,37 @@ export class GamePage implements OnInit {
   private readonly injector = inject(Injector);
   private readonly articleStart = viewChild<ElementRef<HTMLElement>>('articleStart');
 
-  /** `game/:id` path parameter (router input binding). */
+  // game/:id path parameter (router input binding).
   readonly id = input.required<string>();
 
   readonly phase = signal<Phase>('loading');
   readonly game = signal<GameDto | null>(null);
   readonly article = signal<RenderedArticle | null>(null);
-  /** Hard, non-recoverable error. */
+  // Hard, non-recoverable error.
   readonly error = signal<string | null>(null);
-  /** Transient banner for a recoverable condition (auto-cleared on next action). */
+  // Transient banner for a recoverable condition, cleared on the next action.
   readonly notice = signal<string | null>(null);
-  /** A gameplay mutation or an article fetch is in flight. */
+  // A gameplay mutation or an article fetch is in flight.
   readonly busy = signal(false);
-  /** Display value captured when a server-controlled article transition starts. */
+  // Display value captured when a server-controlled article transition starts.
   private readonly frozenTimeMs = signal<number | null>(null);
-  /** Show a "retry" affordance for a failed article fetch. */
+  // Show a "retry" affordance for a failed article fetch.
   readonly wikipediaRetry = signal(false);
 
-  /** Effective-time baseline: `effectivePlayTimeMs` confirmed by the server when
-   *  the game was (re)loaded. The backend has just (re)started the play interval,
-   *  so this is current as of `baselineClientTs`. */
+  // effectivePlayTimeMs confirmed by the server on the last (re)load. The
+  // backend just (re)started the play interval, so this is current as of
+  // baselineClientTs.
   private baselineEffectiveMs = 0;
-  /** `Date.now()` captured when `baselineEffectiveMs` was set (0 = not yet). */
+  // Date.now() captured when baselineEffectiveMs was set (0 = not yet).
   private baselineClientTs = 0;
-  /** Last article for which the viewport position was handled. Kept separately
-   *  because a transient fetch error may clear `article` before retrying it. */
+  // Last article whose viewport position was handled. Kept separate from
+  // `article` because a transient fetch error can clear that before a retry.
   private lastDisplayedArticlePageId: number | null = null;
 
   private readonly tick = signal(Date.now());
 
-  /** Display-only effective time: server baseline + wall-clock delta while
-   *  playing, frozen at the server's finalized value otherwise. Never sent back. */
+  // Display-only effective time: server baseline plus wall-clock delta while
+  // playing, frozen at the server's finalized value otherwise. Never sent back.
   readonly displayTimeMs = computed(() => {
     const game = this.game();
     if (!game) return 0;
@@ -198,10 +192,8 @@ export class GamePage implements OnInit {
 
   // --- Load / reconcile -------------------------------------------------
 
-  /**
-   * Loads the game and its already-prepared article in one response. The backend
-   * starts the resumed interval only after that article is ready.
-   */
+  // Loads the game and its already-prepared article in one response. The
+  // backend starts the resumed interval only after that article is ready.
   private load(): void {
     this.phase.set('loading');
     this.error.set(null);
@@ -236,8 +228,8 @@ export class GamePage implements OnInit {
       next: (dto) => {
         const game = this.game();
         if (!game || dto.pageId !== game.currentPageId) {
-          // The game moved on between the two requests — reload once so game and
-          // article are consistent again.
+          // The game moved on between the two requests, reload once so game
+          // and article are consistent again.
           this.load();
           return;
         }
@@ -279,8 +271,8 @@ export class GamePage implements OnInit {
         this.load();
         return;
       default: {
-        // Transient: upstream Wikipedia (502), network, or a proxy 5xx. The game
-        // state is intact — surface a retry rather than a dead spinner.
+        // Transient: upstream Wikipedia (502), network, or a proxy 5xx. The
+        // game state is intact, so surface a retry instead of a dead spinner.
         const message =
           err.code === 'WIKIPEDIA_UNAVAILABLE'
             ? 'Wikipedia is temporarily unavailable.'
@@ -303,12 +295,12 @@ export class GamePage implements OnInit {
 
     switch (err.code) {
       case 'GAME_NOT_IN_PROGRESS':
-        // The game completed or changed elsewhere — reconcile with the server.
+        // The game completed or changed elsewhere, reconcile with the server.
         this.load();
         return;
       case 'GAME_STATE_CHANGED':
-        // Another request committed while this action's article was prepared.
-        // Reload the coherent authoritative game/article pair.
+        // Another request committed while this action's article was being
+        // prepared. Reload the coherent authoritative game/article pair.
         this.load();
         return;
       case 'INVALID_MOVE':
@@ -333,7 +325,6 @@ export class GamePage implements OnInit {
 
   // --- State synchronization helpers ---------------------------------
 
-  /** Applies a complete authoritative {@link GameDto}. */
   private applyGame(game: GameDto): void {
     this.game.set(game);
     if (game.status === 'COMPLETED') {
@@ -361,9 +352,9 @@ export class GamePage implements OnInit {
     }
     this.games.heartbeat(this.id()).subscribe({
       error: (err: ApiError) => {
-        // Network / transient failures are non-fatal — the next heartbeat retries
-        // and gameplay is unaffected. Only an explicit "not in progress" means
-        // the client's view is stale and must be reconciled.
+        // Network/transient failures are non-fatal: the next heartbeat
+        // retries and gameplay is unaffected. Only an explicit "not in
+        // progress" means the client's view is stale and needs reconciling.
         if (err.code === 'GAME_NOT_IN_PROGRESS') {
           this.load();
         }
@@ -371,17 +362,14 @@ export class GamePage implements OnInit {
     });
   }
 
+  // Trust boundary: contentHtml is only trusted because it comes from our
+  // own backend, which already ran it through a strict server-side
+  // sanitizer (tag allowlist, hrefs stripped, image URLs validated) before
+  // it gets here. Angular's own sanitizer is bypassed only so it doesn't
+  // strip the data-page-title attributes that drive in-app navigation.
+  // Never call this with raw MediaWiki HTML or anything else that didn't
+  // come through our API.
   private trustArticleHtml(contentHtml: string): SafeHtml {
-    // SECURITY TRUST BOUNDARY.
-    // `contentHtml` comes from ArticleDto returned by the ROADTOUNINA backend,
-    // which fetches the MediaWiki article and runs it through a strict
-    // server-side sanitizer (tag allowlist, every href removed, validated HTTPS images)
-    // before it is ever sent here (docs/architecture.md §8–9, AGENTS.md §11).
-    // We bypass Angular's sanitizer only so it does not strip the backend's
-    // `data-page-title` attributes, which drive in-sandbox
-    // navigation.
-    // NEVER pass raw MediaWiki HTML, or any other external / user-provided HTML,
-    // through this bypass — only ArticleDto.contentHtml from our own API.
     return this.sanitizer.bypassSecurityTrustHtml(contentHtml);
   }
 

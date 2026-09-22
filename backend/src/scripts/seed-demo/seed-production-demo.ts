@@ -1,5 +1,5 @@
 /**
- * Production demo seed — manually invoked, destructive to application DATA only.
+ * Production demo seed. Manually invoked, destructive to application DATA only.
  *
  *   npm run db:seed-demo -- --dry-run     validate everything, touch no database
  *   ALLOW_PRODUCTION_DEMO_SEED=true npm run db:seed-demo
@@ -199,9 +199,9 @@ function buildGames(users: readonly BuiltUser[], routes: Awaited<ReturnType<type
  * One transaction: the TRUNCATE and every insert succeed or fail together, so a
  * failed insertion can never leave the database empty.
  *
- * `TRUNCATE ... CASCADE` deletes rows only — tables, constraints, indexes and
+ * `TRUNCATE ... CASCADE` deletes rows only: tables, constraints, indexes and
  * the `_prisma_migrations` history are untouched. `RESTART IDENTITY` is
- * pointless here: every primary key is a uuid, there is no serial column.
+ * pointless here since every primary key is a uuid, not a serial column.
  */
 async function resetAndInsert(
   users: readonly BuiltUser[],

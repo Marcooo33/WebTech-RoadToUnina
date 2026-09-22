@@ -8,12 +8,8 @@ interface BackendErrorBody {
   error?: { code?: string; message?: string };
 }
 
-/**
- * Converts every failed HTTP response into an {@link ApiError} with the stable
- * `{ error: { code, message } }` shape from docs/api.md §2.5, so components
- * never touch `HttpErrorResponse` directly. A `401` additionally resets local
- * auth state.
- */
+// Converts every failed HTTP response into an ApiError so components never
+// touch HttpErrorResponse directly. A 401 also resets local auth state.
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
 
@@ -21,7 +17,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: unknown) => {
       const apiError = toApiError(error);
 
-      // A rejected/expired session — drop local auth state so the UI reflects it.
+      // Rejected/expired session: drop local auth state so the UI reflects it.
       if (apiError.status === 401 && apiError.code === 'AUTHENTICATION_REQUIRED') {
         auth.clearUser();
       }

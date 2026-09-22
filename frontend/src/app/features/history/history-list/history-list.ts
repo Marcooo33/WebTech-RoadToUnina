@@ -30,10 +30,8 @@ interface HistorySelection {
   page: number;
 }
 
-/**
- * Public completed-game History uses two ranked views, with selection and
- * pagination persisted in the URL.
- */
+// Public completed-game history: two ranked views, with selection and
+// pagination persisted in the URL query params.
 @Component({
   selector: 'app-history-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,7 +64,7 @@ export class HistoryList {
     this.selection().mode === 'TIME' ? 'time' : 'clicks',
   );
 
-  /** Derived paging summary for the template (`Page X, showing N–M of total`). */
+  // Derived paging summary for the template ("Page X, showing N-M of total").
   readonly pagination = computed(() => {
     const res = this.result();
     if (!res) return null;
@@ -81,7 +79,7 @@ export class HistoryList {
       total: res.total,
       hasPrev: res.page > 1,
       hasNext: res.page < totalPages,
-      // Clamp Previous so a stale/over-range `?page=` still lands on a real page.
+      // Clamp Previous so a stale/over-range ?page= still lands on a real page.
       prevPage: Math.max(1, Math.min(res.page - 1, totalPages)),
       nextPage: res.page + 1,
     };
@@ -137,8 +135,8 @@ export class HistoryList {
             })
             .pipe(
               catchError((err: ApiError) => {
-                // Drop the previous page: the filter controls already reflect the
-                // new selection, so stale rows/pager under the error banner would
+                // Drop the previous page: the filter controls already show the
+                // new selection, so stale rows under the error banner would
                 // be misleading.
                 this.result.set(null);
                 this.error.set(err.message);

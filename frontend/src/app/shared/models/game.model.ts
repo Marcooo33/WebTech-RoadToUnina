@@ -1,16 +1,13 @@
-/** Enum string values, uppercase, per docs/api.md §2.8. */
 export type GameMode = 'CLICK' | 'TIME';
 export type GameDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
 export type GameStatus = 'IN_PROGRESS' | 'COMPLETED';
 export type GameMoveType = 'NAVIGATION' | 'BACKTRACK';
 
-/** A reference to a Wikipedia page on the active path (docs/api.md §3.3). */
 export interface PageRef {
   pageId: number;
   title: string;
 }
 
-/** A single chronological game event (docs/api.md §3.4). */
 export interface GameMoveDto {
   sequence: number;
   type: GameMoveType;
@@ -21,7 +18,6 @@ export interface GameMoveDto {
   createdAt: string;
 }
 
-/** Item in the current user's game list (docs/api.md §3.5). */
 export interface GameListItemDto {
   id: string;
   mode: GameMode;
@@ -37,7 +33,7 @@ export interface GameListItemDto {
   completedAt: string | null;
 }
 
-/** Full representation of an owned game, used to resume (docs/api.md §3.6). */
+// Full game state, used to resume a game after a refresh.
 export interface GameDto {
   id: string;
   mode: GameMode;
@@ -49,9 +45,9 @@ export interface GameDto {
   currentPageTitle: string;
   clickCount: number;
   backtrackCount: number;
-  /** Finalized effective play time (ms). Authoritative; the HUD only animates it. */
+  // Authoritative, server-computed; the HUD timer only animates from here.
   effectivePlayTimeMs: number;
-  /** Start of the current play interval for an in-progress game; `null` otherwise. */
+  // Start of the current play interval while IN_PROGRESS, null otherwise.
   playStartedAt: string | null;
   startedAt: string;
   completedAt: string | null;
@@ -60,7 +56,6 @@ export interface GameDto {
   moves: GameMoveDto[];
 }
 
-/** Authoritative game state plus the article already prepared by the backend. */
 export interface PreparedGameStateDto {
   game: GameDto;
   article: import('./article.model').ArticleDto | null;

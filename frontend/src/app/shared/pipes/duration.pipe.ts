@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-/**
- * Formats an effective-play-time value (milliseconds, backend-authoritative)
- * as `H:MM:SS` or `M:SS`. Display only — never sent back to the server.
- */
+// Formats a backend-authoritative duration (ms) as H:MM:SS or M:SS.
+// Display only, never sent back to the server.
 @Pipe({ name: 'duration' })
 export class DurationPipe implements PipeTransform {
   transform(ms: number | null | undefined): string {

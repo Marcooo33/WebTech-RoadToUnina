@@ -19,7 +19,8 @@ const BEST_RESULT_SELECT = {
   completedAt: true,
 } satisfies Prisma.GameSelect;
 
-/** Maps a best-result query row to its DTO. Pure — unit tested without a DB. */
+// Maps a best-result query row to its DTO. Pure, so it's unit tested without
+// touching the database.
 export function toBestResult(row: BestResultRow | null): BestResultDto | null {
   if (!row) {
     return null;
@@ -43,8 +44,8 @@ export function toBestResult(row: BestResultRow | null): BestResultDto | null {
   };
 }
 
-/** Rounds a Prisma `_avg` result to `decimals` places; `null` passes through
- * (no completed games in that mode — docs/api.md §3.13). */
+// Rounds a Prisma `_avg` result to `decimals` places. `null` passes through
+// unchanged, meaning the user has no completed games in that mode.
 export function roundAverage(
   value: number | null | undefined,
   decimals: number,

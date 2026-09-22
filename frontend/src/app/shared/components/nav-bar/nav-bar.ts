@@ -13,10 +13,8 @@ import {
 } from '@ng-icons/lucide';
 import { AuthService } from '../../../core/auth/auth.service';
 
-/**
- * Top-level application navigation. Link set depends on authentication state
- * (`AuthService.isAuthenticated`). Collapses to a toggle menu below 720px.
- */
+// Top-level navigation. Link set depends on auth state, collapses to a
+// toggle menu below 720px.
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,

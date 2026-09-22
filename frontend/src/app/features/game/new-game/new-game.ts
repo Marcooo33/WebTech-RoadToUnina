@@ -25,11 +25,8 @@ interface DifficultyOption {
   backtracking: string;
 }
 
-/**
- * Game creation screen (Milestone 13). Only `mode` and `difficulty` are chosen
- * here; the backend selects the random starting page and owns every other
- * value. On success the user is taken straight to the game route.
- */
+// Game creation screen. Only mode and difficulty are chosen here; the
+// backend picks the random starting page and owns every other value.
 @Component({
   selector: 'app-new-game',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -88,7 +85,7 @@ export class NewGame {
     this.games.create(mode, difficulty).subscribe({
       next: (game) => {
         this.router.navigate(['/game', game.id]).catch(() => {
-          // The game exists on the server; only the client-side navigation failed.
+          // The game exists on the server, only the client-side navigation failed.
           this.submitting.set(false);
           this.error.set(
             'The game was created but could not be opened. Open it from your dashboard.',

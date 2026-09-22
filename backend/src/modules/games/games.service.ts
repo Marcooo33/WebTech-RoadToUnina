@@ -66,13 +66,9 @@ function sameInstant(left: Date | null, right: Date | null): boolean {
   return left?.getTime() === right?.getTime();
 }
 
-/**
- * `true` for a unique-constraint violation (P2002). The only such constraint a
- * gameplay write can hit is `game_moves (game_id, sequence)` when two requests
- * for the same game race for the next move number — the loser simply recomputes
- * the sequence and retries once. This is not concurrency control, just integrity
- * handling for a rare multi-tab double-submit.
- */
+// Two tabs racing the same game can both grab the same next move sequence.
+// Postgres rejects the loser with P2002 on the (game_id, sequence) unique
+// index; we just recompute the sequence and retry once.
 function isSequenceConflict(error: unknown): boolean {
   return (
     typeof error === "object" &&
@@ -193,17 +189,12 @@ export class GamesService {
     });
   }
 
-  /**
-   * Loads an owned game to open/resume it. For an IN_PROGRESS game this also
-   * prepares the current article, then (re)establishes the effective-time
-   * interval. Article-loading time is therefore outside the playable interval.
-   * This is the "normal game-loading/resume flow" — there is no separate
-   * start/resume endpoint (docs/game-rules.md §12, docs/api.md §5.3).
-   *
-   * The short reconciliation transaction locks the game row, so a move,
-   * completion, heartbeat or deletion racing article preparation cannot be
-   * overwritten.
-   */
+  // Loads an owned game to open or resume it. For an IN_PROGRESS game this also
+  // prepares the current article and then (re)starts the effective-time
+  // interval, so article-loading time is not counted as playable time. There
+  // is no separate start/resume endpoint; opening a game IS the resume flow.
+  // The short reconciliation transaction below locks the game row so a move,
+  // completion, heartbeat or deletion racing the article load can't be lost.
   async get(
     userId: string,
     gameId: string,
@@ -218,13 +209,13 @@ export class GamesService {
       throw gameNotFound();
     }
 
-    // A COMPLETED game is immutable — nothing to resume, return the read as-is.
+    // A COMPLETED game is immutable, so there is nothing to resume.
     if (game.status !== "IN_PROGRESS") {
       return { game, article: null };
     }
 
-    // Prepare the content first. Official timing starts only when the article
-    // required for play is ready on the server, not while MediaWiki is loading.
+    // Load the article before touching timing: official play time only starts
+    // once the article is ready server-side, not while MediaWiki is loading.
     const article = await this.toArticleDto(
       game.id,
       await this.wikipedia.getArticle(game.currentPageId),
@@ -239,20 +230,17 @@ export class GamesService {
       if (!state) throw gameNotFound();
       if (state.status !== "IN_PROGRESS") return state;
 
-      // A concurrent move changed the page while its article was being loaded.
-      // Do not start timing against mismatched content; let the client retry the
-      // combined open request and obtain one coherent state.
+      // A concurrent move changed the page while the article was loading. Don't
+      // start timing against stale content; let the client retry and get one
+      // coherent state instead.
       if (state.currentPageId !== article.pageId) {
         throw gameStateChanged();
       }
 
-      // The row lock makes this read/calculate/write reconciliation indivisible
-      // with heartbeat writes. A heartbeat received after preparation began is
-      // capped at that boundary, so article preparation is never finalized as
-      // playable time.
-      // This is the final database write in the reconciliation transaction.
-      // Returning the already-loaded moves avoids restarting the interval before
-      // another response-building query.
+      // Any heartbeat received after preparation started is capped at
+      // preparationStartedAt, so the time spent preparing the article is never
+      // counted as playable time. Moves are already loaded, so we don't need
+      // another query after this write.
       const restartedAt = new Date();
       const restarted = await tx.game.update({
         where: { id: gameId },
@@ -276,12 +264,9 @@ export class GamesService {
     );
   }
 
-  /**
-   * POST /api/games/:gameId/heartbeat — the only timing-specific endpoint.
-   * Records that the owner is still actively playing by advancing
-   * `lastHeartbeatAt`. It is not a session: no row is created, nothing else
-   * changes. A completed game rejects the heartbeat.
-   */
+  // Records that the owner is still actively playing by advancing
+  // lastHeartbeatAt. There is no session row, nothing else changes, and a
+  // completed game rejects the heartbeat.
   async heartbeat(userId: string, gameId: string): Promise<void> {
     await prisma.$transaction(async (tx) => {
       await this.lockOwnedGame(tx, userId, gameId);
@@ -520,7 +505,7 @@ export class GamesService {
     return { game: updated, article };
   }
 
-  /** Locks one owned game row for a short transaction-local reconciliation. */
+  // Locks one owned game row for the duration of the enclosing transaction.
   private async lockOwnedGame(
     tx: Prisma.TransactionClient,
     userId: string,
@@ -535,7 +520,7 @@ export class GamesService {
     if (rows.length === 0) throw gameNotFound();
   }
 
-  /** Final timing write after the authoritative response state has been built. */
+  // Final timing write, run after the response state has already been built.
   private async restartPreparedTransition(
     tx: Prisma.TransactionClient,
     state: GameWithMoves,

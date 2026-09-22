@@ -1,11 +1,7 @@
-/**
- * Sanitized current-article representation for the active game (docs/api.md §3.7).
- *
- * `contentHtml` is already normalized/sanitized by the ROADTOUNINA backend
- * (strict tag allowlist, no `href`, no schemes); playable internal links are
- * `<a data-page-title>` elements. The client checks `pageId`
- * against the game's current page and reloads the article if they disagree.
- */
+// contentHtml is already sanitized server-side (strict tag allowlist, no href,
+// no schemes); playable internal links come as <a data-page-title> elements.
+// The client compares pageId against the game's current page and reloads the
+// article if they don't match.
 export interface ArticleDto {
   gameId: string;
   pageId: number;

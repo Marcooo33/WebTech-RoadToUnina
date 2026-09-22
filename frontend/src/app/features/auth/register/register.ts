@@ -19,7 +19,7 @@ export class Register implements OnInit {
   readonly submitting = signal(false);
   readonly error = signal<string | null>(null);
 
-  // Constraints mirror docs/api.md §4.1; the backend remains authoritative.
+  // Mirrors backend validation constraints; the backend still re-validates.
   readonly form = this.fb.nonNullable.group({
     username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     email: ['', [Validators.required, Validators.email]],

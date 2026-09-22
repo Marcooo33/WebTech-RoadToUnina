@@ -2,8 +2,8 @@
  * Demo accounts created by the production demo seed.
  *
  * Plaintext passwords exist only as these two constants and are hashed with the
- * application's own `hashPassword` (bcrypt, cost 12) before any row is built —
- * no database row object ever carries a plaintext password field.
+ * application's own `hashPassword` (bcrypt, cost 12) before any row is built.
+ * No database row object ever carries a plaintext password field.
  *
  * Usernames and emails must satisfy the real registration rules from
  * `modules/auth/auth.validation.ts` (username 3-30 chars, email matching

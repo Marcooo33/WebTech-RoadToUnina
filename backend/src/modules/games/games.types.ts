@@ -42,7 +42,7 @@ export interface GameDto {
   clickCount: number;
   backtrackCount: number;
   effectivePlayTimeMs: number;
-  /** Start of the current play interval (in-progress games only); `null` otherwise. */
+  // Start of the current play interval; null when the game isn't IN_PROGRESS.
   playStartedAt: string | null;
   startedAt: string;
   completedAt: string | null;

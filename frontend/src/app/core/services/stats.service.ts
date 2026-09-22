@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { API_BASE } from '../api/api.config';
 import { StatisticsDto } from '../../shared/models/stats.model';
 
-/** Thin typed wrapper over `GET /api/me/stats` (docs/api.md §8.2). */
+// Thin typed wrapper over GET /api/me/stats.
 @Injectable({ providedIn: 'root' })
 export class StatsService {
   private readonly http = inject(HttpClient);

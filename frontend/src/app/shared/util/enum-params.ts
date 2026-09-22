@@ -1,11 +1,8 @@
 import { GameDifficulty, GameMode } from '../models/game.model';
 
-/**
- * Safe parsing of enum-valued query parameters used by public History. Unknown
- * or missing values return `null` so callers can fall
- * back to a valid default instead of forwarding junk to the API (docs/api.md §2.8,
- * validation is case-sensitive).
- */
+// Safe parsing of enum-valued query params used by public History. Unknown or
+// missing values return null so callers fall back to a valid default instead
+// of forwarding junk to the API. Matching is case-sensitive.
 
 const MODES: readonly GameMode[] = ['CLICK', 'TIME'];
 const DIFFICULTIES: readonly GameDifficulty[] = ['EASY', 'MEDIUM', 'HARD'];
@@ -18,15 +15,11 @@ export function parseDifficulty(value: string | null | undefined): GameDifficult
   return DIFFICULTIES.includes(value as GameDifficulty) ? (value as GameDifficulty) : null;
 }
 
-/** Upper bound so a hand-crafted `?page=` can never forward an absurd number to
- *  the API. Well beyond any realistic completed-game history. */
+// Well beyond any realistic completed-game history, just to cap absurd values.
 const MAX_PAGE = 100_000;
 
-/**
- * Parses a 1-based page parameter. Only a plain run of digits is accepted;
- * scientific notation (`1e3`), decimals, signs and blanks all fall back to page
- * 1, and the result is capped at {@link MAX_PAGE}.
- */
+// Only a plain run of digits is accepted: scientific notation, decimals,
+// signs and blanks all fall back to page 1.
 export function parsePage(value: string | null | undefined): number {
   if (typeof value !== 'string' || !/^\d+$/.test(value)) {
     return 1;

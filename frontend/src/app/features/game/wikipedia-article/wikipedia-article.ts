@@ -20,17 +20,11 @@ interface TocEntry {
   level: number;
 }
 
-/**
- * Renders the sanitized current article and turns clicks on playable links into
- * game actions, without ever letting the browser navigate out of ROADTOUNINA
- * (docs/game-rules.md §7–8, docs/architecture.md §9).
- *
- * `html` is a {@link SafeHtml} produced by {@link GamePage} from
- * `ArticleDto.contentHtml`. The trust decision lives there, at the single point
- * that knows the HTML came from our own sanitizing backend.
- *
- * Link handling is delegated: one listener on the container, not one per anchor.
- */
+// Renders the sanitized article and turns clicks on playable links into game
+// actions, without ever letting the browser navigate away from ROADTOUNINA.
+// The SafeHtml input is produced by GamePage, which is the only place that
+// knows the HTML came from our own sanitizing backend. Link handling is
+// delegated to one listener on the container instead of one per anchor.
 @Component({
   selector: 'app-wikipedia-article',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,10 +38,10 @@ export class WikipediaArticle implements OnChanges {
 
   readonly title = input.required<string>();
   readonly html = input.required<SafeHtml>();
-  /** When true, playable links are inert (a move is already in flight). */
+  // When true, playable links are inert (a move is already in flight).
   readonly disabled = input(false);
 
-  /** Emits the normalized title of the link the user activated. */
+  // Emits the normalized title of the link the user activated.
   readonly navigate = output<string>();
   readonly tocEntries = signal<TocEntry[]>([]);
 
@@ -72,8 +66,8 @@ export class WikipediaArticle implements OnChanges {
       return;
     }
 
-    // No anchor in the sanitized content may ever drive real browser navigation,
-    // playable or not.
+    // No anchor in the sanitized content should ever trigger real browser
+    // navigation, playable or not.
     const anchor = target.closest('a');
     if (anchor) {
       event.preventDefault();

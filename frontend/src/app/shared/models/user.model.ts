@@ -1,4 +1,3 @@
-/** Mirrors backend `UserProfileDto` (docs/api.md §3.2). */
 export interface UserProfileDto {
   id: string;
   username: string;
@@ -6,7 +5,6 @@ export interface UserProfileDto {
   createdAt: string;
 }
 
-/** Mirrors backend `UserSummaryDto` (docs/api.md §3.1). */
 export interface UserSummaryDto {
   id: string;
   username: string;

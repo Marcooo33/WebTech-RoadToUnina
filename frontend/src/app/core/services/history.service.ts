@@ -9,7 +9,7 @@ import {
 } from '../../shared/models/history.model';
 import { GameMode } from '../../shared/models/game.model';
 
-/** Thin typed wrapper over the public `/api/history` endpoints. */
+// Thin typed wrapper over the public /api/history endpoints.
 @Injectable({ providedIn: 'root' })
 export class HistoryService {
   private readonly http = inject(HttpClient);

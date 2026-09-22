@@ -39,7 +39,6 @@ export interface MoveInput {
   toTitle: string;
 }
 
-/** Route param `:gameId` — a UUID (the `games.id` column type). */
 export function parseGameId(value: unknown): string {
   if (!isUuid(value)) {
     throw validationError("Invalid game id");
@@ -48,7 +47,8 @@ export function parseGameId(value: unknown): string {
   return value;
 }
 
-/** POST /api/games body. Only `mode` and `difficulty` are client-supplied. */
+// Only mode and difficulty are client-supplied; everything else about a new
+// game (starting page, ids, timing) is decided server-side.
 export function parseCreateGameInput(body: unknown): CreateGameInput {
   const obj = asObject(body, "Invalid game creation request");
   rejectUnknownKeys(
@@ -68,7 +68,6 @@ export function parseCreateGameInput(body: unknown): CreateGameInput {
   return { mode: obj.mode, difficulty: obj.difficulty };
 }
 
-/** Optional `?status=` filter on GET /api/games. */
 export function parseGameStatusFilter(
   value: unknown,
 ): GameStatusFilter | undefined {
@@ -83,7 +82,6 @@ export function parseGameStatusFilter(
   throw validationError("status must be one of IN_PROGRESS, COMPLETED");
 }
 
-/** POST /api/games/:gameId/moves body. */
 export function parseMoveInput(body: unknown): MoveInput {
   const obj = asObject(body, "Invalid move request");
   rejectUnknownKeys(obj, ["toTitle"], "Invalid move request");

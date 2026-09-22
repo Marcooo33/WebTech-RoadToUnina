@@ -1,15 +1,12 @@
 import type { GameMoveDto, PageRefDto } from "../games/games.types.js";
 
-/**
- * Public representation of a player (docs/api.md §3.1). Never carries `email`,
- * `passwordHash` or any other credential/private field.
- */
+// Public representation of a player: never carries email, passwordHash or
+// any other credential/private field.
 export interface UserSummaryDto {
   id: string;
   username: string;
 }
 
-/** Ranked item in a paginated public History view. */
 export interface HistoryEntryDto {
   rank: number;
   gameId: string;
@@ -19,7 +16,6 @@ export interface HistoryEntryDto {
   completedAt: string;
 }
 
-/** Public detail of a completed game (docs/api.md §3.10). */
 export interface CompletedGameDetailDto {
   gameId: string;
   mode: "CLICK" | "TIME";
@@ -35,7 +31,6 @@ export interface CompletedGameDetailDto {
   player: UserSummaryDto | null;
 }
 
-/** Paginated public History view, ordered according to its mode. */
 export interface HistoryListDto {
   mode: "CLICK" | "TIME";
   difficulty: "EASY" | "MEDIUM" | "HARD";

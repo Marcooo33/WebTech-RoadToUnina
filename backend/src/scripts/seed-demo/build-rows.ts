@@ -43,7 +43,7 @@ const DAY_MS = 86_400_000;
 /** Safety margin so an in-progress game never has a move in the future. */
 const NOW_MARGIN_MS = 60_000;
 
-/** Idle time the player spent reading — excluded from effective play time. */
+/** Idle time the player spent reading, excluded from effective play time. */
 function idlePaddingMs(effectivePlayTimeMs: number): number {
   return Math.round(effectivePlayTimeMs * 0.4) + 9_000;
 }

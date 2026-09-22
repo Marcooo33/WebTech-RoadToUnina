@@ -1,6 +1,5 @@
 import { GameDifficulty } from './game.model';
 
-/** Best completed result in one mode (docs/api.md §3.13). */
 export interface BestResultDto {
   gameId: string;
   difficulty: GameDifficulty;
@@ -9,7 +8,6 @@ export interface BestResultDto {
   completedAt: string;
 }
 
-/** Personal statistics derived from the current user's games (docs/api.md §3.13). */
 export interface StatisticsDto {
   completedGames: number;
   inProgressGames: number;

@@ -5,11 +5,8 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight, lucideCheckCircle2, lucideHistory, lucideHouse } from '@ng-icons/lucide';
 
-/**
- * Completion state for a game whose status is `COMPLETED`. Every value shown
- * here is the server's finalized state (docs/game-rules.md §17); the frontend
- * never marks a game complete itself.
- */
+// Completion state for a COMPLETED game. Every value shown here is the
+// server's finalized state; the frontend never marks a game complete itself.
 @Component({
   selector: 'app-game-result',
   changeDetection: ChangeDetectionStrategy.OnPush,

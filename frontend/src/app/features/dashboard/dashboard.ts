@@ -67,9 +67,9 @@ export class Dashboard implements OnInit {
     this.showAllCompleted() ? this.completed() : this.completed().slice(0, RECENT_COMPLETED_LIMIT),
   );
 
-  /** Id of the game whose inline "delete?" confirmation is currently shown. */
+  // Id of the game whose inline "delete?" confirmation is currently shown.
   readonly confirmingId = signal<string | null>(null);
-  /** Id of the game whose delete request is in flight. */
+  // Id of the game whose delete request is in flight.
   readonly deletingId = signal<string | null>(null);
 
   get limitReached(): boolean {
@@ -80,11 +80,9 @@ export class Dashboard implements OnInit {
     this.load();
   }
 
-  /**
-   * (Re)loads the in-progress list and statistics. `showSpinner` is false for a
-   * background refresh (e.g. after a conflicting delete) so the table is not
-   * replaced by a full-card spinner while an error banner is shown above it.
-   */
+  // (Re)loads the in-progress list and statistics. showSpinner is false for a
+  // background refresh (e.g. after a conflicting delete) so the table isn't
+  // replaced by a full-card spinner while an error banner is already shown.
   private load(showSpinner = true): void {
     if (showSpinner) {
       this.loading.set(true);
@@ -162,8 +160,8 @@ export class Dashboard implements OnInit {
         this.deletingId.set(null);
         this.confirmingId.set(null);
         this.error.set(err.message);
-        // The game completed elsewhere or is already gone — the local list is
-        // stale, so refresh it in the background.
+        // The game completed elsewhere or is already gone, so the local list
+        // is stale: refresh it in the background.
         if (err.code === 'GAME_NOT_FOUND' || err.code === 'GAME_NOT_IN_PROGRESS') {
           this.load(false);
         }

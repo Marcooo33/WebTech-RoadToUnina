@@ -17,11 +17,9 @@ import {
   lucideRotateCcw,
 } from '@ng-icons/lucide';
 
-/**
- * Public completed-game detail (docs/api.md §6.2): the completed facts, the
- * reconstructed path and the full chronological move history. Read-only and
- * anonymous — no game state is mutated here.
- */
+// Public completed-game detail: the completed facts, the reconstructed path
+// and the full chronological move history. Read-only, anonymous, nothing
+// here mutates game state.
 @Component({
   selector: 'app-history-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +39,7 @@ import {
 export class HistoryDetail implements OnInit {
   private readonly history = inject(HistoryService);
 
-  /** `history/:gameId` path parameter (bound via router input binding). */
+  // history/:gameId path parameter (router input binding).
   readonly gameId = input.required<string>();
 
   readonly loading = signal(true);

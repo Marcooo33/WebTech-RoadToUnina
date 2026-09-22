@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { PageRef } from '../../../shared/models/game.model';
 
-/**
- * A reconstructed navigation path (start page → last page), rendered read-only.
- * Used by the gameplay screen for the active path and by the public completed-game
- * history for the finished path. Purely presentational.
- */
+// Reconstructed navigation path from the start page to the last one,
+// rendered read-only. Used both for the active path during gameplay and for
+// the finished path in public history. Purely presentational.
 @Component({
   selector: 'app-game-path',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,11 +13,9 @@ import { PageRef } from '../../../shared/models/game.model';
 export class GamePath {
   readonly path = input.required<PageRef[]>();
 
-  /** Badge shown on the final node. `current` while playing, `target` for a
-   *  completed game in public history. */
+  // Badge on the final node: "current" while playing, "target" in history.
   readonly lastLabel = input('current');
 
-  /** Accessible name for the `<nav>` landmark: `Active path` during gameplay,
-   *  overridden for the finished path shown in public history. */
+  // Accessible name for the nav landmark, overridden in public history.
   readonly ariaLabel = input('Active path');
 }

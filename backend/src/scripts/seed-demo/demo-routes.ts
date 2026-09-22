@@ -6,7 +6,7 @@
  * resolves each title and validates every NAVIGATION hop through the existing
  * `WikipediaService` before touching the database (see `resolve-routes.ts`).
  *
- * BACKTRACK steps consume no API call — they pop the reconstructed active path
+ * BACKTRACK steps consume no API call: they pop the reconstructed active path
  * exactly like `modules/games/game-path.ts` does, and the following navigation
  * is validated from the page that became current after the pop.
  *

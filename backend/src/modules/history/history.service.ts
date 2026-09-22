@@ -156,8 +156,8 @@ export async function getCompletedGameDetail(
   gameId: string,
 ): Promise<CompletedGameDetailDto> {
   const game = await prisma.game.findFirst({
-    // A non-COMPLETED game is indistinguishable from a missing one here
-    // (docs/api.md §6.2 uses the generic NOT_FOUND, never GAME_NOT_FOUND).
+    // A non-COMPLETED game is indistinguishable from a missing one here: the
+    // public history endpoint returns the generic NOT_FOUND, never GAME_NOT_FOUND.
     where: { id: gameId, status: "COMPLETED" },
     include: { user: true, moves: { orderBy: { sequence: "asc" } } },
   });

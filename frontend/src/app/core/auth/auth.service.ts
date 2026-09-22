@@ -6,11 +6,9 @@ import { UserProfileDto } from '../../shared/models/user.model';
 
 type AuthStatus = 'unknown' | 'authenticated' | 'anonymous';
 
-/**
- * Owns client-side authentication state. The backend is authoritative: this
- * service only reflects the `access_token` cookie by calling the API and caches
- * the resulting profile in signals for guards and the nav bar.
- */
+// Holds client-side auth state. The backend is authoritative for the actual
+// session (access_token cookie); this just mirrors it by calling the API and
+// caching the profile in signals for guards and the nav bar.
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
@@ -22,11 +20,8 @@ export class AuthService {
   readonly status = this._status.asReadonly();
   readonly isAuthenticated = computed(() => this._status() === 'authenticated');
 
-  /**
-   * Resolves the current session once at startup (via `provideAppInitializer`)
-   * and lazily from the guard. Always completes, never rejects, so navigation is
-   * not blocked by a transient error.
-   */
+  // Resolves the session once at startup and lazily from the guard. Always
+  // completes, never rejects, so a transient error doesn't block navigation.
   bootstrap(): Observable<AuthStatus> {
     if (this._status() !== 'unknown') {
       return of(this._status());
@@ -71,18 +66,16 @@ export class AuthService {
     return this.http.delete<void>(`${API_BASE}/auth/me`).pipe(tap(() => this.clearUser()));
   }
 
-  /**
-   * Calls the logout endpoint and always drops local auth state afterwards, even
-   * if the request fails. Navigation after logout is the caller's responsibility
-   * (keeps this service free of a Router dependency during app initialization).
-   */
+  // Always drops local auth state, even if the request fails. Navigation
+  // after logout is left to the caller, so this service has no Router
+  // dependency during app initialization.
   logout(): Observable<void> {
     return this.http
       .post<void>(`${API_BASE}/auth/logout`, {})
       .pipe(finalize(() => this.clearUser()));
   }
 
-  /** Marks state anonymous. Called on logout and by the error interceptor on 401. */
+  // Also called by the error interceptor on a 401.
   clearUser(): void {
     this._user.set(null);
     this._status.set('anonymous');

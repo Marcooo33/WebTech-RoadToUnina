@@ -1,5 +1,5 @@
-/** Best completed result in one mode (docs/api.md §3.13). `null` when the user
- * has no completed games in that mode. */
+// Best completed result in one mode. `null` when the user has no completed
+// games in that mode.
 export interface BestResultDto {
   gameId: string;
   difficulty: "EASY" | "MEDIUM" | "HARD";
@@ -8,7 +8,7 @@ export interface BestResultDto {
   completedAt: string;
 }
 
-/** Personal statistics derived from the current user's games (docs/api.md §3.13). */
+// Personal statistics derived from the current user's games.
 export interface StatisticsDto {
   completedGames: number;
   inProgressGames: number;
