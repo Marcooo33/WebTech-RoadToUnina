@@ -274,7 +274,6 @@ export function toUserProfileDto(user: User): UserProfileDto {
     id: user.id,
     username: user.username,
     email: user.email,
-    avatarUrl: user.avatarUrl,
     createdAt: user.createdAt.toISOString(),
   };
 }

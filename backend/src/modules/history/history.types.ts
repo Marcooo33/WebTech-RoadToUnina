@@ -7,7 +7,6 @@ import type { GameMoveDto, PageRefDto } from "../games/games.types.js";
 export interface UserSummaryDto {
   id: string;
   username: string;
-  avatarUrl: string | null;
 }
 
 /** Ranked item in a paginated public History view. */

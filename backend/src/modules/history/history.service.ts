@@ -40,7 +40,6 @@ function toUserSummaryDto(user: User): UserSummaryDto {
   return {
     id: user.id,
     username: user.username,
-    avatarUrl: user.avatarUrl ?? null,
   };
 }
 

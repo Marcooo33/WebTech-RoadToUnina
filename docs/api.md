@@ -196,12 +196,9 @@ Public representation of a player. Excludes email and any credential fields.
 ```json
 {
   "id": "7d9f0c1e-…",
-  "username": "marco",
-  "avatarUrl": "https://…" 
+  "username": "marco"
 }
 ```
-
-`avatarUrl` is `null` when unset.
 
 For a retained completed game whose owner deleted their account, History uses
 the neutral label `Deleted user` and does not serialize `UserSummaryDto`.
@@ -215,7 +212,6 @@ The authenticated user's own profile (returned only for the current user).
   "id": "7d9f0c1e-…",
   "username": "marco",
   "email": "marco@example.com",
-  "avatarUrl": null,
   "createdAt": "2026-08-28T10:00:00.000Z"
 }
 ```
@@ -409,8 +405,7 @@ Public detail of a completed game.
   ],
   "player": {
     "id": "…",
-    "username": "marco",
-    "avatarUrl": null
+    "username": "marco"
   }
 }
 ```

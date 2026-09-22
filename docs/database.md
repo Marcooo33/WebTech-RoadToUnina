@@ -96,7 +96,6 @@ Fields:
 | username | varchar(30) | unique, required |
 | email | varchar(255) | unique, required |
 | passwordHash | varchar(255) | required |
-| avatarUrl | text | nullable |
 | createdAt | timestamptz | required |
 | updatedAt | timestamptz | required |
 | deletedAt | timestamptz | nullable; set when an account is soft-deleted |
@@ -412,7 +411,6 @@ model User {
   username     String   @unique @db.VarChar(30)
   email        String   @unique @db.VarChar(255)
   passwordHash String   @map("password_hash") @db.VarChar(255)
-  avatarUrl    String?  @map("avatar_url") @db.Text
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
@@ -552,7 +550,7 @@ In one transaction:
 
 - set `User.deletedAt`;
 - replace username and email with unique internal tombstones;
-- replace the password hash with a bcrypt hash of a random secret and clear the avatar;
+- replace the password hash with a bcrypt hash of a random secret;
 - delete the user's `IN_PROGRESS` games (their moves cascade);
 - retain `COMPLETED` games and their moves.
 

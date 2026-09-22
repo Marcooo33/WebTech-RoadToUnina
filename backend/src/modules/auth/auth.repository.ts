@@ -79,7 +79,6 @@ export function softDeleteUser(
         username: input.username,
         email: input.email,
         passwordHash: input.passwordHash,
-        avatarUrl: null,
         deletedAt: new Date(),
       },
     });
