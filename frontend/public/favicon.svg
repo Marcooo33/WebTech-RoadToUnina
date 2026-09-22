@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="geometricPrecision" role="img" aria-label="RoadToUnina">
+  <!-- Sfondo -->
+  <rect width="16" height="16" rx="3" fill="#062A54"/>
+
+  <!-- U: grande, semplice, separata dal percorso -->
+  <path d="M4.25 3.25v4
+           c0 2.15 1.35 3.25 3.75 3.25
+           s3.75-1.10 3.75-3.25v-4"
+        fill="none"
+        stroke="#FFF"
+        stroke-width="2.25"
+        stroke-linecap="square"
+        stroke-linejoin="round"/>
+
+  <!-- Percorso orizzontale separato -->
+  <path d="M2.5 12.65
+           C5.2 13.25 8.15 13.35 10.25 13.05
+           C11.45 12.9 12.35 12.6 13.5 12.25"
+        fill="none"
+        stroke="#FFF"
+        stroke-width="1.05"
+        stroke-linecap="round"/>
+
+  <!-- Nodi -->
+  <circle cx="2.5" cy="12.65" r="1.15" fill="#FFF"/>
+  <circle cx="8.15" cy="13.2" r="1.15" fill="#FFF"/>
+
+  <!-- Meta -->
+  <circle cx="13.5" cy="12.25" r="1.55" fill="#FFF"/>
+  <circle cx="13.5" cy="12.25" r="0.85" fill="#1688F8"/>
+</svg>
