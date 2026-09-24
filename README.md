@@ -1,135 +1,48 @@
 # ROADTOUNINA
 
-Full-stack web project for the Web Technologies course at Università degli Studi di Napoli Federico II.
+**Can you reach Federico II from anywhere on Wikipedia?** ROADTOUNINA turns that question into a route-finding challenge: begin on a randomly selected article from Italian Wikipedia and reach the **Università degli Studi di Napoli Federico II** by following links between articles.
 
-## Repository structure
+ROADTOUNINA was created as a university project for the Web Technologies course at the University of Naples Federico II. It brings together a complete interactive game, player accounts, personal progress tracking and public rankings in one web application.
 
-```
-roadtounina/
-├── frontend/    # Angular frontend (standalone, routing, CSS)
-├── backend/     # Node.js + Express + TypeScript API, Prisma ORM
-├── e2e/         # Playwright end-to-end tests
-├── docs/        # Project documentation
-├── .gitignore
-└── README.md
-```
+## The challenge
 
-## Prerequisites
+Each game gives you a new starting article. Read the page, choose one of its internal article links, and keep navigating until you reach the university’s Wikipedia article. The route is yours to discover: there is no preset sequence of pages to follow.
 
-- Node.js >= 20
-- npm
-- Angular CLI (installed locally per project via `frontend/package.json`)
-- A PostgreSQL database hosted on Supabase (credentials go in `backend/.env`)
+The game records your route as you play. A navigation click moves to a linked article and counts toward your score. If you take a wrong turn, you can backtrack to the previous article when the selected difficulty allows it. Backtracking is recorded separately and does not add a navigation click.
 
-## Install dependencies
+## Choose how to play
 
-```bash
-# Backend
-cd backend
-npm install
+Every game combines a scoring mode with a difficulty level.
 
-# Frontend
-cd ../frontend
-npm install
-```
+### Scoring modes
 
-## Run the frontend
+- **Click** — aim to reach the target with the fewest navigation clicks. If two games have the same click count, the faster effective time ranks higher.
+- **Time** — aim for the lowest effective play time. If two games have the same time, the route with fewer navigation clicks ranks higher.
 
-```bash
-cd frontend
-npm start
-```
+Effective play time measures active gameplay. Time spent waiting for an article to load is excluded, so page loading does not affect your result.
 
-The app is served at http://localhost:4200.
+### Difficulty levels
 
-## Run the backend
+- **Easy** — backtrack without a limit.
+- **Medium** — backtrack up to three times in a game.
+- **Hard** — backtracking is unavailable.
 
-```bash
-cd backend
-cp .env.example .env   # fill in your Supabase credentials
-npm run dev
-```
+## Your player space
 
-The API is served at http://localhost:3000 (health check: http://localhost:3000/health).
+Create an account to start games and keep track of your play. From your dashboard, you can:
 
-## Run the backend tests
+- Start a new challenge or resume any game in progress.
+- Review completed games, active games, best results and average performance.
+- Remove a game that you no longer want to continue.
 
-```bash
-cd backend
-npm test                      # unit tests (no database)
-```
+Your profile lets you update your username and email, change your password, or delete your account. Deleting an account also removes its games in progress; completed games remain in public history under **Deleted user**.
 
-## Run the end-to-end tests
+## Public history and rankings
 
-Requires Docker (`docker compose`). The suite starts its own throwaway
-PostgreSQL 17 container and a fixture MediaWiki adapter — it never touches
-Supabase.
+Completed games are available in the public history, where you can browse rankings by scoring mode and difficulty. Each result shows the player, rank, number of clicks, effective time and completion date. Open a result to inspect the route and the moves that led to Federico II.
 
-```bash
-cd e2e
-npm install
-npx playwright install chromium
-cp .env.example .env
-npm test                 # up DB -> migrate -> run Playwright -> down DB
-```
+Rankings use the scoring mode’s main metric first and the other metric to break ties. Results with equal scores are ordered consistently, with earlier completions listed first.
 
-See `e2e/README.md` for details.
+## The idea behind ROADTOUNINA
 
-## Production demo seed
-
-`backend/src/scripts/seed-demo/` holds a manually-invoked script that fills a
-ROADTOUNINA installation with realistic demonstration data (11 players, 45
-completed games across all six mode/difficulty combinations, 10 in-progress
-games) for a live presentation.
-
-**It is destructive to application DATA.** It runs
-`TRUNCATE "game_moves", "games", "users" CASCADE` on the database in
-`DATABASE_URL` and replaces those rows with the demo dataset. It **never**
-touches the schema: no DDL, no `prisma migrate reset`, no changes to migrations,
-constraints, indexes or the `_prisma_migrations` history. There is no HTTP
-endpoint for it and no test invokes it.
-
-Validate the fixtures first. The dry run resolves every curated route against
-live it.wikipedia.org, validates each hop through the application's own
-`WikipediaService`, builds the whole dataset in memory and prints it — without
-touching any database:
-
-```bash
-cd backend
-npm run db:seed-demo -- --dry-run
-```
-
-The real run requires an explicit environment guard. Without
-`ALLOW_PRODUCTION_DEMO_SEED=true` the script refuses to modify anything and
-explains why. It also refuses the `roadtounina_e2e` and
-`roadtounina_integration` databases, which belong to the test harnesses:
-
-```bash
-cd backend
-ALLOW_PRODUCTION_DEMO_SEED=true npm run db:seed-demo
-```
-
-The same full validation runs first in both modes, so nothing is deleted unless
-every route and the whole planned dataset are valid. The reset and all inserts
-then happen inside a single transaction.
-
-> **Warning:** this replaces every user, game and move in whatever database
-> `backend/.env` points at. Check `DATABASE_URL` before running it, and never
-> set `ALLOW_PRODUCTION_DEMO_SEED` in a `.env` file or a shell profile. To
-> rehearse the destructive path safely, point `DATABASE_URL` at a disposable
-> local database (for example `roadtounina_demo_seed_test`) and run
-> `npx prisma migrate deploy` against it first.
-
-Accounts created by the seed:
-
-| Account | Username | Password |
-| --- | --- | --- |
-| Presentation account (`demo@roadtounina.local`) | `demo` | `12345678` |
-| 10 bot players (`<name>@roadtounina.local`) | `alex`, `giulia`, `lorenzo`, `sara`, `davide`, `chiara`, `matteo`, `elena`, `simone`, `valentina` | `RoadToUninaDemo26!` |
-
-These are demo-only credentials for a throwaway presentation database. Passwords
-are hashed with the application's own bcrypt utility before insertion.
-
-Routes and dataset distribution are edited in `demo-routes.ts` and
-`demo-games.ts`. If Wikipedia changes and a curated hop stops being a playable
-link, the dry run says which route and which hop to fix.
+The game makes Wikipedia’s connected articles the playing field. A starting point can lead through history, geography, science, culture or any other subject; the challenge is to spot a chain of links that eventually reaches a Neapolitan university. It is a compact way to explore how ideas and topics connect across an encyclopedia while competing against your own best route and other players.
