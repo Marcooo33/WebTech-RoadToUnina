@@ -43,6 +43,3 @@ Completed games are available in the public history, where you can browse rankin
 
 Rankings use the scoring mode’s main metric first and the other metric to break ties. Results with equal scores are ordered consistently, with earlier completions listed first.
 
-## The idea behind ROADTOUNINA
-
-The game makes Wikipedia’s connected articles the playing field. A starting point can lead through history, geography, science, culture or any other subject; the challenge is to spot a chain of links that eventually reaches a Neapolitan university. It is a compact way to explore how ideas and topics connect across an encyclopedia while competing against your own best route and other players.
