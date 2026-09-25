@@ -42,3 +42,5 @@ Thumbs.db
 
 # Local course materials
 .course-resources/
+/.opencode
+/docs
