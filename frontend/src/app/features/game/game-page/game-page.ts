@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   Injector,
-  OnDestroy,
   OnInit,
   computed,
   inject,
@@ -15,7 +14,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import { Observable, interval } from 'rxjs';
+import { Observable, catchError, interval, map, of } from 'rxjs';
 import { GamesService } from '../../../core/services/games.service';
 import { ApiError } from '../../../shared/models/api-error.model';
 import { GameDto, PreparedGameStateDto } from '../../../shared/models/game.model';
@@ -56,7 +55,7 @@ const TIMER_TICK_MS = 1_000;
   styleUrl: './game-page.css',
   host: { '(window:pagehide)': 'onPageHide()' },
 })
-export class GamePage implements OnInit, OnDestroy {
+export class GamePage implements OnInit {
   private readonly games = inject(GamesService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly router = inject(Router);
@@ -117,13 +116,17 @@ export class GamePage implements OnInit, OnDestroy {
     this.load();
   }
 
-  // Leaving the game in-app: pause it so the time on the current page is
-  // counted up to now. Fire-and-forget: the component is gone, so errors are
-  // ignored.
-  ngOnDestroy(): void {
-    if (this.phase() === 'playing') {
-      this.games.pause(this.id()).subscribe({ error: () => {} });
+  // Called by the route's canDeactivate guard when leaving the game in-app.
+  // The navigation waits for the pause, so the next page (e.g. the dashboard)
+  // already reads the final time. A failed pause never blocks leaving.
+  pauseBeforeLeave(): Observable<boolean> | boolean {
+    if (this.phase() !== 'playing') {
+      return true;
     }
+    return this.games.pause(this.id()).pipe(
+      map(() => true),
+      catchError(() => of(true)),
+    );
   }
 
   // Closing or reloading the tab doesn't destroy the component, so the pause
