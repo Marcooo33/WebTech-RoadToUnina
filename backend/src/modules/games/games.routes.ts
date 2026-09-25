@@ -12,13 +12,6 @@ export function createGamesRouter(
   );
   const router = Router();
 
-  // Server-owned request boundary, captured before authentication performs its
-  // asynchronous user lookup. Controllers pass it to timing-sensitive actions;
-  // no timestamp is accepted from the client.
-  router.use((_req, res, next) => {
-    res.locals.gameRequestStartedAt = new Date();
-    next();
-  });
   router.use(authenticate);
 
   // Each handler validates its own params/body at the boundary
@@ -29,7 +22,7 @@ export function createGamesRouter(
   router.get("/:gameId/article", controller.getArticleHandler);
   router.post("/:gameId/moves", controller.moveHandler);
   router.post("/:gameId/backtrack", controller.backtrackHandler);
-  router.post("/:gameId/heartbeat", controller.heartbeatHandler);
+  router.post("/:gameId/pause", controller.pauseHandler);
   router.delete("/:gameId", controller.deleteGameHandler);
 
   return router;

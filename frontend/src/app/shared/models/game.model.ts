@@ -47,8 +47,6 @@ export interface GameDto {
   backtrackCount: number;
   // Authoritative, server-computed; the HUD timer only animates from here.
   effectivePlayTimeMs: number;
-  // Start of the current play interval while IN_PROGRESS, null otherwise.
-  playStartedAt: string | null;
   startedAt: string;
   completedAt: string | null;
   createdAt: string;

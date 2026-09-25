@@ -15,10 +15,10 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import { interval } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { GamesService } from '../../../core/services/games.service';
 import { ApiError } from '../../../shared/models/api-error.model';
-import { GameDto } from '../../../shared/models/game.model';
+import { GameDto, PreparedGameStateDto } from '../../../shared/models/game.model';
 import { ArticleDto } from '../../../shared/models/article.model';
 import { ErrorBanner } from '../../../shared/components/error-banner/error-banner';
 import { LoadingSpinner } from '../../../shared/components/loading-spinner/loading-spinner';
@@ -35,9 +35,6 @@ interface RenderedArticle {
   html: SafeHtml;
 }
 
-// Keep-alive cadence. The heartbeat only advances a timestamp on the game, so
-// ~12s bounds how much pre-crash time can be lost, without adding real load.
-const HEARTBEAT_INTERVAL_MS = 12_000;
 const TIMER_TICK_MS = 1_000;
 
 // Gameplay orchestrator: owns game/article state and every API call; child
@@ -57,6 +54,7 @@ const TIMER_TICK_MS = 1_000;
   ],
   templateUrl: './game-page.html',
   styleUrl: './game-page.css',
+  host: { '(window:pagehide)': 'onPageHide()' },
 })
 export class GamePage implements OnInit, OnDestroy {
   private readonly games = inject(GamesService);
@@ -77,8 +75,6 @@ export class GamePage implements OnInit, OnDestroy {
   readonly notice = signal<string | null>(null);
   // A gameplay mutation or an article fetch is in flight.
   readonly busy = signal(false);
-  // Display value captured when a server-controlled article transition starts.
-  private readonly frozenTimeMs = signal<number | null>(null);
   // Show a "retry" affordance for a failed article fetch.
   readonly wikipediaRetry = signal(false);
 
@@ -95,12 +91,12 @@ export class GamePage implements OnInit, OnDestroy {
   private readonly tick = signal(Date.now());
 
   // Display-only effective time: server baseline plus wall-clock delta while
-  // playing, frozen at the server's finalized value otherwise. Never sent back.
+  // playing, the server's value otherwise. Never sent back. `tick` stops while
+  // a move is in flight, so the clock also pauses while the server loads the
+  // next article (which is not counted as play time).
   readonly displayTimeMs = computed(() => {
     const game = this.game();
     if (!game) return 0;
-    const frozen = this.frozenTimeMs();
-    if (frozen !== null) return frozen;
     if (this.phase() === 'playing' && this.baselineClientTs !== 0) {
       return this.baselineEffectiveMs + Math.max(0, this.tick() - this.baselineClientTs);
     }
@@ -111,77 +107,43 @@ export class GamePage implements OnInit, OnDestroy {
     interval(TIMER_TICK_MS)
       .pipe(takeUntilDestroyed())
       .subscribe(() => {
-        if (this.phase() === 'playing') {
+        if (this.phase() === 'playing' && !this.busy()) {
           this.tick.set(Date.now());
         }
       });
-
-    interval(HEARTBEAT_INTERVAL_MS)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.sendHeartbeat());
   }
 
   ngOnInit(): void {
     this.load();
   }
 
-  // Final heartbeat when leaving the game in-app, so the time on the current
-  // page is recorded up to now instead of up to the last periodic heartbeat.
-  // Fire-and-forget: the component is gone, so errors are ignored.
+  // Leaving the game in-app: pause it so the time on the current page is
+  // counted up to now. Fire-and-forget: the component is gone, so errors are
+  // ignored.
   ngOnDestroy(): void {
-    if (this.phase() === 'playing' && !this.busy()) {
-      this.games.heartbeat(this.id()).subscribe({ error: () => {} });
+    if (this.phase() === 'playing') {
+      this.games.pause(this.id()).subscribe({ error: () => {} });
+    }
+  }
+
+  // Closing or reloading the tab doesn't destroy the component, so the pause
+  // is sent with sendBeacon, which the browser delivers even while the page
+  // is unloading. If it never arrives (crash, no connection) the backend
+  // discards the open interval when the game is reopened.
+  onPageHide(): void {
+    if (this.phase() === 'playing') {
+      this.games.pauseOnExit(this.id());
     }
   }
 
   // --- User actions -------------------------------------------------------
 
   onNavigate(toTitle: string): void {
-    if (!this.game() || this.busy() || this.phase() !== 'playing') {
-      return;
-    }
-    this.busy.set(true);
-    this.freezeTimer();
-    this.notice.set(null);
-
-    this.games.move(this.id(), toTitle).subscribe({
-      next: (state) => {
-        this.applyGame(state.game);
-        if (this.phase() === 'completed') return;
-        if (!state.article || state.article.pageId !== state.game.currentPageId) {
-          this.load();
-          return;
-        }
-        this.applyPreparedArticle(state.article);
-        this.seedTimerBaseline(state.game);
-        this.finishNavigation();
-      },
-      error: (err: ApiError) => this.onGameplayError(err),
-    });
+    this.runMove(() => this.games.move(this.id(), toTitle));
   }
 
   onBacktrack(): void {
-    if (!this.game() || this.busy() || this.phase() !== 'playing') {
-      return;
-    }
-    this.busy.set(true);
-    this.freezeTimer();
-    this.notice.set(null);
-
-    this.games.backtrack(this.id()).subscribe({
-      next: (state) => {
-        this.applyGame(state.game);
-        if (this.phase() === 'completed') return;
-        if (!state.article || state.article.pageId !== state.game.currentPageId) {
-          this.load();
-          return;
-        }
-        this.applyPreparedArticle(state.article);
-        this.seedTimerBaseline(state.game);
-        this.finishNavigation();
-      },
-      error: (err: ApiError) => this.onGameplayError(err),
-    });
+    this.runMove(() => this.games.backtrack(this.id()));
   }
 
   retry(): void {
@@ -195,6 +157,31 @@ export class GamePage implements OnInit, OnDestroy {
       return;
     }
     this.load();
+  }
+
+  // Shared flow of a navigation or backtrack: one action at a time, then apply
+  // the new game state and the article the backend already prepared.
+  private runMove(request: () => Observable<PreparedGameStateDto>): void {
+    if (!this.game() || this.busy() || this.phase() !== 'playing') {
+      return;
+    }
+    this.busy.set(true);
+    this.notice.set(null);
+
+    request().subscribe({
+      next: (state) => {
+        this.applyGame(state.game);
+        if (this.phase() === 'completed') return;
+        if (!state.article || state.article.pageId !== state.game.currentPageId) {
+          this.load();
+          return;
+        }
+        this.applyPreparedArticle(state.article);
+        this.seedTimerBaseline(state.game);
+        this.busy.set(false);
+      },
+      error: (err: ApiError) => this.onGameplayError(err),
+    });
   }
 
   // --- Load / reconcile -------------------------------------------------
@@ -222,7 +209,6 @@ export class GamePage implements OnInit, OnDestroy {
         this.seedTimerBaseline(state.game);
         this.phase.set('playing');
         this.busy.set(false);
-        this.frozenTimeMs.set(null);
       },
       error: (err: ApiError) => this.onInitialError(err),
     });
@@ -257,7 +243,6 @@ export class GamePage implements OnInit, OnDestroy {
 
   private onInitialError(err: ApiError): void {
     this.busy.set(false);
-    this.frozenTimeMs.set(null);
     if (err.code === 'GAME_NOT_FOUND') {
       void this.router.navigate(['/']);
       return;
@@ -268,7 +253,6 @@ export class GamePage implements OnInit, OnDestroy {
 
   private onArticleError(err: ApiError): void {
     this.busy.set(false);
-    this.resumeVisualTimer();
 
     switch (err.code) {
       case 'GAME_NOT_FOUND':
@@ -298,16 +282,10 @@ export class GamePage implements OnInit, OnDestroy {
 
   private onGameplayError(err: ApiError): void {
     this.busy.set(false);
-    this.resumeVisualTimer();
 
     switch (err.code) {
       case 'GAME_NOT_IN_PROGRESS':
         // The game completed or changed elsewhere, reconcile with the server.
-        this.load();
-        return;
-      case 'GAME_STATE_CHANGED':
-        // Another request committed while this action's article was being
-        // prepared. Reload the coherent authoritative game/article pair.
         this.load();
         return;
       case 'INVALID_MOVE':
@@ -349,24 +327,7 @@ export class GamePage implements OnInit, OnDestroy {
     this.phase.set('completed');
     this.article.set(null);
     this.busy.set(false);
-    this.frozenTimeMs.set(null);
     this.notice.set(null);
-  }
-
-  private sendHeartbeat(): void {
-    if (this.phase() !== 'playing' || this.busy()) {
-      return;
-    }
-    this.games.heartbeat(this.id()).subscribe({
-      error: (err: ApiError) => {
-        // Network/transient failures are non-fatal: the next heartbeat
-        // retries and gameplay is unaffected. Only an explicit "not in
-        // progress" means the client's view is stale and needs reconciling.
-        if (err.code === 'GAME_NOT_IN_PROGRESS') {
-          this.load();
-        }
-      },
-    });
   }
 
   // Trust boundary: contentHtml is only trusted because it comes from our
@@ -400,19 +361,5 @@ export class GamePage implements OnInit, OnDestroy {
         { injector: this.injector },
       );
     }
-  }
-
-  private freezeTimer(): void {
-    this.frozenTimeMs.set(this.displayTimeMs());
-  }
-
-  private resumeVisualTimer(): void {
-    this.tick.set(Date.now());
-    this.frozenTimeMs.set(null);
-  }
-
-  private finishNavigation(): void {
-    this.busy.set(false);
-    this.frozenTimeMs.set(null);
   }
 }

@@ -61,9 +61,8 @@ model Game {
   backtrackCount      Int @default(0) @map("backtrack_count")
   effectivePlayTimeMs Int @default(0) @map("effective_play_time_ms")
 
-  // Server-authoritative timing state (see game-timing.ts, docs/game-rules.md §12).
-  playStartedAt   DateTime? @map("play_started_at") @db.Timestamptz(3)
-  lastHeartbeatAt DateTime? @map("last_heartbeat_at") @db.Timestamptz(3)
+  // Start of the current play interval, null while paused (see games.service.ts).
+  playStartedAt DateTime? @map("play_started_at") @db.Timestamptz(3)
 
   startedAt   DateTime  @default(now()) @map("started_at") @db.Timestamptz(3)
   completedAt DateTime? @map("completed_at") @db.Timestamptz(3)

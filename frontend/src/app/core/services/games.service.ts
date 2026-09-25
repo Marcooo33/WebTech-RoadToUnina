@@ -30,8 +30,8 @@ export class GamesService {
     return this.http.get<GameListResponse>(this.base, { params }).pipe(map((res) => res.items));
   }
 
-  // Loads an owned game plus its prepared article. For an in-progress game
-  // the backend only starts timing after that article is ready.
+  // Loads an owned game plus its article. For an in-progress game the backend
+  // starts the play timer once that article is ready.
   get(gameId: string): Observable<PreparedGameStateDto> {
     return this.http.get<PreparedGameStateDto>(`${this.base}/${gameId}`);
   }
@@ -59,9 +59,15 @@ export class GamesService {
     return this.http.post<PreparedGameStateDto>(`${this.base}/${gameId}/backtrack`, {});
   }
 
-  // Keep-alive so effective play time excludes idle/offline periods. Just
-  // advances a timestamp server-side, not a session; returns 204.
-  heartbeat(gameId: string): Observable<void> {
-    return this.http.post<void>(`${this.base}/${gameId}/heartbeat`, {});
+  // Stops the play timer when the player leaves the game page; returns 204.
+  pause(gameId: string): Observable<void> {
+    return this.http.post<void>(`${this.base}/${gameId}/pause`, {});
+  }
+
+  // Same as pause(), for when the tab is being closed: HttpClient requests
+  // are cancelled on unload, a beacon is not. The auth cookie is sent because
+  // the API is on the same origin.
+  pauseOnExit(gameId: string): void {
+    navigator.sendBeacon(`${this.base}/${gameId}/pause`);
   }
 }
