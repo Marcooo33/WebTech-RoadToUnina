@@ -1,12 +1,8 @@
 import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../../backend/src/config/game.js";
 
 /**
- * The few stable facts the specs assert against. The full deterministic page
- * graph lives in `backend/src/testing/e2e-wikipedia.ts` (the single source of
- * truth); this file only names the handful of pages the tests walk through.
- *
- * The target page id/title are imported from the backend config so this file
- * cannot drift from it.
+ * Pages the specs assert on. The full graph lives in
+ * `backend/src/testing/e2e-wikipedia.ts`; target id/title come from backend config.
  */
 
 export const START_PAGE = { pageId: 4100, title: "Partenope (sirena)" } as const;
@@ -27,11 +23,6 @@ export const PAGE = {
 export const WIN_PATH = [PAGE.golfoDiNapoli, PAGE.napoli, TARGET_PAGE] as const;
 
 /**
- * History rankings are global and derived from every completed game. Keep the
- * completing scenarios in separate (mode, difficulty) buckets so their data
- * cannot affect one another if a ranking assertion is added later. Current
- * assignment:
- *   - completion.spec.ts        -> CLICK / EASY
- *   - public.spec.ts (history)  -> TIME  / HARD
- * Any new completing spec must pick its own unused bucket or not assert rank.
+ * Rankings are global, so each completing spec uses its own (mode, difficulty)
+ * bucket: completion.spec.ts -> CLICK/EASY, public.spec.ts -> TIME/HARD.
  */

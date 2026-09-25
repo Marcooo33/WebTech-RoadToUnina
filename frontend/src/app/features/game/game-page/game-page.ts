@@ -40,12 +40,9 @@ interface RenderedArticle {
 const HEARTBEAT_INTERVAL_MS = 12_000;
 const TIMER_TICK_MS = 1_000;
 
-// Gameplay orchestrator: owns the authoritative game/article state and every
-// API call, the child components are presentational. This component only
-// requests actions (navigate, backtrack, heartbeat); counters, timing,
-// completion and move validation are all decided by the backend. The
-// displayed timer is animated locally for smoothness and never sent back,
-// the backend stays authoritative for the persisted effective play time.
+// Gameplay orchestrator: owns game/article state and every API call; child
+// components are presentational. The backend decides counters, timing and
+// moves; the displayed timer is animated locally and never sent back.
 @Component({
   selector: 'app-game-page',
   changeDetection: ChangeDetectionStrategy.OnPush,

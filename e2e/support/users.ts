@@ -18,11 +18,7 @@ export function uniqueUser(prefix = "e2e"): TestUser {
   };
 }
 
-/**
- * Register `user` through the API client bound to `context`, so the HttpOnly
- * `access_token` cookie lands in that BrowserContext's jar and every page it
- * opens is authenticated. Returns nothing useful beyond that side effect.
- */
+/** Registers `user` via the API so the auth cookie lands in `context`'s jar. */
 export async function registerInContext(
   context: BrowserContext,
   user: TestUser,

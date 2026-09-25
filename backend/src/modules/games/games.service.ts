@@ -191,12 +191,9 @@ export class GamesService {
     });
   }
 
-  // Loads an owned game to open or resume it. For an IN_PROGRESS game this also
-  // prepares the current article and then (re)starts the effective-time
-  // interval, so article-loading time is not counted as playable time. There
-  // is no separate start/resume endpoint; opening a game IS the resume flow.
-  // The short reconciliation transaction below locks the game row so a move,
-  // completion, heartbeat or deletion racing the article load can't be lost.
+  // Loads an owned game to open or resume it; for an IN_PROGRESS game it also
+  // prepares the article, then (re)starts the timing interval. The row lock
+  // below keeps a racing move, heartbeat or deletion from being lost.
   async get(
     userId: string,
     gameId: string,
@@ -239,10 +236,8 @@ export class GamesService {
         throw gameStateChanged();
       }
 
-      // Any heartbeat received after preparation started is capped at
-      // preparationStartedAt, so the time spent preparing the article is never
-      // counted as playable time. Moves are already loaded, so we don't need
-      // another query after this write.
+      // Heartbeats received while preparing are capped at preparationStartedAt,
+      // so preparation time is never counted.
       const restartedAt = new Date();
       const restarted = await tx.game.update({
         where: { id: gameId },

@@ -20,10 +20,8 @@ import type {
 type GameWithPlayer = Game & { user: User };
 type GameWithPlayerAndMoves = GameWithPlayer & { moves: GameMove[] };
 
-// COMPLETED => completedAt != NULL is a database invariant
-// (`games_completion_consistency`). A COMPLETED row without it is a corrupt
-// state, not a client-visible condition: surface it as an internal error rather
-// than serializing null or asserting the type away.
+// COMPLETED implies completedAt != NULL (DB constraint); a violation is an
+// internal error, not a client-visible condition.
 function requireCompletedAt(game: Pick<Game, "id" | "completedAt">): string {
   if (!game.completedAt) {
     throw new ApiError(

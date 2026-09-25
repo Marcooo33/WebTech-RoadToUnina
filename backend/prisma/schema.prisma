@@ -61,10 +61,7 @@ model Game {
   backtrackCount      Int @default(0) @map("backtrack_count")
   effectivePlayTimeMs Int @default(0) @map("effective_play_time_ms")
 
-  // Minimal server-authoritative timing state (docs/game-rules.md §12). No
-  // persistent play-session entity: `playStartedAt` is the start of the current
-  // unfinalized play interval (null when nothing is pending) and
-  // `lastHeartbeatAt` is the most recent proof of activity in that interval.
+  // Server-authoritative timing state (see game-timing.ts, docs/game-rules.md §12).
   playStartedAt   DateTime? @map("play_started_at") @db.Timestamptz(3)
   lastHeartbeatAt DateTime? @map("last_heartbeat_at") @db.Timestamptz(3)
 

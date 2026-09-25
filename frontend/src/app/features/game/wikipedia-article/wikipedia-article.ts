@@ -21,10 +21,7 @@ interface TocEntry {
 }
 
 // Renders the sanitized article and turns clicks on playable links into game
-// actions, without ever letting the browser navigate away from ROADTOUNINA.
-// The SafeHtml input is produced by GamePage, which is the only place that
-// knows the HTML came from our own sanitizing backend. Link handling is
-// delegated to one listener on the container instead of one per anchor.
+// actions (one delegated listener), never letting the browser navigate away.
 @Component({
   selector: 'app-wikipedia-article',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,11 +1,6 @@
 import { expect, type BrowserContext } from "@playwright/test";
 
-/**
- * API helpers that only *support* browser E2E scenarios: seeding a completed
- * game (`playThroughApi`) and reading authoritative state as a secondary
- * assertion (`getGame`). The primary action and assertion of every spec is
- * performed through the Angular UI.
- */
+/** API helpers for seeding and secondary assertions; specs act through the UI. */
 
 interface GameState {
   id: string;

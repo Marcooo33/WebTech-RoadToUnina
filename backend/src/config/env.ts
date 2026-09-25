@@ -94,11 +94,7 @@ function parseFlag(value: string | undefined, name: string): "0" | "1" {
   fail(`${name} must be "0" or "1" (received "${value}")`);
 }
 
-/**
- * Validates process environment at startup and returns a fully typed config.
- * Missing or malformed values throw immediately so the server never boots in a
- * half-configured state. `E2E_FAKE_WIKIPEDIA` is test-only (see server.ts).
- */
+/** Validates the environment at startup; throws on missing or malformed values. */
 export function parseEnv(raw: RawEnv): Env {
   return {
     DATABASE_URL: requiredString(raw, "DATABASE_URL"),

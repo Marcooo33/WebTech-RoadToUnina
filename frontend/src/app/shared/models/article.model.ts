@@ -1,7 +1,5 @@
-// contentHtml is already sanitized server-side (strict tag allowlist, no href,
-// no schemes); playable internal links come as <a data-page-title> elements.
-// The client compares pageId against the game's current page and reloads the
-// article if they don't match.
+// contentHtml is sanitized server-side; playable links are <a data-page-title>.
+// The client reloads the article if pageId isn't the game's current page.
 export interface ArticleDto {
   gameId: string;
   pageId: number;

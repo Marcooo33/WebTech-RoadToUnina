@@ -11,10 +11,8 @@ import {
 
 const MEDIUM_BACKTRACK_LIMIT = 3;
 
-// Mode, difficulty, the display-only effective timer, click count and the
-// backtracking control. The backend stays authoritative for whether a
-// backtrack is actually allowed; the button just avoids obviously-invalid
-// requests using state the client already has.
+// Mode, difficulty, timer, click count and backtrack button. The button only
+// avoids obviously-invalid requests; the backend has the final say.
 @Component({
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
