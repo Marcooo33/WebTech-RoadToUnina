@@ -1,20 +1,14 @@
 import { createApp } from "./app.js";
 import { env } from "./config/env.loader.js";
 import { prisma } from "./lib/prisma.js";
-import {
-  createE2EStartingPageProvider,
-  createE2EWikipediaService,
-} from "./testing/e2e-wikipedia.js";
+import { createE2EWikipediaService } from "./testing/e2e-wikipedia.js";
 
 // Composition root: in the Playwright E2E environment the live MediaWiki
 // integration is replaced by the deterministic fixture adapter. This is the only
 // place that decision is made.
 const app =
   env.E2E_FAKE_WIKIPEDIA === "1"
-    ? createApp({
-        wikipediaService: createE2EWikipediaService(),
-        startingPageProvider: createE2EStartingPageProvider(),
-      })
+    ? createApp({ wikipediaService: createE2EWikipediaService() })
     : createApp();
 
 async function main(): Promise<void> {

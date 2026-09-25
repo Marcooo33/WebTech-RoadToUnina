@@ -1,6 +1,5 @@
 export type WikipediaErrorKind =
-  | "NETWORK"
-  | "INVALID_RESPONSE"
+  | "UNAVAILABLE"
   | "PAGE_NOT_FOUND"
   | "NO_SUITABLE_STARTING_PAGE";
 

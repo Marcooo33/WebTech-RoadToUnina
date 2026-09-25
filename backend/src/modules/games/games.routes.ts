@@ -3,14 +3,12 @@ import { authenticate } from "../../middleware/auth.middleware.js";
 import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
 import { createGamesController } from "./games.controller.js";
 import { GamesService } from "./games.service.js";
-import type { StartingPageProvider } from "./starting-page.provider.js";
 
 export function createGamesRouter(
-  startingPageProvider: StartingPageProvider,
   wikipediaService: WikipediaArticleSource,
 ): Router {
   const controller = createGamesController(
-    new GamesService(startingPageProvider, wikipediaService),
+    new GamesService(wikipediaService),
   );
   const router = Router();
 

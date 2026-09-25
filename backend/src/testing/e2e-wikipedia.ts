@@ -1,10 +1,6 @@
 import { normalizeMediaWikiTitle } from "../modules/wikipedia/wikipedia.validation.js";
 import { TARGET_PAGE_ID, TARGET_PAGE_TITLE } from "../config/game.js";
 import type {
-  StartingPage,
-  StartingPageProvider,
-} from "../modules/games/starting-page.provider.js";
-import type {
   NormalizedArticle,
   PlayableLink,
   WikipediaArticleSource,
@@ -72,7 +68,7 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-// Mirrors the shape produced by the real ArticleParserService: playable links
+// Mirrors the shape produced by the real article parser: playable links
 // are <a data-page-title> anchors with no href, so the Angular
 // article renderer turns them into game actions.
 function renderContentHtml(pageId: number): string {
@@ -100,6 +96,10 @@ function renderContentHtml(pageId: number): string {
 
 export function createE2EWikipediaService(): WikipediaArticleSource {
   return {
+    async getStartingPage() {
+      return { pageId: E2E_START_PAGE_ID, title: titleOf(E2E_START_PAGE_ID) };
+    },
+
     async getArticle(pageId: number): Promise<NormalizedArticle> {
       return {
         pageId,
@@ -114,14 +114,6 @@ export function createE2EWikipediaService(): WikipediaArticleSource {
       if (!linksOf(pageId).some((link) => link.title === title)) return null;
       const target = [...PAGES].find(([, page]) => page.title === title);
       return target ? { pageId: target[0], title: target[1].title } : null;
-    },
-  };
-}
-
-export function createE2EStartingPageProvider(): StartingPageProvider {
-  return {
-    async getStartingPage(): Promise<StartingPage> {
-      return { pageId: E2E_START_PAGE_ID, title: titleOf(E2E_START_PAGE_ID) };
     },
   };
 }

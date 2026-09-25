@@ -1,6 +1,6 @@
 import { TARGET_PAGE_ID } from "../../config/game.js";
-import { ArticleParserService } from "./article-parser.service.js";
-import { MediaWikiClient } from "./mediawiki.client.js";
+import { normalizeArticle } from "./article-parser.js";
+import { MediaWikiClient, type ParsedPage } from "./mediawiki.client.js";
 import { WikipediaError } from "./wikipedia.errors.js";
 import { normalizeMediaWikiTitle } from "./wikipedia.validation.js";
 import type {
@@ -9,56 +9,54 @@ import type {
   WikipediaPageIdentity,
 } from "./wikipedia.types.js";
 
-export interface StartingPageFilterConfig {
-  minArticleLengthBytes: number;
-  minEligibleLinks: number;
-  maxRandomAttempts: number;
-}
+// A starting page must be a real article, not a stub with nowhere to go.
+const RANDOM_CANDIDATES = 10;
+const MIN_START_LENGTH_BYTES = 500;
+const MIN_START_LINKS = 5;
 
-export const DEFAULT_STARTING_PAGE_FILTER: StartingPageFilterConfig = {
-  minArticleLengthBytes: 500,
-  minEligibleLinks: 5,
-  maxRandomAttempts: 10,
-};
-
-export interface WikipediaServiceOptions {
-  client?: MediaWikiClient;
-  parser?: ArticleParserService;
-  startingPageFilter?: StartingPageFilterConfig;
-}
-
-const ARTICLE_CACHE_SIZE = 32;
-const ARTICLE_CACHE_TTL_MS = 300_000;
+// Every move reads the current article (to validate the link) and the
+// destination: without a cache each move costs ~3 MediaWiki requests, enough
+// to hit its rate limit with a handful of concurrent players.
+const CACHE_SIZE = 100;
+const CACHE_TTL_MS = 10 * 60_000;
 
 export class WikipediaService implements WikipediaArticleSource {
-  private readonly client: MediaWikiClient;
-  private readonly parser: ArticleParserService;
-  private readonly filter: StartingPageFilterConfig;
-  // One bounded cache also shares in-flight loads. Failed loads are removed.
-  private readonly articles = new Map<
+  private readonly cache = new Map<
     number,
-    {
-      expiresAt: number;
-      article: Promise<NormalizedArticle>;
-    }
+    { article: NormalizedArticle; expiresAt: number }
   >();
 
-  constructor(options: WikipediaServiceOptions = {}) {
-    this.client = options.client ?? new MediaWikiClient();
-    this.parser = options.parser ?? new ArticleParserService();
-    this.filter = options.startingPageFilter ?? DEFAULT_STARTING_PAGE_FILTER;
+  constructor(private readonly client = new MediaWikiClient()) {}
+
+  async getStartingPage(): Promise<WikipediaPageIdentity> {
+    const candidates = await this.client.randomPages(RANDOM_CANDIDATES);
+    for (const candidate of candidates) {
+      if (
+        candidate.pageId === TARGET_PAGE_ID ||
+        candidate.length < MIN_START_LENGTH_BYTES
+      ) {
+        continue;
+      }
+      const article = await this.getArticle(candidate.pageId);
+      if (article.links.length >= MIN_START_LINKS) {
+        return { pageId: article.pageId, title: article.title };
+      }
+    }
+    throw new WikipediaError(
+      "NO_SUITABLE_STARTING_PAGE",
+      "No suitable starting page among the random candidates",
+    );
   }
 
   async getArticle(pageId: number): Promise<NormalizedArticle> {
-    const cached = this.articles.get(pageId);
-    if (cached && cached.expiresAt > Date.now()) {
-      this.articles.delete(pageId);
-      this.articles.set(pageId, cached);
-      return structuredClone(await cached.article);
+    const cached = this.cache.get(pageId);
+    if (cached && cached.expiresAt > Date.now()) return cached.article;
+
+    const page = await this.client.parse({ pageId });
+    if (page === null) {
+      throw new WikipediaError("PAGE_NOT_FOUND", `Article ${pageId} not found`);
     }
-    return structuredClone(
-      await this.cacheArticle(pageId, this.loadArticle(pageId)),
-    );
+    return this.remember(page);
   }
 
   async resolveNavigation(
@@ -66,139 +64,30 @@ export class WikipediaService implements WikipediaArticleSource {
     toTitle: string,
   ): Promise<WikipediaPageIdentity | null> {
     const title = normalizeMediaWikiTitle(toTitle);
-    if (title === null) return null;
-    const article = await this.getArticle(fromPageId);
-    if (!article.links.some((link) => link.title === title)) return null;
-    // Only the clicked, reachable title is resolved, including redirects.
-    const destination = await this.client.resolveTitle(title);
+    const current = await this.getArticle(fromPageId);
+    if (!current.links.some((link) => link.title === title)) return null;
+
+    // Loading the destination here (following redirects) guarantees a move is
+    // never persisted towards an article that cannot be loaded, and warms the
+    // cache for the article the player sees next.
+    const destination = await this.client.parse({ title: title! });
     if (destination === null) return null;
-
-    // Winning moves do not need article content. Every other destination is
-    // loaded before persistence so a failed parse cannot commit a move, and the
-    // following GET /article can reuse the warmed canonical cache entry.
-    if (destination.pageId !== TARGET_PAGE_ID) {
-      await this.getOrLoadResolvedArticle(destination);
-    }
-
-    return destination;
+    const article = this.remember(destination);
+    return { pageId: article.pageId, title: article.title };
   }
 
-  async resolvePage(title: string): Promise<WikipediaPageIdentity | null> {
-    return this.client.resolveTitle(title);
-  }
-
-  async getRandomStartingPage(): Promise<WikipediaPageIdentity> {
-    const seen = new Set<number>();
-    for (
-      let attempt = 0;
-      attempt < this.filter.maxRandomAttempts;
-      attempt += 1
-    ) {
-      const [candidate] = await this.client.getRandomArticles(1);
-      if (
-        !candidate ||
-        candidate.id === TARGET_PAGE_ID ||
-        seen.has(candidate.id)
-      )
-        continue;
-      seen.add(candidate.id);
-      const info = await this.client.getPageInfo(candidate.id);
-      // Recheck redirects: the page may have changed since list=random.
-      if (
-        info.redirect ||
-        info.pageId === TARGET_PAGE_ID ||
-        info.length === undefined ||
-        info.length < this.filter.minArticleLengthBytes
-      )
-        continue;
-      const article = await this.cacheArticle(
-        info.pageId,
-        this.loadArticle(info.pageId, info),
-      );
-      if (article.links.length >= this.filter.minEligibleLinks) {
-        return { pageId: article.pageId, title: article.title };
-      }
-    }
-    throw new WikipediaError(
-      "NO_SUITABLE_STARTING_PAGE",
-      "No suitable starting page found after the maximum number of attempts",
+  // Normalizes a parsed page and caches it, evicting the oldest entry.
+  private remember(page: ParsedPage): NormalizedArticle {
+    const article = normalizeArticle(
+      { pageId: page.pageId, title: page.title },
+      page.html,
+      page.linkTitles,
     );
-  }
-
-  private cacheArticle(
-    pageId: number,
-    article: Promise<NormalizedArticle>,
-  ): Promise<NormalizedArticle> {
-    const entry = { expiresAt: Date.now() + ARTICLE_CACHE_TTL_MS, article };
-    this.articles.delete(pageId);
-    this.articles.set(pageId, entry);
-    if (this.articles.size > ARTICLE_CACHE_SIZE) {
-      this.articles.delete(this.articles.keys().next().value!);
+    this.cache.delete(page.pageId);
+    if (this.cache.size >= CACHE_SIZE) {
+      this.cache.delete(this.cache.keys().next().value!);
     }
-    void article.then(
-      () => {
-        entry.expiresAt = Date.now() + ARTICLE_CACHE_TTL_MS;
-      },
-      () => {
-        if (this.articles.get(pageId) === entry) this.articles.delete(pageId);
-      },
-    );
+    this.cache.set(page.pageId, { article, expiresAt: Date.now() + CACHE_TTL_MS });
     return article;
-  }
-
-  private async getOrLoadResolvedArticle(
-    destination: WikipediaPageIdentity,
-  ): Promise<NormalizedArticle> {
-    const cached = this.articles.get(destination.pageId);
-    if (cached && cached.expiresAt > Date.now()) {
-      const article = await cached.article;
-      if (article.title === destination.title) {
-        this.articles.delete(destination.pageId);
-        this.articles.set(destination.pageId, cached);
-        return article;
-      }
-    }
-
-    return this.cacheArticle(
-      destination.pageId,
-      this.loadResolvedArticle(destination),
-    );
-  }
-
-  private async loadResolvedArticle(
-    destination: WikipediaPageIdentity,
-  ): Promise<NormalizedArticle> {
-    const parsed = await this.client.getArticleHtml(destination.pageId);
-    if (
-      parsed.pageId !== destination.pageId ||
-      parsed.title !== destination.title
-    ) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "Article changed while loading",
-      );
-    }
-    return this.parser.normalize(destination, parsed.html);
-  }
-
-  private async loadArticle(
-    pageId: number,
-    info?: Awaited<ReturnType<MediaWikiClient["getPageInfo"]>>,
-  ): Promise<NormalizedArticle> {
-    const page = info ?? (await this.client.getPageInfo(pageId));
-    if (page.redirect) {
-      throw new WikipediaError(
-        "PAGE_NOT_FOUND",
-        "The stored article is now a redirect",
-      );
-    }
-    const parsed = await this.client.getArticleHtml(pageId);
-    if (parsed.title !== page.title) {
-      throw new WikipediaError(
-        "INVALID_RESPONSE",
-        "Article changed while loading",
-      );
-    }
-    return this.parser.normalize({ pageId, title: parsed.title }, parsed.html);
   }
 }

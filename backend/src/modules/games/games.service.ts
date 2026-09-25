@@ -27,7 +27,6 @@ import type {
   GameWithMoves,
   PreparedGameState,
 } from "./games.types.js";
-import type { StartingPageProvider } from "./starting-page.provider.js";
 
 export const MAX_IN_PROGRESS_GAMES = 10;
 export const MEDIUM_BACKTRACK_LIMIT = 3;
@@ -133,10 +132,7 @@ export function toGameListItemDto(game: Game): GameListItemDto {
 }
 
 export class GamesService {
-  constructor(
-    private readonly startingPageProvider: StartingPageProvider,
-    private readonly wikipedia: WikipediaArticleSource,
-  ) {}
+  constructor(private readonly wikipedia: WikipediaArticleSource) {}
 
   async create(userId: string, input: CreateGameInput): Promise<Game> {
     const inProgressCount = await prisma.game.count({
@@ -151,7 +147,7 @@ export class GamesService {
       );
     }
 
-    const startingPage = await this.startingPageProvider.getStartingPage();
+    const startingPage = await this.wikipedia.getStartingPage();
 
     return prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT "id" FROM "users" WHERE "id" = ${userId}::uuid FOR UPDATE`;

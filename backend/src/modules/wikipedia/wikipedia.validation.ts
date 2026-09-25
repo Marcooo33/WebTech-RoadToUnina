@@ -1,7 +1,3 @@
-export function isValidMediaWikiPageId(value: unknown): value is number {
-  return typeof value === "number" && Number.isSafeInteger(value) && value > 0;
-}
-
 export function normalizeMediaWikiTitle(value: unknown): string | null {
   if (typeof value !== "string") {
     return null;

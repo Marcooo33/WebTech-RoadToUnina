@@ -14,66 +14,16 @@ export interface NormalizedArticle {
   links: PlayableLink[];
 }
 
-// The subset of the Wikipedia integration that the games module depends on: the
-// authoritative current article and its playable internal links. Navigation
-// resolution also ensures a non-target destination is safely loaded before the
-// caller persists the move. `WikipediaService`
-// (real MediaWiki) and the deterministic E2E fake both implement this, so the
+// What the games module needs from Wikipedia. `WikipediaService` (real
+// MediaWiki) and the deterministic E2E fake both implement it, so the
 // composition root can swap them without the games module knowing.
 export interface WikipediaArticleSource {
+  getStartingPage(): Promise<WikipediaPageIdentity>;
   getArticle(pageId: number): Promise<NormalizedArticle>;
+  // Returns the destination only if `toTitle` is a playable link of the
+  // current article and exists (redirects are followed).
   resolveNavigation(
     fromPageId: number,
     toTitle: string,
   ): Promise<WikipediaPageIdentity | null>;
-}
-
-export interface MediaWikiApiError {
-  code: string;
-  info: string;
-}
-
-export interface MediaWikiRedirect {
-  from: string;
-  to: string;
-}
-
-export interface MediaWikiNormalized {
-  from: string;
-  to: string;
-}
-
-export interface MediaWikiPage {
-  pageid?: number;
-  ns?: number;
-  title?: string;
-  missing?: boolean;
-  length?: number;
-  redirect?: boolean;
-}
-
-export interface MediaWikiRandomItem {
-  id: number;
-  ns: number;
-  title: string;
-}
-
-export interface MediaWikiQueryResponse {
-  query?: {
-    pages?: MediaWikiPage[];
-    random?: MediaWikiRandomItem[];
-    redirects?: MediaWikiRedirect[];
-    normalized?: MediaWikiNormalized[];
-  };
-  error?: MediaWikiApiError;
-}
-
-export interface MediaWikiParseResponse {
-  parse?: {
-    pageid: number;
-    title: string;
-    text?: string | { "*": string };
-    redirects?: MediaWikiRedirect[];
-  };
-  error?: MediaWikiApiError;
 }
