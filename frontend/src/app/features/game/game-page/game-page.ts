@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   computed,
   inject,
@@ -60,7 +61,7 @@ const TIMER_TICK_MS = 1_000;
   templateUrl: './game-page.html',
   styleUrl: './game-page.css',
 })
-export class GamePage implements OnInit {
+export class GamePage implements OnInit, OnDestroy {
   private readonly games = inject(GamesService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly router = inject(Router);
@@ -125,6 +126,15 @@ export class GamePage implements OnInit {
 
   ngOnInit(): void {
     this.load();
+  }
+
+  // Final heartbeat when leaving the game in-app, so the time on the current
+  // page is recorded up to now instead of up to the last periodic heartbeat.
+  // Fire-and-forget: the component is gone, so errors are ignored.
+  ngOnDestroy(): void {
+    if (this.phase() === 'playing' && !this.busy()) {
+      this.games.heartbeat(this.id()).subscribe({ error: () => {} });
+    }
   }
 
   // --- User actions -------------------------------------------------------

@@ -10,6 +10,7 @@ import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
 import {
   activityData,
   completionTimingData,
+  pendingIntervalMs,
   resumeIntervalData,
   transitionTimingData,
 } from "./game-timing.js";
@@ -125,7 +126,12 @@ export function toGameListItemDto(game: Game): GameListItemDto {
     currentPageTitle: game.currentPageTitle,
     clickCount: game.clickCount,
     backtrackCount: game.backtrackCount,
-    effectivePlayTimeMs: game.effectivePlayTimeMs,
+    // Include the pending interval (already proven by heartbeats) so a game
+    // left mid-page shows the same time the player saw, not just the time
+    // finalized at the last move. Read-only: nothing is written here.
+    effectivePlayTimeMs:
+      game.effectivePlayTimeMs +
+      pendingIntervalMs(game.playStartedAt, game.lastHeartbeatAt),
     startedAt: game.startedAt.toISOString(),
     completedAt: game.completedAt?.toISOString() ?? null,
   };
