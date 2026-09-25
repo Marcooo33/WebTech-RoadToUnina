@@ -12,56 +12,70 @@ Il progetto è diviso in due parti: **backend** (Express + TypeScript + Prisma/P
 ### Backend
 
 1. Entra nella cartella del backend:
+
    ```bash
    cd backend
    ```
+
 2. Installa le dipendenze:
+
    ```bash
    npm install
    ```
+
 3. Crea il file `.env` a partire dall'esempio fornito:
+
    ```bash
    cp .env.example .env
    ```
+
    Poi compila le variabili nel file `.env`:
+
    - `DATABASE_URL`: stringa di connessione al database PostgreSQL (usata da Prisma).
    - `PORT`: porta su cui gira il server Express (default `3000`).
    - `NODE_ENV`: `development` in locale, `production` in produzione (abilita il flag `Secure` sui cookie).
    - `JWT_SECRET`: segreto per firmare i token JWT, lungo almeno 32 caratteri.
    - `JWT_EXPIRES_IN`: durata del token di accesso (default `8h`).
    - `E2E_FAKE_WIKIPEDIA`: lasciare a `0` in sviluppo (serve solo ai test end-to-end).
+
 4. Genera il client Prisma e applica le migrazioni al database:
+
    ```bash
    npx prisma generate
    npx prisma migrate deploy
    ```
-5. Avvia il server in modalità sviluppo (con riavvio automatico):
-   ```bash
-   npm run dev
-   ```
-   Il backend sarà disponibile su `http://localhost:3000`.
 
-   In alternativa, per una build di produzione:
+5. Avvia il server:
+
    ```bash
    npm run build
    npm start
    ```
 
+   Il backend sarà disponibile su `http://localhost:3000`.
+
 ### Frontend
 
 1. In un altro terminale, entra nella cartella del frontend:
+
    ```bash
    cd frontend
    ```
+
 2. Installa le dipendenze:
+
    ```bash
    npm install
    ```
+
 3. Avvia il server di sviluppo Angular:
+
    ```bash
    npm start
    ```
+
    Il comando esegue `ng serve` usando la configurazione di proxy già presente in `proxy.conf.json`, che inoltra le richieste verso `/api` e `/health` al backend su `http://localhost:3000`. Assicurati quindi che il backend sia già in esecuzione.
+
 4. Apri il browser su `http://localhost:4200`.
 
 ---
