@@ -58,3 +58,13 @@ export interface PreparedGameStateDto {
   game: GameDto;
   article: import('./article.model').ArticleDto | null;
 }
+
+export interface GuestGameSummary {
+  game: GameListItemDto | null;
+  revision: number | null;
+  expiresAt: string | null;
+}
+export interface GuestGameState extends PreparedGameStateDto {
+  revision: number;
+  expiresAt: string;
+}

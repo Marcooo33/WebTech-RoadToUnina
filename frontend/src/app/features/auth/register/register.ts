@@ -1,3 +1,4 @@
+import { PostAuthGuestService } from '../../../core/auth/post-auth-guest.service';
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -12,6 +13,8 @@ import { ErrorBanner } from '../../../shared/components/error-banner/error-banne
   templateUrl: './register.html',
 })
 export class Register implements OnInit {
+  readonly continuation = inject(PostAuthGuestService);
+  readonly authenticated = signal(false);
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
@@ -28,8 +31,21 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      void this.router.navigateByUrl('/');
+      void this.afterAuthentication();
     }
+  }
+
+  async afterAuthentication(force = false): Promise<void> {
+    this.authenticated.set(true);
+    await this.continuation.finish(force);
+    this.submitting.set(false);
+    if (!this.auth.isAuthenticated()) {
+      this.authenticated.set(false);
+      this.error.set(this.continuation.message());
+      await this.router.navigateByUrl('/login');
+      return;
+    }
+    if (!this.continuation.message()) await this.router.navigateByUrl('/dashboard');
   }
 
   submit(): void {
@@ -43,7 +59,7 @@ export class Register implements OnInit {
     const { username, email, password } = this.form.getRawValue();
     this.auth.register(username, email, password).subscribe({
       next: () => {
-        void this.router.navigateByUrl('/');
+        void this.afterAuthentication();
       },
       error: (err: ApiError) => {
         this.submitting.set(false);

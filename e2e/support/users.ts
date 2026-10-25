@@ -24,7 +24,12 @@ export async function registerInContext(
   user: TestUser,
 ): Promise<void> {
   const response = await context.request.post("/api/auth/register", {
-    data: { username: user.username, email: user.email, password: user.password },
+    headers: { "X-Requested-With": "ROADTOUNINA" },
+    data: {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+    },
   });
   expect(
     response.ok(),
@@ -37,6 +42,7 @@ export async function loginInContext(
   user: TestUser,
 ): Promise<void> {
   const response = await context.request.post("/api/auth/login", {
+    headers: { "X-Requested-With": "ROADTOUNINA" },
     data: { identifier: user.username, password: user.password },
   });
   expect(response.ok(), `login failed: ${response.status()}`).toBeTruthy();

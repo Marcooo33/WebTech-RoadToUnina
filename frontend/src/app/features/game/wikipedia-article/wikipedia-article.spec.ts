@@ -12,6 +12,8 @@ describe('WikipediaArticle', () => {
 
     fixture = TestBed.createComponent(WikipediaArticle);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('title', 'Napoli');
+    fixture.componentRef.setInput('html', '<p>Article</p>');
     fixture.detectChanges();
   });
 

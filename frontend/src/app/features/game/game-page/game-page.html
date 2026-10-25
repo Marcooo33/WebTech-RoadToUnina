@@ -25,7 +25,7 @@
 
     @case ('completed') {
       @if (game(); as g) {
-        <app-game-result [game]="g" />
+        <app-game-result [game]="g" [guest]="isGuest" />
       }
     }
 

@@ -9,7 +9,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:check": "tsx src/scripts/db-check.ts",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "keywords": [],
   "author": "",

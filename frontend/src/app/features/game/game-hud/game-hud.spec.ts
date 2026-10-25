@@ -12,6 +12,14 @@ describe('GameHud', () => {
 
     fixture = TestBed.createComponent(GameHud);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('game', {
+      mode: 'CLICK',
+      difficulty: 'EASY',
+      clickCount: 0,
+      backtrackCount: 0,
+      path: [{ pageId: 1, title: 'Start' }],
+    });
+    fixture.componentRef.setInput('displayTimeMs', 0);
     fixture.detectChanges();
   });
 

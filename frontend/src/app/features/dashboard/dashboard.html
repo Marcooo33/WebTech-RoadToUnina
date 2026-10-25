@@ -1,3 +1,21 @@
+@if (guestContinuation.busy()) {
+  <p class="status status--info" role="status">Finishing guest game…</p>
+}
+@if (guestContinuation.message(); as message) {
+  <div class="status status--warning" role="alert">
+    <span>{{ message }}</span>
+    @if (guestContinuation.retryable()) {
+      <button
+        class="btn btn--secondary"
+        type="button"
+        [disabled]="guestContinuation.busy()"
+        (click)="retryGuest()"
+      >
+        Retry guest operation
+      </button>
+    }
+  </div>
+}
 <section class="dashboard stack">
   <header class="page-header">
     <div class="page-header__copy">

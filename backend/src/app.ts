@@ -1,3 +1,6 @@
+import { prisma } from "./lib/prisma.js";
+import { GuestGamesService } from "./modules/guest-games/guest-games.service.js";
+import { createGuestGamesRouter } from "./modules/guest-games/guest-games.routes.js";
 import cookieParser from "cookie-parser";
 import express, { type Express } from "express";
 import { errorMiddleware } from "./middleware/error.middleware.js";
@@ -11,6 +14,33 @@ import { ErrorCode, errorBody } from "./shared/errors.js";
 
 export interface AppDependencies {
   wikipediaService?: WikipediaArticleSource;
+  guestService?: GuestGamesService;
+}
+
+// Called only after guest capability, completion and authenticated ownership checks.
+export async function persistGuestGame(
+  game: import("./modules/games/games.types.js").GameWithMoves,
+  userId: string,
+): Promise<void> {
+  // A stable UUID reconciles a successful commit whose acknowledgement was lost.
+  await prisma.$transaction(async (tx) => {
+    const existing = await tx.game.findUnique({ where: { id: game.id } });
+    if (existing) {
+      if (existing.userId !== userId || existing.status !== "COMPLETED")
+        throw new Error("Guest claim ownership conflict");
+      return;
+    }
+    await tx.game.create({
+      data: {
+        ...game,
+        userId,
+        updatedAt: new Date(),
+        moves: {
+          create: game.moves.map(({ gameId: _gameId, ...move }) => move),
+        },
+      },
+    });
+  });
 }
 
 export function createApp(dependencies: AppDependencies = {}): Express {
@@ -26,11 +56,15 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   const wikipediaService =
     dependencies.wikipediaService ?? new WikipediaService();
 
+  const guests =
+    dependencies.guestService ??
+    new GuestGamesService(wikipediaService, persistGuestGame);
+  // server.ts owns timers: importing/createApp does not start background work.
+  app.locals.guestGames = guests;
+  app.use("/api/guest-games", createGuestGamesRouter(guests));
+
   app.use("/api/auth", authRouter);
-  app.use(
-    "/api/games",
-    createGamesRouter(wikipediaService),
-  );
+  app.use("/api/games", createGamesRouter(wikipediaService));
   app.use("/api/history", createHistoryRouter());
   app.use("/api/me", createMeRouter());
 

@@ -32,13 +32,25 @@
       </dd>
     </div>
   </dl>
-  <div class="actions">
-    <a class="btn" [routerLink]="['/history', g.id]"
-      >View public game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" /></a
-    ><a class="btn btn--secondary" routerLink="/"
-      ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
-    ><a class="btn btn--quiet" routerLink="/history"
-      ><ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History</a
-    >
-  </div>
+  @if (guest()) {
+    <p class="status status--info">
+      This result is not saved yet. Register or log in to save it automatically. Guest games expire
+      after 24 hours of inactivity and may be lost if the server restarts.
+    </p>
+    <div class="actions">
+      <a class="btn" routerLink="/register">Register to save result</a>
+      <a class="btn btn--secondary" routerLink="/login">Log in to save result</a>
+      <a class="btn btn--quiet" routerLink="/">Home</a>
+    </div>
+  } @else {
+    <div class="actions">
+      <a class="btn" [routerLink]="['/history', g.id]"
+        >View public game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" /></a
+      ><a class="btn btn--secondary" routerLink="/"
+        ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
+      ><a class="btn btn--quiet" routerLink="/history"
+        ><ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History</a
+      >
+    </div>
+  }
 </section>

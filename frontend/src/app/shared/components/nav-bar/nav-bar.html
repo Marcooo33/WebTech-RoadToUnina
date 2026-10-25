@@ -49,6 +49,9 @@
             <ng-icon class="icon" name="lucideLogOut" aria-hidden="true" />Log out
           </button>
         } @else {
+          <a routerLink="/" [queryParams]="{ guest: 'start' }" (click)="closeMenu()"
+            >Play as Guest</a
+          >
           <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">
             <ng-icon class="icon" name="lucideLogIn" aria-hidden="true" />Log in
           </a>

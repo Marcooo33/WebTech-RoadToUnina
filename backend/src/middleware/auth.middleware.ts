@@ -30,6 +30,7 @@ type ActiveUserLookup = (userId: string) => Promise<unknown | null>;
 
 export function createAuthenticate(
   findActiveUser: ActiveUserLookup = findActiveUserById,
+  optional = false,
 ): RequestHandler {
   return async (
     req: Request,
@@ -39,7 +40,7 @@ export function createAuthenticate(
     const token = req.cookies?.[ACCESS_TOKEN_COOKIE];
 
     if (!token) {
-      next(authenticationRequired());
+      next(optional ? undefined : authenticationRequired());
       return;
     }
 
@@ -47,18 +48,18 @@ export function createAuthenticate(
     try {
       sub = verifyAccessToken(token);
     } catch {
-      next(authenticationRequired());
+      next(optional ? undefined : authenticationRequired());
       return;
     }
 
     if (!isUuid(sub)) {
-      next(authenticationRequired());
+      next(optional ? undefined : authenticationRequired());
       return;
     }
 
     try {
       if (!(await findActiveUser(sub))) {
-        next(authenticationRequired());
+        next(optional ? undefined : authenticationRequired());
         return;
       }
 
@@ -71,3 +72,23 @@ export function createAuthenticate(
 }
 
 export const authenticate = createAuthenticate();
+export const optionalAuthenticate = createAuthenticate(
+  findActiveUserById,
+  true,
+);
+
+// Same-origin browser requests can supply this header; cross-site forms cannot.
+// Keep CORS closed: allowing arbitrary credentialed origins would defeat this check.
+export const requireBrowserRequest: RequestHandler = (req, _res, next) => {
+  if (req.get("X-Requested-With") !== "ROADTOUNINA") {
+    next(
+      new ApiError(
+        403,
+        ErrorCode.REQUEST_HEADER_REQUIRED,
+        "A same-origin application request is required.",
+      ),
+    );
+    return;
+  }
+  next();
+};

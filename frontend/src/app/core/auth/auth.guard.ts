@@ -20,3 +20,13 @@ export const authGuard: CanActivateFn = () => {
 
   return auth.bootstrap().pipe(map((status) => (status === 'authenticated' ? true : deny())));
 };
+
+export const guestGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  return auth
+    .bootstrap()
+    .pipe(
+      map((status) => (status === 'authenticated' ? router.createUrlTree(['/dashboard']) : true)),
+    );
+};

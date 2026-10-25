@@ -8,12 +8,65 @@
         <strong>Università degli Studi di Napoli Federico II</strong> using only the links you find
         along the way.
       </p>
+      <app-error-banner [message]="error()" />
+      @if (guests.notice(); as notice) {
+        <p class="status status--warning" role="status">{{ notice }}</p>
+      }
       <div class="actions">
+        <button class="btn" type="button" [disabled]="busy()" (click)="play()">
+          {{ busy() ? 'Starting…' : 'Play as Guest' }}
+        </button>
         <a class="btn" routerLink="/register"
           >Create an account <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
         /></a>
         <a class="btn btn--secondary" routerLink="/login">Log in</a>
       </div>
+      @if (current()?.game; as game) {
+        <div class="card stack" data-testid="guest-existing">
+          <p>
+            {{
+              game.status === 'COMPLETED'
+                ? 'You have an unsaved guest result.'
+                : 'You have a guest game in progress.'
+            }}
+          </p>
+          <div class="actions">
+            <a class="btn" [routerLink]="['/guest/game', game.id]">{{
+              game.status === 'COMPLETED' ? 'View Result' : 'Resume'
+            }}</a>
+            <button
+              class="btn btn--secondary"
+              type="button"
+              [disabled]="busy()"
+              (click)="confirming.set(true)"
+            >
+              Start New
+            </button>
+          </div>
+          @if (confirming()) {
+            <p role="alert">
+              {{
+                game.status === 'COMPLETED'
+                  ? 'Discard this unsaved result and start a new game?'
+                  : 'Discard your current progress and start a new game?'
+              }}
+            </p>
+            <div class="actions">
+              <button class="btn btn--danger" type="button" [disabled]="busy()" (click)="replace()">
+                Confirm Start New
+              </button>
+              <button
+                class="btn btn--secondary"
+                type="button"
+                [disabled]="busy()"
+                (click)="confirming.set(false)"
+              >
+                Cancel
+              </button>
+            </div>
+          }
+        </div>
+      }
       <a class="hero__history" routerLink="/history">
         <ng-icon class="icon" name="lucideHistory" aria-hidden="true" />
         <span

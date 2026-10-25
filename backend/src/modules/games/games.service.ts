@@ -1,15 +1,11 @@
-import { TARGET_PAGE_ID } from "../../config/game.js";
 import {
   Prisma,
   type Game,
-  type GameMove,
   type GameMoveType,
 } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError, ErrorCode } from "../../shared/errors.js";
 import type { WikipediaArticleSource } from "../wikipedia/wikipedia.types.js";
-import { toGameMoveDto } from "./game-move.js";
-import { reconstructActivePath } from "./game-path.js";
 import type {
   CreateGameInput,
   GameStatusFilter,
@@ -17,15 +13,24 @@ import type {
 } from "./games.validation.js";
 import type {
   ArticleDto,
-  GameDto,
-  GameListItemDto,
   GameWithMoves,
   PageRefDto,
   PreparedGameState,
 } from "./games.types.js";
 
 export const MAX_IN_PROGRESS_GAMES = 10;
-export const MEDIUM_BACKTRACK_LIMIT = 3;
+export {
+  MEDIUM_BACKTRACK_LIMIT,
+  toGameDto,
+  toGameListItemDto,
+} from "./game-engine.js";
+import {
+  elapsedMs,
+  prepareArticle,
+  prepareNavigation,
+  prepareBacktrack,
+  transitionTiming,
+} from "./game-engine.js";
 
 // Play time is measured server-side with two fields on the game:
 //   effectivePlayTimeMs - play time already counted
@@ -43,65 +48,6 @@ function gameNotInProgress(): ApiError {
     ErrorCode.GAME_NOT_IN_PROGRESS,
     "Game is not in progress",
   );
-}
-
-function invalidMove(): ApiError {
-  return new ApiError(
-    422,
-    ErrorCode.INVALID_MOVE,
-    "Target page is not a valid playable link",
-  );
-}
-
-// Length of the current interval up to `until`; 0 while the game is paused.
-function elapsedMs(playStartedAt: Date | null, until: Date): number {
-  if (!playStartedAt) {
-    return 0;
-  }
-  return Math.max(0, until.getTime() - playStartedAt.getTime());
-}
-
-export function toGameDto(game: Game, moves: GameMove[]): GameDto {
-  const path = reconstructActivePath(
-    { pageId: game.startPageId, title: game.startPageTitle },
-    moves,
-  );
-
-  return {
-    id: game.id,
-    mode: game.mode,
-    difficulty: game.difficulty,
-    status: game.status,
-    startPageId: game.startPageId,
-    startPageTitle: game.startPageTitle,
-    currentPageId: game.currentPageId,
-    currentPageTitle: game.currentPageTitle,
-    clickCount: game.clickCount,
-    backtrackCount: game.backtrackCount,
-    effectivePlayTimeMs: game.effectivePlayTimeMs,
-    startedAt: game.startedAt.toISOString(),
-    completedAt: game.completedAt?.toISOString() ?? null,
-    createdAt: game.createdAt.toISOString(),
-    path,
-    moves: moves.map(toGameMoveDto),
-  };
-}
-
-export function toGameListItemDto(game: Game): GameListItemDto {
-  return {
-    id: game.id,
-    mode: game.mode,
-    difficulty: game.difficulty,
-    status: game.status,
-    startPageTitle: game.startPageTitle,
-    currentPageId: game.currentPageId,
-    currentPageTitle: game.currentPageTitle,
-    clickCount: game.clickCount,
-    backtrackCount: game.backtrackCount,
-    effectivePlayTimeMs: game.effectivePlayTimeMs,
-    startedAt: game.startedAt.toISOString(),
-    completedAt: game.completedAt?.toISOString() ?? null,
-  };
 }
 
 export class GamesService {
@@ -159,9 +105,10 @@ export class GamesService {
     }
 
     // The article is loaded first, so waiting for MediaWiki is not play time.
-    const article = this.toArticleDto(
+    const article = await prepareArticle(
+      this.wikipedia,
       game.id,
-      await this.wikipedia.getArticle(game.currentPageId),
+      game.currentPageId,
     );
 
     // If an interval is still open here, the pause sent when the player left
@@ -177,10 +124,7 @@ export class GamesService {
 
   async getArticle(userId: string, gameId: string): Promise<ArticleDto> {
     const game = await this.loadOwnedGame(userId, gameId);
-    return this.toArticleDto(
-      game.id,
-      await this.wikipedia.getArticle(game.currentPageId),
-    );
+    return prepareArticle(this.wikipedia, game.id, game.currentPageId);
   }
 
   // Called when the player leaves the game page: closes the current interval.
@@ -214,38 +158,23 @@ export class GamesService {
     const arrivedAt = new Date();
     const game = await this.loadInProgressGame(userId, gameId);
 
-    const destination = await this.wikipedia.resolveNavigation(
-      game.currentPageId,
+    const { destination, isTarget, article } = await prepareNavigation(
+      this.wikipedia,
+      game,
       input.toTitle,
     );
 
-    if (!destination) {
-      throw invalidMove();
-    }
-
-    const isTarget = destination.pageId === TARGET_PAGE_ID;
-    const article = isTarget
-      ? null
-      : this.toArticleDto(
-          gameId,
-          await this.wikipedia.getArticle(destination.pageId),
-        );
-
     const updated = await prisma.$transaction(async (tx) => {
+      const timing = transitionTiming(game, arrivedAt, new Date(), isTarget);
       await this.updateInProgressGame(tx, gameId, {
         currentPageId: destination.pageId,
         currentPageTitle: destination.title,
         clickCount: { increment: 1 },
-        effectivePlayTimeMs: {
-          increment: elapsedMs(game.playStartedAt, arrivedAt),
-        },
+        effectivePlayTimeMs: { increment: timing.elapsed },
+        playStartedAt: timing.playStartedAt,
         ...(isTarget
-          ? {
-              status: "COMPLETED" as const,
-              completedAt: new Date(),
-              playStartedAt: null,
-            }
-          : { playStartedAt: new Date() }),
+          ? { status: timing.status, completedAt: timing.completedAt }
+          : {}),
       });
 
       await this.recordMove(
@@ -266,59 +195,27 @@ export class GamesService {
     const arrivedAt = new Date();
     const game = await this.loadInProgressGame(userId, gameId);
 
-    if (game.difficulty === "HARD") {
-      throw new ApiError(
-        422,
-        ErrorCode.BACKTRACK_NOT_ALLOWED,
-        "Backtracking is not allowed on HARD difficulty",
-      );
-    }
-
-    if (
-      game.difficulty === "MEDIUM" &&
-      game.backtrackCount >= MEDIUM_BACKTRACK_LIMIT
-    ) {
-      throw new ApiError(
-        422,
-        ErrorCode.BACKTRACK_LIMIT_REACHED,
-        "Backtracking limit reached",
-      );
-    }
-
     const moves = await prisma.gameMove.findMany({
       where: { gameId },
       orderBy: { sequence: "asc" },
     });
 
-    const path = reconstructActivePath(
-      { pageId: game.startPageId, title: game.startPageTitle },
+    const { current, previous, article } = await prepareBacktrack(
+      this.wikipedia,
+      game,
       moves,
     );
 
-    if (path.length <= 1) {
-      throw new ApiError(
-        422,
-        ErrorCode.BACKTRACK_NOT_ALLOWED,
-        "Cannot backtrack from the starting page",
-      );
-    }
-
-    const current = path[path.length - 1];
-    const previous = path[path.length - 2];
-    const article = this.toArticleDto(
-      gameId,
-      await this.wikipedia.getArticle(previous.pageId),
-    );
-
     const updated = await prisma.$transaction(async (tx) => {
+      const timing = transitionTiming(game, arrivedAt, new Date(), false);
       await this.updateInProgressGame(tx, gameId, {
         currentPageId: previous.pageId,
         currentPageTitle: previous.title,
         backtrackCount: { increment: 1 },
         effectivePlayTimeMs: {
-          increment: elapsedMs(game.playStartedAt, arrivedAt),
+          increment: timing.elapsed,
         },
-        playStartedAt: new Date(),
+        playStartedAt: timing.playStartedAt,
       });
 
       await this.recordMove(tx, gameId, "BACKTRACK", current, previous);
@@ -426,18 +323,5 @@ export class GamesService {
       where: { id: gameId },
       include: { moves: { orderBy: { sequence: "asc" } } },
     });
-  }
-
-  private toArticleDto(
-    gameId: string,
-    article: Awaited<ReturnType<WikipediaArticleSource["getArticle"]>>,
-  ): ArticleDto {
-    return {
-      gameId,
-      pageId: article.pageId,
-      title: article.title,
-      contentHtml: article.contentHtml,
-      links: article.links.map((link) => ({ title: link.title })),
-    };
   }
 }

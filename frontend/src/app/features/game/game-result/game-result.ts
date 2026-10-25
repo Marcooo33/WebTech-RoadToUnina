@@ -16,5 +16,6 @@ import { lucideArrowRight, lucideCheckCircle2, lucideHistory, lucideHouse } from
   styleUrl: './game-result.css',
 })
 export class GameResult {
+  readonly guest = input(false);
   readonly game = input.required<GameDto>();
 }

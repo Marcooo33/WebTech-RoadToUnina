@@ -1,3 +1,4 @@
+import { PostAuthGuestService } from '../../core/auth/post-auth-guest.service';
 import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -49,6 +50,7 @@ const RECENT_COMPLETED_LIMIT = 5;
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
+  readonly guestContinuation = inject(PostAuthGuestService);
   private readonly auth = inject(AuthService);
   private readonly games = inject(GamesService);
   private readonly stats = inject(StatsService);
@@ -77,7 +79,12 @@ export class Dashboard implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load();
+    void this.guestContinuation.finish().then(() => this.load());
+  }
+
+  async retryGuest(): Promise<void> {
+    await this.guestContinuation.finish(true);
+    this.load(false);
   }
 
   // (Re)loads the in-progress list and statistics. showSpinner is false for a

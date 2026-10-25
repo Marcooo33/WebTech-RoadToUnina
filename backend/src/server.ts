@@ -21,12 +21,18 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
+  const guestCleanup = setInterval(
+    () => app.locals.guestGames.cleanup(),
+    60_000,
+  );
+  guestCleanup.unref();
   const server = app.listen(env.PORT, () => {
     console.log(`Server listening on http://localhost:${env.PORT}`);
   });
 
   const shutdown = (signal: string): void => {
     console.log(`\n${signal} received, shutting down...`);
+    clearInterval(guestCleanup);
     server.close(() => {
       prisma
         .$disconnect()

@@ -43,3 +43,18 @@ export function clearAccessTokenCookie(res: Response): void {
     path: "/",
   });
 }
+
+export const GUEST_TOKEN_COOKIE = "guest_token";
+export function setGuestCookie(
+  res: Response,
+  token: string,
+  expiresAt: string,
+): void {
+  res.cookie(GUEST_TOKEN_COOKIE, token, {
+    ...accessTokenCookieOptions(
+      Math.max(0, new Date(expiresAt).getTime() - Date.now()),
+      env.NODE_ENV === "production",
+    ),
+    path: "/api/guest-games",
+  });
+}

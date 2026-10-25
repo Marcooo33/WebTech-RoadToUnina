@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth/auth.guard';
+import { authGuard, guestGuard } from './core/auth/auth.guard';
 import type { GamePage } from './features/game/game-page/game-page';
 
 export const routes: Routes = [
@@ -35,6 +35,14 @@ export const routes: Routes = [
     loadComponent: () => import('./features/game/game-page/game-page').then((m) => m.GamePage),
     canDeactivate: [(component: GamePage) => component.pauseBeforeLeave()],
     title: 'Game · ROADTOUNINA',
+  },
+  {
+    path: 'guest/game/:id',
+    canActivate: [guestGuard],
+    data: { guest: true },
+    loadComponent: () => import('./features/game/game-page/game-page').then((m) => m.GamePage),
+    canDeactivate: [(component: GamePage) => component.pauseBeforeLeave()],
+    title: 'Guest game · ROADTOUNINA',
   },
   {
     path: 'history',

@@ -13,7 +13,8 @@ export interface ArticleDto {
   links: { title: string }[];
 }
 
-export type GameWithMoves = Game & { moves: GameMove[] };
+export type GameState = Omit<Game, "userId">;
+export type GameWithMoves = GameState & { moves: GameMove[] };
 
 export interface PreparedGameState {
   game: GameWithMoves;
@@ -62,4 +63,16 @@ export interface GameListItemDto {
   effectivePlayTimeMs: number;
   startedAt: string;
   completedAt: string | null;
+}
+
+export interface GuestGameSummary {
+  game: GameListItemDto | null;
+  revision: number | null;
+  expiresAt: string | null;
+}
+export interface GuestGameState {
+  game: GameDto;
+  article: ArticleDto | null;
+  revision: number;
+  expiresAt: string;
 }

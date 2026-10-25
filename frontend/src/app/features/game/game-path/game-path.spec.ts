@@ -12,6 +12,7 @@ describe('GamePath', () => {
 
     fixture = TestBed.createComponent(GamePath);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('path', []);
     fixture.detectChanges();
   });
 

@@ -5,53 +5,75 @@
     <p class="muted">Resume your routes to Federico II.</p>
   </header>
 
-  <app-error-banner [message]="error()" />
+  @if (authenticated()) {
+    @if (continuation.busy()) {
+      <p role="status">Finishing guest game…</p>
+    }
+    @if (continuation.message(); as message) {
+      <p class="status status--warning" role="alert">{{ message }}</p>
+      <div class="actions">
+        @if (continuation.retryable()) {
+          <button
+            class="btn"
+            type="button"
+            [disabled]="continuation.busy()"
+            (click)="afterAuthentication(true)"
+          >
+            Retry
+          </button>
+        }
+        <a class="btn btn--secondary" routerLink="/dashboard">Go to Dashboard</a>
+      </div>
+    }
+  } @else {
+    <app-error-banner [message]="error()" />
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="field">
-      <label for="identifier">Username or email</label>
-      <input
-        id="identifier"
-        type="text"
-        formControlName="identifier"
-        autocomplete="username"
-        [attr.aria-invalid]="form.controls.identifier.touched && form.controls.identifier.invalid"
-        [attr.aria-describedby]="
-          form.controls.identifier.touched && form.controls.identifier.invalid
-            ? 'identifier-error'
-            : null
-        "
-      />
-      @if (form.controls.identifier.touched && form.controls.identifier.invalid) {
-        <span id="identifier-error" class="field__error">Enter your username or email.</span>
-      }
-    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="identifier">Username or email</label>
+        <input
+          id="identifier"
+          type="text"
+          formControlName="identifier"
+          autocomplete="username"
+          [attr.aria-invalid]="form.controls.identifier.touched && form.controls.identifier.invalid"
+          [attr.aria-describedby]="
+            form.controls.identifier.touched && form.controls.identifier.invalid
+              ? 'identifier-error'
+              : null
+          "
+        />
+        @if (form.controls.identifier.touched && form.controls.identifier.invalid) {
+          <span id="identifier-error" class="field__error">Enter your username or email.</span>
+        }
+      </div>
 
-    <div class="field">
-      <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        formControlName="password"
-        autocomplete="current-password"
-        [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
-        [attr.aria-describedby]="
-          form.controls.password.touched && form.controls.password.invalid
-            ? 'login-password-error'
-            : null
-        "
-      />
-      @if (form.controls.password.touched && form.controls.password.invalid) {
-        <span id="login-password-error" class="field__error">Enter your password.</span>
-      }
-    </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
+          [attr.aria-describedby]="
+            form.controls.password.touched && form.controls.password.invalid
+              ? 'login-password-error'
+              : null
+          "
+        />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <span id="login-password-error" class="field__error">Enter your password.</span>
+        }
+      </div>
 
-    <button class="btn auth__submit" type="submit" [disabled]="submitting()">
-      {{ submitting() ? 'Logging in…' : 'Log in' }}
-    </button>
-  </form>
+      <button class="btn auth__submit" type="submit" [disabled]="submitting()">
+        {{ submitting() ? 'Logging in…' : 'Log in' }}
+      </button>
+    </form>
 
-  <p class="auth__footer muted">
-    New to ROADTOUNINA? <a routerLink="/register">Create an account</a>
-  </p>
+    <p class="auth__footer muted">
+      New to ROADTOUNINA? <a routerLink="/register">Create an account</a>
+    </p>
+  }
 </section>

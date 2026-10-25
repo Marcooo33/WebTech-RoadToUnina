@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { authenticate } from "../../middleware/auth.middleware.js";
+import {
+  authenticate,
+  requireBrowserRequest,
+} from "../../middleware/auth.middleware.js";
 import {
   changePasswordHandler,
   deleteMeHandler,
@@ -12,8 +15,8 @@ import {
 
 export const authRouter = Router();
 
-authRouter.post("/register", registerHandler);
-authRouter.post("/login", loginHandler);
+authRouter.post("/register", requireBrowserRequest, registerHandler);
+authRouter.post("/login", requireBrowserRequest, loginHandler);
 authRouter.post("/logout", authenticate, logoutHandler);
 authRouter.get("/me", authenticate, meHandler);
 authRouter.patch("/me", authenticate, updateMeHandler);

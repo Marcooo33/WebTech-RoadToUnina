@@ -1,3 +1,4 @@
+import { GuestGamesService } from '../../../core/services/guest-games.service';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -13,7 +14,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable, catchError, interval, map, of } from 'rxjs';
 import { GamesService } from '../../../core/services/games.service';
 import { ApiError } from '../../../shared/models/api-error.model';
@@ -56,7 +57,12 @@ const TIMER_TICK_MS = 1_000;
   host: { '(window:pagehide)': 'onPageHide()' },
 })
 export class GamePage implements OnInit {
-  private readonly games = inject(GamesService);
+  readonly isGuest = !!inject(ActivatedRoute).snapshot.data['guest'];
+  private readonly guests = inject(GuestGamesService);
+  private readonly games: Pick<
+    GamesService,
+    'get' | 'getArticle' | 'move' | 'backtrack' | 'pause' | 'pauseOnExit'
+  > = this.isGuest ? this.guests : inject(GamesService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
@@ -247,7 +253,7 @@ export class GamePage implements OnInit {
   private onInitialError(err: ApiError): void {
     this.busy.set(false);
     if (err.code === 'GAME_NOT_FOUND') {
-      void this.router.navigate(['/']);
+      this.leaveMissingGame();
       return;
     }
     this.error.set(err.message);
@@ -259,8 +265,9 @@ export class GamePage implements OnInit {
 
     switch (err.code) {
       case 'GAME_NOT_FOUND':
-        void this.router.navigate(['/']);
+        this.leaveMissingGame();
         return;
+      case 'GUEST_GAME_CHANGED':
       case 'GAME_NOT_IN_PROGRESS':
         this.load();
         return;
@@ -287,6 +294,7 @@ export class GamePage implements OnInit {
     this.busy.set(false);
 
     switch (err.code) {
+      case 'GUEST_GAME_CHANGED':
       case 'GAME_NOT_IN_PROGRESS':
         // The game completed or changed elsewhere, reconcile with the server.
         this.load();
@@ -300,11 +308,17 @@ export class GamePage implements OnInit {
       case 'BACKTRACK_LIMIT_REACHED':
         this.notice.set(err.message);
         return;
+      case 'GUEST_GAME_BUSY':
+        this.notice.set('Another tab is updating this game. Try again in a moment.');
+        return;
+      case 'GUEST_PLAY_REQUIRES_ANONYMOUS':
+        void this.router.navigate(['/dashboard']);
+        return;
       case 'WIKIPEDIA_UNAVAILABLE':
         this.notice.set('Wikipedia is temporarily unavailable. Please try again.');
         return;
       case 'GAME_NOT_FOUND':
-        void this.router.navigate(['/']);
+        this.leaveMissingGame();
         return;
       default:
         this.error.set(err.message);
@@ -318,6 +332,11 @@ export class GamePage implements OnInit {
     if (game.status === 'COMPLETED') {
       this.enterCompleted();
     }
+  }
+
+  private leaveMissingGame(): void {
+    if (this.isGuest) this.guests.notice.set('Your guest game expired or is no longer available.');
+    void this.router.navigate(['/']);
   }
 
   private seedTimerBaseline(game: GameDto): void {
