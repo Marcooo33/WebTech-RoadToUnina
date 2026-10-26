@@ -3,7 +3,6 @@
   <header class="result__header">
     <ng-icon name="lucideCheckCircle2" aria-hidden="true" />
     <div>
-      <p class="eyebrow">Route complete</p>
       <h1>Target reached</h1>
       <p>
         You navigated from <strong>{{ g.startPageTitle }}</strong> to
@@ -12,6 +11,10 @@
       </p>
     </div>
   </header>
+  <div class="result__destination">
+    <ng-icon name="lucideFlag" aria-hidden="true" />
+    <div><span>Destination</span><strong>Università degli Studi di Napoli Federico II</strong></div>
+  </div>
   <dl class="result__metrics">
     <div class="result__primary">
       <dt>{{ g.mode === 'CLICK' ? 'Navigation clicks' : 'Effective time' }}</dt>
@@ -53,4 +56,8 @@
       >
     </div>
   }
+  <section class="result__path" aria-labelledby="result-path-title">
+    <h2 id="result-path-title">Your route</h2>
+    <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Completed route" />
+  </section>
 </section>

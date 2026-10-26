@@ -8,8 +8,9 @@
   } @else if (game(); as g) {
     <header class="detail__header">
       <div>
-        <p class="eyebrow">Completed route</p>
-        <h1 class="page-title">{{ g.player?.username ?? 'Deleted user' }}</h1>
+        <h1 class="page-title">
+          Completed game by <span>{{ g.player?.username ?? 'Deleted user' }}</span>
+        </h1>
         <p class="muted">Completed {{ g.completedAt | date: 'medium' }}</p>
       </div>
       <div class="detail__badges">
@@ -18,11 +19,13 @@
       </div>
     </header>
     <section class="route-summary" aria-label="Route summary">
-      <div>
+      <div class="route-summary__start">
         <span>Started at</span><strong>{{ g.startPageTitle }}</strong>
       </div>
-      <ng-icon name="lucideFlag" aria-hidden="true" />
-      <div><span>Reached</span><strong>Università degli Studi di Napoli Federico II</strong></div>
+      <div class="route-summary__target">
+        <span><ng-icon name="lucideFlag" aria-hidden="true" />Reached</span
+        ><strong>Università degli Studi di Napoli Federico II</strong>
+      </div>
     </section>
     <dl class="detail__metrics">
       <div [class.detail__metric--primary]="g.mode === 'CLICK'">
@@ -40,7 +43,6 @@
     </dl>
     <section class="path-section">
       <div class="section-heading">
-        <p class="eyebrow">The route</p>
         <h2>Navigation path</h2>
         <p class="muted">{{ g.path.length }} articles from start to target</p>
       </div>
@@ -55,21 +57,22 @@
       @if (g.moves.length === 0) {
         <p class="muted">No moves were recorded.</p>
       } @else {
-        <div class="moves-wrap">
+        <p class="moves-hint">Scroll horizontally to read all move columns.</p>
+        <div class="moves-wrap" role="region" aria-label="Move history table" tabindex="0">
           <table class="table moves">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Type</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Time</th>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Time</th>
               </tr>
             </thead>
             <tbody>
               @for (move of g.moves; track move.sequence) {
                 <tr [class.moves__row--backtrack]="move.type === 'BACKTRACK'">
-                  <td>{{ move.sequence }}</td>
+                  <th scope="row">{{ move.sequence }}</th>
                   <td>{{ move.type }}</td>
                   <td>{{ move.fromPageTitle }}</td>
                   <td>{{ move.toPageTitle }}</td>

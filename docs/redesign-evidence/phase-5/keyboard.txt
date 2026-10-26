@@ -1,0 +1,1 @@
+{"pass":true,"keyboardWidths":4,"keys":["ArrowRight","ArrowLeft","Home","End"]}

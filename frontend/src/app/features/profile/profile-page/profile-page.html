@@ -3,7 +3,6 @@
     <header class="profile__identity">
       <div class="profile__avatar" aria-hidden="true">{{ u.username.charAt(0).toUpperCase() }}</div>
       <div>
-        <p class="eyebrow">Player profile</p>
         <h1 class="page-title">{{ u.username }}</h1>
         <p class="muted">{{ u.email }} · Member since {{ u.createdAt | date: 'mediumDate' }}</p>
       </div>
@@ -18,7 +17,12 @@
         </div>
       </div>
       <div class="profile__forms">
-        <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+        <form
+          [formGroup]="usernameForm"
+          (ngSubmit)="changeUsername()"
+          [attr.aria-busy]="usernameSubmitting()"
+          [attr.aria-describedby]="usernameError() ? 'username-request-error' : null"
+        >
           <div class="field">
             <label for="profile-username">Username</label
             ><input
@@ -31,17 +35,18 @@
               "
               [attr.aria-describedby]="
                 usernameForm.controls.username.touched && usernameForm.controls.username.invalid
-                  ? 'profile-username-error'
-                  : null
+                  ? 'profile-username-hint profile-username-error'
+                  : 'profile-username-hint'
               "
             />
+            <span id="profile-username-hint" class="profile__hint">Use 3–30 characters.</span>
             @if (usernameForm.controls.username.touched && usernameForm.controls.username.invalid) {
               <span id="profile-username-error" class="field__error"
                 >Username must be between 3 and 30 characters.</span
               >
             }
           </div>
-          <app-error-banner [message]="usernameError()" />
+          <app-error-banner id="username-request-error" [message]="usernameError()" />
           @if (usernameSuccess(); as message) {
             <p class="status status--success" role="status">{{ message }}</p>
           }
@@ -55,7 +60,12 @@
             {{ usernameSubmitting() ? 'Saving…' : 'Change username' }}
           </button>
         </form>
-        <form [formGroup]="emailForm" (ngSubmit)="changeEmail()">
+        <form
+          [formGroup]="emailForm"
+          (ngSubmit)="changeEmail()"
+          [attr.aria-busy]="emailSubmitting()"
+          [attr.aria-describedby]="emailError() ? 'email-request-error' : null"
+        >
           <div class="field">
             <label for="profile-email">Email</label
             ><input
@@ -78,7 +88,7 @@
               >
             }
           </div>
-          <app-error-banner [message]="emailError()" />
+          <app-error-banner id="email-request-error" [message]="emailError()" />
           @if (emailSuccess(); as message) {
             <p class="status status--success" role="status">{{ message }}</p>
           }
@@ -100,23 +110,48 @@
       <div class="profile-section__heading">
         <ng-icon name="lucideShield" aria-hidden="true" />
         <div>
-          <h2 id="security-title">Security</h2>
+          <h2 id="security-title">Password</h2>
           <p class="muted">Choose a new password for your account.</p>
         </div>
       </div>
-      <form class="password-form" [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+      <form
+        id="profile-password-form"
+        class="password-form"
+        [formGroup]="passwordForm"
+        (ngSubmit)="changePassword()"
+        [attr.aria-busy]="passwordSubmitting()"
+        [attr.aria-describedby]="passwordError() ? 'password-request-error' : null"
+      >
         <div class="field">
-          <label for="current-password">Current password</label
-          ><input
+          <label for="current-password">Current password</label>
+          <input
             id="current-password"
             type="password"
             formControlName="currentPassword"
             autocomplete="current-password"
+            [attr.aria-invalid]="
+              passwordForm.controls.currentPassword.touched &&
+              passwordForm.controls.currentPassword.invalid
+            "
+            [attr.aria-describedby]="
+              passwordForm.controls.currentPassword.touched &&
+              passwordForm.controls.currentPassword.invalid
+                ? 'current-password-error'
+                : null
+            "
           />
+          @if (
+            passwordForm.controls.currentPassword.touched &&
+            passwordForm.controls.currentPassword.invalid
+          ) {
+            <span id="current-password-error" class="field__error"
+              >Enter your current password.</span
+            >
+          }
         </div>
         <div class="field">
-          <label for="new-password">New password</label
-          ><input
+          <label for="new-password">New password</label>
+          <input
             id="new-password"
             type="password"
             formControlName="newPassword"
@@ -124,33 +159,58 @@
             [attr.aria-invalid]="
               passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.invalid
             "
+            [attr.aria-describedby]="
+              passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.invalid
+                ? 'new-password-hint new-password-error'
+                : 'new-password-hint'
+            "
           />
+          <span id="new-password-hint" class="profile__hint">Use 8–128 characters.</span>
           @if (
             passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.invalid
           ) {
-            <span class="field__error">Password must be between 8 and 128 characters.</span>
+            <span id="new-password-error" class="field__error">{{
+              passwordForm.controls.newPassword.hasError('required')
+                ? 'Enter a new password.'
+                : 'Password must be between 8 and 128 characters.'
+            }}</span>
           }
         </div>
         <div class="field">
-          <label for="confirm-password">Confirm new password</label
-          ><input
+          <label for="confirm-password">Confirm new password</label>
+          <input
             id="confirm-password"
             type="password"
             formControlName="confirmPassword"
             autocomplete="new-password"
             [attr.aria-invalid]="
               passwordForm.controls.confirmPassword.touched &&
-              passwordForm.hasError('passwordMismatch')
+              (passwordForm.controls.confirmPassword.invalid ||
+                passwordForm.hasError('passwordMismatch'))
+            "
+            [attr.aria-describedby]="
+              passwordForm.controls.confirmPassword.touched &&
+              passwordForm.controls.confirmPassword.hasError('required')
+                ? 'confirm-password-error'
+                : passwordForm.controls.confirmPassword.touched &&
+                    passwordForm.hasError('passwordMismatch')
+                  ? 'password-mismatch-error'
+                  : null
             "
           />
           @if (
             passwordForm.controls.confirmPassword.touched &&
+            passwordForm.controls.confirmPassword.hasError('required')
+          ) {
+            <span id="confirm-password-error" class="field__error">Confirm your new password.</span>
+          } @else if (
+            passwordForm.controls.confirmPassword.touched &&
             passwordForm.hasError('passwordMismatch')
           ) {
-            <span class="field__error">Passwords do not match.</span>
+            <span id="password-mismatch-error" class="field__error">Passwords do not match.</span>
           }
         </div>
-        <app-error-banner [message]="passwordError()" />
+        <app-error-banner id="password-request-error" [message]="passwordError()" />
         @if (passwordSuccess(); as message) {
           <p class="status status--success" role="status">{{ message }}</p>
         }

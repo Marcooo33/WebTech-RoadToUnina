@@ -153,6 +153,35 @@ export class HistoryList {
       });
   }
 
+  onModeKeydown(event: KeyboardEvent, mode: GameMode): void {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const index = this.modes.indexOf(mode);
+    let next: number;
+    switch (event.key) {
+      case 'ArrowRight':
+        next = (index + 1) % this.modes.length;
+        break;
+      case 'ArrowLeft':
+        next = (index + this.modes.length - 1) % this.modes.length;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = this.modes.length - 1;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    if (event.currentTarget instanceof HTMLElement) {
+      event.currentTarget.parentElement
+        ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+        [next]?.focus();
+    }
+    this.selectMode(this.modes[next]);
+  }
+
   selectMode(mode: GameMode): void {
     this.updateQuery({ mode, page: null });
   }

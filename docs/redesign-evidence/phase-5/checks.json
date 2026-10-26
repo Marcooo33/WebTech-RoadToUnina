@@ -1,0 +1,3216 @@
+[
+  {
+    "name": "result-auth-click",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 198.15625,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 144.75,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 116.296875,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-click-long-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-auth-time",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n4\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 198.15625,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 144.75,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 116.296875,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-time-long-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n32\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-guest-click",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nHome\nHistory\nPlay as Guest\nLog in\nRegister\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "Register to save result",
+        "width": 212.84375,
+        "height": 48
+      },
+      {
+        "label": "Log in to save result",
+        "width": 194.828125,
+        "height": 48
+      },
+      {
+        "label": "Home",
+        "width": 81.3125,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "This result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "contrast": 13.276704217104236
+      }
+    ]
+  },
+  {
+    "name": "result-guest-click-long-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nHome\nHistory\nPlay as Guest\nLog in\nRegister\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "history",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nFewest navigation clicks wins; effective time breaks ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in CLICKEASY\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n1\tnavigatore_e2e\t4\t3:10\t10/25/26, 1:03\u202fPM\tView game\n\n2\tesploratore_con_nome_lungo\t5\t3:11\t10/25/26, 1:04\u202fPM\tView game\n\n3\tpartenope_02\t6\t3:12\t10/25/26, 1:05\u202fPM\tView game\n\n4\tpartenope_03\t7\t3:13\t10/25/26, 1:06\u202fPM\tView game\n\n5\tpartenope_04\t8\t3:14\t10/25/26, 1:07\u202fPM\tView game\n\n6\tpartenope_05\t9\t3:15\t10/25/26, 1:08\u202fPM\tView game\n\n7\tpartenope_06\t10\t3:16\t10/25/26, 1:09\u202fPM\tView game\n\n8\tpartenope_07\t11\t3:17\t10/25/26, 1:10\u202fPM\tView game\n\n9\tpartenope_08\t12\t3:18\t10/25/26, 1:11\u202fPM\tView game\n\n10\tpartenope_09\t13\t3:19\t10/25/26, 1:12\u202fPM\tView game\n\n11\tpartenope_10\t14\t3:20\t10/25/26, 1:13\u202fPM\tView game\n\n12\tpartenope_11\t15\t3:21\t10/25/26, 1:14\u202fPM\tView game\n\n13\tpartenope_12\t16\t3:22\t10/25/26, 1:15\u202fPM\tView game\n\n14\tpartenope_13\t17\t3:23\t10/25/26, 1:16\u202fPM\tView game\n\n15\tpartenope_14\t18\t3:24\t10/25/26, 1:17\u202fPM\tView game\n\n16\tpartenope_15\t19\t3:25\t10/25/26, 1:18\u202fPM\tView game\n\n17\tpartenope_16\t20\t3:26\t10/25/26, 1:19\u202fPM\tView game\n\n18\tpartenope_17\t21\t3:27\t10/25/26, 1:20\u202fPM\tView game\n\n19\tpartenope_18\t22\t3:28\t10/25/26, 1:21\u202fPM\tView game\n\n20\tpartenope_19\t23\t3:29\t10/25/26, 1:22\u202fPM\tView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".history",
+    "targets": [
+      {
+        "label": "CLICK",
+        "width": 94.28125,
+        "height": 44
+      },
+      {
+        "label": "TIME",
+        "width": 87.546875,
+        "height": 44
+      },
+      {
+        "label": "EASY",
+        "width": 57.53125,
+        "height": 44
+      },
+      {
+        "label": "MEDIUM",
+        "width": 80.21875,
+        "height": 44
+      },
+      {
+        "label": "HARD",
+        "width": 61.53125,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "Previous",
+        "width": 126.484375,
+        "height": 48
+      },
+      {
+        "label": "Next",
+        "width": 96.34375,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "history-keyboard-panel",
+    "width": 1440,
+    "panelId": "history-panel",
+    "mode": "TIME",
+    "roving": true
+  },
+  {
+    "name": "history-time-hard",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n1\tnavigatore_e2e\t3\t3:10\t10/25/26, 1:03\u202fPM\tView game\n\n2\tesploratore_con_nome_lungo\t4\t3:11\t10/25/26, 1:04\u202fPM\tView game\n\n3\tpartenope_02\t5\t3:12\t10/25/26, 1:05\u202fPM\tView game\n\n4\tpartenope_03\t6\t3:13\t10/25/26, 1:06\u202fPM\tView game\n\n5\tpartenope_04\t7\t3:14\t10/25/26, 1:07\u202fPM\tView game\n\n6\tpartenope_05\t8\t3:15\t10/25/26, 1:08\u202fPM\tView game\n\n7\tpartenope_06\t9\t3:16\t10/25/26, 1:09\u202fPM\tView game\n\n8\tpartenope_07\t10\t3:17\t10/25/26, 1:10\u202fPM\tView game\n\n9\tpartenope_08\t11\t3:18\t10/25/26, 1:11\u202fPM\tView game\n\n10\tpartenope_09\t12\t3:19\t10/25/26, 1:12\u202fPM\tView game\n\n11\tpartenope_10\t13\t3:20\t10/25/26, 1:13\u202fPM\tView game\n\n12\tpartenope_11\t14\t3:21\t10/25/26, 1:14\u202fPM\tView game\n\n13\tpartenope_12\t15\t3:22\t10/25/26, 1:15\u202fPM\tView game\n\n14\tpartenope_13\t16\t3:23\t10/25/26, 1:16\u202fPM\tView game\n\n15\tpartenope_14\t17\t3:24\t10/25/26, 1:17\u202fPM\tView game\n\n16\tpartenope_15\t18\t3:25\t10/25/26, 1:18\u202fPM\tView game\n\n17\tpartenope_16\t19\t3:26\t10/25/26, 1:19\u202fPM\tView game\n\n18\tpartenope_17\t20\t3:27\t10/25/26, 1:20\u202fPM\tView game\n\n19\tpartenope_18\t21\t3:28\t10/25/26, 1:21\u202fPM\tView game\n\n20\tpartenope_19\t22\t3:29\t10/25/26, 1:22\u202fPM\tView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "history-page-2",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n21\tpartenope_20\t23\t3:30\t10/25/26, 1:23\u202fPM\tView game\n\n22\tpartenope_21\t24\t3:31\t10/25/26, 1:24\u202fPM\tView game\n\n23\tpartenope_22\t25\t3:32\t10/25/26, 1:25\u202fPM\tView game\n\n24\tpartenope_23\t26\t3:33\t10/25/26, 1:26\u202fPM\tView game\n\n25\tpartenope_24\t27\t3:34\t10/25/26, 1:27\u202fPM\tView game\n\n26\tpartenope_25\t28\t3:35\t10/25/26, 1:28\u202fPM\tView game\n\n27\tpartenope_26\t29\t3:36\t10/25/26, 1:29\u202fPM\tView game\n\n28\tpartenope_27\t30\t3:37\t10/25/26, 1:30\u202fPM\tView game\n\n29\tpartenope_28\t31\t3:38\t10/25/26, 1:31\u202fPM\tView game\n\n30\tpartenope_29\t32\t3:39\t10/25/26, 1:32\u202fPM\tView game\n\n31\tpartenope_30\t33\t3:40\t10/25/26, 1:33\u202fPM\tView game\n\n32\tpartenope_31\t34\t3:41\t10/25/26, 1:34\u202fPM\tView game\n\n33\tpartenope_32\t35\t3:42\t10/25/26, 1:35\u202fPM\tView game\n\n34\tpartenope_33\t36\t3:43\t10/25/26, 1:36\u202fPM\tView game\n\n35\tpartenope_34\t37\t3:44\t10/25/26, 1:37\u202fPM\tView game\n\n36\tpartenope_35\t38\t3:45\t10/25/26, 1:38\u202fPM\tView game\n\n37\tpartenope_36\t39\t3:46\t10/25/26, 1:39\u202fPM\tView game\n\n38\tpartenope_37\t40\t3:47\t10/25/26, 1:40\u202fPM\tView game\n\n39\tpartenope_38\t41\t3:48\t10/25/26, 1:41\u202fPM\tView game\n\n40\tpartenope_39\t42\t3:49\t10/25/26, 1:42\u202fPM\tView game\nPrevious\nPage 2 of 3, showing 21\u201340 of 41\nNext"
+  },
+  {
+    "name": "history-empty",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n0 completed games in TIMEHARD\nNo completed games here yet\n\nNo completed games in this category yet.\n\nLearn how to play"
+  },
+  {
+    "name": "history-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\n!\nHistory is temporarily unavailable."
+  },
+  {
+    "name": "history-loading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\nLoading completed games\u2026"
+  },
+  {
+    "name": "detail",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 1440,
+    "long": false,
+    "content": 918,
+    "tabindex": 0,
+    "clientWidth": 918
+  },
+  {
+    "name": "detail-moves",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "SUMMARY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:00\u202fPM"
+  },
+  {
+    "name": "detail-long-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 1440,
+    "long": true,
+    "content": 918,
+    "tabindex": 0,
+    "clientWidth": 918
+  },
+  {
+    "name": "detail-long-moves",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "SUMMARY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n4\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n5\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n6\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n7\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n8\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n9\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n10\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n11\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n12\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n13\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n14\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n15\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n16\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n17\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n18\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n19\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n20\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n21\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n22\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n23\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n24\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n25\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n26\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:02\u202fPM\n27\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n28\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n29\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n30\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n31\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:02\u202fPM"
+  },
+  {
+    "name": "detail-deleted-player",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\nCompleted game by Deleted user\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "detail-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nAll completed games\n\n!\nThis completed game is no longer available."
+  },
+  {
+    "name": "profile",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".profile",
+    "targets": [
+      {
+        "label": "Change username",
+        "width": 179.15625,
+        "height": 48
+      },
+      {
+        "label": "Change email",
+        "width": 143.21875,
+        "height": 48
+      },
+      {
+        "label": "Change password",
+        "width": 175,
+        "height": 48
+      },
+      {
+        "label": "Log out",
+        "width": 118.59375,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 178.1875,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "error-associations",
+    "width": 1440,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "current-password",
+        "descriptions": [
+          {
+            "id": "current-password-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "new-password",
+        "descriptions": [
+          {
+            "id": "new-password-hint",
+            "exists": true
+          },
+          {
+            "id": "new-password-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "confirm-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-validation",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "INPUT",
+      "id": "current-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nEnter your current password.\nNew password\nUse 8\u2013128 characters.\nEnter a new password.\nConfirm new password\nConfirm your new password.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "error-associations",
+    "width": 1440,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "password-mismatch-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-password-mismatch",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "INPUT",
+      "id": "confirm-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nPasswords do not match.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-busy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChanging\u2026\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-success",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\nPassword updated.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": ".password-form",
+    "targets": [
+      {
+        "label": "Change password",
+        "width": 175,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "Password updated.",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "profile-password-api-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-busy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nnavigatore_e2e\nLog out\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nSaving\u2026\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-success",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_napoli\nLog out\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-api-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_napoli\nLog out\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-delete-dialog",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_napoli\nLog out\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "profile-delete-busy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_napoli\nLog out\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDeleting\u2026"
+  },
+  {
+    "name": "profile-delete-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 3,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_napoli\nLog out\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\n!\nYour account could not be deleted right now.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 1440,
+    "scope": "dialog[open]",
+    "targets": [
+      {
+        "label": "Cancel",
+        "width": 86.9375,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 178.1875,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "!Your account could not be deleted right now.",
+        "color": "rgb(161, 43, 43)",
+        "background": "rgb(252, 237, 237)",
+        "contrast": 6.380048346821389
+      }
+    ]
+  },
+  {
+    "name": "profile-long-identity",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nDashboard\nHistory\nProfile\nesploratore_con_nome_molto_lun\nLog out\nE\nesploratore_con_nome_molto_lun\n\nesploratore.partenope.con.indirizzo.lungo@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "result-auth-click",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 198.15625,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 144.75,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 116.296875,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-click-long-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-auth-time",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n4\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 198.15625,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 144.75,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 116.296875,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-time-long-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n32\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-guest-click",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "Register to save result",
+        "width": 212.84375,
+        "height": 48
+      },
+      {
+        "label": "Log in to save result",
+        "width": 194.828125,
+        "height": 48
+      },
+      {
+        "label": "Home",
+        "width": 81.3125,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "This result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "contrast": 13.276704217104236
+      }
+    ]
+  },
+  {
+    "name": "result-guest-click-long-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "history",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nFewest navigation clicks wins; effective time breaks ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in CLICKEASY\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n1\tnavigatore_e2e\t4\t3:10\t10/25/26, 1:03\u202fPM\tView game\n\n2\tesploratore_con_nome_lungo\t5\t3:11\t10/25/26, 1:04\u202fPM\tView game\n\n3\tpartenope_02\t6\t3:12\t10/25/26, 1:05\u202fPM\tView game\n\n4\tpartenope_03\t7\t3:13\t10/25/26, 1:06\u202fPM\tView game\n\n5\tpartenope_04\t8\t3:14\t10/25/26, 1:07\u202fPM\tView game\n\n6\tpartenope_05\t9\t3:15\t10/25/26, 1:08\u202fPM\tView game\n\n7\tpartenope_06\t10\t3:16\t10/25/26, 1:09\u202fPM\tView game\n\n8\tpartenope_07\t11\t3:17\t10/25/26, 1:10\u202fPM\tView game\n\n9\tpartenope_08\t12\t3:18\t10/25/26, 1:11\u202fPM\tView game\n\n10\tpartenope_09\t13\t3:19\t10/25/26, 1:12\u202fPM\tView game\n\n11\tpartenope_10\t14\t3:20\t10/25/26, 1:13\u202fPM\tView game\n\n12\tpartenope_11\t15\t3:21\t10/25/26, 1:14\u202fPM\tView game\n\n13\tpartenope_12\t16\t3:22\t10/25/26, 1:15\u202fPM\tView game\n\n14\tpartenope_13\t17\t3:23\t10/25/26, 1:16\u202fPM\tView game\n\n15\tpartenope_14\t18\t3:24\t10/25/26, 1:17\u202fPM\tView game\n\n16\tpartenope_15\t19\t3:25\t10/25/26, 1:18\u202fPM\tView game\n\n17\tpartenope_16\t20\t3:26\t10/25/26, 1:19\u202fPM\tView game\n\n18\tpartenope_17\t21\t3:27\t10/25/26, 1:20\u202fPM\tView game\n\n19\tpartenope_18\t22\t3:28\t10/25/26, 1:21\u202fPM\tView game\n\n20\tpartenope_19\t23\t3:29\t10/25/26, 1:22\u202fPM\tView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".history",
+    "targets": [
+      {
+        "label": "CLICK",
+        "width": 94.28125,
+        "height": 44
+      },
+      {
+        "label": "TIME",
+        "width": 87.546875,
+        "height": 44
+      },
+      {
+        "label": "EASY",
+        "width": 57.53125,
+        "height": 44
+      },
+      {
+        "label": "MEDIUM",
+        "width": 80.21875,
+        "height": 44
+      },
+      {
+        "label": "HARD",
+        "width": 61.53125,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "Previous",
+        "width": 126.484375,
+        "height": 48
+      },
+      {
+        "label": "Next",
+        "width": 96.34375,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "history-keyboard-panel",
+    "width": 768,
+    "panelId": "history-panel",
+    "mode": "TIME",
+    "roving": true
+  },
+  {
+    "name": "history-time-hard",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n1\tnavigatore_e2e\t3\t3:10\t10/25/26, 1:03\u202fPM\tView game\n\n2\tesploratore_con_nome_lungo\t4\t3:11\t10/25/26, 1:04\u202fPM\tView game\n\n3\tpartenope_02\t5\t3:12\t10/25/26, 1:05\u202fPM\tView game\n\n4\tpartenope_03\t6\t3:13\t10/25/26, 1:06\u202fPM\tView game\n\n5\tpartenope_04\t7\t3:14\t10/25/26, 1:07\u202fPM\tView game\n\n6\tpartenope_05\t8\t3:15\t10/25/26, 1:08\u202fPM\tView game\n\n7\tpartenope_06\t9\t3:16\t10/25/26, 1:09\u202fPM\tView game\n\n8\tpartenope_07\t10\t3:17\t10/25/26, 1:10\u202fPM\tView game\n\n9\tpartenope_08\t11\t3:18\t10/25/26, 1:11\u202fPM\tView game\n\n10\tpartenope_09\t12\t3:19\t10/25/26, 1:12\u202fPM\tView game\n\n11\tpartenope_10\t13\t3:20\t10/25/26, 1:13\u202fPM\tView game\n\n12\tpartenope_11\t14\t3:21\t10/25/26, 1:14\u202fPM\tView game\n\n13\tpartenope_12\t15\t3:22\t10/25/26, 1:15\u202fPM\tView game\n\n14\tpartenope_13\t16\t3:23\t10/25/26, 1:16\u202fPM\tView game\n\n15\tpartenope_14\t17\t3:24\t10/25/26, 1:17\u202fPM\tView game\n\n16\tpartenope_15\t18\t3:25\t10/25/26, 1:18\u202fPM\tView game\n\n17\tpartenope_16\t19\t3:26\t10/25/26, 1:19\u202fPM\tView game\n\n18\tpartenope_17\t20\t3:27\t10/25/26, 1:20\u202fPM\tView game\n\n19\tpartenope_18\t21\t3:28\t10/25/26, 1:21\u202fPM\tView game\n\n20\tpartenope_19\t22\t3:29\t10/25/26, 1:22\u202fPM\tView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "history-page-2",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\tPlayer\tClicks\tTime\tCompleted\t\nGame details\n\n21\tpartenope_20\t23\t3:30\t10/25/26, 1:23\u202fPM\tView game\n\n22\tpartenope_21\t24\t3:31\t10/25/26, 1:24\u202fPM\tView game\n\n23\tpartenope_22\t25\t3:32\t10/25/26, 1:25\u202fPM\tView game\n\n24\tpartenope_23\t26\t3:33\t10/25/26, 1:26\u202fPM\tView game\n\n25\tpartenope_24\t27\t3:34\t10/25/26, 1:27\u202fPM\tView game\n\n26\tpartenope_25\t28\t3:35\t10/25/26, 1:28\u202fPM\tView game\n\n27\tpartenope_26\t29\t3:36\t10/25/26, 1:29\u202fPM\tView game\n\n28\tpartenope_27\t30\t3:37\t10/25/26, 1:30\u202fPM\tView game\n\n29\tpartenope_28\t31\t3:38\t10/25/26, 1:31\u202fPM\tView game\n\n30\tpartenope_29\t32\t3:39\t10/25/26, 1:32\u202fPM\tView game\n\n31\tpartenope_30\t33\t3:40\t10/25/26, 1:33\u202fPM\tView game\n\n32\tpartenope_31\t34\t3:41\t10/25/26, 1:34\u202fPM\tView game\n\n33\tpartenope_32\t35\t3:42\t10/25/26, 1:35\u202fPM\tView game\n\n34\tpartenope_33\t36\t3:43\t10/25/26, 1:36\u202fPM\tView game\n\n35\tpartenope_34\t37\t3:44\t10/25/26, 1:37\u202fPM\tView game\n\n36\tpartenope_35\t38\t3:45\t10/25/26, 1:38\u202fPM\tView game\n\n37\tpartenope_36\t39\t3:46\t10/25/26, 1:39\u202fPM\tView game\n\n38\tpartenope_37\t40\t3:47\t10/25/26, 1:40\u202fPM\tView game\n\n39\tpartenope_38\t41\t3:48\t10/25/26, 1:41\u202fPM\tView game\n\n40\tpartenope_39\t42\t3:49\t10/25/26, 1:42\u202fPM\tView game\nPrevious\nPage 2 of 3, showing 21\u201340 of 41\nNext"
+  },
+  {
+    "name": "history-empty",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n0 completed games in TIMEHARD\nNo completed games here yet\n\nNo completed games in this category yet.\n\nLearn how to play"
+  },
+  {
+    "name": "history-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\n!\nHistory is temporarily unavailable."
+  },
+  {
+    "name": "history-loading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\nLoading completed games\u2026"
+  },
+  {
+    "name": "detail",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 768,
+    "long": false,
+    "content": 720,
+    "tabindex": 0,
+    "clientWidth": 720
+  },
+  {
+    "name": "detail-moves",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "SUMMARY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:00\u202fPM"
+  },
+  {
+    "name": "detail-long-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 768,
+    "long": true,
+    "content": 720,
+    "tabindex": 0,
+    "clientWidth": 720
+  },
+  {
+    "name": "detail-long-moves",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "SUMMARY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n4\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n5\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n6\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n7\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n8\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n9\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n10\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n11\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n12\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n13\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n14\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n15\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n16\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n17\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n18\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n19\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n20\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n21\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n22\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n23\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n24\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n25\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n26\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:02\u202fPM\n27\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n28\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n29\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n30\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n31\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:02\u202fPM"
+  },
+  {
+    "name": "detail-deleted-player",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by Deleted user\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "detail-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\n\n!\nThis completed game is no longer available."
+  },
+  {
+    "name": "profile",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".profile",
+    "targets": [
+      {
+        "label": "Change username",
+        "width": 179.15625,
+        "height": 48
+      },
+      {
+        "label": "Change email",
+        "width": 143.21875,
+        "height": 48
+      },
+      {
+        "label": "Change password",
+        "width": 175,
+        "height": 48
+      },
+      {
+        "label": "Log out",
+        "width": 118.59375,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 159.703125,
+        "height": 58.90625
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "error-associations",
+    "width": 768,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-validation",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "INPUT",
+      "id": "current-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nEnter your current password.\nNew password\nUse 8\u2013128 characters.\nEnter a new password.\nConfirm new password\nConfirm your new password.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "error-associations",
+    "width": 768,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "password-mismatch-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-password-mismatch",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "INPUT",
+      "id": "confirm-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nPasswords do not match.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-busy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChanging\u2026\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-success",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\nPassword updated.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": ".password-form",
+    "targets": [
+      {
+        "label": "Change password",
+        "width": 175,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "Password updated.",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "profile-password-api-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-busy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nSaving\u2026\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-success",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-api-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-delete-dialog",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "profile-delete-busy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDeleting\u2026"
+  },
+  {
+    "name": "profile-delete-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 3,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\n!\nYour account could not be deleted right now.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 768,
+    "scope": "dialog[open]",
+    "targets": [
+      {
+        "label": "Cancel",
+        "width": 86.9375,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 178.1875,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "!Your account could not be deleted right now.",
+        "color": "rgb(161, 43, 43)",
+        "background": "rgb(252, 237, 237)",
+        "contrast": 6.380048346821389
+      }
+    ]
+  },
+  {
+    "name": "profile-long-identity",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nE\nesploratore_con_nome_molto_lun\n\nesploratore.partenope.con.indirizzo.lungo@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "result-auth-click",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 324,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-click-long-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-auth-time",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n4\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 324,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-time-long-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n32\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-guest-click",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "Register to save result",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Log in to save result",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Home",
+        "width": 324,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "This result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "contrast": 13.276704217104236
+      }
+    ]
+  },
+  {
+    "name": "result-guest-click-long-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "history",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nFewest navigation clicks wins; effective time breaks ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in CLICKEASY\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n1\nnavigatore_e2e\n4\n3:10\n10/25/26, 1:03\u202fPM\nView game\n2\nesploratore_con_nome_lungo\n5\n3:11\n10/25/26, 1:04\u202fPM\nView game\n3\npartenope_02\n6\n3:12\n10/25/26, 1:05\u202fPM\nView game\n4\npartenope_03\n7\n3:13\n10/25/26, 1:06\u202fPM\nView game\n5\npartenope_04\n8\n3:14\n10/25/26, 1:07\u202fPM\nView game\n6\npartenope_05\n9\n3:15\n10/25/26, 1:08\u202fPM\nView game\n7\npartenope_06\n10\n3:16\n10/25/26, 1:09\u202fPM\nView game\n8\npartenope_07\n11\n3:17\n10/25/26, 1:10\u202fPM\nView game\n9\npartenope_08\n12\n3:18\n10/25/26, 1:11\u202fPM\nView game\n10\npartenope_09\n13\n3:19\n10/25/26, 1:12\u202fPM\nView game\n11\npartenope_10\n14\n3:20\n10/25/26, 1:13\u202fPM\nView game\n12\npartenope_11\n15\n3:21\n10/25/26, 1:14\u202fPM\nView game\n13\npartenope_12\n16\n3:22\n10/25/26, 1:15\u202fPM\nView game\n14\npartenope_13\n17\n3:23\n10/25/26, 1:16\u202fPM\nView game\n15\npartenope_14\n18\n3:24\n10/25/26, 1:17\u202fPM\nView game\n16\npartenope_15\n19\n3:25\n10/25/26, 1:18\u202fPM\nView game\n17\npartenope_16\n20\n3:26\n10/25/26, 1:19\u202fPM\nView game\n18\npartenope_17\n21\n3:27\n10/25/26, 1:20\u202fPM\nView game\n19\npartenope_18\n22\n3:28\n10/25/26, 1:21\u202fPM\nView game\n20\npartenope_19\n23\n3:29\n10/25/26, 1:22\u202fPM\nView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".history",
+    "targets": [
+      {
+        "label": "CLICK",
+        "width": 94.28125,
+        "height": 44
+      },
+      {
+        "label": "TIME",
+        "width": 87.546875,
+        "height": 44
+      },
+      {
+        "label": "EASY",
+        "width": 57.53125,
+        "height": 44
+      },
+      {
+        "label": "MEDIUM",
+        "width": 80.21875,
+        "height": 44
+      },
+      {
+        "label": "HARD",
+        "width": 61.53125,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "Previous",
+        "width": 173,
+        "height": 48
+      },
+      {
+        "label": "Next",
+        "width": 173,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "history-keyboard-panel",
+    "width": 390,
+    "panelId": "history-panel",
+    "mode": "TIME",
+    "roving": true
+  },
+  {
+    "name": "history-time-hard",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n1\nnavigatore_e2e\n3\n3:10\n10/25/26, 1:03\u202fPM\nView game\n2\nesploratore_con_nome_lungo\n4\n3:11\n10/25/26, 1:04\u202fPM\nView game\n3\npartenope_02\n5\n3:12\n10/25/26, 1:05\u202fPM\nView game\n4\npartenope_03\n6\n3:13\n10/25/26, 1:06\u202fPM\nView game\n5\npartenope_04\n7\n3:14\n10/25/26, 1:07\u202fPM\nView game\n6\npartenope_05\n8\n3:15\n10/25/26, 1:08\u202fPM\nView game\n7\npartenope_06\n9\n3:16\n10/25/26, 1:09\u202fPM\nView game\n8\npartenope_07\n10\n3:17\n10/25/26, 1:10\u202fPM\nView game\n9\npartenope_08\n11\n3:18\n10/25/26, 1:11\u202fPM\nView game\n10\npartenope_09\n12\n3:19\n10/25/26, 1:12\u202fPM\nView game\n11\npartenope_10\n13\n3:20\n10/25/26, 1:13\u202fPM\nView game\n12\npartenope_11\n14\n3:21\n10/25/26, 1:14\u202fPM\nView game\n13\npartenope_12\n15\n3:22\n10/25/26, 1:15\u202fPM\nView game\n14\npartenope_13\n16\n3:23\n10/25/26, 1:16\u202fPM\nView game\n15\npartenope_14\n17\n3:24\n10/25/26, 1:17\u202fPM\nView game\n16\npartenope_15\n18\n3:25\n10/25/26, 1:18\u202fPM\nView game\n17\npartenope_16\n19\n3:26\n10/25/26, 1:19\u202fPM\nView game\n18\npartenope_17\n20\n3:27\n10/25/26, 1:20\u202fPM\nView game\n19\npartenope_18\n21\n3:28\n10/25/26, 1:21\u202fPM\nView game\n20\npartenope_19\n22\n3:29\n10/25/26, 1:22\u202fPM\nView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "history-page-2",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n21\npartenope_20\n23\n3:30\n10/25/26, 1:23\u202fPM\nView game\n22\npartenope_21\n24\n3:31\n10/25/26, 1:24\u202fPM\nView game\n23\npartenope_22\n25\n3:32\n10/25/26, 1:25\u202fPM\nView game\n24\npartenope_23\n26\n3:33\n10/25/26, 1:26\u202fPM\nView game\n25\npartenope_24\n27\n3:34\n10/25/26, 1:27\u202fPM\nView game\n26\npartenope_25\n28\n3:35\n10/25/26, 1:28\u202fPM\nView game\n27\npartenope_26\n29\n3:36\n10/25/26, 1:29\u202fPM\nView game\n28\npartenope_27\n30\n3:37\n10/25/26, 1:30\u202fPM\nView game\n29\npartenope_28\n31\n3:38\n10/25/26, 1:31\u202fPM\nView game\n30\npartenope_29\n32\n3:39\n10/25/26, 1:32\u202fPM\nView game\n31\npartenope_30\n33\n3:40\n10/25/26, 1:33\u202fPM\nView game\n32\npartenope_31\n34\n3:41\n10/25/26, 1:34\u202fPM\nView game\n33\npartenope_32\n35\n3:42\n10/25/26, 1:35\u202fPM\nView game\n34\npartenope_33\n36\n3:43\n10/25/26, 1:36\u202fPM\nView game\n35\npartenope_34\n37\n3:44\n10/25/26, 1:37\u202fPM\nView game\n36\npartenope_35\n38\n3:45\n10/25/26, 1:38\u202fPM\nView game\n37\npartenope_36\n39\n3:46\n10/25/26, 1:39\u202fPM\nView game\n38\npartenope_37\n40\n3:47\n10/25/26, 1:40\u202fPM\nView game\n39\npartenope_38\n41\n3:48\n10/25/26, 1:41\u202fPM\nView game\n40\npartenope_39\n42\n3:49\n10/25/26, 1:42\u202fPM\nView game\nPrevious\nPage 2 of 3, showing 21\u201340 of 41\nNext"
+  },
+  {
+    "name": "history-empty",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n0 completed games in TIMEHARD\nNo completed games here yet\n\nNo completed games in this category yet.\n\nLearn how to play"
+  },
+  {
+    "name": "history-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\n!\nHistory is temporarily unavailable."
+  },
+  {
+    "name": "history-loading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\nLoading completed games\u2026"
+  },
+  {
+    "name": "detail",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 390,
+    "long": false,
+    "content": 654,
+    "tabindex": 0,
+    "clientWidth": 356
+  },
+  {
+    "name": "detail-moves",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "DIV",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions\n\nScroll horizontally to read all move columns.\n\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:00\u202fPM"
+  },
+  {
+    "name": "detail-long-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 390,
+    "long": true,
+    "content": 654,
+    "tabindex": 0,
+    "clientWidth": 356
+  },
+  {
+    "name": "detail-long-moves",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "DIV",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions\n\nScroll horizontally to read all move columns.\n\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n4\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n5\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n6\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n7\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n8\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n9\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n10\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n11\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n12\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n13\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n14\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n15\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n16\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n17\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n18\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n19\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n20\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n21\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n22\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n23\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n24\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n25\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n26\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:02\u202fPM\n27\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n28\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n29\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n30\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n31\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:02\u202fPM"
+  },
+  {
+    "name": "detail-deleted-player",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by Deleted user\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "detail-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\n\n!\nThis completed game is no longer available."
+  },
+  {
+    "name": "profile",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".profile",
+    "targets": [
+      {
+        "label": "Change username",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Change email",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Change password",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "label": "Log out",
+        "width": 358,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 308,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "error-associations",
+    "width": 390,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "current-password",
+        "descriptions": [
+          {
+            "id": "current-password-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "new-password",
+        "descriptions": [
+          {
+            "id": "new-password-hint",
+            "exists": true
+          },
+          {
+            "id": "new-password-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "confirm-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-validation",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "INPUT",
+      "id": "current-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nEnter your current password.\nNew password\nUse 8\u2013128 characters.\nEnter a new password.\nConfirm new password\nConfirm your new password.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "error-associations",
+    "width": 390,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "password-mismatch-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-password-mismatch",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "INPUT",
+      "id": "confirm-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nPasswords do not match.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-busy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChanging\u2026\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-success",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\nPassword updated.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": ".password-form",
+    "targets": [
+      {
+        "label": "Change password",
+        "width": 324,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "Password updated.",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "profile-password-api-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-busy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nSaving\u2026\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-success",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-api-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-delete-dialog",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "profile-delete-busy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDeleting\u2026"
+  },
+  {
+    "name": "profile-delete-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 3,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\n!\nYour account could not be deleted right now.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 390,
+    "scope": "dialog[open]",
+    "targets": [
+      {
+        "label": "Cancel",
+        "width": 304,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 304,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "!Your account could not be deleted right now.",
+        "color": "rgb(161, 43, 43)",
+        "background": "rgb(252, 237, 237)",
+        "contrast": 6.380048346821389
+      }
+    ]
+  },
+  {
+    "name": "profile-long-identity",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nE\nesploratore_con_nome_molto_lun\n\nesploratore.partenope.con.indirizzo.lungo@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "result-auth-click",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 254,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-click-long-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-auth-time",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n4\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "View public game",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Dashboard",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "History",
+        "width": 254,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "result-auth-time-long-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nEffective time\n3:10\nNavigation clicks\n32\nBacktracks\n1\nChallenge\nTIMEEASY\nView public game\nDashboard\nHistory\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "result-guest-click",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n4\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".result",
+    "targets": [
+      {
+        "label": "Register to save result",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Log in to save result",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Home",
+        "width": 254,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "This result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "contrast": 13.276704217104236
+      }
+    ]
+  },
+  {
+    "name": "result-guest-click-long-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nTarget reached\n\nYou navigated from Partenope (sirena) to Universit\u00e0 degli Studi di Napoli Federico II.\n\nDestination\nUniversit\u00e0 degli Studi di Napoli Federico II\nNavigation clicks\n32\nEffective time\n3:10\nBacktracks\n1\nChallenge\nCLICKEASY\n\nThis result is not saved yet. Register or log in to save it automatically. Guest games expire after 24 hours of inactivity and may be lost if the server restarts.\n\nRegister to save result\nLog in to save result\nHome\nYour route\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination"
+  },
+  {
+    "name": "history",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nFewest navigation clicks wins; effective time breaks ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in CLICKEASY\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n1\nnavigatore_e2e\n4\n3:10\n10/25/26, 1:03\u202fPM\nView game\n2\nesploratore_con_nome_lungo\n5\n3:11\n10/25/26, 1:04\u202fPM\nView game\n3\npartenope_02\n6\n3:12\n10/25/26, 1:05\u202fPM\nView game\n4\npartenope_03\n7\n3:13\n10/25/26, 1:06\u202fPM\nView game\n5\npartenope_04\n8\n3:14\n10/25/26, 1:07\u202fPM\nView game\n6\npartenope_05\n9\n3:15\n10/25/26, 1:08\u202fPM\nView game\n7\npartenope_06\n10\n3:16\n10/25/26, 1:09\u202fPM\nView game\n8\npartenope_07\n11\n3:17\n10/25/26, 1:10\u202fPM\nView game\n9\npartenope_08\n12\n3:18\n10/25/26, 1:11\u202fPM\nView game\n10\npartenope_09\n13\n3:19\n10/25/26, 1:12\u202fPM\nView game\n11\npartenope_10\n14\n3:20\n10/25/26, 1:13\u202fPM\nView game\n12\npartenope_11\n15\n3:21\n10/25/26, 1:14\u202fPM\nView game\n13\npartenope_12\n16\n3:22\n10/25/26, 1:15\u202fPM\nView game\n14\npartenope_13\n17\n3:23\n10/25/26, 1:16\u202fPM\nView game\n15\npartenope_14\n18\n3:24\n10/25/26, 1:17\u202fPM\nView game\n16\npartenope_15\n19\n3:25\n10/25/26, 1:18\u202fPM\nView game\n17\npartenope_16\n20\n3:26\n10/25/26, 1:19\u202fPM\nView game\n18\npartenope_17\n21\n3:27\n10/25/26, 1:20\u202fPM\nView game\n19\npartenope_18\n22\n3:28\n10/25/26, 1:21\u202fPM\nView game\n20\npartenope_19\n23\n3:29\n10/25/26, 1:22\u202fPM\nView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".history",
+    "targets": [
+      {
+        "label": "CLICK",
+        "width": 94.28125,
+        "height": 44
+      },
+      {
+        "label": "TIME",
+        "width": 87.546875,
+        "height": 44
+      },
+      {
+        "label": "EASY",
+        "width": 57.53125,
+        "height": 44
+      },
+      {
+        "label": "MEDIUM",
+        "width": 80.21875,
+        "height": 44
+      },
+      {
+        "label": "HARD",
+        "width": 61.53125,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "View game",
+        "width": 88.6875,
+        "height": 44
+      },
+      {
+        "label": "Previous",
+        "width": 138,
+        "height": 48
+      },
+      {
+        "label": "Next",
+        "width": 138,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "history-keyboard-panel",
+    "width": 320,
+    "panelId": "history-panel",
+    "mode": "TIME",
+    "roving": true
+  },
+  {
+    "name": "history-time-hard",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n1\nnavigatore_e2e\n3\n3:10\n10/25/26, 1:03\u202fPM\nView game\n2\nesploratore_con_nome_lungo\n4\n3:11\n10/25/26, 1:04\u202fPM\nView game\n3\npartenope_02\n5\n3:12\n10/25/26, 1:05\u202fPM\nView game\n4\npartenope_03\n6\n3:13\n10/25/26, 1:06\u202fPM\nView game\n5\npartenope_04\n7\n3:14\n10/25/26, 1:07\u202fPM\nView game\n6\npartenope_05\n8\n3:15\n10/25/26, 1:08\u202fPM\nView game\n7\npartenope_06\n9\n3:16\n10/25/26, 1:09\u202fPM\nView game\n8\npartenope_07\n10\n3:17\n10/25/26, 1:10\u202fPM\nView game\n9\npartenope_08\n11\n3:18\n10/25/26, 1:11\u202fPM\nView game\n10\npartenope_09\n12\n3:19\n10/25/26, 1:12\u202fPM\nView game\n11\npartenope_10\n13\n3:20\n10/25/26, 1:13\u202fPM\nView game\n12\npartenope_11\n14\n3:21\n10/25/26, 1:14\u202fPM\nView game\n13\npartenope_12\n15\n3:22\n10/25/26, 1:15\u202fPM\nView game\n14\npartenope_13\n16\n3:23\n10/25/26, 1:16\u202fPM\nView game\n15\npartenope_14\n17\n3:24\n10/25/26, 1:17\u202fPM\nView game\n16\npartenope_15\n18\n3:25\n10/25/26, 1:18\u202fPM\nView game\n17\npartenope_16\n19\n3:26\n10/25/26, 1:19\u202fPM\nView game\n18\npartenope_17\n20\n3:27\n10/25/26, 1:20\u202fPM\nView game\n19\npartenope_18\n21\n3:28\n10/25/26, 1:21\u202fPM\nView game\n20\npartenope_19\n22\n3:29\n10/25/26, 1:22\u202fPM\nView game\nPrevious\nPage 1 of 3, showing 1\u201320 of 41\nNext"
+  },
+  {
+    "name": "history-page-2",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n41 completed games in TIMEHARD\nRank\nPlayer\nClicks\nTime\nCompleted\nGame details\n21\npartenope_20\n23\n3:30\n10/25/26, 1:23\u202fPM\nView game\n22\npartenope_21\n24\n3:31\n10/25/26, 1:24\u202fPM\nView game\n23\npartenope_22\n25\n3:32\n10/25/26, 1:25\u202fPM\nView game\n24\npartenope_23\n26\n3:33\n10/25/26, 1:26\u202fPM\nView game\n25\npartenope_24\n27\n3:34\n10/25/26, 1:27\u202fPM\nView game\n26\npartenope_25\n28\n3:35\n10/25/26, 1:28\u202fPM\nView game\n27\npartenope_26\n29\n3:36\n10/25/26, 1:29\u202fPM\nView game\n28\npartenope_27\n30\n3:37\n10/25/26, 1:30\u202fPM\nView game\n29\npartenope_28\n31\n3:38\n10/25/26, 1:31\u202fPM\nView game\n30\npartenope_29\n32\n3:39\n10/25/26, 1:32\u202fPM\nView game\n31\npartenope_30\n33\n3:40\n10/25/26, 1:33\u202fPM\nView game\n32\npartenope_31\n34\n3:41\n10/25/26, 1:34\u202fPM\nView game\n33\npartenope_32\n35\n3:42\n10/25/26, 1:35\u202fPM\nView game\n34\npartenope_33\n36\n3:43\n10/25/26, 1:36\u202fPM\nView game\n35\npartenope_34\n37\n3:44\n10/25/26, 1:37\u202fPM\nView game\n36\npartenope_35\n38\n3:45\n10/25/26, 1:38\u202fPM\nView game\n37\npartenope_36\n39\n3:46\n10/25/26, 1:39\u202fPM\nView game\n38\npartenope_37\n40\n3:47\n10/25/26, 1:40\u202fPM\nView game\n39\npartenope_38\n41\n3:48\n10/25/26, 1:41\u202fPM\nView game\n40\npartenope_39\n42\n3:49\n10/25/26, 1:42\u202fPM\nView game\nPrevious\nPage 2 of 3, showing 21\u201340 of 41\nNext"
+  },
+  {
+    "name": "history-empty",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n0 completed games in TIMEHARD\nNo completed games here yet\n\nNo completed games in this category yet.\n\nLearn how to play"
+  },
+  {
+    "name": "history-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\n!\nHistory is temporarily unavailable."
+  },
+  {
+    "name": "history-loading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nCompleted-game history\n\nExplore finished routes, ranked separately by objective and difficulty.\n\nCLICK\nTIME\n\nLowest effective play time wins; clicks break ties.\n\nDifficulty\nEASY\nMEDIUM\nHARD\n\nLoading completed games\u2026"
+  },
+  {
+    "name": "detail",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 320,
+    "long": false,
+    "content": 654,
+    "tabindex": 0,
+    "clientWidth": 286
+  },
+  {
+    "name": "detail-moves",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "DIV",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n3\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n4 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n3 recorded actions\n\nScroll horizontally to read all move columns.\n\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:00\u202fPM"
+  },
+  {
+    "name": "detail-long-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "moves-local-scroll",
+    "width": 320,
+    "long": true,
+    "content": 654,
+    "tabindex": 0,
+    "clientWidth": 286
+  },
+  {
+    "name": "detail-long-moves",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "DIV",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by navigatore_e2e\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions\n\nScroll horizontally to read all move columns.\n\n#\tType\tFrom\tTo\tTime\n1\tNAVIGATION\tPartenope (sirena)\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n2\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n3\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n4\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n5\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n6\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n7\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n8\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:00\u202fPM\n9\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:00\u202fPM\n10\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:00\u202fPM\n11\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:00\u202fPM\n12\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n13\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n14\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n15\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n16\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n17\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n18\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n19\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n20\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:01\u202fPM\n21\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:01\u202fPM\n22\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:01\u202fPM\n23\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:01\u202fPM\n24\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n25\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n26\tNAVIGATION\tGolfo di Napoli\tStoria di Napoli\t10/25/26, 1:02\u202fPM\n27\tNAVIGATION\tStoria di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n28\tNAVIGATION\tNapoli\tCampania\t10/25/26, 1:02\u202fPM\n29\tNAVIGATION\tCampania\tGolfo di Napoli\t10/25/26, 1:02\u202fPM\n30\tNAVIGATION\tGolfo di Napoli\tNapoli\t10/25/26, 1:02\u202fPM\n31\tNAVIGATION\tNapoli\tUniversit\u00e0 degli Studi di Napoli Federico II\t10/25/26, 1:02\u202fPM"
+  },
+  {
+    "name": "detail-deleted-player",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\nCompleted game by Deleted user\n\nCompleted Oct 25, 2026, 1:03:10\u202fPM\n\nTIME\nHARD\nStarted at\nPartenope (sirena)\nReached\nUniversit\u00e0 degli Studi di Napoli Federico II\nClicks\n31\nEffective time\n3:10\nBacktracks\n0\nNavigation path\n\n32 articles from start to target\n\nPartenope (sirena)\nStarting article\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nStoria di Napoli\nNapoli\nCampania\nGolfo di Napoli\nNapoli\nUniversit\u00e0 degli Studi di Napoli Federico II\nDestination\nMove history\n31 recorded actions"
+  },
+  {
+    "name": "detail-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nAll completed games\n\n!\nThis completed game is no longer available."
+  },
+  {
+    "name": "profile",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".profile",
+    "targets": [
+      {
+        "label": "Change username",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Change email",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Change password",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "label": "Log out",
+        "width": 288,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 238,
+        "height": 48
+      }
+    ],
+    "messages": []
+  },
+  {
+    "name": "error-associations",
+    "width": 320,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-validation",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "INPUT",
+      "id": "current-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nEnter your current password.\nNew password\nUse 8\u2013128 characters.\nEnter a new password.\nConfirm new password\nConfirm your new password.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "error-associations",
+    "width": 320,
+    "errors": [
+      {
+        "id": "profile-username",
+        "descriptions": [
+          {
+            "id": "profile-username-hint",
+            "exists": true
+          },
+          {
+            "id": "profile-username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "profile-email",
+        "descriptions": [
+          {
+            "id": "profile-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "confirm-password",
+        "descriptions": [
+          {
+            "id": "password-mismatch-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "profile-password-mismatch",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "INPUT",
+      "id": "confirm-password"
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nPasswords do not match.\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-busy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChanging\u2026\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-password-success",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\nPassword updated.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": ".password-form",
+    "targets": [
+      {
+        "label": "Change password",
+        "width": 254,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "Password updated.",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "profile-password-api-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nUsername must be between 3 and 30 characters.\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-busy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nN\nnavigatore_e2e\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nSaving\u2026\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-success",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 1,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\nEnter a valid email address.\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-account-api-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  },
+  {
+    "name": "profile-delete-dialog",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BUTTON",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "profile-delete-busy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 2,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\nCancel\nDeleting\u2026"
+  },
+  {
+    "name": "profile-delete-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 3,
+    "statuses": 1,
+    "text": "ROADTOUNINA\nE\nesploratore_napoli\n\nnavigatore.partenope@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\n\nUsername updated.\n\nChange username\nEmail\n\n!\nThese account details are already in use.\n\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\n\n!\nThe current password is incorrect.\n\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account\nDelete account permanently?\n\nYour account and in-progress games will be removed. This action cannot be undone.\n\nCompleted games will remain in public History under \u201cDeleted user\u201d.\n\n!\nYour account could not be deleted right now.\n\nCancel\nDelete account"
+  },
+  {
+    "name": "semantics",
+    "width": 320,
+    "scope": "dialog[open]",
+    "targets": [
+      {
+        "label": "Cancel",
+        "width": 234,
+        "height": 48
+      },
+      {
+        "label": "Delete account",
+        "width": 234,
+        "height": 48
+      }
+    ],
+    "messages": [
+      {
+        "text": "!Your account could not be deleted right now.",
+        "color": "rgb(161, 43, 43)",
+        "background": "rgb(252, 237, 237)",
+        "contrast": 6.380048346821389
+      }
+    ]
+  },
+  {
+    "name": "profile-long-identity",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "focus": {
+      "tag": "BODY",
+      "id": ""
+    },
+    "alerts": 0,
+    "statuses": 0,
+    "text": "ROADTOUNINA\nE\nesploratore_con_nome_molto_lun\n\nesploratore.partenope.con.indirizzo.lungo@example.test \u00b7 Member since Oct 25, 2026\n\nAccount information\n\nUpdate the details used to identify your account.\n\nUsername\nUse 3\u201330 characters.\nChange username\nEmail\nChange email\nPassword\n\nChoose a new password for your account.\n\nCurrent password\nNew password\nUse 8\u2013128 characters.\nConfirm new password\nChange password\nSession\n\nSign out of ROADTOUNINA on this browser.\n\nLog out\nDelete account\n\nThis permanently removes your account and in-progress games. Completed games remain in public History under \u201cDeleted user\u201d.\n\nDelete account"
+  }
+]

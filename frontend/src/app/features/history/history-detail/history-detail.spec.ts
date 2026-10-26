@@ -1,24 +1,77 @@
 import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { HistoryDetail } from './history-detail';
+import { HistoryService } from '../../../core/services/history.service';
+import { CompletedGameDetailDto } from '../../../shared/models/history.model';
 
-describe('HistoryDetail', () => {
-  let component: HistoryDetail;
+const game: CompletedGameDetailDto = {
+  gameId: 'finished-game',
+  mode: 'CLICK',
+  difficulty: 'MEDIUM',
+  clickCount: 5,
+  backtrackCount: 1,
+  effectivePlayTimeMs: 58000,
+  startPageId: 1,
+  startPageTitle: 'Roma',
+  completedAt: '2026-10-26T00:00:00Z',
+  player: { id: 'player', username: 'Navigator' },
+  path: [
+    { pageId: 1, title: 'Roma' },
+    { pageId: 2, title: 'Università degli Studi di Napoli Federico II' },
+  ],
+  moves: [
+    {
+      sequence: 1,
+      type: 'NAVIGATION',
+      fromPageId: 1,
+      fromPageTitle: 'Roma',
+      toPageId: 2,
+      toPageTitle: 'Napoli',
+      createdAt: '2026-10-26T00:00:00Z',
+    },
+  ],
+};
+
+describe('HistoryDetail presentation', () => {
   let fixture: ComponentFixture<HistoryDetail>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        { provide: HistoryService, useValue: { get: () => of(game) } },
+      ],
       imports: [HistoryDetail],
     }).compileComponents();
-
     fixture = TestBed.createComponent(HistoryDetail);
-    fixture.componentRef.setInput('gameId', '00000000-0000-4000-8000-000000000001');
-    component = fixture.componentInstance;
+    fixture.componentRef.setInput('gameId', game.gameId);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('identifies a completed game, preserves the complete read-only route and deleted-player fallback', () => {
+    expect(fixture.nativeElement.querySelector('h1').textContent).toContain(
+      'Completed game by Navigator',
+    );
+    expect(fixture.nativeElement.querySelectorAll('.path__item').length).toBe(2);
+    expect(fixture.nativeElement.querySelector('app-game-path a, app-game-path button')).toBeNull();
+    fixture.componentInstance.game.set({ ...game, player: null });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('h1 span').textContent).toBe('Deleted user');
+  });
+
+  it('keeps every chronological move column in a named keyboard-scrollable region', () => {
+    const wrap = fixture.nativeElement.querySelector('.moves-wrap');
+    expect(wrap.getAttribute('role')).toBe('region');
+    expect(wrap.getAttribute('aria-label')).toBe('Move history table');
+    expect(wrap.tabIndex).toBe(0);
+    expect(
+      Array.from(wrap.querySelectorAll('thead th')).map((cell) =>
+        (cell as HTMLElement).textContent?.trim(),
+      ),
+    ).toEqual(['#', 'Type', 'From', 'To', 'Time']);
+    const row = wrap.querySelector('tbody tr');
+    expect(row.querySelectorAll('th, td').length).toBe(5);
+    for (const value of ['1', 'NAVIGATION', 'Roma', 'Napoli'])
+      expect(row.textContent).toContain(value);
   });
 });

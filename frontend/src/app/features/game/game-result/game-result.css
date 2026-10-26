@@ -8,9 +8,10 @@
   align-items: flex-start;
 }
 .result__header > ng-icon {
-  width: 2.4rem;
-  height: 2.4rem;
   flex: none;
+  width: 28px;
+  height: 28px;
+  margin-top: 4px;
   color: var(--color-success);
 }
 .result__header h1,
@@ -18,49 +19,88 @@
   margin: 0;
 }
 .result__header h1 {
-  margin-top: var(--space-1);
-  font-family: Georgia, serif;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 500;
+  font-size: clamp(1.75rem, 4vw, 2rem);
+  font-weight: 750;
 }
 .result__header div > p:last-child {
   margin-top: var(--space-3);
   color: var(--color-muted);
 }
+.result__destination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-target);
+}
+.result__destination > ng-icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.result__destination div {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.result__destination span {
+  font-size: 0.75rem;
+}
+.result__destination strong {
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
 .result__metrics {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
   margin: var(--space-6) 0;
 }
 .result__metrics > div {
-  padding: var(--space-4);
-  border-left: 2px solid var(--color-border);
+  min-width: 0;
 }
-.result__metrics > .result__primary {
-  border-left-color: var(--color-accent);
-  background: var(--color-accent-soft);
+.result__primary {
+  grid-column: 1 / -1;
 }
 .result__metrics dt {
   color: var(--color-muted);
-  font-size: 0.73rem;
-  font-weight: 700;
+  font-size: 0.8125rem;
 }
 .result__metrics dd {
   margin: var(--space-1) 0 0;
-  font-size: 1.2rem;
-  font-weight: 800;
+  overflow-wrap: anywhere;
+  font-size: 1.25rem;
+  font-weight: 650;
   font-variant-numeric: tabular-nums;
+}
+.result__primary dd {
+  color: var(--color-accent);
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  font-weight: 750;
+  line-height: 1.15;
 }
 .result__metrics dd .badge + .badge {
   margin-top: var(--space-1);
 }
-@media (max-width: 700px) {
-  .result__metrics {
-    grid-template-columns: repeat(2, 1fr);
+.result__path {
+  margin-top: var(--space-6);
+}
+.result__path h2 {
+  margin: 0 0 var(--space-4);
+  font-size: 1.25rem;
+}
+@media (max-width: 600px) {
+  .result {
+    margin-block: 0;
   }
-  .result__header {
-    flex-direction: column;
+  .result__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .result__metrics > div:last-child {
+    grid-column: 1 / -1;
   }
   .result .actions .btn {
     width: 100%;

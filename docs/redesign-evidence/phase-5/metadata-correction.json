@@ -1,0 +1,170 @@
+[
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail",
+      "width": 1440
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 918,
+      "long": false,
+      "content": 918,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 1440,
+      "long": false,
+      "content": 918,
+      "tabindex": 0,
+      "clientWidth": 918
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail-long-path",
+      "width": 1440
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 918,
+      "long": true,
+      "content": 918,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 1440,
+      "long": true,
+      "content": 918,
+      "tabindex": 0,
+      "clientWidth": 918
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail",
+      "width": 768
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 720,
+      "long": false,
+      "content": 720,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 768,
+      "long": false,
+      "content": 720,
+      "tabindex": 0,
+      "clientWidth": 720
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail-long-path",
+      "width": 768
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 720,
+      "long": true,
+      "content": 720,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 768,
+      "long": true,
+      "content": 720,
+      "tabindex": 0,
+      "clientWidth": 720
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail",
+      "width": 390
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 356,
+      "long": false,
+      "content": 654,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 390,
+      "long": false,
+      "content": 654,
+      "tabindex": 0,
+      "clientWidth": 356
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail-long-path",
+      "width": 390
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 356,
+      "long": true,
+      "content": 654,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 390,
+      "long": true,
+      "content": 654,
+      "tabindex": 0,
+      "clientWidth": 356
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail",
+      "width": 320
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 286,
+      "long": false,
+      "content": 654,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 320,
+      "long": false,
+      "content": 654,
+      "tabindex": 0,
+      "clientWidth": 286
+    }
+  },
+  {
+    "sourceScreenshotMeasurement": {
+      "name": "detail-long-path",
+      "width": 320
+    },
+    "original": {
+      "name": "moves-local-scroll",
+      "width": 286,
+      "long": true,
+      "content": 654,
+      "tabindex": 0
+    },
+    "corrected": {
+      "name": "moves-local-scroll",
+      "width": 320,
+      "long": true,
+      "content": 654,
+      "tabindex": 0,
+      "clientWidth": 286
+    }
+  }
+]

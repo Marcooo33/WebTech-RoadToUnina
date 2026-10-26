@@ -1,0 +1,166 @@
+[
+  {
+    "width": 1440,
+    "steps": [
+      {
+        "key": "ArrowRight",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "Home",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "End",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "steps": [
+      {
+        "key": "ArrowRight",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "Home",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "End",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 390,
+    "steps": [
+      {
+        "key": "ArrowRight",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "Home",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "End",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      }
+    ],
+    "pass": true
+  },
+  {
+    "width": 320,
+    "steps": [
+      {
+        "key": "ArrowRight",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "ArrowLeft",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      },
+      {
+        "key": "Home",
+        "mode": "CLICK",
+        "tabId": "history-mode-CLICK",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=CLICK&difficulty=EASY"
+      },
+      {
+        "key": "End",
+        "mode": "TIME",
+        "tabId": "history-mode-TIME",
+        "panelId": "history-panel",
+        "url": "http://127.0.0.1:4400/history?mode=TIME&difficulty=EASY"
+      }
+    ],
+    "pass": true
+  }
+]

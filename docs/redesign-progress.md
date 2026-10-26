@@ -16,8 +16,8 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 | 1 — Fondamenta e componenti condivisi | PASS | `e92fe41` |
 | 2 — Home e autenticazione | PASS | `ea8cdcd` |
 | 3 — Dashboard e configurazione | PASS | `a41fe1a` |
-| 4 — Partita e articolo | PASS | hash dopo commit |
-| 5 — Risultato, History, dettagli, profilo | PENDING | — |
+| 4 — Partita e articolo | PASS | `7910114` |
+| 5 — Risultato, History, dettagli, profilo | PASS | hash dopo commit |
 | 6 — Verifica trasversale | PENDING | — |
 
 ## Fase 0 — 2026-10-26
@@ -211,3 +211,36 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   altri browser/zoom non ancora provati; casi resize focus da valutare in Fase6.
 - /tmp perso dopo ripresa: riferimenti essenziali e tutte evidenze finali integri nel repo;
   limiti di riproducibilità futura dichiarati. Codice finale invariato dopo consegna ciclo3.
+- Commit Fase4: `7910114` — `feat(ui): complete redesign phase 4`.
+
+## Fase 5 — 2026-10-26
+
+- Branch verificato, working tree pulito al checkpoint7910114.
+- Scope GameResult, HistoryList/Detail e Profile con test; P da validare sui rendering.
+- Stesse azioni, dati, filtri/URL/ranking, form/validatori e conferme distruttive;
+  nessuna nuova azione New game/Retry/mostra password.
+- Gruppo1 risultato implementato/build locale PASS: meta gialla, metrica dominante,
+  percorso esistente e tutte azioni preservate; nessun New game nuovo.
+- Gruppo2 History implementato: tab con roving/frecce/HomeEnd/panel, ranking compatto,
+  dettaglio partita e mosse con scroll locale nominato; profilo e regressioni in corso.
+- Tester prepara soltanto harness durevole, nessuna verifica Fase5 ancora eseguita.
+- Consegna finale Fase5: GameResult .html/.css/.ts/.spec, HistoryList .html/.css/.ts/.spec,
+  HistoryDetail .html/.css/.spec, Profile .html/.css/.ts/.spec. Nessun globale/core/API/backend.
+- TS aggiunto solo handler tastiera tab e focus primo invalido; validatori/azioni/dati invariati.
+- Feedback implementatore build PASS,96unit/22file PASS, solo warning Home noto.
+- Harness durevole tester e2e/support/redesign-phase-5.mjs e piano HARNESS.md autorizzati;
+  campione cambiato dichiarato, nessuna dipendenza /tmp. Gate indipendenti avviati.
+- Verifiche indipendenti: build PASS (solo warning Home),96unit/22file PASS,
+  E2E completa22 PASS/53,2s e disposable rimosso. Code review indipendente PASS.
+- Browser/harness: corretta soltanto attesa aria-selected dopo cambioURL e rango21
+  pagina2, nessuna correzione applicativa. 128PNG già prodotti; gate tecnico finale
+  e visual review ancora da chiudere, nessun PASS complessivo anticipato.
+- [Rapporto tecnico](redesign-evidence/phase-5/TEST-REPORT.md): PASS,
+  build/96unit/22E2E, disposable rimosso;128PNG/172record+supplemento tastiera PASS.
+  Nessun overflow, target44+, contrasti6,38+, nessuna correzione applicativa.
+- [Code review](redesign-evidence/phase-5/code-review.md): PASS, confini F invariati.
+- Visual reviewer comunica128/128immagini esaminate ePASS, rapporto in scrittura.
+  Non bloccante S3: indici mosse10–31 spezzano cifre a768/390/320; dati completi.
+  Riportare come residuo Fase6, non nuova funzionalità o blocco del gate Fase5.
+- [Visual review finale](redesign-evidence/phase-5/visual-review.md): PASS,
+ 128/128immagini viste; nessun blocco. Gate complessivo PASS, zero cicli app.

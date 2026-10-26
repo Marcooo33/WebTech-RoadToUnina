@@ -1,0 +1,17 @@
+[
+  {
+    "group": "history",
+    "width": 768,
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'false' !== 'true'\n\n    at historyCases (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:241:12)\n    at async run (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:373:13)\n    at async file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:386:37"
+  },
+  {
+    "group": "history",
+    "width": 390,
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'false' !== 'true'\n\n    at historyCases (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:241:12)\n    at async run (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:373:13)\n    at async file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:386:37"
+  },
+  {
+    "group": "history",
+    "width": 320,
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'false' !== 'true'\n\n    at historyCases (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:241:12)\n    at async run (file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:373:13)\n    at async file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-5.mjs:386:37"
+  }
+]

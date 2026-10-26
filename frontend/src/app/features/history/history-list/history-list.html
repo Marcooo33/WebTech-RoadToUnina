@@ -1,7 +1,6 @@
 <section class="history stack">
   <header class="page-header">
     <div class="page-header__copy">
-      <p class="eyebrow">Public rankings</p>
       <h1 class="page-title">Completed-game history</h1>
       <p class="muted">Explore finished routes, ranked separately by objective and difficulty.</p>
     </div>
@@ -13,6 +12,10 @@
           type="button"
           role="tab"
           class="tab"
+          [id]="'history-mode-' + mode"
+          aria-controls="history-panel"
+          [attr.tabindex]="selection().mode === mode ? 0 : -1"
+          (keydown)="onModeKeydown($event, mode)"
           [class.tab--active]="selection().mode === mode"
           [attr.aria-selected]="selection().mode === mode"
           (click)="selectMode(mode)"
@@ -25,6 +28,14 @@
         </button>
       }
     </div>
+  </div>
+  <div
+    id="history-panel"
+    class="history__panel stack"
+    role="tabpanel"
+    [attr.aria-labelledby]="'history-mode-' + selection().mode"
+    tabindex="0"
+  >
     <p class="history__objective">
       {{
         selection().mode === 'CLICK'
@@ -34,7 +45,7 @@
     </p>
     <div class="filter-group">
       <span>Difficulty</span>
-      <div class="filters" aria-label="Difficulty">
+      <div class="filters" role="group" aria-label="Difficulty">
         @for (difficulty of difficulties; track difficulty) {
           <button
             type="button"
@@ -48,85 +59,99 @@
         }
       </div>
     </div>
-  </div>
-  <app-error-banner [message]="error()" />
-  @if (loading()) {
-    <app-loading-spinner label="Loading completed games…" />
-  } @else if (!error()) {
-    @if (result(); as res) {
-      <div class="history__summary">
-        <strong>{{ res.total }}</strong> completed {{ res.total === 1 ? 'game' : 'games' }} in
-        <span class="badge">{{ selection().mode }}</span>
-        <span class="badge">{{ selection().difficulty }}</span>
-      </div>
-    }
-    @if (items.length > 0) {
-      <div class="ranking card">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Player</th>
-              <th [class.is-primary]="primaryMetric() === 'clicks'">Clicks</th>
-              <th [class.is-primary]="primaryMetric() === 'time'">Time</th>
-              <th>Completed</th>
-              <th><span class="sr-only">Game details</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (item of items; track item.gameId) {
-              <tr [class.is-current-user]="currentUser()?.username === item.username">
-                <td class="rank" data-label="Rank">{{ item.rank }}</td>
-                <td class="player" data-label="Player">{{ item.username }}</td>
-                <td data-label="Clicks" [class.is-primary]="primaryMetric() === 'clicks'">
-                  {{ item.clickCount }}
-                </td>
-                <td data-label="Time" [class.is-primary]="primaryMetric() === 'time'">
-                  {{ item.effectivePlayTimeMs | duration }}
-                </td>
-                <td data-label="Completed">{{ item.completedAt | date: 'short' }}</td>
-                <td class="view">
-                  <a
-                    [routerLink]="['/history', item.gameId]"
-                    [attr.aria-label]="'View game by ' + item.username"
-                    >View game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
-                  /></a>
-                </td>
+    <app-error-banner [message]="error()" />
+    @if (loading()) {
+      <app-loading-spinner label="Loading completed games…" />
+    } @else if (!error()) {
+      @if (result(); as res) {
+        <div class="history__summary">
+          <strong>{{ res.total }}</strong> completed {{ res.total === 1 ? 'game' : 'games' }} in
+          <span class="badge">{{ selection().mode }}</span>
+          <span class="badge">{{ selection().difficulty }}</span>
+        </div>
+      }
+      @if (items.length > 0) {
+        <div class="ranking card">
+          <table class="table" role="table" aria-label="Completed games ranking">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Player</th>
+                <th scope="col" class="metric" [class.is-primary]="primaryMetric() === 'clicks'">
+                  Clicks
+                </th>
+                <th scope="col" class="metric" [class.is-primary]="primaryMetric() === 'time'">
+                  Time
+                </th>
+                <th scope="col">Completed</th>
+                <th scope="col"><span class="sr-only">Game details</span></th>
               </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    } @else {
-      <div class="empty-state">
-        <h2>No completed games here yet</h2>
-        <p class="muted">{{ emptyMessage }}</p>
-        <a routerLink="/">Learn how to play</a>
-      </div>
-    }
-    @if (pagination(); as p) {
-      @if (p.hasPrev || p.hasNext) {
-        <nav class="pager" aria-label="History pages">
-          <button
-            type="button"
-            class="btn btn--secondary"
-            [disabled]="!p.hasPrev"
-            (click)="goToPage(p.prevPage)"
-          >
-            <ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Previous</button
-          ><span class="muted"
-            >Page {{ p.page }} of {{ p.totalPages }}, showing {{ p.start }}–{{ p.end }} of
-            {{ p.total }}</span
-          ><button
-            type="button"
-            class="btn btn--secondary"
-            [disabled]="!p.hasNext"
-            (click)="goToPage(p.nextPage)"
-          >
-            Next<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
-          </button>
-        </nav>
+            </thead>
+            <tbody>
+              @for (item of items; track item.gameId) {
+                <tr [class.is-current-user]="currentUser()?.username === item.username">
+                  <td class="rank" data-label="Rank">{{ item.rank }}</td>
+                  <td class="player" data-label="Player">{{ item.username }}</td>
+                  <td
+                    class="metric"
+                    data-label="Clicks"
+                    [class.is-primary]="primaryMetric() === 'clicks'"
+                  >
+                    {{ item.clickCount }}
+                  </td>
+                  <td
+                    class="metric"
+                    data-label="Time"
+                    [class.is-primary]="primaryMetric() === 'time'"
+                  >
+                    {{ item.effectivePlayTimeMs | duration }}
+                  </td>
+                  <td class="completed" data-label="Completed">
+                    {{ item.completedAt | date: 'short' }}
+                  </td>
+                  <td class="view">
+                    <a
+                      [routerLink]="['/history', item.gameId]"
+                      [attr.aria-label]="'View game by ' + item.username"
+                      >View game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
+                    /></a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <h2>No completed games here yet</h2>
+          <p class="muted">{{ emptyMessage }}</p>
+          <a routerLink="/">Learn how to play</a>
+        </div>
+      }
+      @if (pagination(); as p) {
+        @if (p.hasPrev || p.hasNext) {
+          <nav class="pager" aria-label="History pages">
+            <button
+              type="button"
+              class="btn btn--secondary"
+              [disabled]="!p.hasPrev"
+              (click)="goToPage(p.prevPage)"
+            >
+              <ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Previous</button
+            ><span class="muted"
+              >Page {{ p.page }} of {{ p.totalPages }}, showing {{ p.start }}–{{ p.end }} of
+              {{ p.total }}</span
+            ><button
+              type="button"
+              class="btn btn--secondary"
+              [disabled]="!p.hasNext"
+              (click)="goToPage(p.nextPage)"
+            >
+              Next<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
+            </button>
+          </nav>
+        }
       }
     }
-  }
+  </div>
 </section>

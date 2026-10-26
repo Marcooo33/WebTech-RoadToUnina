@@ -39,6 +39,7 @@ export class ProfilePage {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly deleteDialog = viewChild<ElementRef<HTMLDialogElement>>('deleteDialog');
 
   readonly user = this.auth.user;
@@ -79,6 +80,8 @@ export class ProfilePage {
   changeUsername(): void {
     if (this.usernameForm.invalid || this.usernameSubmitting()) {
       this.usernameForm.markAllAsTouched();
+      if (this.usernameForm.invalid)
+        this.host.nativeElement.querySelector<HTMLInputElement>('#profile-username')?.focus();
       return;
     }
     const username = this.usernameForm.controls.username.value.trim();
@@ -103,6 +106,8 @@ export class ProfilePage {
   changeEmail(): void {
     if (this.emailForm.invalid || this.emailSubmitting()) {
       this.emailForm.markAllAsTouched();
+      if (this.emailForm.invalid)
+        this.host.nativeElement.querySelector<HTMLInputElement>('#profile-email')?.focus();
       return;
     }
     const email = this.emailForm.controls.email.value.trim();
@@ -127,6 +132,14 @@ export class ProfilePage {
   changePassword(): void {
     if (this.passwordForm.invalid || this.passwordSubmitting()) {
       this.passwordForm.markAllAsTouched();
+      if (this.passwordForm.invalid) {
+        const invalid =
+          Object.entries(this.passwordForm.controls).find(([, control]) => control.invalid)?.[0] ??
+          'confirmPassword';
+        this.host.nativeElement
+          .querySelector<HTMLInputElement>(`#profile-password-form [formcontrolname="${invalid}"]`)
+          ?.focus();
+      }
       return;
     }
     const { currentPassword, newPassword } = this.passwordForm.getRawValue();
