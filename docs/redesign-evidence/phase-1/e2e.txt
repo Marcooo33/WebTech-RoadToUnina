@@ -1,0 +1,85 @@
+npm notice run roadtounina-e2e@1.0.0 test
+npm notice run node ./run-e2e.mjs auth.spec.ts navigation.spec.ts public.spec.ts
+ Network e2e_default Creating
+ Network e2e_default Creating
+ Volume e2e_e2e-db-data Creating
+ Volume e2e_e2e-db-data Creating
+ Volume e2e_e2e-db-data Created
+ Volume e2e_e2e-db-data Created
+ Network e2e_default Created
+ Network e2e_default Created
+ Container roadtounina-e2e-db Creating
+ Container roadtounina-e2e-db Created
+ Container roadtounina-e2e-db Starting
+ Container roadtounina-e2e-db Started
+ Container roadtounina-e2e-db Waiting
+ Container roadtounina-e2e-db Healthy
+npm notice run roadtounina-e2e@1.0.0 npx
+npm notice run 'playwright' test auth.spec.ts navigation.spec.ts public.spec.ts
+◇ injected env (2) from .env // tip: ⌘ override existing { override: true }
+[WebServer] (node:296465) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] npm notice run roadtounina-backend@1.0.0 npx
+[WebServer] npm notice run 'tsx' src/server.ts
+[WebServer] (node:296479) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:296490) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Server listening on http://localhost:3100
+[WebServer] npm notice run frontend@0.0.0 start
+[WebServer] npm notice run ng serve --port 4300 --proxy-config /home/marco/Github/WebTech-RoadToUnina/e2e/proxy.e2e.json
+[WebServer] (node:296665) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:296665) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+npm notice run roadtounina-backend@1.0.0 npx
+npm notice run 'prisma' migrate deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "roadtounina_e2e", schema "public" at "localhost:55432"
+
+5 migrations found in prisma/migrations
+
+Applying migration `0_init`
+Applying migration `20260905120000_remove_sessions_and_version`
+Applying migration `20260916010000_add_user_soft_deletion`
+Applying migration `20260922161939_remove_avatar_url`
+Applying migration `20260925120000_remove_last_heartbeat_at`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0_init/
+    └─ migration.sql
+  └─ 20260905120000_remove_sessions_and_version/
+    └─ migration.sql
+  └─ 20260916010000_add_user_soft_deletion/
+    └─ migration.sql
+  └─ 20260922161939_remove_avatar_url/
+    └─ migration.sql
+  └─ 20260925120000_remove_last_heartbeat_at/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+Running 4 tests using 1 worker
+
+(node:297109) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+  ✓  1 [chromium] › tests/auth.spec.ts:4:1 › a visitor can register through the form and lands authenticated (6.9s)
+  ✓  2 [chromium] › tests/auth.spec.ts:30:1 › a registered user can log out and log back in (2.5s)
+  ✓  3 [chromium] › tests/navigation.spec.ts:5:1 › following a playable link is a navigation click and advances the path (929ms)
+  ✓  4 [chromium] › tests/public.spec.ts:8:1 › an anonymous user filters ranked History and opens a completed game (1.2s)
+
+  4 passed (32.9s)
+ Container roadtounina-e2e-db Stopping
+ Container roadtounina-e2e-db Stopped
+ Container roadtounina-e2e-db Removing
+ Container roadtounina-e2e-db Removed
+ Volume e2e_e2e-db-data Removing
+ Network e2e_default Removing
+ Volume e2e_e2e-db-data Removed
+ Network e2e_default Removed

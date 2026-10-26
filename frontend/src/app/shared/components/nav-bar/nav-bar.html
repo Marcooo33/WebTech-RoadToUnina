@@ -1,10 +1,12 @@
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation" (focusout)="onFocusOut($event)">
   <div class="nav__inner container">
     <a class="nav__brand" routerLink="/" (click)="closeMenu()" aria-label="ROADTOUNINA">
+      <ng-icon class="nav__mark" name="lucideRoute" aria-hidden="true" />
       <span>ROAD<span>TO</span>UNINA</span>
     </a>
 
     <button
+      #menuToggle
       type="button"
       class="nav__toggle"
       [attr.aria-expanded]="menuOpen()"
@@ -21,6 +23,7 @@
           <a
             routerLink="/"
             routerLinkActive="active"
+            ariaCurrentWhenActive="page"
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMenu()"
             ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
@@ -29,19 +32,30 @@
           <a
             routerLink="/"
             routerLinkActive="active"
+            ariaCurrentWhenActive="page"
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMenu()"
             ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Home</a
           >
         }
-        <a routerLink="/history" routerLinkActive="active" (click)="closeMenu()">
+        <a
+          routerLink="/history"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="closeMenu()"
+        >
           <ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History
         </a>
       </div>
 
       <div class="nav__account">
         @if (isAuthenticated()) {
-          <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">
+          <a
+            routerLink="/profile"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="closeMenu()"
+          >
             <ng-icon class="icon" name="lucideUserRound" aria-hidden="true" />Profile
           </a>
           <span class="nav__user" [title]="user()?.username ?? ''">{{ user()?.username }}</span>
@@ -52,13 +66,19 @@
           <a routerLink="/" [queryParams]="{ guest: 'start' }" (click)="closeMenu()"
             >Play as Guest</a
           >
-          <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">
+          <a
+            routerLink="/login"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="closeMenu()"
+          >
             <ng-icon class="icon" name="lucideLogIn" aria-hidden="true" />Log in
           </a>
           <a
             class="nav__register"
             routerLink="/register"
             routerLinkActive="active"
+            ariaCurrentWhenActive="page"
             (click)="closeMenu()"
           >
             <ng-icon class="icon" name="lucideUserRoundPlus" aria-hidden="true" />Register

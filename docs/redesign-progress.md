@@ -12,8 +12,8 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 
 | Fase | Stato | Commit |
 | --- | --- | --- |
-| 0 — Baseline e perimetro | PASS | `chore: complete redesign phase 0` (hash registrato dopo il commit) |
-| 1 — Fondamenta e componenti condivisi | PENDING | — |
+| 0 — Baseline e perimetro | PASS | `ba799db` |
+| 1 — Fondamenta e componenti condivisi | PASS | hash da registrare dopo commit |
 | 2 — Home e autenticazione | PENDING | — |
 | 3 — Dashboard e configurazione | PENDING | — |
 | 4 — Partita e articolo | PENDING | — |
@@ -42,4 +42,27 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   flussi integrati verificati separatamente dagli E2E. Screen reader/browser fisici
   e varianti future non attribuiti alla baseline. Input temporanei mantenuti in `/tmp`.
 - Correzioni: nessuna. Codice applicativo invariato.
-- Commit: tutti i gate superati; hash registrato subito dopo la creazione.
+- Commit: `ba799db` — `chore: complete redesign phase 0`.
+- Normalizzati soltanto whitespace e newline finali dei log prima del commit; nessun contenuto degli esiti alterato.
+
+## Fase 1 — 2026-10-26
+
+- Branch verificato, working tree pulito al checkpoint `ba799db`.
+- Perimetro: token/primitive globali e Navbar/ErrorBanner/LoadingSpinner, semantica e test pertinenti.
+- Comportamenti auth/API/routing e gioco invariati; composizioni pagine rinviate alle fasi previste.
+- Implementazione delegata; test e review successivi, nessun gate ancora attribuito.
+- File applicativi/test modificati: `frontend/src/styles.css`, Navbar (`.ts/.html/.css/.spec.ts`),
+  `shared/components/error-banner/error-banner.ts`, `loading-spinner/loading-spinner.ts`.
+- Implementazione: palette B, font token, scala spazi costante, controlli/focus/disabled,
+  semantici condivisi, Navbar con indicazione pagina, Escape e focus senza trap.
+- Feedback implementatore: build e 34 unit PASS; gate indipendenti ancora in corso.
+- [Tester indipendente](redesign-evidence/phase-1/TEST-REPORT.md): build PASS, 34 unit/18 file PASS,
+  E2E mirati auth/navigation/public 4 PASS; disposable rimosso. 127 screenshot prodotti;
+  focus/tastiera/menu/contrasti/reduced motion verificati; nessun nuovo overflow.
+- [Visual review](redesign-evidence/phase-1/visual-review.md): PASS, 68 immagini esaminate,
+  primitive e combinazioni semantiche renderizzate validate; nessun blocco nuovo.
+- [Code review](redesign-evidence/phase-1/code-review.md): PASS; scope e vincoli F invariati.
+- Gate complessivo PASS, zero cicli di correzione applicativa. Aggiornata soltanto attesa
+  rendering nel harness del tester. Limiti inspector, immagini remote e screen reader invariati.
+- Non bloccanti: perdita focus con relatedTarget nullo e resize menu mobile→desktop
+  da verificare in Fase 6; difetti originali del gioco rinviati alla Fase 4.

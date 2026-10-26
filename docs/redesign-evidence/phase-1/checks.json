@@ -1,0 +1,575 @@
+[
+  {
+    "name": "navbar",
+    "width": 1440,
+    "auth": false,
+    "desktop": true
+  },
+  {
+    "name": "loading-reduced",
+    "width": 1440,
+    "auth": false,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "field-focus",
+    "width": 1440,
+    "outline": "rgb(29, 78, 216) solid 3px",
+    "outlineWidth": "3px",
+    "outlineColor": "rgb(29, 78, 216)",
+    "outlineOffset": "4px",
+    "border": "rgb(123, 140, 166)",
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(25, 40, 66)",
+    "h": 47.578125,
+    "focusVisible": true,
+    "borderContrast": 3.417935976654565,
+    "focusContrast": 6.701618401398807
+  },
+  {
+    "name": "disabled-busy",
+    "width": 1440,
+    "opacity": "1",
+    "color": "rgb(83, 97, 122)",
+    "background": "rgb(237, 241, 247)",
+    "h": 48,
+    "disabled": true,
+    "contrast": 5.51584598565661
+  },
+  {
+    "name": "error",
+    "width": 1440,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "role": "alert",
+    "contrast": 6.380048346821389
+  },
+  {
+    "name": "semantic-primitives-specimen",
+    "width": 1440,
+    "semantic": [
+      {
+        "className": "status status--info",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "text": "Information: follow the article links.",
+        "contrast": 13.276704217104236
+      },
+      {
+        "className": "status status--warning",
+        "color": "rgb(133, 91, 18)",
+        "background": "rgb(255, 247, 223)",
+        "text": "Warning: this guest result is not saved.",
+        "contrast": 5.602276327904495
+      },
+      {
+        "className": "status status--success",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "text": "Success: your changes have been saved.",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "navbar",
+    "width": 1440,
+    "auth": true,
+    "desktop": true
+  },
+  {
+    "name": "loading-reduced",
+    "width": 1440,
+    "auth": true,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "navbar",
+    "width": 768,
+    "auth": false,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 165.359375,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Home",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "Play as Guest",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "Log in",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "Register",
+        "w": 736,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 768,
+    "auth": false,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "field-focus",
+    "width": 768,
+    "outline": "rgb(29, 78, 216) solid 3px",
+    "outlineWidth": "3px",
+    "outlineColor": "rgb(29, 78, 216)",
+    "outlineOffset": "4px",
+    "border": "rgb(123, 140, 166)",
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(25, 40, 66)",
+    "h": 47.578125,
+    "focusVisible": true,
+    "borderContrast": 3.417935976654565,
+    "focusContrast": 6.701618401398807
+  },
+  {
+    "name": "disabled-busy",
+    "width": 768,
+    "opacity": "1",
+    "color": "rgb(83, 97, 122)",
+    "background": "rgb(237, 241, 247)",
+    "h": 48,
+    "disabled": true,
+    "contrast": 5.51584598565661
+  },
+  {
+    "name": "error",
+    "width": 768,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "role": "alert",
+    "contrast": 6.380048346821389
+  },
+  {
+    "name": "semantic-primitives-specimen",
+    "width": 768,
+    "semantic": [
+      {
+        "className": "status status--info",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "text": "Information: follow the article links.",
+        "contrast": 13.276704217104236
+      },
+      {
+        "className": "status status--warning",
+        "color": "rgb(133, 91, 18)",
+        "background": "rgb(255, 247, 223)",
+        "text": "Warning: this guest result is not saved.",
+        "contrast": 5.602276327904495
+      },
+      {
+        "className": "status status--success",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "text": "Success: your changes have been saved.",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "navbar",
+    "width": 768,
+    "auth": true,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 165.359375,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Dashboard",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "Profile",
+        "w": 736,
+        "h": 44
+      },
+      {
+        "text": "Log out",
+        "w": 736,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 768,
+    "auth": true,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "navbar",
+    "width": 390,
+    "auth": false,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 143.5,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Home",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "Play as Guest",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "Log in",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "Register",
+        "w": 358,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 390,
+    "auth": false,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "field-focus",
+    "width": 390,
+    "outline": "rgb(29, 78, 216) solid 3px",
+    "outlineWidth": "3px",
+    "outlineColor": "rgb(29, 78, 216)",
+    "outlineOffset": "4px",
+    "border": "rgb(123, 140, 166)",
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(25, 40, 66)",
+    "h": 47.578125,
+    "focusVisible": true,
+    "borderContrast": 3.417935976654565,
+    "focusContrast": 6.701618401398807
+  },
+  {
+    "name": "disabled-busy",
+    "width": 390,
+    "opacity": "1",
+    "color": "rgb(83, 97, 122)",
+    "background": "rgb(237, 241, 247)",
+    "h": 48,
+    "disabled": true,
+    "contrast": 5.51584598565661
+  },
+  {
+    "name": "error",
+    "width": 390,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "role": "alert",
+    "contrast": 6.380048346821389
+  },
+  {
+    "name": "semantic-primitives-specimen",
+    "width": 390,
+    "semantic": [
+      {
+        "className": "status status--info",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "text": "Information: follow the article links.",
+        "contrast": 13.276704217104236
+      },
+      {
+        "className": "status status--warning",
+        "color": "rgb(133, 91, 18)",
+        "background": "rgb(255, 247, 223)",
+        "text": "Warning: this guest result is not saved.",
+        "contrast": 5.602276327904495
+      },
+      {
+        "className": "status status--success",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "text": "Success: your changes have been saved.",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "navbar",
+    "width": 390,
+    "auth": true,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 143.5,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Dashboard",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "Profile",
+        "w": 358,
+        "h": 44
+      },
+      {
+        "text": "Log out",
+        "w": 358,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 390,
+    "auth": true,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "navbar",
+    "width": 320,
+    "auth": false,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 133.078125,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Home",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "Play as Guest",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "Log in",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "Register",
+        "w": 288,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 320,
+    "auth": false,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  },
+  {
+    "name": "field-focus",
+    "width": 320,
+    "outline": "rgb(29, 78, 216) solid 3px",
+    "outlineWidth": "3px",
+    "outlineColor": "rgb(29, 78, 216)",
+    "outlineOffset": "4px",
+    "border": "rgb(123, 140, 166)",
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(25, 40, 66)",
+    "h": 47.578125,
+    "focusVisible": true,
+    "borderContrast": 3.417935976654565,
+    "focusContrast": 6.701618401398807
+  },
+  {
+    "name": "disabled-busy",
+    "width": 320,
+    "opacity": "1",
+    "color": "rgb(83, 97, 122)",
+    "background": "rgb(237, 241, 247)",
+    "h": 48,
+    "disabled": true,
+    "contrast": 5.51584598565661
+  },
+  {
+    "name": "error",
+    "width": 320,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "role": "alert",
+    "contrast": 6.380048346821389
+  },
+  {
+    "name": "semantic-primitives-specimen",
+    "width": 320,
+    "semantic": [
+      {
+        "className": "status status--info",
+        "color": "rgb(25, 40, 66)",
+        "background": "rgb(238, 243, 255)",
+        "text": "Information: follow the article links.",
+        "contrast": 13.276704217104236
+      },
+      {
+        "className": "status status--warning",
+        "color": "rgb(133, 91, 18)",
+        "background": "rgb(255, 247, 223)",
+        "text": "Warning: this guest result is not saved.",
+        "contrast": 5.602276327904495
+      },
+      {
+        "className": "status status--success",
+        "color": "rgb(39, 100, 59)",
+        "background": "rgb(237, 247, 240)",
+        "text": "Success: your changes have been saved.",
+        "contrast": 6.447376163167639
+      }
+    ]
+  },
+  {
+    "name": "navbar",
+    "width": 320,
+    "auth": true,
+    "escapeRestore": true,
+    "noTrap": true,
+    "sizes": [
+      {
+        "text": "ROADTOUNINA",
+        "w": 133.078125,
+        "h": 44
+      },
+      {
+        "text": "",
+        "w": 44,
+        "h": 44
+      },
+      {
+        "text": "Dashboard",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "History",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "Profile",
+        "w": 288,
+        "h": 44
+      },
+      {
+        "text": "Log out",
+        "w": 288,
+        "h": 44
+      }
+    ]
+  },
+  {
+    "name": "loading-reduced",
+    "width": 320,
+    "auth": true,
+    "animation": "none",
+    "status": "Loading completed games…",
+    "borderTop": "rgb(29, 78, 216)",
+    "background": "rgb(243, 246, 252)"
+  }
+]

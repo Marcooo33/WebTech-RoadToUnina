@@ -1,17 +1,20 @@
 /* ROADTOUNINA design foundation: small, framework-free, shared primitives. */
 :root {
-  --color-canvas: #f5f3ee;
+  --color-canvas: #f3f6fc;
   --color-surface: #fff;
-  --color-surface-subtle: #f8f9fa;
-  --color-brand: #123b5d;
-  --color-brand-hover: #0c2e49;
-  --color-accent: #2d75a3;
-  --color-accent-hover: #205d83;
-  --color-accent-soft: #e8f1f7;
-  --color-text: #182127;
-  --color-muted: #66717a;
-  --color-border: #d9dee2;
-  --color-border-strong: #b8c1c8;
+  --color-surface-subtle: #f3f6fc;
+  --color-brand: #1d4ed8;
+  --color-brand-hover: #153da9;
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #153da9;
+  --color-accent-soft: #eef3ff;
+  --color-target: #f1dc68;
+  --color-text: #192842;
+  --color-article-text: #243148;
+  --color-muted: #53617a;
+  --color-border: #d5dfef;
+  --color-border-strong: #7b8ca6;
+  --color-disabled-bg: #edf1f7;
   --color-success: #27643b;
   --color-success-soft: #edf7f0;
   --color-warning: #855b12;
@@ -34,13 +37,16 @@
   --radius-sm: 4px;
   --radius: 8px;
   --radius-md: 8px;
-  --radius-lg: 12px;
-  --shadow-subtle: 0 1px 3px rgb(20 35 45 / 8%);
-  --shadow-menu: 0 10px 28px rgb(20 35 45 / 14%);
+  --radius-lg: 8px;
+  --shadow-subtle: none;
+  --shadow-menu: 0 10px 28px rgb(25 40 66 / 12%);
   --max-width: 1120px;
   --width-reading: 44rem;
   --width-form: 28rem;
-  --focus-ring: 0 0 0 3px rgb(45 117 163 / 28%);
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-encyclopedia:
+    'Linux Libertine', 'Libertinus Serif', Georgia, Times, 'Times New Roman', serif;
+  --focus-ring: 0 0 0 3px var(--color-accent);
   --transition-fast: 140ms ease;
 }
 
@@ -59,12 +65,7 @@ body {
   overflow-x: hidden;
   background: var(--color-canvas);
   color: var(--color-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
+  font-family: var(--font-ui);
   font-size: 1rem;
   line-height: 1.55;
   text-rendering: optimizeLegibility;
@@ -91,8 +92,8 @@ a:hover {
   color: var(--color-accent-hover);
 }
 :where(a, button, input, select, textarea, summary):focus-visible {
-  outline: 2px solid var(--color-surface);
-  box-shadow: var(--focus-ring);
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
 }
 h1,
 h2,
@@ -130,7 +131,9 @@ h1 {
 }
 .page-title {
   margin: 0;
-  font-size: clamp(1.8rem, 4vw, 2.35rem);
+  font-size: clamp(1.75rem, 4vw, 2rem);
+  font-weight: 750;
+  line-height: 1.25;
 }
 .page-header {
   display: flex;
@@ -145,11 +148,9 @@ h1 {
   margin-top: var(--space-2);
 }
 .eyebrow {
-  color: var(--color-accent);
-  font-size: 0.76rem;
-  font-weight: 750;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 650;
 }
 .muted {
   color: var(--color-muted);
@@ -173,15 +174,14 @@ h1 {
 }
 .field input,
 .field select {
+  min-width: 0;
   min-height: 44px;
   padding: 0.65rem var(--space-3);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-text);
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast);
 }
 .field input:hover,
 .field select:hover {
@@ -194,10 +194,17 @@ h1 {
   color: var(--color-danger-text);
   font-size: 0.84rem;
 }
+.field input:disabled,
+.field select:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-muted);
+  border-color: var(--color-border);
+  opacity: 1;
+}
 
 .btn {
   display: inline-flex;
-  min-height: 42px;
+  min-height: 48px;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
@@ -225,15 +232,18 @@ h1 {
 .btn:active:not(:disabled) {
   transform: translateY(1px);
 }
-.btn:disabled {
-  opacity: 0.52;
+.btn:disabled,
+.btn:disabled:hover {
+  border-color: var(--color-border);
+  background: var(--color-disabled-bg);
+  color: var(--color-muted);
   cursor: not-allowed;
   transform: none;
 }
 .btn--secondary {
   border-color: var(--color-border-strong);
   background: var(--color-surface);
-  color: var(--color-brand);
+  color: var(--color-text);
 }
 .btn--secondary:hover {
   border-color: var(--color-brand);
@@ -265,14 +275,12 @@ h1 {
   width: fit-content;
   padding: 0.2rem 0.48rem;
   border: 1px solid var(--color-border-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--color-surface-subtle);
-  color: var(--color-brand);
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.05em;
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 650;
   line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .table {
@@ -289,18 +297,13 @@ h1 {
 }
 .table th {
   color: var(--color-muted);
-  font-size: 0.76rem;
-  font-weight: 750;
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
+  font-size: 0.8125rem;
+  font-weight: 650;
 }
 .table tbody tr:last-child > * {
   border-bottom: 0;
 }
 .status {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -308,9 +311,9 @@ h1 {
   background: var(--color-surface-subtle);
 }
 .status--info {
-  border-color: #b8d4e6;
+  border-color: var(--color-border);
   background: var(--color-accent-soft);
-  color: var(--color-brand);
+  color: var(--color-text);
 }
 .status--warning {
   border-color: #ead49d;
@@ -380,11 +383,6 @@ h1 {
 }
 
 @media (max-width: 720px) {
-  :root {
-    --space-6: 1.5rem;
-    --space-7: 2rem;
-    --space-8: 2.25rem;
-  }
   .page-header {
     flex-direction: column;
     align-items: stretch;
@@ -525,8 +523,7 @@ app-wikipedia-article .wiki__body :is(.infobox, .sinottico) th {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    transition: none !important;
+    animation: none !important;
   }
 }

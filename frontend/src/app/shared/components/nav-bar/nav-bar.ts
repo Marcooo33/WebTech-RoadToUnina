@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -7,6 +14,7 @@ import {
   lucideLogIn,
   lucideLogOut,
   lucideMenu,
+  lucideRoute,
   lucideUserRound,
   lucideUserRoundPlus,
   lucideX,
@@ -14,7 +22,7 @@ import {
 import { AuthService } from '../../../core/auth/auth.service';
 
 // Top-level navigation. Link set depends on auth state, collapses to a
-// toggle menu below 720px.
+// toggle menu when the full link set no longer fits.
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,6 +34,7 @@ import { AuthService } from '../../../core/auth/auth.service';
       lucideLogIn,
       lucideLogOut,
       lucideMenu,
+      lucideRoute,
       lucideUserRound,
       lucideUserRoundPlus,
       lucideX,
@@ -33,10 +42,12 @@ import { AuthService } from '../../../core/auth/auth.service';
   ],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
+  host: { '(keydown.escape)': 'onEscape($event)' },
 })
 export class NavBar {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly menuToggle = viewChild<ElementRef<HTMLButtonElement>>('menuToggle');
 
   readonly isAuthenticated = this.auth.isAuthenticated;
   readonly user = this.auth.user;
@@ -48,6 +59,25 @@ export class NavBar {
 
   closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  onEscape(event: Event): void {
+    if (!this.menuOpen()) return;
+    event.preventDefault();
+    this.closeMenu();
+    this.menuToggle()?.nativeElement.focus();
+  }
+
+  onFocusOut(event: FocusEvent): void {
+    const navigation = event.currentTarget;
+    if (
+      this.menuOpen() &&
+      navigation instanceof Element &&
+      event.relatedTarget instanceof Node &&
+      !navigation.contains(event.relatedTarget)
+    ) {
+      this.closeMenu();
+    }
   }
 
   logout(): void {

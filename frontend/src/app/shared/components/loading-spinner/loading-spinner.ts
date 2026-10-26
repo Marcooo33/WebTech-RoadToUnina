@@ -5,25 +5,26 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'app-loading-spinner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<p class="loading" role="status">
-    <span class="spinner" aria-hidden="true"></span>{{ label() }}
+    <span class="spinner" aria-hidden="true"></span><span>{{ label() }}</span>
   </p>`,
   styles: `
     .loading {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-3);
+      gap: var(--space-2);
       color: var(--color-muted);
       padding: var(--space-5) 0;
       margin: 0;
     }
     .spinner {
-      width: 1.15rem;
-      height: 1.15rem;
-      border: 2px solid var(--color-border-strong);
+      flex: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #b6c9f7;
       border-top-color: var(--color-accent);
       border-radius: 50%;
-      animation: spin 0.75s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
     @keyframes spin {
       to {

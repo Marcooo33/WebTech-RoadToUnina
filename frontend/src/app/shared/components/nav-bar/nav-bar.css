@@ -1,28 +1,36 @@
 .nav {
   position: relative;
   z-index: 20;
-  background: rgb(255 255 255 / 94%);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 .nav__inner {
   display: flex;
-  min-height: 60px;
+  max-width: 1264px;
+  min-height: 80px;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-5);
+  padding-block: var(--space-3);
 }
 .nav__brand {
   display: inline-flex;
+  min-height: 44px;
   align-items: center;
-  gap: 0.65rem;
-  color: var(--color-brand);
-  font-size: 0.94rem;
-  font-weight: 800;
-  letter-spacing: 0.045em;
+  gap: 11px;
+  color: var(--color-text);
+  font-size: 1.0625rem;
+  font-weight: 820;
+  letter-spacing: -0.02em;
   text-decoration: none;
   white-space: nowrap;
 }
-.nav__brand > span:last-child span {
+.nav__brand > span span {
+  color: var(--color-accent);
+}
+.nav__mark {
+  flex: none;
+  width: 28px;
+  height: 28px;
   color: var(--color-accent);
 }
 .nav__links,
@@ -31,22 +39,24 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  min-width: 0;
 }
 .nav__links {
   flex: 1;
   justify-content: space-between;
+  gap: var(--space-4);
 }
 .nav__links a,
 .nav__logout {
   display: inline-flex;
-  min-height: 38px;
+  min-height: 44px;
   align-items: center;
   gap: 0.42rem;
-  padding: 0.4rem 0.7rem;
+  padding: 0.5rem 0.65rem;
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   color: var(--color-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 650;
   text-decoration: none;
   transition:
@@ -56,47 +66,46 @@
 }
 .nav__links a:hover,
 .nav__logout:hover {
-  background: var(--color-surface-subtle);
-  color: var(--color-brand);
+  background: var(--color-canvas);
+  color: var(--color-accent);
 }
 .nav__links a.active {
-  background: var(--color-accent-soft);
-  color: var(--color-brand);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
 }
 .nav__user {
-  max-width: 10rem;
-  overflow: hidden;
+  max-width: 9rem;
   color: var(--color-muted);
-  font-size: 0.82rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
 }
 .nav__logout {
   background: none;
   cursor: pointer;
 }
 .nav__links .nav__register {
-  border-color: var(--color-brand);
-  background: var(--color-brand);
-  color: #fff;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
 }
-.nav__links .nav__register:hover,
-.nav__links .nav__register.active {
-  background: var(--color-brand-hover);
-  color: #fff;
+.nav__links .nav__register:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 .nav__toggle {
   display: none;
-  width: 42px;
-  height: 42px;
+  flex: none;
+  width: 44px;
+  height: 44px;
   place-items: center;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  color: var(--color-brand);
+  color: var(--color-text);
   cursor: pointer;
 }
-@media (max-width: 760px) {
+@media (max-width: 1000px) {
   .nav__toggle {
     display: grid;
   }
@@ -109,6 +118,8 @@
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-3);
+    max-height: calc(100dvh - 80px);
+    overflow-y: auto;
     padding: var(--space-3) var(--space-4) var(--space-4);
     border-bottom: 1px solid var(--color-border);
     background: var(--color-surface);
@@ -130,10 +141,41 @@
   .nav__links a,
   .nav__logout {
     width: 100%;
-    min-height: 44px;
   }
   .nav__user {
     max-width: none;
-    padding: 0 0.7rem var(--space-1);
+    padding: 0 0.65rem var(--space-1);
+  }
+}
+@media (max-width: 600px) {
+  .nav__inner {
+    min-height: 72px;
+    gap: var(--space-3);
+    padding-inline: 24px;
+    padding-block: 10px;
+  }
+  .nav__brand {
+    gap: var(--space-2);
+    font-size: 0.9375rem;
+  }
+  .nav__mark {
+    width: 24px;
+    height: 24px;
+  }
+  .nav__links {
+    max-height: calc(100dvh - 72px);
+  }
+}
+@media (max-width: 350px) {
+  .nav__inner {
+    padding-inline: 20px;
+  }
+  .nav__brand {
+    gap: 7px;
+    font-size: 0.875rem;
+  }
+  .nav__mark {
+    width: 22px;
+    height: 22px;
   }
 }
