@@ -1,0 +1,370 @@
+{
+  "results": {
+    "menu": {
+      "afterResize": {
+        "tag": "BODY",
+        "className": "",
+        "visible": false,
+        "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore finished rou"
+      },
+      "afterEscape": {
+        "tag": "A",
+        "className": "nav__brand",
+        "visible": true,
+        "text": "ROADTOUNINA"
+      },
+      "expanded": "false",
+      "reopenedOnMobile": "false"
+    },
+    "path": {
+      "focused": {
+        "tag": "SUMMARY",
+        "className": "",
+        "visible": true,
+        "text": "Your path 2 articles"
+      },
+      "summaryFocused": true
+    },
+    "modal": {
+      "menuBeforeEscape": "true",
+      "closedOnFirstEscape": false,
+      "menuAfterEscape": "false",
+      "focused": {
+        "tag": "BUTTON",
+        "className": "btn btn--secondary",
+        "visible": true,
+        "text": "Cancel"
+      }
+    },
+    "indices": [
+      {
+        "width": 768,
+        "pageWidth": 768,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "pageWidth": 390,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      },
+      {
+        "width": 320,
+        "pageWidth": 320,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      }
+    ]
+  },
+  "calls": [
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/click"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/games/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.a11y.Bus' requested by ':1.0' (uid=1000 pid=110924 comm="gdbus call --session --dest org.a11y.Bus --object-" label="unconfined")
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.a11y.Bus'
+dbus-daemon[110935]: Activating service name='org.a11y.atspi.Registry' requested by ':1.0' (uid=1000 pid=110938 comm="/usr/bin/python3 /usr/bin/orca --disable=speech --" label="unconfined")
+dbus-daemon[110935]: Successfully activated service 'org.a11y.atspi.Registry'
+SpiRegistry daemon is running with well-known name - org.a11y.atspi.Registry
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.portal.Desktop' requested by ':1.5' (uid=1000 pid=110970 comm="/home/marco/.cache/ms-playwright/chromium-1234/chr" label="unconfined")
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.portal.Documents' requested by ':1.6' (uid=1000 pid=111047 comm="/usr/libexec/xdg-desktop-portal" label="unconfined")
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.impl.portal.PermissionStore' requested by ':1.7' (uid=1000 pid=111054 comm="/usr/libexec/xdg-document-portal" label="unconfined")
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.impl.portal.PermissionStore'
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.portal.Documents'
+Ignoring invalid max threads value 4294967295 > max (100000).
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.impl.portal.desktop.gnome' requested by ':1.6' (uid=1000 pid=111047 comm="/usr/libexec/xdg-desktop-portal" label="unconfined")
+Non-compatible display server, exposing settings only.
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.impl.portal.desktop.gnome'
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.impl.portal.desktop.gtk' requested by ':1.6' (uid=1000 pid=111047 comm="/usr/libexec/xdg-desktop-portal" label="unconfined")
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.impl.portal.desktop.gtk'
+
+(/usr/libexec/xdg-desktop-portal:111047): xdg-desktop-portal-WARNING **: 15:21:37.435: Failed connect to PipeWire: Couldn't connect to PipeWire
+dbus-daemon[110915]: [session uid=1000 pid=110915] Activating service name='org.freedesktop.secrets' requested by ':1.6' (uid=1000 pid=111047 comm="/usr/libexec/xdg-desktop-portal" label="unconfined")
+** Message: 15:21:37.443: couldn't access control socket: /tmp/roadtounina-atspi-wp5r4T/runtime/keyring/control: No such file or directory
+discover_other_daemon: 0dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.secrets'
+dbus-daemon[110915]: [session uid=1000 pid=110915] Successfully activated service 'org.freedesktop.portal.Desktop'
+{
+  "method": "Private DBus/AT-SPI bus, temporary XDG dirs, memory settings; muted Orca; full Chromium headless",
+  "status": "LIMIT",
+  "interactiveScreenReaderPass": false,
+  "orcaPid": 110938,
+  "ownedApplications": 1,
+  "reason": "Native owned Chromium AT-SPI tree was captured with Orca running and form/dialog focus exercised, but muted headless execution does not establish an audible/interactive screen-reader verdict."
+}

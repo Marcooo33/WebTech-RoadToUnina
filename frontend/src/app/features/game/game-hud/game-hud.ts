@@ -56,8 +56,11 @@ export class GameHud {
     this.heightChanged.emit(compact ? this.host.nativeElement.getBoundingClientRect().height : 0);
   }
 
-  focusPathTrigger(): void {
-    this.pathTrigger()?.nativeElement.focus({ preventScroll: true });
+  focusPathTrigger(): boolean {
+    const trigger = this.pathTrigger()?.nativeElement;
+    if (!trigger?.getClientRects().length) return false;
+    trigger.focus({ preventScroll: true });
+    return trigger.ownerDocument.activeElement === trigger;
   }
 
   // Remaining MEDIUM backtracks, never negative.

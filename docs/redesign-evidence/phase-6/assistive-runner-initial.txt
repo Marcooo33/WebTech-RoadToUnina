@@ -1,0 +1,16 @@
+Isolated assistive attempt completed, child exit=0; see assistive-result.json.
+node:fs:1283
+  return binding.rmSync(getValidatedPath(path), opts.maxRetries, opts.recursive, opts.retryDelay);
+                 ^
+
+Error: , Unknown error: Transport endpoint is not connected '/tmp/roadtounina-atspi-zR8sFx'
+    at Object.rmSync (node:fs:1283:18)
+    at file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-assistive-session.mjs:92:44
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  errno: -4094,
+  code: '',
+  path: '/tmp/roadtounina-atspi-zR8sFx',
+  syscall: 'rm'
+}
+
+Node.js v24.20.0

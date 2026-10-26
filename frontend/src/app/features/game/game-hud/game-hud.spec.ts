@@ -90,8 +90,18 @@ describe('GameHud', () => {
     component.pathRequested.subscribe(path);
     fixture.nativeElement.querySelector('.hud__path-toggle').click();
     expect(path).toHaveBeenCalledOnce();
-    component.focusPathTrigger();
+    const trigger = fixture.nativeElement.querySelector('.hud__path-toggle') as HTMLButtonElement;
+    vi.spyOn(trigger, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList);
+    expect(component.focusPathTrigger()).toBe(true);
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.hud__path-toggle'));
+  });
+
+  it('reports that a hidden Path trigger cannot receive restored focus', () => {
+    const trigger = fixture.nativeElement.querySelector('.hud__path-toggle') as HTMLButtonElement;
+    vi.spyOn(trigger, 'getClientRects').mockReturnValue({ length: 0 } as DOMRectList);
+    const focus = vi.spyOn(trigger, 'focus');
+    expect(component.focusPathTrigger()).toBe(false);
+    expect(focus).not.toHaveBeenCalled();
   });
 
   it('reports the actual compact height and zero obstruction on desktop', () => {

@@ -1,6 +1,6 @@
 <nav class="nav" aria-label="Main navigation" (focusout)="onFocusOut($event)">
   <div class="nav__inner container">
-    <a class="nav__brand" routerLink="/" (click)="closeMenu()" aria-label="ROADTOUNINA">
+    <a #brand class="nav__brand" routerLink="/" (click)="closeMenu()" aria-label="ROADTOUNINA">
       <ng-icon class="nav__mark" name="lucideRoute" aria-hidden="true" />
       <span>ROAD<span>TO</span>UNINA</span>
     </a>

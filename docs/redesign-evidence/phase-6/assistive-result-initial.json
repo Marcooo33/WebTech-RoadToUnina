@@ -1,0 +1,7 @@
+{
+  "method": "Private DBus/AT-SPI bus, temporary XDG dirs, memory settings; muted Orca; full Chromium headless",
+  "status": "LIMIT",
+  "interactiveScreenReaderPass": false,
+  "orcaPid": 110251,
+  "reason": "browserType.launch: Executable doesn't exist at /tmp/roadtounina-atspi-zR8sFx/cache/ms-playwright/chromium-1234/chrome-linux64/chrome\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝\n    at inside (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-assistive-session.mjs:38:30)\n    at async file:///home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-assistive-session.mjs:79:67"
+}

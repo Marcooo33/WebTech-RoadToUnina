@@ -70,6 +70,7 @@ export class GamePage implements OnInit {
   private readonly articleView = viewChild(WikipediaArticle);
   private readonly hud = viewChild(GameHud);
   private readonly pathDialog = viewChild<ElementRef<HTMLDialogElement>>('pathDialog');
+  private readonly desktopPathSummary = viewChild<ElementRef<HTMLElement>>('desktopPathSummary');
   private compactHudHeight = 0;
 
   // game/:id path parameter (router input binding).
@@ -192,7 +193,9 @@ export class GamePage implements OnInit {
 
   onPathClosed(): void {
     this.pathOpen.set(false);
-    this.hud()?.focusPathTrigger();
+    if (!this.hud()?.focusPathTrigger()) {
+      this.desktopPathSummary()?.nativeElement.focus({ preventScroll: true });
+    }
   }
 
   // --- User actions -------------------------------------------------------

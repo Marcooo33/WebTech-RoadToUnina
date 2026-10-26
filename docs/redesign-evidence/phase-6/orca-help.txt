@@ -1,0 +1,20 @@
+Usage: orca [-h] [-v] [-r] [-s] [-l] [-e OPTION] [-d OPTION] [-p NAME]
+            [-u DIR] [--speech-system NAME] [--debug-file FILE] [--debug]
+
+Optional arguments:
+  -h, --help                   Show this help message and exit
+  -v, --version                Version of this application
+  -r, --replace                Replace a currently running instance of this
+                               screen reader
+  -s, --setup                  Set up user preferences (GUI version)
+  -l, --list-apps              Print the known running applications
+  -e OPTION, --enable OPTION   Force use of option
+  -d OPTION, --disable OPTION  Prevent use of option
+  -p NAME, --profile NAME      Load profile
+  -u DIR, --user-prefs DIR     Use alternate directory for user preferences
+  --speech-system NAME         Speech system
+  --debug-file FILE            Send debug output to the specified file
+  --debug                      Send debug output to debug-YYYY-MM-DD-
+                               HH:MM:SS.out
+
+Report bugs on https://gitlab.gnome.org/GNOME/orca/-/issues.

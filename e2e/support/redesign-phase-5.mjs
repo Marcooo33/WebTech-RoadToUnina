@@ -426,5 +426,7 @@ async function keyboardOnly() {
   console.log(JSON.stringify({ pass: true, keyboardWidths: checks.length, keys: ['ArrowRight', 'ArrowLeft', 'Home', 'End'] }));
 }
 
-if (process.argv.includes('--run')) await run();
-else if (process.argv.includes('--keyboard-only')) await keyboardOnly();
+export { completed, historyList, originalUser, gameId, target };
+const isEntryPoint = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isEntryPoint && process.argv.includes('--run')) await run();
+else if (isEntryPoint && process.argv.includes('--keyboard-only')) await keyboardOnly();

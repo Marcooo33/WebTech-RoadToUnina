@@ -17,8 +17,8 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 | 2 — Home e autenticazione | PASS | `ea8cdcd` |
 | 3 — Dashboard e configurazione | PASS | `a41fe1a` |
 | 4 — Partita e articolo | PASS | `7910114` |
-| 5 — Risultato, History, dettagli, profilo | PASS | hash dopo commit |
-| 6 — Verifica trasversale | PENDING | — |
+| 5 — Risultato, History, dettagli, profilo | PASS | `2b3455a` (+ `bd12101` log) |
+| 6 — Verifica trasversale | PASS | hash dopo commit |
 
 ## Fase 0 — 2026-10-26
 
@@ -244,3 +244,53 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   Riportare come residuo Fase6, non nuova funzionalità o blocco del gate Fase5.
 - [Visual review finale](redesign-evidence/phase-5/visual-review.md): PASS,
  128/128immagini viste; nessun blocco. Gate complessivo PASS, zero cicli app.
+- Commit Fase5: `2b3455a`. Errore orchestratore: comando multilinea ha proseguito
+  al commit dopo whitespace negli esclusivi log staged. Nessun problema app o esiti
+  alterati; log normalizzati e diff-check PASS nel commit aggiuntivo `bd12101`.
+  Cronologia preservata, nessun amend o riscrittura.
+
+## Fase 6 — 2026-10-26
+
+- Branch verificato e working tree pulito a bd12101 prima della fase.
+- Scope residui: indici mosse senza spezzare cifre; gestione focus menu/percorso dopo
+  resize, regressioni mirate. Nessuna nuova azione UX o cambio funzionale.
+- Gate finali: build/unit/E2E, principali schermate4larghezze e320×740, viewport
+  intermedi/zoom200/reduced motion/semantica/tastiera, limiti SR/altri browser espliciti,
+  diff complessivo da6e09ba9 e commit corretti. Nessun push/merge.
+- Baseline resize dell'implementatore riproduce3residui: menu aperto→desktop→Escape
+  focusBODY/stato aperto, Path chiuso desktop focusBODY,66/66indici su2righe.
+- Fix iniziali applicati con4regressioni; verifica priorità Escape/dialoghi ancora
+  in corso prima consegna. Test supporto resize e produzione durevoli autorizzati.
+- Interruzione subagent per limite utilizzo, ripresa su«continua»: branch/diff coerenti.
+  Nessun gate finale Fase6 ancora attribuito; test finale attende consegna implementatore.
+- Segnalato append del vecchio server al logPhase5: conservare append come evidenza
+  Phase6 e ripristinare storico dopo arresto esclusivo del server dell'orchestrazione.
+- Consegna iniziale Fase6 completa: indici nowrap, focus resizeNav/Path con fallback
+  visibile; guardia Escape/dialogo aggiunta dopo riproduzione dell'interferenza iniziale.
+  Build locale328,61kB/101unit PASS, probeafter incl.Profile ePath1040 PASS.
+- Root ha fermato esclusivamente serverdev63470 dopo ultimo probe; gate production avviato.
+- Code reviewer dedicato indisponibile per capacità: fallback diretto root dichiarato,
+  [code-review.md](redesign-evidence/phase-6/code-review.md) PASS statico. Controllati
+  diff Fase6 e complessivo da6e09ba9, percorsi backend/core/API/routing/deps invariati.
+- Visual reviewer attende produzione indipendente; nessun PASS da sole prove implementatore.
+- Tester comunica gate production: build/101unit/22E2E PASS e disposable rimosso,
+  principali4width/320×740/soglie/AX/reducedmotion/passaggi eseguiti; zoomChrome200%
+  reale con reflow, screenshot fullPage tagliati ricatturati come viewport senza appchange.
+- [Visual review finale](redesign-evidence/phase-6/visual-review.md): PASS,
+  102PNG production viste + riferimentiB/after; indici S3 chiusi, focus/zoom/modal corretti.
+  Nessun blocco visuale. Gate tecnico finale e limiti assistivi ancora da consolidare.
+- [Rapporto tecnico finale](redesign-evidence/phase-6/TEST-REPORT.md): PASS con limiti
+  dichiarati; build101unit/22E2E, disposable rimosso,220record production,
+  replay172record/124PNG, rerun30resize/indici, zoombrowser200 reale.
+- Orca avviato su busAT-SPI privato/configtemporanea:6/6 evidenze native mirate,
+  descrizione errore/dialogo/focus e output vocale generato. Audio disattivato:
+  non prova uditiva/manuale completa, come esplicitato nel rapporto.
+- Visual review PASS su102PNG production obbligatorie; altri PNG extra generati
+  non attribuiti come tutti esaminati. Code review fallbackroot PASS dichiarato.
+- Gate Fase6 PASS, zero cicli correttivi applicativi dopo consegna; solo rettifiche
+  harness/cattura distinte. Ultimo cleanup esclusivo risorse assistive in chiusura.
+- Tester conclude PASS tecnico finale e cleanup PASS: browser/Orca/bus privati e
+  server4500/4501 terminati; rimossa soltanto directory temporanea propria residua,
+  nessun mount/processo/preferenza utente alterato. Storico cleanup conservato.
+- Tutti gate Fase6 conclusi. Log normalizzati a server fermi senza alterare esiti;
+  commit di fase seguito da ultima build/unit richiesta e report conclusivo.

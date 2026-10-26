@@ -1,0 +1,439 @@
+{
+  "results": {
+    "menu": {
+      "afterResize": {
+        "tag": "BODY",
+        "className": "",
+        "visible": false,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore finished rou"
+      },
+      "afterEscape": {
+        "tag": "A",
+        "className": "nav__brand",
+        "visible": true,
+        "rect": {
+          "x": 120,
+          "y": 18,
+          "width": 165.359375,
+          "height": 44,
+          "top": 18,
+          "right": 285.359375,
+          "bottom": 62,
+          "left": 120
+        },
+        "text": "ROADTOUNINA"
+      },
+      "expanded": "false",
+      "reopenedOnMobile": "false"
+    },
+    "path": {
+      "focused": {
+        "tag": "SUMMARY",
+        "className": "",
+        "visible": true,
+        "rect": {
+          "x": 1048,
+          "y": 426.109375,
+          "width": 280,
+          "height": 44,
+          "top": 426.109375,
+          "right": 1328,
+          "bottom": 470.109375,
+          "left": 1048
+        },
+        "text": "Your path 2 articles"
+      },
+      "summaryFocused": true
+    },
+    "modal": {
+      "menuBeforeEscape": "true",
+      "closedOnFirstEscape": true,
+      "menuAfterEscape": "false",
+      "focused": {
+        "tag": "BUTTON",
+        "className": "btn btn--danger",
+        "visible": true,
+        "rect": {
+          "x": 926.8125,
+          "y": 765.375,
+          "width": 178.1875,
+          "height": 48,
+          "top": 765.375,
+          "right": 1105,
+          "bottom": 813.375,
+          "left": 926.8125
+        },
+        "text": "Delete account"
+      }
+    },
+    "pathModal": {
+      "menuBeforeEscape": "true",
+      "closedOnFirstEscape": true,
+      "menuAfterEscape": "false",
+      "focused": {
+        "tag": "BUTTON",
+        "className": "hud__path-toggle",
+        "visible": true,
+        "rect": {
+          "x": 405.234375,
+          "y": 94,
+          "width": 48,
+          "height": 44,
+          "top": 94,
+          "right": 453.234375,
+          "bottom": 138,
+          "left": 405.234375
+        },
+        "text": "Path 2"
+      }
+    },
+    "indices": [
+      {
+        "width": 768,
+        "pageWidth": 768,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "pageWidth": 390,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      },
+      {
+        "width": 320,
+        "pageWidth": 320,
+        "cells": [
+          {
+            "text": "10",
+            "lines": 1
+          },
+          {
+            "text": "11",
+            "lines": 1
+          },
+          {
+            "text": "12",
+            "lines": 1
+          },
+          {
+            "text": "13",
+            "lines": 1
+          },
+          {
+            "text": "14",
+            "lines": 1
+          },
+          {
+            "text": "15",
+            "lines": 1
+          },
+          {
+            "text": "16",
+            "lines": 1
+          },
+          {
+            "text": "17",
+            "lines": 1
+          },
+          {
+            "text": "18",
+            "lines": 1
+          },
+          {
+            "text": "19",
+            "lines": 1
+          },
+          {
+            "text": "20",
+            "lines": 1
+          },
+          {
+            "text": "21",
+            "lines": 1
+          },
+          {
+            "text": "22",
+            "lines": 1
+          },
+          {
+            "text": "23",
+            "lines": 1
+          },
+          {
+            "text": "24",
+            "lines": 1
+          },
+          {
+            "text": "25",
+            "lines": 1
+          },
+          {
+            "text": "26",
+            "lines": 1
+          },
+          {
+            "text": "27",
+            "lines": 1
+          },
+          {
+            "text": "28",
+            "lines": 1
+          },
+          {
+            "text": "29",
+            "lines": 1
+          },
+          {
+            "text": "30",
+            "lines": 1
+          },
+          {
+            "text": "31",
+            "lines": 1
+          }
+        ]
+      }
+    ]
+  },
+  "calls": [
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/click"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/games/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/games/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/00000000-0000-4000-8000-000000000201"
+    }
+  ]
+}

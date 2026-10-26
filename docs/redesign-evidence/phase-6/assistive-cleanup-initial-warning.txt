@@ -1,0 +1,1 @@
+Error: , Unknown error: Transport endpoint is not connected '/tmp/roadtounina-atspi-wp5r4T'

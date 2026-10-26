@@ -1,0 +1,43 @@
+npm notice run frontend@0.0.0 start
+npm notice run ng serve --host 127.0.0.1 --port 4400
+❯ Building...
+✔ Building...
+Initial chunk files | Names          |  Raw size
+main.js             | main           |  34.25 kB |
+styles.css          | styles         |  12.86 kB |
+chunk-DJRK3M64.js   | -              |   3.19 kB |
+chunk-VUJOFXKG.js   | -              | 987 bytes |
+chunk-LH3MVRRF.js   | -              | 415 bytes |
+chunk-LCUMVYIC.js   | -              | 173 bytes |
+
+                    | Initial total  |  51.87 kB
+
+Lazy chunk files    | Names          |  Raw size
+chunk-HR6DHRQC.js   | game-page      | 108.53 kB |
+chunk-3KWFFT3X.js   | home           | 100.06 kB |
+chunk-RGFW5SS4.js   | profile-page   |  50.44 kB |
+chunk-UG5T5KD3.js   | history-list   |  39.52 kB |
+chunk-SD4JYDOS.js   | history-detail |  26.36 kB |
+chunk-3PKAZCSZ.js   | new-game       |  20.63 kB |
+chunk-JQXVD7IQ.js   | register       |  18.67 kB |
+chunk-FTDCQ27H.js   | login          |  15.78 kB |
+chunk-WY56I2I4.js   | -              |   8.01 kB |
+chunk-SIJJ4QSP.js   | -              |   5.41 kB |
+chunk-DT2IBZUL.js   | -              |   4.69 kB |
+chunk-JSU42VCR.js   | -              |   4.14 kB |
+chunk-HBWGV4LD.js   | -              |   3.83 kB |
+chunk-VWXAG3B2.js   | not-found      |   3.33 kB |
+chunk-VY4M6U5Q.js   | -              |   2.44 kB |
+...and 1 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [2.211 seconds] - 2026-10-26T14:00:57.451Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://127.0.0.1:4400/
+3:01:27 PM [vite] http proxy error: /api/games/00000000-0000-4000-8000-000000000201/pause
+Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2017:16)
+3:01:28 PM [vite] http proxy error: /api/games/00000000-0000-4000-8000-000000000201/pause
+Error: connect ECONNREFUSED 127.0.0.1:3000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:2017:16)

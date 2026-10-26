@@ -1,0 +1,1 @@
+Isolated assistive attempt completed, child exit=0; see assistive-result.json.

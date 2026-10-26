@@ -149,6 +149,11 @@
 .moves :is(td, th) {
   overflow-wrap: anywhere;
 }
+.moves tr > :first-child {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  text-align: right;
+}
 .moves :is(th[scope='row'], td:last-child) {
   font-variant-numeric: tabular-nums;
 }

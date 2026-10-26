@@ -42,12 +42,13 @@ import { AuthService } from '../../../core/auth/auth.service';
   ],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
-  host: { '(keydown.escape)': 'onEscape($event)' },
+  host: { '(window:keydown.escape)': 'onEscape($event)' },
 })
 export class NavBar {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly menuToggle = viewChild<ElementRef<HTMLButtonElement>>('menuToggle');
+  private readonly brand = viewChild<ElementRef<HTMLAnchorElement>>('brand');
 
   readonly isAuthenticated = this.auth.isAuthenticated;
   readonly user = this.auth.user;
@@ -63,9 +64,25 @@ export class NavBar {
 
   onEscape(event: Event): void {
     if (!this.menuOpen()) return;
+    if (this.brand()?.nativeElement.ownerDocument.querySelector('dialog[open]')) {
+      this.closeMenu();
+      return;
+    }
     event.preventDefault();
     this.closeMenu();
-    this.menuToggle()?.nativeElement.focus();
+    const toggle = this.menuToggle()?.nativeElement;
+    if (toggle?.getClientRects().length) {
+      toggle.focus();
+    } else {
+      const focused = toggle?.ownerDocument.activeElement;
+      if (
+        !(focused instanceof HTMLElement) ||
+        focused === toggle?.ownerDocument.body ||
+        !focused.getClientRects().length
+      ) {
+        this.brand()?.nativeElement.focus();
+      }
+    }
   }
 
   onFocusOut(event: FocusEvent): void {

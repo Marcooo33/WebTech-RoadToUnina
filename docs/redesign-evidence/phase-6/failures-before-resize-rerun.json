@@ -1,0 +1,6 @@
+[
+  {
+    "group": "breakpoints-resize",
+    "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'true' !== 'false'\n\n    at breakpointsAndResize (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:287:12)\n    at async run (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:379:13)\n    at async <anonymous> (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:392:37)"
+  }
+]

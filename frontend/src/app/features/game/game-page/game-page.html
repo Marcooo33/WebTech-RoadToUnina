@@ -48,7 +48,7 @@
               }
             </app-game-hud>
             <details class="game__desktop-path" open>
-              <summary>
+              <summary #desktopPathSummary>
                 Your path <span>{{ g.path.length }} articles</span>
               </summary>
               <app-game-path [path]="g.path" />

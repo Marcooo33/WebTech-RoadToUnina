@@ -1,0 +1,4681 @@
+[
+  {
+    "name": "home-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1169.890625,
+        "top": 0,
+        "right": 1440,
+        "bottom": 1169.890625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "home-1440-AX",
+    "interactive": 11,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-1440-AX",
+    "interactive": 10,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-invalid-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 529,
+        "y": 280.125,
+        "width": 382,
+        "height": 47.578125,
+        "top": 280.125,
+        "right": 911,
+        "bottom": 327.703125,
+        "left": 529
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-busy-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-error-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-1440-AX",
+    "interactive": 11,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "register-invalid-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 529,
+        "y": 304.921875,
+        "width": 382,
+        "height": 47.578125,
+        "top": 304.921875,
+        "right": 911,
+        "bottom": 352.5,
+        "left": 529
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-busy-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-error-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1037.96875,
+        "top": 0,
+        "right": 1440,
+        "bottom": 1037.96875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-1440-AX",
+    "interactive": 13,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "dashboard-empty-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 937.0625,
+        "top": 0,
+        "right": 1440,
+        "bottom": 937.0625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-error-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-limit-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 2239.4375,
+        "top": 0,
+        "right": 1440,
+        "bottom": 2239.4375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-1440-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "new-game-limit-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 938.3125,
+        "top": 0,
+        "right": 1440,
+        "bottom": 938.3125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 312,
+        "y": 20,
+        "width": 700,
+        "height": 45,
+        "top": 20,
+        "right": 1012,
+        "bottom": 65,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-1440-AX",
+    "interactive": 32,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "playing-reading-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 312,
+        "y": -516,
+        "width": 700,
+        "height": 45,
+        "top": -516,
+        "right": 1012,
+        "bottom": -471,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-infobox-toc-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "H2",
+      "text": "Dettaglio della scheda",
+      "rect": {
+        "x": 349,
+        "y": 19.5,
+        "width": 626,
+        "height": 33,
+        "top": 19.5,
+        "right": 975,
+        "bottom": 52.5,
+        "left": 349
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-WIKIPEDIA_UNAVAILABLE-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 410.90625,
+      "top": 24,
+      "right": 1328,
+      "bottom": 434.90625,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 312,
+        "y": 122.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 122.25,
+        "right": 434.0625,
+        "bottom": 142.25,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-WIKIPEDIA_UNAVAILABLE-1440",
+    "message": {
+      "x": 1048,
+      "y": 414.109375,
+      "width": 280,
+      "height": 75.59375,
+      "top": 414.109375,
+      "right": 1328,
+      "bottom": 489.703125,
+      "left": 1048
+    },
+    "bar": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "active": {
+      "x": 312,
+      "y": 122.25,
+      "width": 122.0625,
+      "height": 20,
+      "top": 122.25,
+      "right": 434.0625,
+      "bottom": 142.25,
+      "left": 312
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-WIKIPEDIA_UNAVAILABLE-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 312,
+        "y": 122.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 122.25,
+        "right": 434.0625,
+        "bottom": 142.25,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-INTERNAL_ERROR-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 410.90625,
+      "top": 24,
+      "right": 1328,
+      "bottom": 434.90625,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 312,
+        "y": 122.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 122.25,
+        "right": 434.0625,
+        "bottom": 142.25,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-INTERNAL_ERROR-1440",
+    "message": {
+      "x": 1048,
+      "y": 414.109375,
+      "width": 280,
+      "height": 75.59375,
+      "top": 414.109375,
+      "right": 1328,
+      "bottom": 489.703125,
+      "left": 1048
+    },
+    "bar": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "active": {
+      "x": 312,
+      "y": 122.25,
+      "width": 122.0625,
+      "height": 20,
+      "top": 122.25,
+      "right": 434.0625,
+      "bottom": 142.25,
+      "left": 312
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-INTERNAL_ERROR-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 312,
+        "y": 122.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 122.25,
+        "right": 434.0625,
+        "bottom": 142.25,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Target reached You navigated fro",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1065.25,
+        "top": 0,
+        "right": 1440,
+        "bottom": 1065.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-1440-AX",
+    "interactive": 8,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "history-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore fi",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 2026.671875,
+        "top": 0,
+        "right": 1440,
+        "bottom": 2026.671875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "history-1440-AX",
+    "interactive": 30,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "detail-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out All completed games Completed ga",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 2371.609375,
+        "top": 0,
+        "right": 1440,
+        "bottom": 2371.609375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "detail-1440-AX",
+    "interactive": 6,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "profile-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Nnavigatore_e2enavigatore.parten",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1376.0625,
+        "top": 0,
+        "right": 1440,
+        "bottom": 1376.0625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "profile-1440-AX",
+    "interactive": 15,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "not-found-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register 404Page not foundThe page you are look",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "not-found-1440-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "home-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1216.359375,
+        "top": 0,
+        "right": 768,
+        "bottom": 1216.359375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "home-768-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-768-AX",
+    "interactive": 6,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-invalid-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 184.03125,
+        "y": 260.265625,
+        "width": 399.9375,
+        "height": 47.578125,
+        "top": 260.265625,
+        "right": 583.96875,
+        "bottom": 307.84375,
+        "left": 184.03125
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-busy-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-error-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-768-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "register-invalid-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 184.03125,
+        "y": 285.0625,
+        "width": 399.9375,
+        "height": 47.578125,
+        "top": 285.0625,
+        "right": 583.96875,
+        "bottom": 332.640625,
+        "left": 184.03125
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-busy-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-error-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1236.421875,
+        "top": 0,
+        "right": 768,
+        "bottom": 1236.421875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-768-AX",
+    "interactive": 10,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "dashboard-empty-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 926.171875,
+        "top": 0,
+        "right": 768,
+        "bottom": 926.171875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-error-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-limit-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 3090.71875,
+        "top": 0,
+        "right": 768,
+        "bottom": 3090.71875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-768-AX",
+    "interactive": 4,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "new-game-limit-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 909.484375,
+        "top": 0,
+        "right": 768,
+        "bottom": 909.484375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 93,
+        "width": 704,
+        "height": 45,
+        "top": 93,
+        "right": 736,
+        "bottom": 138,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-768-AX",
+    "interactive": 26,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "playing-reading-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": -463,
+        "width": 704,
+        "height": 45,
+        "top": -463,
+        "right": 736,
+        "bottom": -418,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-path-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "BUTTON",
+      "text": "×",
+      "rect": {
+        "x": 556,
+        "y": 294.328125,
+        "width": 44,
+        "height": 44,
+        "top": 294.328125,
+        "right": 600,
+        "bottom": 338.328125,
+        "left": 556
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-infobox-toc-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H2",
+      "text": "Dettaglio della scheda",
+      "rect": {
+        "x": 69,
+        "y": 92.5,
+        "width": 630,
+        "height": 33,
+        "top": 92.5,
+        "right": 699,
+        "bottom": 125.5,
+        "left": 69
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-WIKIPEDIA_UNAVAILABLE-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 105,
+      "top": 0,
+      "right": 768,
+      "bottom": 105,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 125.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 125.25,
+        "right": 154.0625,
+        "bottom": 145.25,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-WIKIPEDIA_UNAVAILABLE-768",
+    "message": {
+      "x": 32,
+      "y": 72,
+      "width": 704,
+      "height": 50.796875,
+      "top": 72,
+      "right": 736,
+      "bottom": 122.796875,
+      "left": 32
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "active": {
+      "x": 32,
+      "y": 168.046875,
+      "width": 122.0625,
+      "height": 20,
+      "top": 168.046875,
+      "right": 154.0625,
+      "bottom": 188.046875,
+      "left": 32
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-WIKIPEDIA_UNAVAILABLE-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 168.046875,
+        "width": 122.0625,
+        "height": 20,
+        "top": 168.046875,
+        "right": 154.0625,
+        "bottom": 188.046875,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-INTERNAL_ERROR-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 105,
+      "top": 0,
+      "right": 768,
+      "bottom": 105,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 125.25,
+        "width": 122.0625,
+        "height": 20,
+        "top": 125.25,
+        "right": 154.0625,
+        "bottom": 145.25,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-INTERNAL_ERROR-768",
+    "message": {
+      "x": 32,
+      "y": 72,
+      "width": 704,
+      "height": 50.796875,
+      "top": 72,
+      "right": 736,
+      "bottom": 122.796875,
+      "left": 32
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "active": {
+      "x": 32,
+      "y": 168.046875,
+      "width": 122.0625,
+      "height": 20,
+      "top": 168.046875,
+      "right": 154.0625,
+      "bottom": 188.046875,
+      "left": 32
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-INTERNAL_ERROR-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 168.046875,
+        "width": 122.0625,
+        "height": 20,
+        "top": 168.046875,
+        "right": 154.0625,
+        "bottom": 188.046875,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Target reached You navigated fro",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1058.734375,
+        "top": 0,
+        "right": 768,
+        "bottom": 1058.734375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-768-AX",
+    "interactive": 5,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "history-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore fi",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 2015.78125,
+        "top": 0,
+        "right": 768,
+        "bottom": 2015.78125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "history-768-AX",
+    "interactive": 27,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "detail-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out All completed games Completed ga",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 2384.515625,
+        "top": 0,
+        "right": 768,
+        "bottom": 2384.515625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "detail-768-AX",
+    "interactive": 3,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "profile-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Nnavigatore_e2enavigatore.parten",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1329.296875,
+        "top": 0,
+        "right": 768,
+        "bottom": 1329.296875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "profile-768-AX",
+    "interactive": 12,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "not-found-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register 404Page not foundThe page you are look",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "not-found-768-AX",
+    "interactive": 3,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "home-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1661.28125,
+        "top": 0,
+        "right": 390,
+        "bottom": 1661.28125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "home-390-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-390-AX",
+    "interactive": 6,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-invalid-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 33,
+        "y": 235.125,
+        "width": 324,
+        "height": 47.578125,
+        "top": 235.125,
+        "right": 357,
+        "bottom": 282.703125,
+        "left": 33
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-busy-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-error-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-390-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "register-invalid-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 33,
+        "y": 259.921875,
+        "width": 324,
+        "height": 47.578125,
+        "top": 259.921875,
+        "right": 357,
+        "bottom": 307.5,
+        "left": 33
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-busy-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-error-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1561.25,
+        "top": 0,
+        "right": 390,
+        "bottom": 1561.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-390-AX",
+    "interactive": 10,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "dashboard-empty-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1111.796875,
+        "top": 0,
+        "right": 390,
+        "bottom": 1111.796875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-error-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-limit-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 3836.34375,
+        "top": 0,
+        "right": 390,
+        "bottom": 3836.34375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1117.5,
+        "top": 0,
+        "right": 390,
+        "bottom": 1117.5,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-390-AX",
+    "interactive": 4,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "new-game-limit-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": -218,
+        "width": 390,
+        "height": 1229.890625,
+        "top": -218,
+        "right": 390,
+        "bottom": 1011.890625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 20,
+        "y": 127,
+        "width": 350,
+        "height": 40,
+        "top": 127,
+        "right": 370,
+        "bottom": 167,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-390-AX",
+    "interactive": 26,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "playing-reading-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 20,
+        "y": -441,
+        "width": 350,
+        "height": 40,
+        "top": -441,
+        "right": 370,
+        "bottom": -401,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-path-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "BUTTON",
+      "text": "×",
+      "rect": {
+        "x": 303,
+        "y": 282.4375,
+        "width": 44,
+        "height": 44,
+        "top": 282.4375,
+        "right": 347,
+        "bottom": 326.4375,
+        "left": 303
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-infobox-toc-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H2",
+      "text": "Dettaglio della scheda",
+      "rect": {
+        "x": 53,
+        "y": 127.140625,
+        "width": 284,
+        "height": 33,
+        "top": 127.140625,
+        "right": 337,
+        "bottom": 160.140625,
+        "left": 53
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-WIKIPEDIA_UNAVAILABLE-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 139,
+      "top": 0,
+      "right": 390,
+      "bottom": 139,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 20,
+        "y": 159.09375,
+        "width": 115.28125,
+        "height": 19,
+        "top": 159.09375,
+        "right": 135.28125,
+        "bottom": 178.09375,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-WIKIPEDIA_UNAVAILABLE-390",
+    "message": {
+      "x": 16,
+      "y": 110,
+      "width": 358,
+      "height": 75.59375,
+      "top": 110,
+      "right": 374,
+      "bottom": 185.59375,
+      "left": 16
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 206.59375,
+      "top": 0,
+      "right": 390,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "active": {
+      "x": 20,
+      "y": 226.6875,
+      "width": 115.28125,
+      "height": 19,
+      "top": 226.6875,
+      "right": 135.28125,
+      "bottom": 245.6875,
+      "left": 20
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-WIKIPEDIA_UNAVAILABLE-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 206.59375,
+      "top": 0,
+      "right": 390,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 20,
+        "y": 226.6875,
+        "width": 115.28125,
+        "height": 19,
+        "top": 226.6875,
+        "right": 135.28125,
+        "bottom": 245.6875,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-INTERNAL_ERROR-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 139,
+      "top": 0,
+      "right": 390,
+      "bottom": 139,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 20,
+        "y": 159.09375,
+        "width": 115.28125,
+        "height": 19,
+        "top": 159.09375,
+        "right": 135.28125,
+        "bottom": 178.09375,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-INTERNAL_ERROR-390",
+    "message": {
+      "x": 16,
+      "y": 110,
+      "width": 358,
+      "height": 50.796875,
+      "top": 110,
+      "right": 374,
+      "bottom": 160.796875,
+      "left": 16
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 181.796875,
+      "top": 0,
+      "right": 390,
+      "bottom": 181.796875,
+      "left": 0
+    },
+    "active": {
+      "x": 20,
+      "y": 201.890625,
+      "width": 115.28125,
+      "height": 19,
+      "top": 201.890625,
+      "right": 135.28125,
+      "bottom": 220.890625,
+      "left": 20
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-INTERNAL_ERROR-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 181.796875,
+      "top": 0,
+      "right": 390,
+      "bottom": 181.796875,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 20,
+        "y": 201.890625,
+        "width": 115.28125,
+        "height": 19,
+        "top": 201.890625,
+        "right": 135.28125,
+        "bottom": 220.890625,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Target reached You navigated fro",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1194.59375,
+        "top": 0,
+        "right": 390,
+        "bottom": 1194.59375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "result-390-AX",
+    "interactive": 5,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "history-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore fi",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 2901.546875,
+        "top": 0,
+        "right": 390,
+        "bottom": 2901.546875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "history-390-AX",
+    "interactive": 27,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "detail-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out All completed games Completed ga",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 2652.25,
+        "top": 0,
+        "right": 390,
+        "bottom": 2652.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "detail-390-AX",
+    "interactive": 3,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "profile-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Nnavigatore_e2enavigatore.parten",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1697.046875,
+        "top": 0,
+        "right": 390,
+        "bottom": 1697.046875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "profile-390-AX",
+    "interactive": 12,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "not-found-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register 404Page not foundThe page you are look",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 900,
+        "top": 0,
+        "right": 390,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "not-found-390-AX",
+    "interactive": 3,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "home-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1728.25,
+        "top": 0,
+        "right": 320,
+        "bottom": 1728.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "home-320-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-320-AX",
+    "interactive": 6,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "login-invalid-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 33,
+        "y": 259.921875,
+        "width": 254,
+        "height": 47.578125,
+        "top": 259.921875,
+        "right": 287,
+        "bottom": 307.5,
+        "left": 33
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-busy-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "login-error-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-320-AX",
+    "interactive": 7,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "register-invalid-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "INPUT",
+      "text": "",
+      "rect": {
+        "x": 33,
+        "y": 259.921875,
+        "width": 254,
+        "height": 47.578125,
+        "top": 259.921875,
+        "right": 287,
+        "bottom": 307.5,
+        "left": 33
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-busy-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "register-error-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Create an accountSave routes, resume g",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1561.25,
+        "top": 0,
+        "right": 320,
+        "bottom": 1561.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-320-AX",
+    "interactive": 10,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "dashboard-empty-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1136.59375,
+        "top": 0,
+        "right": 320,
+        "bottom": 1136.59375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-error-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 920.765625,
+        "top": 0,
+        "right": 320,
+        "bottom": 920.765625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "dashboard-limit-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 3861.140625,
+        "top": 0,
+        "right": 320,
+        "bottom": 3861.140625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1183.4375,
+        "top": 0,
+        "right": 320,
+        "bottom": 1183.4375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "new-game-320-AX",
+    "interactive": 4,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "new-game-limit-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out New game Every game starts on a ",
+      "rect": {
+        "x": 0,
+        "y": -395,
+        "width": 320,
+        "height": 1295.828125,
+        "top": -395,
+        "right": 320,
+        "bottom": 900.828125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 16,
+        "y": 127,
+        "width": 288,
+        "height": 37.5,
+        "top": 127,
+        "right": 304,
+        "bottom": 164.5,
+        "left": 16
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-320-AX",
+    "interactive": 26,
+    "unnamed": 0,
+    "method": "Chromium AX tree; not a screen reader interaction"
+  },
+  {
+    "name": "playing-reading-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 16,
+        "y": -441,
+        "width": 288,
+        "height": 37.5,
+        "top": -441,
+        "right": 304,
+        "bottom": -403.5,
+        "left": 16
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-path-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "BUTTON",
+      "text": "×",
+      "rect": {
+        "x": 239,
+        "y": 282.4375,
+        "width": 44,
+        "height": 44,
+        "top": 282.4375,
+        "right": 283,
+        "bottom": 326.4375,
+        "left": 239
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-infobox-toc-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H2",
+      "text": "Dettaglio della scheda",
+      "rect": {
+        "x": 49,
+        "y": 126.6875,
+        "width": 222,
+        "height": 33,
+        "top": 126.6875,
+        "right": 271,
+        "bottom": 159.6875,
+        "left": 49
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-WIKIPEDIA_UNAVAILABLE-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 139,
+      "top": 0,
+      "right": 320,
+      "bottom": 139,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 136.96875,
+        "y": 158.59375,
+        "width": 115.28125,
+        "height": 19,
+        "top": 158.59375,
+        "right": 252.25,
+        "bottom": 177.59375,
+        "left": 136.96875
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-WIKIPEDIA_UNAVAILABLE-320",
+    "message": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "active": {
+      "x": 136.96875,
+      "y": 226.1875,
+      "width": 115.28125,
+      "height": 19,
+      "top": 226.1875,
+      "right": 252.25,
+      "bottom": 245.1875,
+      "left": 136.96875
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-WIKIPEDIA_UNAVAILABLE-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 136.96875,
+        "y": 226.1875,
+        "width": 115.28125,
+        "height": 19,
+        "top": 226.1875,
+        "right": 252.25,
+        "bottom": 245.1875,
+        "left": 136.96875
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-busy-INTERNAL_ERROR-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 139,
+      "top": 0,
+      "right": 320,
+      "bottom": 139,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 136.96875,
+        "y": 158.59375,
+        "width": 115.28125,
+        "height": 19,
+        "top": 158.59375,
+        "right": 252.25,
+        "bottom": 177.59375,
+        "left": 136.96875
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "error-focus-INTERNAL_ERROR-320",
+    "message": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "bar": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "active": {
+      "x": 136.96875,
+      "y": 226.1875,
+      "width": 115.28125,
+      "height": 19,
+      "top": 226.1875,
+      "right": 252.25,
+      "bottom": 245.1875,
+      "left": 136.96875
+    },
+    "notices": 1
+  },
+  {
+    "name": "playing-error-INTERNAL_ERROR-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "Storia di Napoli",
+      "rect": {
+        "x": 136.96875,
+        "y": 226.1875,
+        "width": 115.28125,
+        "height": 19,
+        "top": 226.1875,
+        "right": 252.25,
+        "bottom": 245.1875,
+        "left": 136.96875
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-start-320x740",
+    "width": 320,
+    "height": 740,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 16,
+        "y": 259,
+        "width": 288,
+        "height": 37.5,
+        "top": 259,
+        "right": 304,
+        "bottom": 296.5,
+        "left": 16
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-reading-320x740",
+    "width": 320,
+    "height": 740,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 16,
+        "y": -441,
+        "width": 288,
+        "height": 37.5,
+        "top": -441,
+        "right": 304,
+        "bottom": -403.5,
+        "left": 16
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "playing-path-320x740",
+    "width": 320,
+    "height": 740,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "BUTTON",
+      "text": "×",
+      "rect": {
+        "x": 239,
+        "y": 202.4375,
+        "width": 44,
+        "height": 44,
+        "top": 202.4375,
+        "right": 283,
+        "bottom": 246.4375,
+        "left": 239
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-349",
+    "width": 349,
+    "height": 900,
+    "scrollWidth": 349,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 349,
+        "height": 1722.21875,
+        "top": 0,
+        "right": 349,
+        "bottom": 1722.21875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-350",
+    "width": 350,
+    "height": 900,
+    "scrollWidth": 350,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 350,
+        "height": 1722.21875,
+        "top": 0,
+        "right": 350,
+        "bottom": 1722.21875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-351",
+    "width": 351,
+    "height": 900,
+    "scrollWidth": 351,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 351,
+        "height": 1697.21875,
+        "top": 0,
+        "right": 351,
+        "bottom": 1697.21875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-599",
+    "width": 599,
+    "height": 900,
+    "scrollWidth": 599,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 599,
+        "height": 1570.75,
+        "top": 0,
+        "right": 599,
+        "bottom": 1570.75,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-600",
+    "width": 600,
+    "height": 900,
+    "scrollWidth": 600,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 600,
+        "height": 1570.75,
+        "top": 0,
+        "right": 600,
+        "bottom": 1570.75,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-601",
+    "width": 601,
+    "height": 900,
+    "scrollWidth": 601,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 601,
+        "height": 1306.8125,
+        "top": 0,
+        "right": 601,
+        "bottom": 1306.8125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-799",
+    "width": 799,
+    "height": 900,
+    "scrollWidth": 799,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 799,
+        "height": 1189.171875,
+        "top": 0,
+        "right": 799,
+        "bottom": 1189.171875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-800",
+    "width": 800,
+    "height": 900,
+    "scrollWidth": 800,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 800,
+        "height": 1189.171875,
+        "top": 0,
+        "right": 800,
+        "bottom": 1189.171875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-home-801",
+    "width": 801,
+    "height": 900,
+    "scrollWidth": 801,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 801,
+        "height": 1278.859375,
+        "top": 0,
+        "right": 801,
+        "bottom": 1278.859375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-679",
+    "width": 679,
+    "height": 900,
+    "scrollWidth": 679,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 679,
+      "height": 107,
+      "top": 0,
+      "right": 679,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 127,
+        "width": 615,
+        "height": 45,
+        "top": 127,
+        "right": 647,
+        "bottom": 172,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-680",
+    "width": 680,
+    "height": 900,
+    "scrollWidth": 680,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 680,
+      "height": 107,
+      "top": 0,
+      "right": 680,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 127,
+        "width": 616,
+        "height": 45,
+        "top": 127,
+        "right": 648,
+        "bottom": 172,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-681",
+    "width": 681,
+    "height": 900,
+    "scrollWidth": 681,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 681,
+      "height": 73,
+      "top": 0,
+      "right": 681,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 93,
+        "width": 617,
+        "height": 45,
+        "top": 93,
+        "right": 649,
+        "bottom": 138,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-1119",
+    "width": 1119,
+    "height": 900,
+    "scrollWidth": 1119,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 163.5,
+      "y": 0,
+      "width": 792,
+      "height": 73,
+      "top": 0,
+      "right": 955.5,
+      "bottom": 73,
+      "left": 163.5
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 195.5,
+        "y": 93,
+        "width": 728,
+        "height": 45,
+        "top": 93,
+        "right": 923.5,
+        "bottom": 138,
+        "left": 195.5
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-1120",
+    "width": 1120,
+    "height": 900,
+    "scrollWidth": 1120,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 808,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1088,
+      "bottom": 402.109375,
+      "left": 808
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 232,
+        "y": 20,
+        "width": 540,
+        "height": 45,
+        "top": 20,
+        "right": 772,
+        "bottom": 65,
+        "left": 232
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-playing-1121",
+    "width": 1121,
+    "height": 900,
+    "scrollWidth": 1121,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 809,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1089,
+      "bottom": 402.109375,
+      "left": 809
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 232,
+        "y": 20,
+        "width": 541,
+        "height": 45,
+        "top": 20,
+        "right": 773,
+        "bottom": 65,
+        "left": 232
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-navigation-999",
+    "width": 999,
+    "height": 900,
+    "scrollWidth": 999,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 999,
+        "height": 1037.921875,
+        "top": 0,
+        "right": 999,
+        "bottom": 1037.921875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-navigation-1000",
+    "width": 1000,
+    "height": 900,
+    "scrollWidth": 1000,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1000,
+        "height": 1037.96875,
+        "top": 0,
+        "right": 1000,
+        "bottom": 1037.96875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "breakpoint-navigation-1001",
+    "width": 1001,
+    "height": 900,
+    "scrollWidth": 1001,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1001,
+        "height": 1037.96875,
+        "top": 0,
+        "right": 1001,
+        "bottom": 1037.96875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "path-after-resize-to-desktop",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "SUMMARY",
+      "text": "Your path 2 articles",
+      "rect": {
+        "x": 1048,
+        "y": 426.109375,
+        "width": 280,
+        "height": 44,
+        "top": 426.109375,
+        "right": 1328,
+        "bottom": 470.109375,
+        "left": 1048
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "menu-resize-desktop",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out DestinationFederico IIUniversità",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 2513.921875,
+        "top": 0,
+        "right": 1440,
+        "bottom": 2513.921875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "menu-desktop-Escape",
+    "tag": "A",
+    "visible": true
+  },
+  {
+    "name": "menu-resize-mobile",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "focused": {
+      "tag": "A",
+      "text": "ROADTOUNINA",
+      "rect": {
+        "x": 24,
+        "y": 14,
+        "width": 143.5,
+        "height": 44,
+        "top": 14,
+        "right": 167.5,
+        "bottom": 58,
+        "left": 24
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-login-create-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Partenope (sirena)",
+      "rect": {
+        "x": 312,
+        "y": 20,
+        "width": 700,
+        "height": 45,
+        "top": 20,
+        "right": 1012,
+        "bottom": 65,
+        "left": 312
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-leave-dashboard-1440",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 1037.96875,
+        "top": 0,
+        "right": 1440,
+        "bottom": 1037.96875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-login-create-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Partenope (sirena)",
+      "rect": {
+        "x": 32,
+        "y": 93,
+        "width": 704,
+        "height": 45,
+        "top": 93,
+        "right": 736,
+        "bottom": 138,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-leave-dashboard-768",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1236.421875,
+        "top": 0,
+        "right": 768,
+        "bottom": 1236.421875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-login-create-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Partenope (sirena)",
+      "rect": {
+        "x": 20,
+        "y": 127,
+        "width": 350,
+        "height": 40,
+        "top": 127,
+        "right": 370,
+        "bottom": 167,
+        "left": 20
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-leave-dashboard-390",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 1561.25,
+        "top": 0,
+        "right": 390,
+        "bottom": 1561.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-login-create-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Partenope (sirena)",
+      "rect": {
+        "x": 16,
+        "y": 127,
+        "width": 288,
+        "height": 37.5,
+        "top": 127,
+        "right": 304,
+        "bottom": 164.5,
+        "left": 16
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "transition-leave-dashboard-320",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Welcome back, navigatore_e2eResu",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 1561.25,
+        "top": 0,
+        "right": 320,
+        "bottom": 1561.25,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "zoom-home",
+    "method": "chrome.tabs.setZoom=2/getZoom=2; layout viewport reflow checked",
+    "before": {
+      "innerWidth": 1440,
+      "dpr": 1
+    },
+    "after": {
+      "innerWidth": 720,
+      "dpr": 2,
+      "visualScale": 1
+    }
+  },
+  {
+    "name": "zoom200-home",
+    "width": 720,
+    "height": 450,
+    "scrollWidth": 720,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Find your way to Federico II. Play as ",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 1216.4765625,
+        "top": 0,
+        "right": 720,
+        "bottom": 1216.4765625,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "zoom-login",
+    "method": "chrome.tabs.setZoom=2/getZoom=2; layout viewport reflow checked",
+    "before": {
+      "innerWidth": 1440,
+      "dpr": 1
+    },
+    "after": {
+      "innerWidth": 720,
+      "dpr": 2,
+      "visualScale": 1
+    }
+  },
+  {
+    "name": "zoom200-login",
+    "width": 720,
+    "height": 450,
+    "scrollWidth": 720,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINAHomeHistory Play as GuestLog in Register Log inResume your routes to Federico I",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 588.3046875,
+        "top": 0,
+        "right": 720,
+        "bottom": 588.3046875,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "zoom-playing",
+    "method": "chrome.tabs.setZoom=2/getZoom=2; layout viewport reflow checked",
+    "before": {
+      "innerWidth": 1440,
+      "dpr": 1
+    },
+    "after": {
+      "innerWidth": 720,
+      "dpr": 2,
+      "visualScale": 1
+    }
+  },
+  {
+    "name": "zoom200-playing",
+    "width": 720,
+    "height": 450,
+    "scrollWidth": 720,
+    "scrollX": 0,
+    "documentLang": "en",
+    "articleLang": "it",
+    "mains": 1,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 720,
+      "height": 73,
+      "top": 0,
+      "right": 720,
+      "bottom": 73,
+      "left": 0
+    },
+    "focused": {
+      "tag": "H1",
+      "text": "Golfo di Napoli",
+      "rect": {
+        "x": 32,
+        "y": 93,
+        "width": 656,
+        "height": 45,
+        "top": 93,
+        "right": 688,
+        "bottom": 138,
+        "left": 32
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "zoom-history",
+    "method": "chrome.tabs.setZoom=2/getZoom=2; layout viewport reflow checked",
+    "before": {
+      "innerWidth": 1440,
+      "dpr": 1
+    },
+    "after": {
+      "innerWidth": 720,
+      "dpr": 2,
+      "visualScale": 1
+    }
+  },
+  {
+    "name": "zoom200-history",
+    "width": 720,
+    "height": 450,
+    "scrollWidth": 720,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Completed-game historyExplore fi",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 2016.5859375,
+        "top": 0,
+        "right": 720,
+        "bottom": 2016.5859375,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  },
+  {
+    "name": "zoom-profile",
+    "method": "chrome.tabs.setZoom=2/getZoom=2; layout viewport reflow checked",
+    "before": {
+      "innerWidth": 1440,
+      "dpr": 1
+    },
+    "after": {
+      "innerWidth": 720,
+      "dpr": 2,
+      "visualScale": 1
+    }
+  },
+  {
+    "name": "zoom200-profile",
+    "width": 720,
+    "height": 450,
+    "scrollWidth": 720,
+    "scrollX": 0,
+    "documentLang": "en",
+    "mains": 1,
+    "focused": {
+      "tag": "BODY",
+      "text": "ROADTOUNINADashboardHistory Profile navigatore_e2eLog out Nnavigatore_e2enavigatore.parten",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 720,
+        "height": 1319.2578125,
+        "top": 0,
+        "right": 720,
+        "bottom": 1319.2578125,
+        "left": 0
+      },
+      "outline": "3px"
+    },
+    "animation": []
+  }
+]

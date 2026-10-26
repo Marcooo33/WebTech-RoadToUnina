@@ -1,0 +1,10 @@
+[
+  {
+    "group": "primary",
+    "message": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(result.hud && Math.abs(result.hud.top) < 1)\n\n    at snapshot (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:124:23)\n    at async gameStates (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:249:5)\n    at async primaryMatrix (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:166:31)\n    at async run (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:375:13)\n    at async <anonymous> (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:388:37)"
+  },
+  {
+    "group": "breakpoints-resize",
+    "message": "locator.getAttribute: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Toggle navigation menu' })\u001b[22m\n\n    at breakpointsAndResize (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:284:31)\n    at async run (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:375:13)\n    at async <anonymous> (/home/marco/Github/WebTech-RoadToUnina/e2e/support/redesign-phase-6.mts:388:37)"
+  }
+]

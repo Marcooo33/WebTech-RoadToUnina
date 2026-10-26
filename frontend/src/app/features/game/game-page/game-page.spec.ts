@@ -191,6 +191,7 @@ describe('GamePage presentation', () => {
     dialog.showModal = show;
     dialog.close = close;
     const trigger = fixture.nativeElement.querySelector('.hud__path-toggle') as HTMLButtonElement;
+    vi.spyOn(trigger, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList);
     expect(dialog.querySelector('app-game-path')).toBeNull();
     trigger.click();
     fixture.detectChanges();
@@ -205,6 +206,17 @@ describe('GamePage presentation', () => {
     expect(close).toHaveBeenCalledOnce();
     expect(document.activeElement).toBe(trigger);
     expect(dialog.querySelector('app-game-path')).toBeNull();
+  });
+
+  it('returns focus to the desktop path summary when a resized dialog loses its mobile trigger', () => {
+    const trigger = fixture.nativeElement.querySelector('.hud__path-toggle') as HTMLButtonElement;
+    vi.spyOn(trigger, 'getClientRects').mockReturnValue({ length: 0 } as DOMRectList);
+    component.pathOpen.set(true);
+    component.onPathClosed();
+    expect(component.pathOpen()).toBe(false);
+    expect(document.activeElement).toBe(
+      fixture.nativeElement.querySelector('.game__desktop-path summary'),
+    );
   });
 
   it('keeps a single move in flight and focuses the backend-provided next article', async () => {

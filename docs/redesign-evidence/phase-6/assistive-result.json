@@ -1,0 +1,17 @@
+{
+  "method": "Private DBus/AT-SPI bus, temporary XDG dirs, memory settings; muted Orca; full Chromium headless",
+  "status": "PARTIAL_PASS",
+  "interactiveScreenReaderPass": false,
+  "orcaPid": 110938,
+  "ownedApplications": 1,
+  "reason": "Actual muted Orca and native AT-SPI observed owned production page link, invalid-field description, dialog role and focused Cancel; dialog speech was generated in Orca debug output. No audible/manual reader usability certification.",
+  "targetedNativeAssistiveCheck": true,
+  "evidence": {
+    "orcaNativeLinkRole": true,
+    "orcaErrorDescription": true,
+    "nativeDialog": true,
+    "nativeFocusedCancel": true,
+    "orcaGeneratedDialogSpeech": true,
+    "orcaGeneratedCancelSpeech": true
+  }
+}

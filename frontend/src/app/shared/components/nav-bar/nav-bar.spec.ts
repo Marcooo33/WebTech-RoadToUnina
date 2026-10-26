@@ -41,6 +41,8 @@ describe('NavBar', () => {
     await fixture.whenStable();
   });
 
+  afterEach(() => vi.restoreAllMocks());
+
   it('keeps the anonymous navigation destinations and guest entry', () => {
     const links = Array.from(fixture.nativeElement.querySelectorAll('a')) as HTMLAnchorElement[];
     expect(links.some((link) => link.getAttribute('href') === '/history')).toBe(true);
@@ -51,6 +53,7 @@ describe('NavBar', () => {
 
   it('closes the expanded menu with Escape and restores focus to the toggle', () => {
     const toggle = fixture.nativeElement.querySelector('.nav__toggle') as HTMLButtonElement;
+    vi.spyOn(toggle, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList);
     toggle.click();
     fixture.detectChanges();
     expect(toggle.getAttribute('aria-expanded')).toBe('true');
@@ -64,6 +67,31 @@ describe('NavBar', () => {
     expect(escape.defaultPrevented).toBe(true);
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
     expect(document.activeElement).toBe(toggle);
+  });
+
+  it('closes a menu after its trigger becomes hidden on desktop and restores visible brand focus', () => {
+    const toggle = fixture.nativeElement.querySelector('.nav__toggle') as HTMLButtonElement;
+    toggle.click();
+    toggle.focus();
+    toggle.blur();
+    vi.spyOn(toggle, 'getClientRects').mockReturnValue({ length: 0 } as DOMRectList);
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', cancelable: true }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.menuOpen()).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.nav__brand'));
+  });
+
+  it('keeps an already visible navigation link focused when Escape closes the desktop menu state', () => {
+    fixture.componentInstance.toggleMenu();
+    const toggle = fixture.nativeElement.querySelector('.nav__toggle') as HTMLButtonElement;
+    vi.spyOn(toggle, 'getClientRects').mockReturnValue({ length: 0 } as DOMRectList);
+    const link = fixture.nativeElement.querySelector('a[href="/history"]') as HTMLAnchorElement;
+    vi.spyOn(link, 'getClientRects').mockReturnValue({ length: 1 } as DOMRectList);
+    link.focus();
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', cancelable: true }));
+    expect(fixture.componentInstance.menuOpen()).toBe(false);
+    expect(document.activeElement).toBe(link);
   });
 
   it('allows focus to leave the navigation and closes its expanded panel', () => {
@@ -84,6 +112,30 @@ describe('NavBar', () => {
       expect(toggle.getAttribute('aria-expanded')).toBe('false');
     } finally {
       outside.remove();
+    }
+  });
+
+  it('lets a native modal own Escape when a resized navigation menu still has open state', () => {
+    fixture.componentInstance.menuOpen.set(true);
+    const dialog = document.createElement('dialog');
+    dialog.open = true;
+    const cancel = document.createElement('button');
+    cancel.textContent = 'Cancel';
+    dialog.append(cancel);
+    document.body.append(dialog);
+    try {
+      cancel.focus();
+      const event = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+      });
+      cancel.dispatchEvent(event);
+      expect(fixture.componentInstance.menuOpen()).toBe(false);
+      expect(event.defaultPrevented).toBe(false);
+      expect(document.activeElement).toBe(cancel);
+    } finally {
+      dialog.remove();
     }
   });
 

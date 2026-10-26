@@ -1,0 +1,7 @@
+{
+  "method": "Initial full production run plus successful rerun of only breakpoints-resize after correcting asynchronous ARIA wait in the test harness; no application change",
+  "originalFailures": "failures-before-resize-rerun.json",
+  "rerunChecks": "checks-resize-final.json",
+  "rerunFailures": [],
+  "finalFailures": []
+}

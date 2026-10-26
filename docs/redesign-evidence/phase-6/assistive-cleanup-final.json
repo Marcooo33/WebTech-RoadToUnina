@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "method": "After all recorded owned browser/Orca/private-bus PIDs had exited and no mount under the exact owned mkdtemp path remained, removed only that residual runtime directory with shutil.rmtree. No other process or user mount touched.",
+  "ownedTemporaryDirectories": [
+    "/tmp/roadtounina-atspi-zR8sFx",
+    "/tmp/roadtounina-atspi-wp5r4T"
+  ],
+  "allAbsent": true,
+  "recordedOwnedPidsAbsent": [
+    110970,
+    111076,
+    111078,
+    110998,
+    111017,
+    111027,
+    110251,
+    110938,
+    110228,
+    110915
+  ]
+}

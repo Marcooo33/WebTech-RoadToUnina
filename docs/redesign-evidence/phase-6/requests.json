@@ -1,0 +1,1519 @@
+[
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "fields": [
+      "username",
+      "email",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/click",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "fields": [
+      "username",
+      "email",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/click",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "fields": [
+      "username",
+      "email",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/click",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/register",
+    "method": "POST",
+    "fields": [
+      "username",
+      "email",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/moves",
+    "method": "POST",
+    "fields": [
+      "toTitle"
+    ]
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/click",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/pause",
+    "method": "POST",
+    "fields": []
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/pause",
+    "method": "POST",
+    "fields": []
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/pause",
+    "method": "POST",
+    "fields": []
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/login",
+    "method": "POST",
+    "fields": [
+      "identifier",
+      "password"
+    ]
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "POST",
+    "fields": [
+      "mode",
+      "difficulty"
+    ]
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101/pause",
+    "method": "POST",
+    "fields": []
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/me/stats",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/guest-games",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/games/00000000-0000-4000-8000-000000000101",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/history/click",
+    "method": "GET",
+    "fields": null
+  },
+  {
+    "path": "/api/auth/me",
+    "method": "GET",
+    "fields": null
+  }
+]
