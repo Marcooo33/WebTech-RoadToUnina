@@ -3,31 +3,31 @@ npm notice run ng serve --port 4400 --host 127.0.0.1
 ❯ Building...
 ✔ Building...
 Initial chunk files | Names          |  Raw size
-main.js             | main           |  33.48 kB | 
-styles.css          | styles         |  12.86 kB | 
-chunk-DJRK3M64.js   | -              |   3.19 kB | 
-chunk-VUJOFXKG.js   | -              | 987 bytes | 
-chunk-LH3MVRRF.js   | -              | 415 bytes | 
-chunk-LCUMVYIC.js   | -              | 173 bytes | 
+main.js             | main           |  33.48 kB |
+styles.css          | styles         |  12.86 kB |
+chunk-DJRK3M64.js   | -              |   3.19 kB |
+chunk-VUJOFXKG.js   | -              | 987 bytes |
+chunk-LH3MVRRF.js   | -              | 415 bytes |
+chunk-LCUMVYIC.js   | -              | 173 bytes |
 
                     | Initial total  |  51.10 kB
 
 Lazy chunk files    | Names          |  Raw size
-chunk-I24KQYB3.js   | game-page      | 107.89 kB | 
-chunk-3KWFFT3X.js   | home           | 100.06 kB | 
-chunk-RGFW5SS4.js   | profile-page   |  50.44 kB | 
-chunk-UG5T5KD3.js   | history-list   |  39.52 kB | 
-chunk-ERP3KE7J.js   | history-detail |  26.09 kB | 
-chunk-3PKAZCSZ.js   | new-game       |  20.63 kB | 
-chunk-JQXVD7IQ.js   | register       |  18.67 kB | 
-chunk-FTDCQ27H.js   | login          |  15.78 kB | 
-chunk-WY56I2I4.js   | -              |   8.01 kB | 
-chunk-SIJJ4QSP.js   | -              |   5.41 kB | 
-chunk-DT2IBZUL.js   | -              |   4.69 kB | 
-chunk-JSU42VCR.js   | -              |   4.14 kB | 
-chunk-HBWGV4LD.js   | -              |   3.83 kB | 
-chunk-VWXAG3B2.js   | not-found      |   3.33 kB | 
-chunk-VY4M6U5Q.js   | -              |   2.44 kB | 
+chunk-I24KQYB3.js   | game-page      | 107.89 kB |
+chunk-3KWFFT3X.js   | home           | 100.06 kB |
+chunk-RGFW5SS4.js   | profile-page   |  50.44 kB |
+chunk-UG5T5KD3.js   | history-list   |  39.52 kB |
+chunk-ERP3KE7J.js   | history-detail |  26.09 kB |
+chunk-3PKAZCSZ.js   | new-game       |  20.63 kB |
+chunk-JQXVD7IQ.js   | register       |  18.67 kB |
+chunk-FTDCQ27H.js   | login          |  15.78 kB |
+chunk-WY56I2I4.js   | -              |   8.01 kB |
+chunk-SIJJ4QSP.js   | -              |   5.41 kB |
+chunk-DT2IBZUL.js   | -              |   4.69 kB |
+chunk-JSU42VCR.js   | -              |   4.14 kB |
+chunk-HBWGV4LD.js   | -              |   3.83 kB |
+chunk-VWXAG3B2.js   | not-found      |   3.33 kB |
+chunk-VY4M6U5Q.js   | -              |   2.44 kB |
 ...and 1 more lazy chunks files. Use "--verbose" to show all the files.
 
 Application bundle generation complete. [2.969 seconds] - 2026-10-26T08:51:33.922Z
