@@ -18,7 +18,7 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 | 3 — Dashboard e configurazione | PASS | `a41fe1a` |
 | 4 — Partita e articolo | PASS | `7910114` |
 | 5 — Risultato, History, dettagli, profilo | PASS | `2b3455a` (+ `bd12101` log) |
-| 6 — Verifica trasversale | PASS | hash dopo commit |
+| 6 — Verifica trasversale | PASS | `2067dc8` |
 
 ## Fase 0 — 2026-10-26
 
@@ -294,3 +294,12 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   nessun mount/processo/preferenza utente alterato. Storico cleanup conservato.
 - Tutti gate Fase6 conclusi. Log normalizzati a server fermi senza alterare esiti;
   commit di fase seguito da ultima build/unit richiesta e report conclusivo.
+- Commit Fase6: `2067dc8` — `test(ui): complete redesign phase 6`.
+- Verifica conclusiva root dopo i gate: nuova build PASS,101unit/22file PASS,
+  log final-build.txt/final-unit.txt; tutti22file del bundle corrispondono agliSHA
+  production verificati dal tester. Root riesamina Home egioco alle4larghezze
+  piùlettura320×740, nessun rilievo aggiuntivo.
+- Diff complessivo da6e09ba9 ricontrollato: backend/core/modelli/route/schema/package
+  e lock invariati; nessun push/merge/rebase. Tutti commit presenti sul branch corretto.
+- Report conclusivo: [redesign-final-report.md](redesign-final-report.md).
+  Rimane warning CSS Home noto; limiti manuali/multipiattaforma documentati.
