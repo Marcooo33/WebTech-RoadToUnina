@@ -1,0 +1,1470 @@
+[
+  {
+    "name": "dashboard",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 1082.265625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 1162.265625,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-row-focus",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 1082.265625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 1162.265625,
+      "left": 160
+    },
+    "focus": "<article _ngcontent-ng-c2000607582=\"\" data-testid=\"game-row\" role=\"link\" tabindex=\"0\" class=\"game-row game-row--clickable\" aria-label=\"Resume game from Golfo di Napoli\"><div _ngcontent-ng-c2000607582=\"\" class=\"game-row__",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-confirm",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 1118.96875,
+      "top": 80,
+      "right": 1280,
+      "bottom": 1198.96875,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-delete-busy",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 1118.96875,
+      "top": 80,
+      "right": 1280,
+      "bottom": 1198.96875,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "delete-complete",
+    "width": 1440,
+    "deletes": 1
+  },
+  {
+    "name": "dashboard-empty",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 857.0625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 937.0625,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-loading",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 233.59375,
+      "top": 80,
+      "right": 1280,
+      "bottom": 313.59375,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-error",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 695.578125,
+      "top": 80,
+      "right": 1280,
+      "bottom": 775.578125,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "dashboard-limit",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 2159.4375,
+      "top": 80,
+      "right": 1280,
+      "bottom": 2239.4375,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-long-title",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "Welcome back, navigatoreconunnomemoltolungo123",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 1244.390625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 1324.390625,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-easy",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-medium",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-untouched ng-valid ng-dirty\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-hard",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-easy",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-medium",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-hard",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-radio-focus",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"mode\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-busy",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 795.515625,
+      "top": 80,
+      "right": 1280,
+      "bottom": 875.515625,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-error",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 858.3125,
+      "top": 80,
+      "right": 1280,
+      "bottom": 938.3125,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "new-game-limit",
+    "width": 1440,
+    "sw": 1440,
+    "heading": "New game",
+    "main": {
+      "x": 160,
+      "y": 80,
+      "width": 1120,
+      "height": 858.3125,
+      "top": 80,
+      "right": 1280,
+      "bottom": 938.3125,
+      "left": 160
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "configuration-behavior",
+    "width": 1440,
+    "defaults": [
+      "CLICK",
+      "EASY"
+    ],
+    "radioFocus": {
+      "checked": true,
+      "outline": "3px",
+      "offset": "4px",
+      "visible": true
+    },
+    "creates": 2,
+    "alert": {
+      "text": "You already have 10 games in progress. Finish or delete one before starting another.",
+      "display": "block",
+      "linkDisplay": "inline"
+    }
+  },
+  {
+    "name": "dashboard",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 1350.5,
+      "top": 80,
+      "right": 768,
+      "bottom": 1430.5,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-row-focus",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 1350.5,
+      "top": 80,
+      "right": 768,
+      "bottom": 1430.5,
+      "left": 0
+    },
+    "focus": "<article _ngcontent-ng-c2000607582=\"\" data-testid=\"game-row\" role=\"link\" tabindex=\"0\" class=\"game-row game-row--clickable\" aria-label=\"Resume game from Golfo di Napoli\"><div _ngcontent-ng-c2000607582=\"\" class=\"game-row__",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-confirm",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 1350.5,
+      "top": 80,
+      "right": 768,
+      "bottom": 1430.5,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-delete-busy",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 1350.5,
+      "top": 80,
+      "right": 768,
+      "bottom": 1430.5,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "delete-complete",
+    "width": 768,
+    "deletes": 1
+  },
+  {
+    "name": "dashboard-empty",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 846.171875,
+      "top": 80,
+      "right": 768,
+      "bottom": 926.171875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-loading",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 222.703125,
+      "top": 80,
+      "right": 768,
+      "bottom": 302.703125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-error",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 684.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 764.6875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "dashboard-limit",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 3010.71875,
+      "top": 80,
+      "right": 768,
+      "bottom": 3090.71875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-long-title",
+    "width": 768,
+    "sw": 768,
+    "heading": "Welcome back, navigatoreconunnomemoltolungo123",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 1551.015625,
+      "top": 80,
+      "right": 768,
+      "bottom": 1631.015625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-easy",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-medium",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-untouched ng-valid ng-dirty\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-hard",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-easy",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-medium",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-hard",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-radio-focus",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"mode\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-busy",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 766.6875,
+      "top": 80,
+      "right": 768,
+      "bottom": 846.6875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-error",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 829.484375,
+      "top": 80,
+      "right": 768,
+      "bottom": 909.484375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "new-game-limit",
+    "width": 768,
+    "sw": 768,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 829.484375,
+      "top": 80,
+      "right": 768,
+      "bottom": 909.484375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "configuration-behavior",
+    "width": 768,
+    "defaults": [
+      "CLICK",
+      "EASY"
+    ],
+    "radioFocus": {
+      "checked": true,
+      "outline": "3px",
+      "offset": "4px",
+      "visible": true
+    },
+    "creates": 2,
+    "alert": {
+      "text": "You already have 10 games in progress. Finish or delete one before starting another.",
+      "display": "block",
+      "linkDisplay": "inline"
+    }
+  },
+  {
+    "name": "dashboard",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1692.328125,
+      "top": 72,
+      "right": 390,
+      "bottom": 1764.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-row-focus",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1692.328125,
+      "top": 72,
+      "right": 390,
+      "bottom": 1764.328125,
+      "left": 0
+    },
+    "focus": "<article _ngcontent-ng-c2000607582=\"\" data-testid=\"game-row\" role=\"link\" tabindex=\"0\" class=\"game-row game-row--clickable\" aria-label=\"Resume game from Golfo di Napoli\"><div _ngcontent-ng-c2000607582=\"\" class=\"game-row__",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-confirm",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1760.328125,
+      "top": 72,
+      "right": 390,
+      "bottom": 1832.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-delete-busy",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1760.328125,
+      "top": 72,
+      "right": 390,
+      "bottom": 1832.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "delete-complete",
+    "width": 390,
+    "deletes": 1
+  },
+  {
+    "name": "dashboard-empty",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1004.796875,
+      "top": 72,
+      "right": 390,
+      "bottom": 1076.796875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-loading",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 309.390625,
+      "top": 72,
+      "right": 390,
+      "bottom": 381.390625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-error",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 813.765625,
+      "top": 72,
+      "right": 390,
+      "bottom": 885.765625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "dashboard-limit",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 3729.34375,
+      "top": 72,
+      "right": 390,
+      "bottom": 3801.34375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-long-title",
+    "width": 390,
+    "sw": 390,
+    "heading": "Welcome back, navigatoreconunnomemoltolungo123",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1965.234375,
+      "top": 72,
+      "right": 390,
+      "bottom": 2037.234375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-easy",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-medium",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-untouched ng-valid ng-dirty\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-hard",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-easy",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-medium",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-hard",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-radio-focus",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 1045.5,
+      "top": 72,
+      "right": 390,
+      "bottom": 1117.5,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"mode\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-busy",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -146,
+      "width": 390,
+      "height": 1045.5,
+      "top": -146,
+      "right": 390,
+      "bottom": 899.5,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-error",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -146,
+      "width": 390,
+      "height": 1108.296875,
+      "top": -146,
+      "right": 390,
+      "bottom": 962.296875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "new-game-limit",
+    "width": 390,
+    "sw": 390,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -146,
+      "width": 390,
+      "height": 1157.890625,
+      "top": -146,
+      "right": 390,
+      "bottom": 1011.890625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "configuration-behavior",
+    "width": 390,
+    "defaults": [
+      "CLICK",
+      "EASY"
+    ],
+    "radioFocus": {
+      "checked": true,
+      "outline": "3px",
+      "offset": "4px",
+      "visible": true
+    },
+    "creates": 2,
+    "alert": {
+      "text": "You already have 10 games in progress. Finish or delete one before starting another.",
+      "display": "block",
+      "linkDisplay": "inline"
+    }
+  },
+  {
+    "name": "dashboard",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1727.328125,
+      "top": 72,
+      "right": 320,
+      "bottom": 1799.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-row-focus",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1727.328125,
+      "top": 72,
+      "right": 320,
+      "bottom": 1799.328125,
+      "left": 0
+    },
+    "focus": "<article _ngcontent-ng-c2000607582=\"\" data-testid=\"game-row\" role=\"link\" tabindex=\"0\" class=\"game-row game-row--clickable\" aria-label=\"Resume game from Golfo di Napoli\"><div _ngcontent-ng-c2000607582=\"\" class=\"game-row__",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-confirm",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1795.328125,
+      "top": 72,
+      "right": 320,
+      "bottom": 1867.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-delete-busy",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 65,
+      "width": 320,
+      "height": 1847.328125,
+      "top": 65,
+      "right": 320,
+      "bottom": 1912.328125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "delete-complete",
+    "width": 320,
+    "deletes": 1
+  },
+  {
+    "name": "dashboard-empty",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1064.59375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1136.59375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-loading",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 369.1875,
+      "top": 72,
+      "right": 320,
+      "bottom": 441.1875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-error",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 873.5625,
+      "top": 72,
+      "right": 320,
+      "bottom": 945.5625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "dashboard-limit",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, audit_e2e",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 3789.140625,
+      "top": 72,
+      "right": 320,
+      "bottom": 3861.140625,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "dashboard-long-title",
+    "width": 320,
+    "sw": 320,
+    "heading": "Welcome back, navigatoreconunnomemoltolungo123",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 2046.296875,
+      "top": 72,
+      "right": 320,
+      "bottom": 2118.296875,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-easy",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-medium",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-untouched ng-valid ng-dirty\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-click-hard",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-easy",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-medium",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-time-hard",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"difficulty\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-radio-focus",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 1111.4375,
+      "top": 72,
+      "right": 320,
+      "bottom": 1183.4375,
+      "left": 0
+    },
+    "focus": "<input _ngcontent-ng-c3068747573=\"\" type=\"radio\" formcontrolname=\"mode\" class=\"ng-valid ng-dirty ng-touched\" style=\"\">",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-busy",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -211,
+      "width": 320,
+      "height": 1111.4375,
+      "top": -211,
+      "right": 320,
+      "bottom": 900.4375,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 0
+  },
+  {
+    "name": "new-game-error",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -299,
+      "width": 320,
+      "height": 1199.03125,
+      "top": -299,
+      "right": 320,
+      "bottom": 900.03125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "new-game-limit",
+    "width": 320,
+    "sw": 320,
+    "heading": "New game",
+    "main": {
+      "x": 0,
+      "y": -323,
+      "width": 320,
+      "height": 1223.828125,
+      "top": -323,
+      "right": 320,
+      "bottom": 900.828125,
+      "left": 0
+    },
+    "focus": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco",
+    "alerts": 1
+  },
+  {
+    "name": "configuration-behavior",
+    "width": 320,
+    "defaults": [
+      "CLICK",
+      "EASY"
+    ],
+    "radioFocus": {
+      "checked": true,
+      "outline": "3px",
+      "offset": "4px",
+      "visible": true
+    },
+    "creates": 2,
+    "alert": {
+      "text": "You already have 10 games in progress. Finish or delete one before starting another.",
+      "display": "block",
+      "linkDisplay": "inline"
+    }
+  }
+]

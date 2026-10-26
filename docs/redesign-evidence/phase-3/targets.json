@@ -1,0 +1,162 @@
+[
+  {
+    "width": 1440,
+    "targets": [
+      {
+        "text": "CLICKReach the target using as few navigation clicks as possible.",
+        "width": 391,
+        "height": 108
+      },
+      {
+        "text": "TIMEReach the target using the lowest effective play time.",
+        "width": 391,
+        "height": 108
+      },
+      {
+        "text": "EASYUnlimited backtracking.",
+        "width": 256.65625,
+        "height": 108
+      },
+      {
+        "text": "MEDIUMBacktracking allowed at most 3 times.",
+        "width": 256.671875,
+        "height": 108
+      },
+      {
+        "text": "HARDNo backtracking.",
+        "width": 256.65625,
+        "height": 108
+      },
+      {
+        "text": "Start game",
+        "width": 176,
+        "height": 48
+      },
+      {
+        "text": "Back to dashboard",
+        "width": 144.828125,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "targets": [
+      {
+        "text": "CLICKReach the target using as few navigation clicks as possible.",
+        "width": 330.9375,
+        "height": 108
+      },
+      {
+        "text": "TIMEReach the target using the lowest effective play time.",
+        "width": 330.9375,
+        "height": 108
+      },
+      {
+        "text": "EASYUnlimited backtracking.",
+        "width": 216.625,
+        "height": 108
+      },
+      {
+        "text": "MEDIUMBacktracking allowed at most 3 times.",
+        "width": 216.625,
+        "height": 108
+      },
+      {
+        "text": "HARDNo backtracking.",
+        "width": 216.625,
+        "height": 108
+      },
+      {
+        "text": "Start game",
+        "width": 176,
+        "height": 48
+      },
+      {
+        "text": "Back to dashboard",
+        "width": 144.828125,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "targets": [
+      {
+        "text": "CLICKReach the target using as few navigation clicks as possible.",
+        "width": 324,
+        "height": 95.25
+      },
+      {
+        "text": "TIMEReach the target using the lowest effective play time.",
+        "width": 324,
+        "height": 95.25
+      },
+      {
+        "text": "EASYUnlimited backtracking.",
+        "width": 324,
+        "height": 74.25
+      },
+      {
+        "text": "MEDIUMBacktracking allowed at most 3 times.",
+        "width": 324,
+        "height": 74.25
+      },
+      {
+        "text": "HARDNo backtracking.",
+        "width": 324,
+        "height": 74.25
+      },
+      {
+        "text": "Start game",
+        "width": 324,
+        "height": 48
+      },
+      {
+        "text": "Back to dashboard",
+        "width": 144.828125,
+        "height": 44
+      }
+    ]
+  },
+  {
+    "width": 320,
+    "targets": [
+      {
+        "text": "CLICKReach the target using as few navigation clicks as possible.",
+        "width": 254,
+        "height": 95.25
+      },
+      {
+        "text": "TIMEReach the target using the lowest effective play time.",
+        "width": 254,
+        "height": 95.25
+      },
+      {
+        "text": "EASYUnlimited backtracking.",
+        "width": 254,
+        "height": 74.25
+      },
+      {
+        "text": "MEDIUMBacktracking allowed at most 3 times.",
+        "width": 254,
+        "height": 95.25
+      },
+      {
+        "text": "HARDNo backtracking.",
+        "width": 254,
+        "height": 74.25
+      },
+      {
+        "text": "Start game",
+        "width": 254,
+        "height": 48
+      },
+      {
+        "text": "Back to dashboard",
+        "width": 144.828125,
+        "height": 44
+      }
+    ]
+  }
+]

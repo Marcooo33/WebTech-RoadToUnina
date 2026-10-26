@@ -19,7 +19,6 @@
 <section class="dashboard stack">
   <header class="page-header">
     <div class="page-header__copy">
-      <p class="eyebrow">Player dashboard</p>
       <h1 class="page-title">Welcome back, {{ user()?.username }}</h1>
       <p class="muted">Resume a route or start a new path to Federico II.</p>
       <span class="sr-only">Signed in as {{ user()?.username }}</span>
@@ -38,58 +37,14 @@
   @if (loading()) {
     <app-loading-spinner label="Loading your games and statistics…" />
   } @else {
-    @if (statistics(); as s) {
-      <section class="stats-section" aria-labelledby="stats-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="stats-title">Your statistics</h2>
-          </div>
-        </div>
-        <dl class="stats">
-          <div>
-            <dt>Completed</dt>
-            <dd>{{ s.completedGames }}</dd>
-          </div>
-          <div>
-            <dt>In progress</dt>
-            <dd>{{ s.inProgressGames }}</dd>
-          </div>
-          <div class="stats__highlight">
-            <dt>Best CLICK</dt>
-            <dd>
-              <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />{{
-                s.bestClick ? s.bestClick.clickCount + ' clicks' : '—'
-              }}
-            </dd>
-          </div>
-          <div class="stats__highlight">
-            <dt>Best TIME</dt>
-            <dd>
-              <ng-icon class="icon" name="lucideClock3" aria-hidden="true" />{{
-                s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—'
-              }}
-            </dd>
-          </div>
-          <div>
-            <dt>Average clicks</dt>
-            <dd>{{ s.averageClicks ?? '—' }}</dd>
-          </div>
-          <div>
-            <dt>Average time</dt>
-            <dd>
-              {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
-            </dd>
-          </div>
-        </dl>
-      </section>
-    }
     <section class="games card" aria-labelledby="games-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Saved routes</p>
-          <h2 id="games-title">In-progress games ({{ inProgress().length }}/{{ limit }})</h2>
+          <h2 id="games-title">
+            In-progress games
+            <span class="games__count">{{ inProgress().length }} / {{ limit }}</span>
+          </h2>
         </div>
-        <span class="games__count" aria-hidden="true">{{ inProgress().length }} / {{ limit }}</span>
       </div>
       @if (limitReached) {
         <p class="status status--warning" role="status">
@@ -102,7 +57,7 @@
           <h3>No games in progress</h3>
           <p class="muted">Your next Wikipedia route can start whenever you are ready.</p>
           <a class="btn" routerLink="/new-game"
-            ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Start your first game</a
+            ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Start a new game</a
           >
         </div>
       } @else {
@@ -139,7 +94,7 @@
                 </div>
               </dl>
               <div class="game-row__actions">
-                <a class="btn btn--secondary" [routerLink]="['/game', game.id]"
+                <a class="btn" [routerLink]="['/game', game.id]"
                   ><ng-icon class="icon" name="lucidePlay" aria-hidden="true" />Resume</a
                 >
                 @if (confirmingId() === game.id) {
@@ -180,7 +135,6 @@
     <section class="games card" aria-labelledby="completed-games-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Completed games</p>
           <h2 id="completed-games-title">Completed games</h2>
         </div>
         <span class="games__count">{{ completed().length }}</span>
@@ -239,5 +193,50 @@
         }
       }
     </section>
+    @if (statistics(); as s) {
+      <section class="stats-section" aria-labelledby="stats-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="stats-title">Your statistics</h2>
+          </div>
+        </div>
+        <dl class="stats">
+          <div>
+            <dt>Completed</dt>
+            <dd>{{ s.completedGames }}</dd>
+          </div>
+          <div>
+            <dt>In progress</dt>
+            <dd>{{ s.inProgressGames }}</dd>
+          </div>
+          <div>
+            <dt>Best CLICK</dt>
+            <dd>
+              <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />{{
+                s.bestClick ? s.bestClick.clickCount + ' clicks' : '—'
+              }}
+            </dd>
+          </div>
+          <div>
+            <dt>Best TIME</dt>
+            <dd>
+              <ng-icon class="icon" name="lucideClock3" aria-hidden="true" />{{
+                s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—'
+              }}
+            </dd>
+          </div>
+          <div>
+            <dt>Average clicks · CLICK</dt>
+            <dd>{{ s.averageClicks ?? '—' }}</dd>
+          </div>
+          <div>
+            <dt>Average time · TIME</dt>
+            <dd>
+              {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
+            </dd>
+          </div>
+        </dl>
+      </section>
+    }
   }
 </section>

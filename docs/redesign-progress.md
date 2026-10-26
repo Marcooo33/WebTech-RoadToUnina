@@ -14,8 +14,8 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 | --- | --- | --- |
 | 0 — Baseline e perimetro | PASS | `ba799db` |
 | 1 — Fondamenta e componenti condivisi | PASS | `e92fe41` |
-| 2 — Home e autenticazione | PASS | hash dopo commit |
-| 3 — Dashboard e configurazione | PENDING | — |
+| 2 — Home e autenticazione | PASS | `ea8cdcd` |
+| 3 — Dashboard e configurazione | PASS | hash dopo commit |
 | 4 — Partita e articolo | PENDING | — |
 | 5 — Risultato, History, dettagli, profilo | PENDING | — |
 | 6 — Verifica trasversale | PENDING | — |
@@ -96,3 +96,29 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   tutte84catture finali e4riferimenti Home esaminati; authP validati sui rendering.
 - Gate complessivo PASS dopo due cicli di correzione. Non bloccante rimasto:
   warning CSS Home6,42kB; limiti inspector/SR/altri browser espliciti nei rapporti.
+- Commit Fase2: `ea8cdcd` — `feat(ui): complete redesign phase 2`.
+
+## Fase 3 — 2026-10-26
+
+- Branch verificato e working tree pulito al checkpoint `ea8cdcd`.
+- Scope Dashboard e NewGame: gerarchia, copy, radio e deduplicazione limite, test pertinenti.
+- Servizi/calcoli/azioni/limiti/default immutati; proposte P da review su tutti gli stati.
+- Implementazione: sei file Dashboard/NewGame `.html/.css/.spec.ts`; nessun TypeScript
+  applicativo modificato. Percorsi prima delle statistiche nel DOM, copy medie per
+  modalità, controlli e conferme preservati; radio/default invariati e alert limite unico.
+- Feedback implementatore: build PASS, 49 test/21 file PASS, nessun nuovo warning.
+  Corretto soltanto un selettore del nuovo test prima della consegna; nessuna app change.
+- Verifiche indipendenti e review avviate, nessun gate complessivo ancora attribuito.
+- [Tester indipendente](redesign-evidence/phase-3/TEST-REPORT.md): build PASS,
+  49 unit/21 file PASS, 3 E2E PASS e disposable rimosso; 76 screenshot/84 verifiche
+  browser alle quattro larghezze, stati e sei combinazioni native PASS, no overflow.
+- [Code review](redesign-evidence/phase-3/code-review.md): PASS, nessun blocco.
+- Il campione temporaneo statistiche è stato corretto dopo osservazione visuale:
+  due concluse CLICK/TIME e medie coerenti. Differenza dati rispetto baseline esplicita
+  nel rapporto tecnico; screenshot rigenerati, nessuna correzione applicativa.
+- Visual reviewer comunica esame finale delle 76 catture concluso senza blocchi;
+  rapporto persistente da collegare prima del commit. Zero cicli di correzione app.
+- [Visual review indipendente](redesign-evidence/phase-3/visual-review.md): PASS,
+  tutte 76 immagini finali esaminate; proposte P validate, nessun blocco.
+- Gate complessivo PASS. Rimane solo warning CSS Home precedente; limiti browser/SR
+  dichiarati nei rapporti. Commit autorizzato dopo controllo finale del diff.

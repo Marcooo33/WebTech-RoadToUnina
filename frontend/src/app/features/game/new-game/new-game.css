@@ -10,9 +10,14 @@
   margin: 0;
 }
 .new-game__header > * + * {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
+}
+.new-game__form {
+  display: grid;
+  gap: var(--space-6);
 }
 .options {
+  min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
@@ -20,29 +25,29 @@
   gap: var(--space-3);
 }
 .options--modes {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .options--difficulty {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .options legend {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
   padding: 0;
-  font-size: 1.05rem;
-  font-weight: 750;
+  font-size: 1.125rem;
+  font-weight: 650;
 }
 .options__note {
   grid-column: 1 / -1;
-  margin: var(--space-1) 0 0;
-  font-size: 0.85rem;
+  margin: 0;
+  font-size: 0.8125rem;
 }
 .option {
-  position: relative;
   display: grid;
-  grid-template-columns: auto auto 1fr;
-  column-gap: var(--space-2);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2);
+  align-content: start;
   align-items: center;
-  min-height: 7.5rem;
+  min-height: 108px;
   padding: var(--space-4);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
@@ -50,52 +55,52 @@
   cursor: pointer;
   transition:
     border-color var(--transition-fast),
-    background var(--transition-fast),
-    box-shadow var(--transition-fast),
-    transform var(--transition-fast);
+    background var(--transition-fast);
 }
 .option:hover {
   border-color: var(--color-accent);
-  transform: translateY(-1px);
 }
 .option:has(input:focus-visible) {
-  box-shadow: var(--focus-ring);
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+.option input:focus-visible {
+  outline: 0;
 }
 .option--selected {
   border: 2px solid var(--color-accent);
   padding: calc(var(--space-4) - 1px);
   background: var(--color-accent-soft);
 }
-.option--selected::after {
-  content: 'Selected';
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-2);
-  color: var(--color-brand);
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
 .option input {
+  grid-column: 1;
+  grid-row: 1;
   width: 1rem;
   height: 1rem;
+  margin: 0;
   accent-color: var(--color-accent);
 }
 .option__icon {
-  width: 1.2rem;
-  height: 1.2rem;
+  grid-column: 2;
+  grid-row: 1;
+  width: 1.125rem;
+  height: 1.125rem;
   color: var(--color-accent);
 }
 .option__title {
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+.option:has(.option__icon) .option__title {
+  padding-left: 1.625rem;
 }
 .option__desc {
-  grid-column: 2 / -1;
-  align-self: start;
+  grid-column: 2;
   color: var(--color-muted);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 .start-button {
   min-width: 11rem;
@@ -104,17 +109,23 @@
 .back-link {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: var(--space-2);
   width: fit-content;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 @media (max-width: 640px) {
   .options--modes,
   .options--difficulty {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .option {
-    min-height: 6.5rem;
+    min-height: 0;
+    padding: var(--space-3);
+    gap: var(--space-1) var(--space-2);
+  }
+  .option--selected {
+    padding: calc(var(--space-3) - 1px);
   }
   .start-button {
     width: 100%;

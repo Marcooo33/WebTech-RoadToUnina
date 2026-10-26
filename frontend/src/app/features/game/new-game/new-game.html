@@ -1,6 +1,5 @@
 <section class="stack">
   <header class="new-game__header">
-    <p class="eyebrow">Choose your challenge</p>
     <h1 class="page-title">New game</h1>
     <p class="muted">
       Every game starts on a random Italian Wikipedia article. Reach
@@ -9,15 +8,20 @@
     </p>
   </header>
 
-  <app-error-banner [message]="error()" />
   @if (limitReached) {
-    <p class="status status--warning">
-      You already have the maximum number of games in progress.
-      <a routerLink="/">Finish or delete one</a> before starting another.
+    <p class="status status--warning" role="alert">
+      {{ error() }} <a routerLink="/">Finish or delete one</a> before starting another.
     </p>
+  } @else {
+    <app-error-banner [message]="error()" />
   }
 
-  <form class="card stack" [formGroup]="form" (ngSubmit)="submit()">
+  <form
+    class="card new-game__form"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    [attr.aria-busy]="submitting()"
+  >
     <fieldset class="options options--modes">
       <legend>Mode</legend>
       @for (mode of modes; track mode.value) {
@@ -33,7 +37,7 @@
       }
     </fieldset>
 
-    <fieldset class="options options--difficulty">
+    <fieldset class="options options--difficulty" aria-describedby="difficulty-note">
       <legend>Difficulty</legend>
       @for (difficulty of difficulties; track difficulty.value) {
         <label
@@ -45,7 +49,7 @@
           <span class="option__desc">{{ difficulty.backtracking }}</span>
         </label>
       }
-      <p class="muted options__note">
+      <p id="difficulty-note" class="muted options__note">
         Difficulty only changes backtracking. A backtrack never counts as a navigation click.
       </p>
     </fieldset>

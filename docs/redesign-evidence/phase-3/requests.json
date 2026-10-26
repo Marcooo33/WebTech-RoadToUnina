@@ -1,0 +1,818 @@
+[
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games/00000000-0000-4000-8000-000000000001",
+    "method": "DELETE",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games/00000000-0000-4000-8000-000000000001",
+    "method": "DELETE",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games/00000000-0000-4000-8000-000000000001",
+    "method": "DELETE",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games/00000000-0000-4000-8000-000000000001",
+    "method": "DELETE",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "POST",
+    "data": "{\"mode\":\"TIME\",\"difficulty\":\"MEDIUM\"}"
+  }
+]
