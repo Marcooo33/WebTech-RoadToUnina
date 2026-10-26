@@ -1,0 +1,2727 @@
+[
+  {
+    "name": "home",
+    "width": 1440,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      },
+      "page": {
+        "height": 1055,
+        "screens": 1.2,
+        "words": 116,
+        "img": 0,
+        "video": 0,
+        "canvas": 0,
+        "svg": 11,
+        "sections": 2,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "chars": 36,
+        "lines": 2,
+        "size": 74.4,
+        "vw": 5.2,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.025,
+        "leading": 1.02,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "left",
+        "widthRatio": 0.41,
+        "top": 216,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "lines": 2,
+        "size": 74.4,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Reach Federico II through Wikipedia.",
+          "words": 5,
+          "chars": 36,
+          "lines": 2,
+          "size": 74.4,
+          "vw": 5.2,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.025,
+          "leading": 1.02,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "left",
+          "widthRatio": 0.41,
+          "top": 216,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        {
+          "text": "One destination. A different route every time.",
+          "words": 7,
+          "chars": 46,
+          "lines": 2,
+          "size": 32,
+          "vw": 2.2,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": 0,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "left",
+          "widthRatio": 0.33,
+          "top": 752,
+          "tag": "h2",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 2,
+        "maxLines": 2,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": 7,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "system-ui",
+            "share": 0.83,
+            "mono": false
+          },
+          {
+            "family": "Georgia",
+            "share": 0.17,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          22,
+          32,
+          74
+        ],
+        "sizeCount": 10,
+        "notLoaded": [],
+        "body": {
+          "font": "system-ui",
+          "size": 19.2,
+          "leading": 1.55,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 7
+        },
+        "measureChars": 68,
+        "max": {
+          "size": 74.4,
+          "vw": 5.2,
+          "font": "Georgia",
+          "text": "Reach Federico II through Wikipedia."
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 2,
+        "microLabelShare": 0.06,
+        "microSamples": [
+          "The Wikipedia navigation game",
+          "How it works"
+        ],
+        "upperShare": 0.07,
+        "centerShare": 0.05,
+        "smallText": 4
+      },
+      "eyebrows": [
+        {
+          "text": "The Wikipedia navigation game",
+          "above": "Reach Federico II through Wikipedia.",
+          "upper": true,
+          "tracked": true,
+          "mono": false,
+          "pill": false,
+          "size": 12.2,
+          "top": 181
+        },
+        {
+          "text": "How it works",
+          "above": "One destination. A different route every",
+          "upper": true,
+          "tracked": true,
+          "mono": false,
+          "pill": false,
+          "size": 12.2,
+          "top": 725
+        }
+      ],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [],
+        "textColors": [
+          {
+            "color": "#66717a",
+            "share": 0.31
+          },
+          {
+            "color": "#47545d",
+            "share": 0.21
+          },
+          {
+            "color": "#182127",
+            "share": 0.19
+          },
+          {
+            "color": "#ffffff",
+            "share": 0.16
+          },
+          {
+            "color": "#123b5d",
+            "share": 0.07
+          }
+        ],
+        "button": {
+          "bg": "#123b5d",
+          "hsl": {
+            "h": 207,
+            "s": 0.68,
+            "l": 0.22
+          },
+          "fg": "#ffffff"
+        },
+        "lowContrast": []
+      },
+      "buttons": {
+        "count": 9,
+        "inHero": 9,
+        "radius": 8,
+        "height": 38,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Home",
+          "History",
+          "Play as Guest",
+          "Log in",
+          "Register"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 1,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "aside.hero__route → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 2,
+        "hairlineSamples": [
+          "nav.nav 1440px",
+          "section.how-to 1040px"
+        ],
+        "outlinedBoxes": 1,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 1,
+        "boxRadius": 12,
+        "squareMedia": 0,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 6,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 768,
+        "h": 900
+      },
+      "page": {
+        "height": 979,
+        "screens": 1.1,
+        "words": 116,
+        "img": 0,
+        "video": 0,
+        "canvas": 0,
+        "svg": 11,
+        "sections": 2,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "chars": 36,
+        "lines": 2,
+        "size": 53.8,
+        "vw": 7,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.025,
+        "leading": 1.02,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "left",
+        "widthRatio": 0.55,
+        "top": 180,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "lines": 2,
+        "size": 53.8,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Reach Federico II through Wikipedia.",
+          "words": 5,
+          "chars": 36,
+          "lines": 2,
+          "size": 53.8,
+          "vw": 7,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.025,
+          "leading": 1.02,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "left",
+          "widthRatio": 0.55,
+          "top": 180,
+          "tag": "h1",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 1,
+        "maxLines": 2,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": null,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "system-ui",
+            "share": 0.83,
+            "mono": false
+          },
+          {
+            "family": "Georgia",
+            "share": 0.17,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          22,
+          24,
+          54
+        ],
+        "sizeCount": 9,
+        "notLoaded": [],
+        "body": {
+          "font": "system-ui",
+          "size": 16.8,
+          "leading": 1.55,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 7
+        },
+        "measureChars": 50,
+        "max": {
+          "size": 53.8,
+          "vw": 7,
+          "font": "Georgia",
+          "text": "Reach Federico II through Wikipedia."
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 2,
+        "microLabelShare": 0.06,
+        "microSamples": [
+          "The Wikipedia navigation game",
+          "How it works"
+        ],
+        "upperShare": 0.07,
+        "centerShare": 0.05,
+        "smallText": 4
+      },
+      "eyebrows": [
+        {
+          "text": "The Wikipedia navigation game",
+          "above": "Reach Federico II through Wikipedia.",
+          "upper": true,
+          "tracked": true,
+          "mono": false,
+          "pill": false,
+          "size": 12.2,
+          "top": 145
+        }
+      ],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [],
+        "textColors": [
+          {
+            "color": "#66717a",
+            "share": 0.31
+          },
+          {
+            "color": "#47545d",
+            "share": 0.21
+          },
+          {
+            "color": "#182127",
+            "share": 0.19
+          },
+          {
+            "color": "#ffffff",
+            "share": 0.16
+          },
+          {
+            "color": "#123b5d",
+            "share": 0.07
+          }
+        ],
+        "button": {
+          "bg": "#123b5d",
+          "hsl": {
+            "h": 207,
+            "s": 0.68,
+            "l": 0.22
+          },
+          "fg": "#ffffff"
+        },
+        "lowContrast": []
+      },
+      "buttons": {
+        "count": 9,
+        "inHero": 9,
+        "radius": 8,
+        "height": 38,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Home",
+          "History",
+          "Play as Guest",
+          "Log in",
+          "Register"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 1,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "aside.hero__route → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 2,
+        "hairlineSamples": [
+          "nav.nav 768px",
+          "section.how-to 722px"
+        ],
+        "outlinedBoxes": 1,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 1,
+        "boxRadius": 12,
+        "squareMedia": 0,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 6,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "home",
+    "width": 390,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 390,
+        "h": 900
+      },
+      "page": {
+        "height": 1360,
+        "screens": 1.5,
+        "words": 108,
+        "img": 0,
+        "video": 0,
+        "canvas": 0,
+        "svg": 11,
+        "sections": 2,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "chars": 36,
+        "lines": 2,
+        "size": 40,
+        "vw": 10.3,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.025,
+        "leading": 1.02,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 0.82,
+        "top": 144,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "lines": 2,
+        "size": 40,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Reach Federico II through Wikipedia.",
+          "words": 5,
+          "chars": 36,
+          "lines": 2,
+          "size": 40,
+          "vw": 10.3,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.025,
+          "leading": 1.02,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.82,
+          "top": 144,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        {
+          "text": "One destination. A different route every time.",
+          "words": 7,
+          "chars": 46,
+          "lines": 2,
+          "size": 24,
+          "vw": 6.2,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": 0,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.79,
+          "top": 926,
+          "tag": "h2",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 2,
+        "maxLines": 2,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": 7,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "system-ui",
+            "share": 0.82,
+            "mono": false
+          },
+          {
+            "family": "Georgia",
+            "share": 0.18,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          22,
+          24,
+          40
+        ],
+        "sizeCount": 9,
+        "notLoaded": [],
+        "body": {
+          "font": "system-ui",
+          "size": 16.8,
+          "leading": 1.55,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 7
+        },
+        "measureChars": 41,
+        "max": {
+          "size": 40,
+          "vw": 10.3,
+          "font": "Georgia",
+          "text": "Reach Federico II through Wikipedia."
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 2,
+        "microLabelShare": 0.063,
+        "microSamples": [
+          "The Wikipedia navigation game",
+          "How it works"
+        ],
+        "upperShare": 0.08,
+        "centerShare": 0.06,
+        "smallText": 4
+      },
+      "eyebrows": [
+        {
+          "text": "The Wikipedia navigation game",
+          "above": "Reach Federico II through Wikipedia.",
+          "upper": true,
+          "tracked": true,
+          "mono": false,
+          "pill": false,
+          "size": 12.2,
+          "top": 109
+        }
+      ],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [],
+        "textColors": [
+          {
+            "color": "#66717a",
+            "share": 0.29
+          },
+          {
+            "color": "#47545d",
+            "share": 0.22
+          },
+          {
+            "color": "#182127",
+            "share": 0.2
+          },
+          {
+            "color": "#ffffff",
+            "share": 0.16
+          },
+          {
+            "color": "#2d75a3",
+            "share": 0.07
+          }
+        ],
+        "button": {
+          "bg": "#123b5d",
+          "hsl": {
+            "h": 207,
+            "s": 0.68,
+            "l": 0.22
+          },
+          "fg": "#ffffff"
+        },
+        "lowContrast": []
+      },
+      "buttons": {
+        "count": 4,
+        "inHero": 4,
+        "radius": 8,
+        "height": 59,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Play as Guest",
+          "Create an account",
+          "Log in",
+          "Explore ranked game history See complete"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 1,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "aside.hero__route → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 3,
+        "hairlineSamples": [
+          "nav.nav 390px",
+          "p.hero__route-note 292px",
+          "section.how-to 358px"
+        ],
+        "outlinedBoxes": 1,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 1,
+        "boxRadius": 12,
+        "squareMedia": 0,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 1,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "home",
+    "width": 320,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 320,
+        "h": 900
+      },
+      "page": {
+        "height": 1567,
+        "screens": 1.7,
+        "words": 108,
+        "img": 0,
+        "video": 0,
+        "canvas": 0,
+        "svg": 11,
+        "sections": 2,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "chars": 36,
+        "lines": 3,
+        "size": 40,
+        "vw": 12.5,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.025,
+        "leading": 1.02,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 0.86,
+        "top": 144,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Reach Federico II through Wikipedia.",
+        "words": 5,
+        "lines": 3,
+        "size": 40,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Reach Federico II through Wikipedia.",
+          "words": 5,
+          "chars": 36,
+          "lines": 3,
+          "size": 40,
+          "vw": 12.5,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.025,
+          "leading": 1.02,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.86,
+          "top": 144,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        {
+          "text": "One destination. A different route every time.",
+          "words": 7,
+          "chars": 46,
+          "lines": 3,
+          "size": 24,
+          "vw": 7.5,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": 0,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.75,
+          "top": 1103,
+          "tag": "h2",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 2,
+        "maxLines": 3,
+        "over2Lines": 2,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": 7,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "system-ui",
+            "share": 0.82,
+            "mono": false
+          },
+          {
+            "family": "Georgia",
+            "share": 0.18,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          22,
+          24,
+          40
+        ],
+        "sizeCount": 9,
+        "notLoaded": [],
+        "body": {
+          "font": "system-ui",
+          "size": 16.8,
+          "leading": 1.55,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 7
+        },
+        "measureChars": 33,
+        "max": {
+          "size": 40,
+          "vw": 12.5,
+          "font": "Georgia",
+          "text": "Reach Federico II through Wikipedia."
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 2,
+        "microLabelShare": 0.063,
+        "microSamples": [
+          "The Wikipedia navigation game",
+          "How it works"
+        ],
+        "upperShare": 0.08,
+        "centerShare": 0.06,
+        "smallText": 4
+      },
+      "eyebrows": [
+        {
+          "text": "The Wikipedia navigation game",
+          "above": "Reach Federico II through Wikipedia.",
+          "upper": true,
+          "tracked": true,
+          "mono": false,
+          "pill": false,
+          "size": 12.2,
+          "top": 109
+        }
+      ],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [],
+        "textColors": [
+          {
+            "color": "#66717a",
+            "share": 0.29
+          },
+          {
+            "color": "#47545d",
+            "share": 0.22
+          },
+          {
+            "color": "#182127",
+            "share": 0.2
+          },
+          {
+            "color": "#ffffff",
+            "share": 0.16
+          },
+          {
+            "color": "#2d75a3",
+            "share": 0.07
+          }
+        ],
+        "button": {
+          "bg": "#123b5d",
+          "hsl": {
+            "h": 207,
+            "s": 0.68,
+            "l": 0.22
+          },
+          "fg": "#ffffff"
+        },
+        "lowContrast": []
+      },
+      "buttons": {
+        "count": 3,
+        "inHero": 3,
+        "radius": 8,
+        "height": 59,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Play as Guest",
+          "Create an account",
+          "Log in"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 1,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "aside.hero__route → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 2,
+        "hairlineSamples": [
+          "nav.nav 320px",
+          "section.how-to 288px"
+        ],
+        "outlinedBoxes": 2,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 2,
+        "boxRadius": 8,
+        "squareMedia": 0,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 1,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "game",
+    "width": 1440,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 1440,
+        "h": 900
+      },
+      "page": {
+        "height": 8468,
+        "screens": 9.4,
+        "words": 1826,
+        "img": 23,
+        "video": 0,
+        "canvas": 0,
+        "svg": 9,
+        "sections": 1,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Isla_de_Isquia_Bah%C3%ADa_de_N%C3%A1poles_y_Vesubio.jpg/330px-I",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/20px-Flag_of_Italy.svg.png?utm_source=it.wiki",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Regione-Campania-Stemma.svg/20px-Regione-Campania-Stemma.svg.pn",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Citt%C3%A0_metropolitana_di_Napoli-Stemma.svg/20px-Citt%C3%A0_m",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Italy_relief_location_map.jpg/330px-Italy_relief_location_map.j",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png?utm_source=it.wikipedia.org&ut",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Capri_and_Ischia_map_it.PNG/330px-Capri_and_Ischia_map_it.PNG?u",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Golfo_di_Napoli_da_Castel_Sant%27Elmo.jpg/1280px-Golfo_di_Napol"
+        ],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "chars": 15,
+        "lines": 1,
+        "size": 40.8,
+        "vw": 2.8,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.02,
+        "leading": 1.2,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 0.49,
+        "top": 125,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "lines": 1,
+        "size": 40.8,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Golfo di Napoli",
+          "words": 3,
+          "chars": 15,
+          "lines": 1,
+          "size": 40.8,
+          "vw": 2.8,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.02,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.49,
+          "top": 125,
+          "tag": "h1",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 1,
+        "maxLines": 1,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": null,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "Georgia",
+            "share": 0.7,
+            "mono": false
+          },
+          {
+            "family": "system-ui",
+            "share": 0.3,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          23,
+          41
+        ],
+        "sizeCount": 11,
+        "notLoaded": [],
+        "body": {
+          "font": "Georgia",
+          "size": 16.2,
+          "leading": 1.7,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 13.8
+        },
+        "measureChars": 87,
+        "max": {
+          "size": 40.8,
+          "vw": 2.8,
+          "font": "Georgia",
+          "text": "Golfo di Napoli"
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 3,
+        "microLabelShare": 0.001,
+        "microSamples": [
+          "Target",
+          "CLICK",
+          "EASY"
+        ],
+        "upperShare": 0.01,
+        "centerShare": 0.02,
+        "smallText": 2
+      },
+      "eyebrows": [],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [],
+        "textColors": [
+          {
+            "color": "#20262b",
+            "share": 0.64
+          },
+          {
+            "color": "#246b9a",
+            "share": 0.28
+          },
+          {
+            "color": "#66717a",
+            "share": 0.05
+          },
+          {
+            "color": "#182127",
+            "share": 0.02
+          },
+          {
+            "color": "#123b5d",
+            "share": 0
+          }
+        ],
+        "button": {
+          "bg": "#ffffff",
+          "hsl": {
+            "h": 0,
+            "s": 0,
+            "l": 1
+          },
+          "fg": "#123b5d"
+        },
+        "lowContrast": [
+          {
+            "text": "Clicks",
+            "ratio": 4.4,
+            "need": 4.5,
+            "size": 11.2,
+            "fg": "#66717a",
+            "bg": "#e8f1f7"
+          }
+        ]
+      },
+      "buttons": {
+        "count": 5,
+        "inHero": 5,
+        "radius": 8,
+        "height": 38,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Dashboard",
+          "History",
+          "Profile",
+          "Log out",
+          "Backtrack"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 0,
+        "shadowOverlay": 2,
+        "shadowSamples": [],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 16,
+        "hairlineSamples": [
+          "nav.nav 1440px",
+          "h1.wiki__title 704px",
+          "nav.wiki__toc-desktop 168px",
+          "h2#rtu-section-Toponimo 704px",
+          "h2#rtu-section-Descrizione 704px"
+        ],
+        "outlinedBoxes": 2,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 2,
+        "boxRadius": 12,
+        "squareMedia": 8,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 4,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "game",
+    "width": 768,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 768,
+        "h": 900
+      },
+      "page": {
+        "height": 8863,
+        "screens": 9.8,
+        "words": 1793,
+        "img": 23,
+        "video": 0,
+        "canvas": 0,
+        "svg": 9,
+        "sections": 1,
+        "horizontalOverflow": 0,
+        "overflowCulprits": [],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Isla_de_Isquia_Bah%C3%ADa_de_N%C3%A1poles_y_Vesubio.jpg/330px-I",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/20px-Flag_of_Italy.svg.png?utm_source=it.wiki",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Regione-Campania-Stemma.svg/20px-Regione-Campania-Stemma.svg.pn",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Citt%C3%A0_metropolitana_di_Napoli-Stemma.svg/20px-Citt%C3%A0_m",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Italy_relief_location_map.jpg/330px-Italy_relief_location_map.j",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png?utm_source=it.wikipedia.org&ut",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Capri_and_Ischia_map_it.PNG/330px-Capri_and_Ischia_map_it.PNG?u",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Golfo_di_Napoli_da_Castel_Sant%27Elmo.jpg/1280px-Golfo_di_Napol"
+        ],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "chars": 15,
+        "lines": 1,
+        "size": 30.7,
+        "vw": 4,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.02,
+        "leading": 1.2,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 0.92,
+        "top": 475,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "lines": 1,
+        "size": 30.7,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Golfo di Napoli",
+          "words": 3,
+          "chars": 15,
+          "lines": 1,
+          "size": 30.7,
+          "vw": 4,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.02,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.92,
+          "top": 475,
+          "tag": "h1",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 1,
+        "maxLines": 1,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": null,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "Georgia",
+            "share": 0.7,
+            "mono": false
+          },
+          {
+            "family": "system-ui",
+            "share": 0.3,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          23,
+          31
+        ],
+        "sizeCount": 11,
+        "notLoaded": [],
+        "body": {
+          "font": "Georgia",
+          "size": 16.2,
+          "leading": 1.7,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 13.8
+        },
+        "measureChars": 87,
+        "max": {
+          "size": 30.7,
+          "vw": 4,
+          "font": "Georgia",
+          "text": "Golfo di Napoli"
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 3,
+        "microLabelShare": 0.001,
+        "microSamples": [
+          "Target",
+          "CLICK",
+          "EASY"
+        ],
+        "upperShare": 0.01,
+        "centerShare": 0.02,
+        "smallText": 1
+      },
+      "eyebrows": [],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [
+          {
+            "color": "#f8f9fa",
+            "top": 645,
+            "hsl": {
+              "h": 210,
+              "s": 0.17,
+              "l": 0.98
+            }
+          }
+        ],
+        "textColors": [
+          {
+            "color": "#20262b",
+            "share": 0.65
+          },
+          {
+            "color": "#246b9a",
+            "share": 0.28
+          },
+          {
+            "color": "#66717a",
+            "share": 0.05
+          },
+          {
+            "color": "#182127",
+            "share": 0.02
+          },
+          {
+            "color": "#123b5d",
+            "share": 0
+          }
+        ],
+        "button": {
+          "bg": "#ffffff",
+          "hsl": {
+            "h": 0,
+            "s": 0,
+            "l": 1
+          },
+          "fg": "#123b5d"
+        },
+        "lowContrast": [
+          {
+            "text": "Clicks",
+            "ratio": 4.4,
+            "need": 4.5,
+            "size": 11.2,
+            "fg": "#66717a",
+            "bg": "#e8f1f7"
+          }
+        ]
+      },
+      "buttons": {
+        "count": 5,
+        "inHero": 5,
+        "radius": 8,
+        "height": 38,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Dashboard",
+          "History",
+          "Profile",
+          "Log out",
+          "Backtrack"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 2,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px",
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 14,
+        "hairlineSamples": [
+          "nav.nav 768px",
+          "h1.wiki__title 704px",
+          "h2#rtu-section-Toponimo 704px",
+          "h2#rtu-section-Descrizione 704px",
+          "h2#rtu-section-Meteorologia 704px"
+        ],
+        "outlinedBoxes": 2,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 2,
+        "boxRadius": 12,
+        "squareMedia": 8,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 4,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "game",
+    "width": 390,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 390,
+        "h": 900
+      },
+      "page": {
+        "height": 11531,
+        "screens": 12.8,
+        "words": 1799,
+        "img": 23,
+        "video": 0,
+        "canvas": 0,
+        "svg": 9,
+        "sections": 1,
+        "horizontalOverflow": 11,
+        "overflowCulprits": [
+          "h1.wiki__title (+11px)",
+          "details.wiki__toc-compact (+11px)",
+          "th (+11px)"
+        ],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Isla_de_Isquia_Bah%C3%ADa_de_N%C3%A1poles_y_Vesubio.jpg/330px-I",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/20px-Flag_of_Italy.svg.png?utm_source=it.wiki",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Regione-Campania-Stemma.svg/20px-Regione-Campania-Stemma.svg.pn",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Citt%C3%A0_metropolitana_di_Napoli-Stemma.svg/20px-Citt%C3%A0_m",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Italy_relief_location_map.jpg/330px-Italy_relief_location_map.j",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png?utm_source=it.wikipedia.org&ut",
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Capri_and_Ischia_map_it.PNG/330px-Capri_and_Ischia_map_it.PNG?u"
+        ],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "chars": 15,
+        "lines": 1,
+        "size": 29.6,
+        "vw": 7.6,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.02,
+        "leading": 1.2,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 0.99,
+        "top": 610,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "lines": 1,
+        "size": 29.6,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Golfo di Napoli",
+          "words": 3,
+          "chars": 15,
+          "lines": 1,
+          "size": 29.6,
+          "vw": 7.6,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.02,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 610,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        {
+          "text": "Toponimo",
+          "words": 1,
+          "chars": 8,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 2159,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Descrizione",
+          "words": 1,
+          "chars": 11,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 2323,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Meteorologia",
+          "words": 1,
+          "chars": 12,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 3386,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Geologia",
+          "words": 1,
+          "chars": 8,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 3837,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Storia",
+          "words": 1,
+          "chars": 6,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 4104,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Attività economiche",
+          "words": 2,
+          "chars": 19,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 5401,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Sport",
+          "words": 1,
+          "chars": 5,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 7830,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Inquinamento",
+          "words": 1,
+          "chars": 12,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 8591,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Note",
+          "words": 1,
+          "chars": 4,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 8923,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Voci correlate",
+          "words": 2,
+          "chars": 14,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 8997,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Altri progetti",
+          "words": 2,
+          "chars": 14,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 9286,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Collegamenti esterni",
+          "words": 2,
+          "chars": 20,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 5.9,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 0.99,
+          "top": 9595,
+          "tag": "h2",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 13,
+        "maxLines": 1,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": 1,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "Georgia",
+            "share": 0.7,
+            "mono": false
+          },
+          {
+            "family": "system-ui",
+            "share": 0.3,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          23,
+          30
+        ],
+        "sizeCount": 11,
+        "notLoaded": [],
+        "body": {
+          "font": "Georgia",
+          "size": 15.5,
+          "leading": 1.65,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 13.8
+        },
+        "measureChars": 50,
+        "max": {
+          "size": 29.6,
+          "vw": 7.6,
+          "font": "Georgia",
+          "text": "Golfo di Napoli"
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 3,
+        "microLabelShare": 0.001,
+        "microSamples": [
+          "Target",
+          "CLICK",
+          "EASY"
+        ],
+        "upperShare": 0.01,
+        "centerShare": 0.02,
+        "smallText": 2
+      },
+      "eyebrows": [],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [
+          {
+            "color": "#f8f9fa",
+            "top": 780,
+            "hsl": {
+              "h": 210,
+              "s": 0.17,
+              "l": 0.98
+            }
+          },
+          {
+            "color": "#ffffff",
+            "top": 109,
+            "hsl": {
+              "h": 0,
+              "s": 0,
+              "l": 1
+            }
+          }
+        ],
+        "textColors": [
+          {
+            "color": "#20262b",
+            "share": 0.64
+          },
+          {
+            "color": "#246b9a",
+            "share": 0.28
+          },
+          {
+            "color": "#66717a",
+            "share": 0.05
+          },
+          {
+            "color": "#182127",
+            "share": 0.02
+          },
+          {
+            "color": "#123b5d",
+            "share": 0
+          }
+        ],
+        "button": {
+          "bg": "#ffffff",
+          "hsl": {
+            "h": 0,
+            "s": 0,
+            "l": 1
+          },
+          "fg": "#123b5d"
+        },
+        "lowContrast": [
+          {
+            "text": "Clicks",
+            "ratio": 4.4,
+            "need": 4.5,
+            "size": 11.2,
+            "fg": "#66717a",
+            "bg": "#e8f1f7"
+          }
+        ]
+      },
+      "buttons": {
+        "count": 1,
+        "inHero": 1,
+        "radius": 8,
+        "height": 42,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Backtrack"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 2,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px",
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 14,
+        "hairlineSamples": [
+          "nav.nav 390px",
+          "h1.wiki__title 385px",
+          "h2#rtu-section-Toponimo 385px",
+          "h2#rtu-section-Descrizione 385px",
+          "h2#rtu-section-Meteorologia 385px"
+        ],
+        "outlinedBoxes": 2,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 2,
+        "boxRadius": 12,
+        "squareMedia": 7,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 1,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  },
+  {
+    "name": "game",
+    "width": 320,
+    "source": "rendered Angular snapshot, external requests blocked",
+    "probe": {
+      "viewport": {
+        "w": 320,
+        "h": 900
+      },
+      "page": {
+        "height": 13072,
+        "screens": 14.5,
+        "words": 1799,
+        "img": 23,
+        "video": 0,
+        "canvas": 0,
+        "svg": 9,
+        "sections": 1,
+        "horizontalOverflow": 18,
+        "overflowCulprits": [
+          "h1.wiki__title (+18px)",
+          "details.wiki__toc-compact (+18px)",
+          "th (+18px)"
+        ],
+        "uiFragments": 0,
+        "uiAbuse": false,
+        "realPictures": 0,
+        "videoCount": 0,
+        "uiPictures": 0,
+        "pictureSamples": [],
+        "blendText": 0,
+        "sideScrollers": 0,
+        "brokenImages": [
+          "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Isla_de_Isquia_Bah%C3%ADa_de_N%C3%A1poles_y_Vesubio.jpg/330px-I"
+        ],
+        "emoji": [],
+        "videosNoPoster": 0
+      },
+      "hero": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "chars": 15,
+        "lines": 1,
+        "size": 29.6,
+        "vw": 9.3,
+        "font": "Georgia",
+        "weight": 500,
+        "tracking": -0.02,
+        "leading": 1.2,
+        "upper": false,
+        "italic": false,
+        "mono": false,
+        "align": "left",
+        "position": "center",
+        "widthRatio": 1.01,
+        "top": 671,
+        "tag": "h1",
+        "kind": "heading"
+      },
+      "h1": {
+        "text": "Golfo di Napoli",
+        "words": 3,
+        "lines": 1,
+        "size": 29.6,
+        "font": "Georgia"
+      },
+      "headings": [
+        {
+          "text": "Golfo di Napoli",
+          "words": 3,
+          "chars": 15,
+          "lines": 1,
+          "size": 29.6,
+          "vw": 9.3,
+          "font": "Georgia",
+          "weight": 500,
+          "tracking": -0.02,
+          "leading": 1.2,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 671,
+          "tag": "h1",
+          "kind": "heading"
+        },
+        {
+          "text": "Toponimo",
+          "words": 1,
+          "chars": 8,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 2599,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Descrizione",
+          "words": 1,
+          "chars": 11,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 2764,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Meteorologia",
+          "words": 1,
+          "chars": 12,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 4006,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Geologia",
+          "words": 1,
+          "chars": 8,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 4522,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Storia",
+          "words": 1,
+          "chars": 6,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 4768,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Attività economiche",
+          "words": 2,
+          "chars": 19,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 6219,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Sport",
+          "words": 1,
+          "chars": 5,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 8946,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Inquinamento",
+          "words": 1,
+          "chars": 12,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 9758,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Note",
+          "words": 1,
+          "chars": 4,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 10115,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Voci correlate",
+          "words": 2,
+          "chars": 14,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 10189,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Altri progetti",
+          "words": 2,
+          "chars": 14,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 10478,
+          "tag": "h2",
+          "kind": "heading"
+        },
+        {
+          "text": "Collegamenti esterni",
+          "words": 2,
+          "chars": 20,
+          "lines": 1,
+          "size": 23.2,
+          "vw": 7.2,
+          "font": "system-ui",
+          "weight": 700,
+          "tracking": 0,
+          "leading": 1.25,
+          "upper": false,
+          "italic": false,
+          "mono": false,
+          "align": "left",
+          "position": "center",
+          "widthRatio": 1.01,
+          "top": 10788,
+          "tag": "h2",
+          "kind": "heading"
+        }
+      ],
+      "headingSummary": {
+        "count": 13,
+        "maxLines": 1,
+        "over2Lines": 0,
+        "statements": 0,
+        "centered": 0,
+        "medianWords": 1,
+        "mixedFontHeadings": 0
+      },
+      "type": {
+        "families": [
+          {
+            "family": "Georgia",
+            "share": 0.7,
+            "mono": false
+          },
+          {
+            "family": "system-ui",
+            "share": 0.3,
+            "mono": false
+          }
+        ],
+        "familyCount": 2,
+        "sizes": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          23,
+          30
+        ],
+        "sizeCount": 11,
+        "notLoaded": [],
+        "body": {
+          "font": "Georgia",
+          "size": 15.5,
+          "leading": 1.65,
+          "weight": 400,
+          "tracking": 0,
+          "contrast": 13.8
+        },
+        "measureChars": 42,
+        "max": {
+          "size": 29.6,
+          "vw": 9.3,
+          "font": "Georgia",
+          "text": "Golfo di Napoli"
+        },
+        "monoShare": 0,
+        "monoProseShare": 0,
+        "monoFamilies": [],
+        "monoSamples": [],
+        "microLabels": 3,
+        "microLabelShare": 0.001,
+        "microSamples": [
+          "Target",
+          "CLICK",
+          "EASY"
+        ],
+        "upperShare": 0.01,
+        "centerShare": 0.02,
+        "smallText": 2
+      },
+      "eyebrows": [],
+      "numbered": [],
+      "color": {
+        "bodyBg": "#f5f3ee",
+        "bodyBgHsl": {
+          "h": 43,
+          "s": 0.26,
+          "l": 0.95
+        },
+        "dark": false,
+        "sectionBgs": [
+          {
+            "color": "#f8f9fa",
+            "top": 841,
+            "hsl": {
+              "h": 210,
+              "s": 0.17,
+              "l": 0.98
+            }
+          },
+          {
+            "color": "#ffffff",
+            "top": 109,
+            "hsl": {
+              "h": 0,
+              "s": 0,
+              "l": 1
+            }
+          }
+        ],
+        "textColors": [
+          {
+            "color": "#20262b",
+            "share": 0.64
+          },
+          {
+            "color": "#246b9a",
+            "share": 0.28
+          },
+          {
+            "color": "#66717a",
+            "share": 0.05
+          },
+          {
+            "color": "#182127",
+            "share": 0.02
+          },
+          {
+            "color": "#123b5d",
+            "share": 0
+          }
+        ],
+        "button": {
+          "bg": "#ffffff",
+          "hsl": {
+            "h": 0,
+            "s": 0,
+            "l": 1
+          },
+          "fg": "#123b5d"
+        },
+        "lowContrast": [
+          {
+            "text": "Clicks",
+            "ratio": 4.4,
+            "need": 4.5,
+            "size": 11.2,
+            "fg": "#66717a",
+            "bg": "#e8f1f7"
+          }
+        ]
+      },
+      "buttons": {
+        "count": 1,
+        "inHero": 1,
+        "radius": 8,
+        "height": 42,
+        "withShadow": 0,
+        "withGradient": 0,
+        "mono": 0,
+        "upper": 0,
+        "heroLabels": [
+          "Backtrack"
+        ]
+      },
+      "surfaces": {
+        "shadowStatic": 2,
+        "shadowOverlay": 0,
+        "shadowSamples": [
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px",
+          "div.card → rgba(20, 35, 45, 0.08) 0px 1px 3px 0px"
+        ],
+        "gradients": 0,
+        "scrims": 0,
+        "gradientSamples": [],
+        "gradientText": 0,
+        "hairlines": 14,
+        "hairlineSamples": [
+          "nav.nav 320px",
+          "h1.wiki__title 322px",
+          "h2#rtu-section-Toponimo 322px",
+          "h2#rtu-section-Descrizione 322px",
+          "h2#rtu-section-Meteorologia 322px"
+        ],
+        "outlinedBoxes": 2,
+        "dashed": 0,
+        "blurred": 0,
+        "roundedBoxes": 2,
+        "boxRadius": 12,
+        "squareMedia": 8,
+        "roundedMedia": 0,
+        "mediaRadius": 0,
+        "textShadow": 0,
+        "cardRows": []
+      },
+      "heroMedia": [],
+      "nav": {
+        "links": 1,
+        "fixed": false,
+        "height": 61,
+        "floatingPill": false,
+        "blur": false
+      },
+      "fontsLoaded": []
+    }
+  }
+]

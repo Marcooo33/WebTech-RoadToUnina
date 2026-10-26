@@ -1,0 +1,31 @@
+npm notice run frontend@0.0.0 build
+npm notice run ng build
+❯ Building...
+✔ Building...
+Initial chunk files | Names          |  Raw size | Estimated transfer size
+main-7TP7EIWE.js    | main           | 314.34 kB |                84.93 kB
+styles-2YVBDDMU.css | styles         |  10.14 kB |                 2.32 kB
+
+                    | Initial total  | 324.48 kB |                87.25 kB
+
+Lazy chunk files    | Names          |  Raw size | Estimated transfer size
+chunk-CnrIZ-eA.js   | -              |  41.43 kB |                 9.28 kB
+chunk-CZSaGQAF.js   | home           |  29.36 kB |                 7.07 kB
+chunk-DosMycHE.js   | game-page      |  26.10 kB |                 6.75 kB
+chunk-LN7Y5pxX.js   | profile-page   |  16.15 kB |                 3.84 kB
+chunk-BBtVxYDN.js   | history-list   |  13.75 kB |                 3.88 kB
+chunk-D3HLtzyT.js   | history-detail |   8.94 kB |                 2.62 kB
+chunk-BSPLELpq.js   | new-game       |   7.41 kB |                 2.50 kB
+chunk-BUl2vr4I.js   | register       |   5.34 kB |                 1.80 kB
+chunk-Dp8EtMYN.js   | login          |   4.59 kB |                 1.69 kB
+chunk-D-8rM05X.js   | -              |   2.78 kB |                 1.04 kB
+chunk-DKWvuh4h.js   | -              |   2.16 kB |               817 bytes
+chunk-BQTHp2QN.js   | -              |   1.98 kB |               839 bytes
+chunk-D6pfLeaw.js   | -              |   1.44 kB |               718 bytes
+chunk-OyvpLjeW.js   | -              |   1.10 kB |               558 bytes
+chunk-CY832UAZ.js   | -              | 850 bytes |               850 bytes
+...and 3 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [4.270 seconds] - 2026-10-26T01:07:11.862Z
+
+Output location: /home/marco/Github/WebTech-RoadToUnina/frontend/dist/frontend

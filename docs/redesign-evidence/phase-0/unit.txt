@@ -1,0 +1,14 @@
+npm notice run frontend@0.0.0 test
+npm notice run ng test --watch=false
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.373 seconds] - 2026-10-26T01:07:11.854Z
+
+
+ RUN  v4.1.11 /home/marco/Github/WebTech-RoadToUnina/frontend
+
+
+ Test Files  17 passed (17)
+      Tests  29 passed (29)
+   Start at  02:07:12
+   Duration  3.49s (transform 2.89s, setup 6.45s, import 4.66s, tests 3.14s, environment 18.09s)

@@ -1,0 +1,622 @@
+[
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games",
+    "method": "POST"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/history/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 1440,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games",
+    "method": "POST"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/history/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 768,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games",
+    "method": "POST"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/history/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 390,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/guest-games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/me/stats",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games",
+    "method": "POST"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/history/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/history/click",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/auth/me",
+    "method": "GET"
+  },
+  {
+    "width": 320,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET"
+  }
+]

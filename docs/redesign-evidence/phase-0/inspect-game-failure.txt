@@ -1,0 +1,19 @@
+file:///home/marco/.codex/skills/taste-skill/scripts/lib/cdp.mjs:110
+      proc.on('exit', (code) => { clearTimeout(t); reject(new Error('Chrome exited early, code ' + code + '\n' + buf.slice(-600))); });
+                                                          ^
+
+Error: Chrome exited early, code null
+cache/ms-playwright/chromium-1234/chrome-linux64/chrome+0x6bf2fb9)
+  r8: 000001c8000c84e7  r9: 0000000000000001 r10: 0000000000000008 r11: 0000000000000246
+ r12: 0000000000000006 r13: 0000000000000268 r14: 0000000000000016 r15: 00007ffcc7dc7c98
+  di: 0000000000046ef6  si: 0000000000046ef6  bp: 00007ffcc7dc7610  bx: 0000000000046ef6
+  dx: 0000000000000006  ax: 0000000000000000  cx: 00007b2880e9ec0c  sp: 00007ffcc7dc75d0
+  ip: 00007b2880e9ec0c efl: 0000000000000246 cgf: 002b000000000033 erf: 0000000000000000
+ trp: 0000000000000000 msk: 0000000000000000 cr2: 0000000000000000
+[end of stack trace]
+
+    at ChildProcess.<anonymous> (file:///home/marco/.codex/skills/taste-skill/scripts/lib/cdp.mjs:110:59)
+    at ChildProcess.emit (node:events:514:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:295:12)
+
+Node.js v24.20.0
