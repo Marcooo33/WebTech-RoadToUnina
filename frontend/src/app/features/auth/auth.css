@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+.auth__header h1 {
+  font-family: var(--font-ui);
+}
+.auth__hint {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.auth form[aria-busy='true'] {
+  cursor: progress;
+}

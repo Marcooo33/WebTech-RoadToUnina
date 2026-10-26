@@ -1,6 +1,5 @@
 <section class="auth card">
   <header class="auth__header">
-    <p class="eyebrow">Start playing</p>
     <h1 class="page-title">Create an account</h1>
     <p class="muted">Save routes, resume games, and enter the public history.</p>
   </header>
@@ -28,7 +27,7 @@
   } @else {
     <app-error-banner [message]="error()" />
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form #authForm [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="submitting()">
       <div class="field">
         <label for="username">Username</label>
         <input
@@ -39,10 +38,11 @@
           [attr.aria-invalid]="form.controls.username.touched && form.controls.username.invalid"
           [attr.aria-describedby]="
             form.controls.username.touched && form.controls.username.invalid
-              ? 'username-error'
-              : null
+              ? 'username-hint username-error'
+              : 'username-hint'
           "
         />
+        <span id="username-hint" class="auth__hint">Use 3–30 characters.</span>
         @if (form.controls.username.touched && form.controls.username.invalid) {
           <span id="username-error" class="field__error">3–30 characters required.</span>
         }
@@ -77,10 +77,11 @@
           [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
           [attr.aria-describedby]="
             form.controls.password.touched && form.controls.password.invalid
-              ? 'register-password-error'
-              : null
+              ? 'password-hint register-password-error'
+              : 'password-hint'
           "
         />
+        <span id="password-hint" class="auth__hint">Use at least 8 characters.</span>
         @if (form.controls.password.touched && form.controls.password.invalid) {
           <span id="register-password-error" class="field__error">At least 8 characters.</span>
         }

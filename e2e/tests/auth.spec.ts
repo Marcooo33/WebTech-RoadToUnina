@@ -40,7 +40,7 @@ test("a registered user can log out and log back in", async ({ page }) => {
   await page.getByRole("button", { name: "Log out" }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole("button", { name: "Log out" })).toBeHidden();
-  await expect(page.getByRole("heading", { name: "Reach Federico II" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Find your way to Federico II." })).toBeVisible();
   await expect(page.locator("nav").getByRole("link", { name: "Home" })).toHaveAttribute(
     "href",
     "/",
@@ -49,7 +49,7 @@ test("a registered user can log out and log back in", async ({ page }) => {
 
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByRole("heading", { name: "Reach Federico II" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Find your way to Federico II." })).toBeVisible();
 
   await page.goto("/login");
   await page.locator("#identifier").fill(user.username);

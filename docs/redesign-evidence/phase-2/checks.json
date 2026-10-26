@@ -1,0 +1,1910 @@
+[
+  {
+    "name": "home",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-focus",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-busy",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-error",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-guest-active",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-guest-confirm",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-guest-unsaved",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "home-unsaved-confirm",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1264,
+        "x": 88,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "76px"
+      },
+      "active": "",
+      "routeOrientation": "365.844px 365.859px 468.297px"
+    }
+  },
+  {
+    "name": "login",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-validation",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "identifier",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error-associations",
+    "width": 1440,
+    "described": [
+      {
+        "id": "identifier",
+        "refs": [
+          {
+            "id": "identifier-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "login-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "login-busy",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-validation",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "username",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error-associations",
+    "width": 1440,
+    "described": [
+      {
+        "id": "username",
+        "refs": [
+          {
+            "id": "username-hint",
+            "exists": true
+          },
+          {
+            "id": "username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "refs": [
+          {
+            "id": "register-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "password-hint",
+            "exists": true
+          },
+          {
+            "id": "register-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "register-busy",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 496
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "history-sentinel",
+    "width": 1440,
+    "metrics": {
+      "width": 1440,
+      "sw": 1440,
+      "main": {
+        "w": 1120,
+        "x": 160,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1120px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "32px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-continuation",
+    "width": 1440,
+    "claims": 3,
+    "sw": 1440,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "register-continuation",
+    "width": 1440,
+    "claims": 3,
+    "sw": 1440,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-focus",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-busy",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-error",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-guest-active",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-guest-confirm",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-guest-unsaved",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "home-unsaved-confirm",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "32px",
+        "paddingRight": "32px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "46.08px"
+      },
+      "active": "",
+      "routeOrientation": "214.625px 214.641px 274.734px"
+    }
+  },
+  {
+    "name": "login",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-validation",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "identifier",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error-associations",
+    "width": 768,
+    "described": [
+      {
+        "id": "identifier",
+        "refs": [
+          {
+            "id": "identifier-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "login-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "login-busy",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-validation",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "username",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error-associations",
+    "width": 768,
+    "described": [
+      {
+        "id": "username",
+        "refs": [
+          {
+            "id": "username-hint",
+            "exists": true
+          },
+          {
+            "id": "username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "refs": [
+          {
+            "id": "register-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "password-hint",
+            "exists": true
+          },
+          {
+            "id": "register-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "register-busy",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 448,
+        "x": 160
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "history-sentinel",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "sw": 768,
+      "main": {
+        "w": 768,
+        "x": 0,
+        "paddingLeft": "23.04px",
+        "paddingRight": "23.04px",
+        "maxWidth": "1120px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "30.72px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-continuation",
+    "width": 768,
+    "claims": 3,
+    "sw": 768,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "register-continuation",
+    "width": 768,
+    "claims": 3,
+    "sw": 768,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "home",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-focus",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-busy",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-error",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-guest-active",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-guest-confirm",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-guest-unsaved",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "home-unsaved-confirm",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "24px",
+        "paddingRight": "24px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "37.83px"
+      },
+      "active": "",
+      "routeOrientation": "342px"
+    }
+  },
+  {
+    "name": "login",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-validation",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "identifier",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error-associations",
+    "width": 390,
+    "described": [
+      {
+        "id": "identifier",
+        "refs": [
+          {
+            "id": "identifier-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "login-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "login-busy",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-validation",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "username",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error-associations",
+    "width": 390,
+    "described": [
+      {
+        "id": "username",
+        "refs": [
+          {
+            "id": "username-hint",
+            "exists": true
+          },
+          {
+            "id": "username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "refs": [
+          {
+            "id": "register-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "password-hint",
+            "exists": true
+          },
+          {
+            "id": "register-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "register-busy",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 358,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "history-sentinel",
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "sw": 390,
+      "main": {
+        "w": 390,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-continuation",
+    "width": 390,
+    "claims": 3,
+    "sw": 390,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "register-continuation",
+    "width": 390,
+    "claims": 3,
+    "sw": 390,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "home",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-focus",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-busy",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-error",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-guest-active",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-guest-confirm",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-guest-unsaved",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "home-unsaved-confirm",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "20px",
+        "paddingRight": "20px",
+        "maxWidth": "1264px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "36px"
+      },
+      "active": "",
+      "routeOrientation": "280px"
+    }
+  },
+  {
+    "name": "login",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-validation",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "identifier",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error-associations",
+    "width": 320,
+    "described": [
+      {
+        "id": "identifier",
+        "refs": [
+          {
+            "id": "identifier-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "login-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "login-busy",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-error",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-validation",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "username",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error-associations",
+    "width": 320,
+    "described": [
+      {
+        "id": "username",
+        "refs": [
+          {
+            "id": "username-hint",
+            "exists": true
+          },
+          {
+            "id": "username-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "refs": [
+          {
+            "id": "register-email-error",
+            "exists": true
+          }
+        ]
+      },
+      {
+        "id": "password",
+        "refs": [
+          {
+            "id": "password-hint",
+            "exists": true
+          },
+          {
+            "id": "register-password-error",
+            "exists": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "register-busy",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "register-error",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": {
+        "w": 288,
+        "x": 16
+      },
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "history-sentinel",
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "sw": 320,
+      "main": {
+        "w": 320,
+        "x": 0,
+        "paddingLeft": "16px",
+        "paddingRight": "16px",
+        "maxWidth": "1120px"
+      },
+      "auth": null,
+      "h1": {
+        "font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "28px"
+      },
+      "active": "",
+      "routeOrientation": null
+    }
+  },
+  {
+    "name": "login-continuation",
+    "width": 320,
+    "claims": 3,
+    "sw": 320,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  },
+  {
+    "name": "register-continuation",
+    "width": 320,
+    "claims": 3,
+    "sw": 320,
+    "status": "You are logged in, but your guest result has not been saved. Please retry saving."
+  }
+]

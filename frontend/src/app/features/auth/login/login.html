@@ -1,6 +1,5 @@
 <section class="auth card">
   <header class="auth__header">
-    <p class="eyebrow">Welcome back</p>
     <h1 class="page-title">Log in</h1>
     <p class="muted">Resume your routes to Federico II.</p>
   </header>
@@ -28,7 +27,7 @@
   } @else {
     <app-error-banner [message]="error()" />
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form #authForm [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="submitting()">
       <div class="field">
         <label for="identifier">Username or email</label>
         <input

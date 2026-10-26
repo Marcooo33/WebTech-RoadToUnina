@@ -1,5 +1,13 @@
 import { PostAuthGuestService } from '../../../core/auth/post-auth-guest.service';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -11,6 +19,7 @@ import { ErrorBanner } from '../../../shared/components/error-banner/error-banne
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, ErrorBanner],
   templateUrl: './login.html',
+  styleUrl: '../auth.css',
 })
 export class Login implements OnInit {
   readonly continuation = inject(PostAuthGuestService);
@@ -18,6 +27,7 @@ export class Login implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly authForm = viewChild<ElementRef<HTMLFormElement>>('authForm');
 
   readonly submitting = signal(false);
   readonly error = signal<string | null>(null);
@@ -49,6 +59,14 @@ export class Login implements OnInit {
   submit(): void {
     if (this.form.invalid || this.submitting()) {
       this.form.markAllAsTouched();
+      if (this.form.invalid) {
+        const invalid = Object.entries(this.form.controls).find(([, control]) => control.invalid);
+        if (invalid) {
+          this.authForm()
+            ?.nativeElement.querySelector<HTMLInputElement>(`[formcontrolname="${invalid[0]}"]`)
+            ?.focus();
+        }
+      }
       return;
     }
     this.submitting.set(true);

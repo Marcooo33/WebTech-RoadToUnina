@@ -1,0 +1,34 @@
+npm notice run frontend@0.0.0 build
+npm notice run ng build
+❯ Building...
+✔ Building...
+Initial chunk files | Names          |  Raw size | Estimated transfer size
+main-OPPGM7AS.js    | main           | 316.07 kB |                85.33 kB
+styles-VMBWKJGS.css | styles         |  10.29 kB |                 2.37 kB
+
+                    | Initial total  | 326.35 kB |                87.70 kB
+
+Lazy chunk files    | Names          |  Raw size | Estimated transfer size
+chunk-CZG-5UZN.js   | -              |  41.43 kB |                 9.27 kB
+chunk-CQT6rGoF.js   | home           |  34.93 kB |                 7.86 kB
+chunk-CHF30Vmw.js   | game-page      |  26.11 kB |                 6.76 kB
+chunk-ATI9W-Xn.js   | profile-page   |  16.15 kB |                 3.84 kB
+chunk-Ce8aVAss.js   | history-list   |  13.75 kB |                 3.87 kB
+chunk-DqkPaZkV.js   | history-detail |   8.94 kB |                 2.59 kB
+chunk-1DXr3gnx.js   | new-game       |   7.41 kB |                 2.49 kB
+chunk-Be-8nVsX.js   | register       |   6.17 kB |                 2.10 kB
+chunk-AahJ6E4Y.js   | login          |   5.18 kB |                 1.92 kB
+chunk-CWlaMgmr.js   | -              |   2.78 kB |                 1.03 kB
+chunk-Dkj-IAqV.js   | -              |   2.16 kB |               817 bytes
+chunk-Bk9yCEMU.js   | -              |   1.98 kB |               843 bytes
+chunk-B8qkSj7M.js   | -              |   1.43 kB |               719 bytes
+chunk-B53Xs49Y.js   | -              |   1.21 kB |               592 bytes
+chunk-Nl2FqWwm.js   | -              | 850 bytes |               850 bytes
+...and 3 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [6.148 seconds] - 2026-10-26T01:30:13.885Z
+
+▲ [WARNING] src/app/features/home/home.css exceeded maximum budget. Budget 4.00 kB was not met by 2.42 kB with a total of 6.42 kB.
+
+
+Output location: /home/marco/Github/WebTech-RoadToUnina/frontend/dist/frontend
