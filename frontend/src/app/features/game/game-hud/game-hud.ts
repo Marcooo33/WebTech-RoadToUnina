@@ -1,13 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  output,
+  viewChild,
+} from '@angular/core';
 import { GameDto } from '../../../shared/models/game.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-  lucideClock3,
-  lucideFlag,
-  lucideMousePointerClick,
-  lucideRotateCcw,
-} from '@ng-icons/lucide';
+import { lucideFlag, lucideRotateCcw } from '@ng-icons/lucide';
 
 const MEDIUM_BACKTRACK_LIMIT = 3;
 
@@ -17,7 +23,7 @@ const MEDIUM_BACKTRACK_LIMIT = 3;
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DurationPipe, NgIcon],
-  providers: [provideIcons({ lucideClock3, lucideFlag, lucideMousePointerClick, lucideRotateCcw })],
+  providers: [provideIcons({ lucideFlag, lucideRotateCcw })],
   templateUrl: './game-hud.html',
   styleUrl: './game-hud.css',
 })
@@ -29,6 +35,30 @@ export class GameHud {
   readonly busy = input(false);
 
   readonly backtrack = output<void>();
+  readonly pathRequested = output<void>();
+  readonly heightChanged = output<number>();
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly pathTrigger = viewChild<ElementRef<HTMLButtonElement>>('pathTrigger');
+
+  constructor() {
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      this.measureHeight();
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(() => this.measureHeight());
+      observer.observe(this.host.nativeElement);
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
+  }
+
+  measureHeight(): void {
+    const compact = window.matchMedia?.('(max-width: 1119px)').matches ?? false;
+    this.heightChanged.emit(compact ? this.host.nativeElement.getBoundingClientRect().height : 0);
+  }
+
+  focusPathTrigger(): void {
+    this.pathTrigger()?.nativeElement.focus({ preventScroll: true });
+  }
 
   // Remaining MEDIUM backtracks, never negative.
   readonly backtracksLeft = computed(() =>

@@ -1,12 +1,21 @@
-<nav class="path" [attr.aria-label]="ariaLabel()">
+<div class="path" role="group" [attr.aria-label]="ariaLabel()">
   <ol class="path__list">
     @for (page of path(); track $index) {
       <li class="path__item" [class.path__item--current]="$last">
         <span class="path__title">{{ page.title }}</span>
+        @if ($first) {
+          <span class="path__state">Starting article</span>
+        }
         @if ($last) {
-          <span class="path__badge">{{ lastLabel() }}</span>
+          <span class="path__state path__state--current">{{
+            lastLabel() === 'current'
+              ? 'Current article'
+              : lastLabel() === 'target'
+                ? 'Destination'
+                : lastLabel()
+          }}</span>
         }
       </li>
     }
   </ol>
-</nav>
+</div>

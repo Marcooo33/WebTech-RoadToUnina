@@ -1,12 +1,21 @@
 import { expect, test } from "@playwright/test";
-import { createGameInContext, registerInContext, uniqueUser } from "../support/users.js";
+import {
+  createGameInContext,
+  registerInContext,
+  uniqueUser,
+} from "../support/users.js";
 
-test("create a CLICK / EASY game and land on the gameplay screen", async ({ page, context }) => {
+test("create a CLICK / EASY game and land on the gameplay screen", async ({
+  page,
+  context,
+}) => {
   await registerInContext(context, uniqueUser());
 
   await page.goto("/");
-  await expect(page.locator("nav").getByRole("link", { name: "New game" })).toHaveCount(0);
-  await page.getByRole("link", { name: "New game" }).click();
+  await expect(
+    page.locator("nav").getByRole("link", { name: "New game" }),
+  ).toHaveCount(0);
+  await page.getByRole("link", { name: "New game", exact: true }).click();
   await expect(page).toHaveURL(/\/new-game$/);
   await page.getByText("CLICK", { exact: true }).click();
   await page.getByText("EASY", { exact: true }).click();
@@ -17,7 +26,10 @@ test("create a CLICK / EASY game and land on the gameplay screen", async ({ page
   await expect(page.getByText("Backtracking: unlimited")).toBeVisible();
 });
 
-test("delete an in-progress game from the dashboard", async ({ page, context }) => {
+test("delete an in-progress game from the dashboard", async ({
+  page,
+  context,
+}) => {
   await registerInContext(context, uniqueUser());
   await createGameInContext(context, "CLICK", "EASY");
 
@@ -28,5 +40,7 @@ test("delete an in-progress game from the dashboard", async ({ page, context }) 
   await page.getByRole("button", { name: "Delete", exact: true }).click();
 
   await expect(page.getByTestId("game-row")).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "No games in progress" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "No games in progress" }),
+  ).toBeVisible();
 });

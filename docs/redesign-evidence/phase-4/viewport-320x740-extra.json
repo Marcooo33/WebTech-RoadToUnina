@@ -1,0 +1,32 @@
+{
+  "start": {
+    "width": 320,
+    "height": 740,
+    "sw": 320,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    }
+  },
+  "dialog": {
+    "width": 320,
+    "height": 740,
+    "sw": 320,
+    "rect": {
+      "x": 19,
+      "y": 182.4375,
+      "width": 282,
+      "height": 375.125,
+      "top": 182.4375,
+      "right": 301,
+      "bottom": 557.5625,
+      "left": 19
+    }
+  }
+}

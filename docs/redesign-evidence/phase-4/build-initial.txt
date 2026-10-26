@@ -1,0 +1,34 @@
+npm notice run frontend@0.0.0 build
+npm notice run ng build
+❯ Building...
+✔ Building...
+Initial chunk files | Names          |  Raw size | Estimated transfer size
+main-5YALUIYA.js    | main           | 316.24 kB |                85.39 kB
+styles-POSSNKRW.css | styles         |  10.83 kB |                 2.46 kB
+
+                    | Initial total  | 327.07 kB |                87.85 kB
+
+Lazy chunk files    | Names          |  Raw size | Estimated transfer size
+chunk-CvrUYPGJ.js   | -              |  41.43 kB |                 9.27 kB
+chunk-7_ME0iJp.js   | game-page      |  36.70 kB |                 9.18 kB
+chunk-BnOaLuLl.js   | home           |  34.87 kB |                 7.81 kB
+chunk-BsmQCzna.js   | profile-page   |  16.15 kB |                 3.83 kB
+chunk-CMOKJKco.js   | history-list   |  13.75 kB |                 3.88 kB
+chunk-BKcsGVHp.js   | history-detail |   8.94 kB |                 2.59 kB
+chunk-DrJOMWXp.js   | new-game       |   7.71 kB |                 2.52 kB
+chunk-DUUKEgs4.js   | register       |   6.17 kB |                 2.10 kB
+chunk-kvWJJyRJ.js   | login          |   5.18 kB |                 1.92 kB
+chunk-CYn9xYOV.js   | -              |   2.30 kB |               903 bytes
+chunk-WWGaVDsY.js   | -              |   2.16 kB |               819 bytes
+chunk-2GpLM57t.js   | -              |   1.98 kB |               840 bytes
+chunk-Y4A0YjLe.js   | -              |   1.43 kB |               719 bytes
+chunk-DQE9Dd_I.js   | -              |   1.21 kB |               602 bytes
+chunk-Lr8tSUsf.js   | -              | 850 bytes |               850 bytes
+...and 3 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [4.207 seconds] - 2026-10-26T02:07:02.153Z
+
+▲ [WARNING] src/app/features/home/home.css exceeded maximum budget. Budget 4.00 kB was not met by 2.42 kB with a total of 6.42 kB.
+
+
+Output location: /home/marco/Github/WebTech-RoadToUnina/frontend/dist/frontend

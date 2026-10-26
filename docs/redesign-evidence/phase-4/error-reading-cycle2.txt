@@ -1,0 +1,11 @@
+{"kind":"recoverable","width":1440,"height":900,"top":414.109375,"bottom":489.703125,"hudHeight":477.703125,"visible":75.59375,"contrast":13.276704217104236,"focusTop":466}
+{"kind":"unexpected","width":1440,"height":900,"top":414.109375,"bottom":489.703125,"hudHeight":477.703125,"visible":75.59375,"contrast":6.380048346821389,"focusTop":466}
+{"kind":"recoverable","width":768,"height":900,"top":72,"bottom":122.796875,"hudHeight":147.796875,"visible":50.796875,"contrast":13.276704217104236,"focusTop":175.796875}
+{"kind":"unexpected","width":768,"height":900,"top":72,"bottom":122.796875,"hudHeight":147.796875,"visible":50.796875,"contrast":6.380048346821389,"focusTop":175.796875}
+{"kind":"recoverable","width":390,"height":900,"top":110,"bottom":185.59375,"hudHeight":206.59375,"visible":75.59375,"contrast":13.276704217104236,"focusTop":311.203125}
+{"kind":"unexpected","width":390,"height":900,"top":110,"bottom":160.796875,"hudHeight":181.796875,"visible":50.796875,"contrast":6.380048346821389,"focusTop":311.40625}
+{"kind":"recoverable","width":320,"height":900,"top":110,"bottom":185.59375,"hudHeight":206.59375,"visible":75.59375,"contrast":13.276704217104236,"focusTop":421.890625}
+{"kind":"unexpected","width":320,"height":900,"top":110,"bottom":185.59375,"hudHeight":206.59375,"visible":75.59375,"contrast":6.380048346821389,"focusTop":421.890625}
+{"kind":"recoverable","width":320,"height":740,"top":110,"bottom":185.59375,"hudHeight":206.59375,"visible":75.59375,"contrast":13.276704217104236,"focusTop":421.890625}
+{"kind":"unexpected","width":320,"height":740,"top":110,"bottom":185.59375,"hudHeight":206.59375,"visible":75.59375,"contrast":6.380048346821389,"focusTop":421.890625}
+PASS 10 reading-error cases: visible feedback, contrast, one announcement, measured HUD, focus, no overflow

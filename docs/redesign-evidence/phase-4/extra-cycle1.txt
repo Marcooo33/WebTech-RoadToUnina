@@ -1,0 +1,1 @@
+PASS infobox keyboard, one Enter, focus below HUD, native modal background inert, body overflow visible

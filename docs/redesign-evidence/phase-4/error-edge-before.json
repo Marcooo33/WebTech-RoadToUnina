@@ -1,0 +1,510 @@
+[
+  {
+    "kind": "recoverable",
+    "scrollY": 700,
+    "width": 1440,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 1048,
+      "y": 414.109375,
+      "width": 280,
+      "height": 75.59375,
+      "top": 414.109375,
+      "right": 1328,
+      "bottom": 489.703125,
+      "left": 1048
+    },
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "hudCSS": "0px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(25, 40, 66)",
+    "background": "rgb(238, 243, 255)",
+    "active": {
+      "tag": "A",
+      "title": "Arcipelago Campano",
+      "rect": {
+        "x": 727.65625,
+        "y": 466,
+        "width": 166.109375,
+        "height": 20,
+        "top": 466,
+        "right": 893.765625,
+        "bottom": 486,
+        "left": 727.65625
+      }
+    },
+    "pageWidth": 1440,
+    "contrast": 13.276704217104236
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 700,
+    "width": 1440,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 1048,
+      "y": 414.109375,
+      "width": 280,
+      "height": 75.59375,
+      "top": 414.109375,
+      "right": 1328,
+      "bottom": 489.703125,
+      "left": 1048
+    },
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "hudCSS": "0px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "active": {
+      "tag": "A",
+      "title": "Arcipelago Campano",
+      "rect": {
+        "x": 727.65625,
+        "y": 466,
+        "width": 166.109375,
+        "height": 20,
+        "top": 466,
+        "right": 893.765625,
+        "bottom": 486,
+        "left": 727.65625
+      }
+    },
+    "pageWidth": 1440,
+    "contrast": 6.380048346821389
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 860,
+    "width": 768,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 32,
+      "y": 72,
+      "width": 704,
+      "height": 50.796875,
+      "top": 72,
+      "right": 736,
+      "bottom": 122.796875,
+      "left": 32
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "hudCSS": "147.796875px",
+    "intersectionViewport": 50.796875,
+    "color": "rgb(25, 40, 66)",
+    "background": "rgb(238, 243, 255)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 468.265625,
+        "y": 90.796875,
+        "width": 135.078125,
+        "height": 20,
+        "top": 90.796875,
+        "right": 603.34375,
+        "bottom": 110.796875,
+        "left": 468.265625
+      }
+    },
+    "pageWidth": 768,
+    "contrast": 13.276704217104236,
+    "focusCovered": true
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 860,
+    "width": 768,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 32,
+      "y": 72,
+      "width": 704,
+      "height": 50.796875,
+      "top": 72,
+      "right": 736,
+      "bottom": 122.796875,
+      "left": 32
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "hudCSS": "147.796875px",
+    "intersectionViewport": 50.796875,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 468.265625,
+        "y": 90.796875,
+        "width": 135.078125,
+        "height": 20,
+        "top": 90.796875,
+        "right": 603.34375,
+        "bottom": 110.796875,
+        "left": 468.265625
+      }
+    },
+    "pageWidth": 768,
+    "contrast": 6.380048346821389,
+    "focusCovered": true
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 987,
+    "width": 390,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 16,
+      "y": 110,
+      "width": 358,
+      "height": 75.59375,
+      "top": 110,
+      "right": 374,
+      "bottom": 185.59375,
+      "left": 16
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 206.59375,
+      "top": 0,
+      "right": 390,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "hudCSS": "206.59375px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(25, 40, 66)",
+    "background": "rgb(238, 243, 255)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 80.5,
+        "y": 124.203125,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.203125,
+        "right": 208.078125,
+        "bottom": 143.203125,
+        "left": 80.5
+      }
+    },
+    "pageWidth": 390,
+    "contrast": 13.276704217104236,
+    "focusCovered": true
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 962,
+    "width": 390,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 16,
+      "y": 110,
+      "width": 358,
+      "height": 50.796875,
+      "top": 110,
+      "right": 374,
+      "bottom": 160.796875,
+      "left": 16
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 181.796875,
+      "top": 0,
+      "right": 390,
+      "bottom": 181.796875,
+      "left": 0
+    },
+    "hudCSS": "181.796875px",
+    "intersectionViewport": 50.796875,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 80.5,
+        "y": 124.40625,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.40625,
+        "right": 208.078125,
+        "bottom": 143.40625,
+        "left": 80.5
+      }
+    },
+    "pageWidth": 390,
+    "contrast": 6.380048346821389,
+    "focusCovered": true
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 1096,
+    "width": 320,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "hudCSS": "206.59375px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(25, 40, 66)",
+    "background": "rgb(238, 243, 255)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 141.6875,
+        "y": 124.890625,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.890625,
+        "right": 269.265625,
+        "bottom": 143.890625,
+        "left": 141.6875
+      }
+    },
+    "pageWidth": 320,
+    "contrast": 13.276704217104236,
+    "focusCovered": true
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 1096,
+    "width": 320,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "hudCSS": "206.59375px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 141.6875,
+        "y": 124.890625,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.890625,
+        "right": 269.265625,
+        "bottom": 143.890625,
+        "left": 141.6875
+      }
+    },
+    "pageWidth": 320,
+    "contrast": 6.380048346821389,
+    "focusCovered": true
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 1096,
+    "width": 320,
+    "height": 740,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "hudCSS": "206.59375px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(25, 40, 66)",
+    "background": "rgb(238, 243, 255)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 141.6875,
+        "y": 124.890625,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.890625,
+        "right": 269.265625,
+        "bottom": 143.890625,
+        "left": 141.6875
+      }
+    },
+    "pageWidth": 320,
+    "contrast": 13.276704217104236,
+    "focusCovered": true
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 1096,
+    "width": 320,
+    "height": 740,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "announcements": 1,
+    "insideHud": true,
+    "notice": {
+      "x": 12,
+      "y": 110,
+      "width": 296,
+      "height": 75.59375,
+      "top": 110,
+      "right": 308,
+      "bottom": 185.59375,
+      "left": 12
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "hudCSS": "206.59375px",
+    "intersectionViewport": 75.59375,
+    "color": "rgb(161, 43, 43)",
+    "background": "rgb(252, 237, 237)",
+    "active": {
+      "tag": "A",
+      "title": "Monte di Procida",
+      "rect": {
+        "x": 141.6875,
+        "y": 124.890625,
+        "width": 127.578125,
+        "height": 19,
+        "top": 124.890625,
+        "right": 269.265625,
+        "bottom": 143.890625,
+        "left": 141.6875
+      }
+    },
+    "pageWidth": 320,
+    "contrast": 6.380048346821389,
+    "focusCovered": true
+  }
+]

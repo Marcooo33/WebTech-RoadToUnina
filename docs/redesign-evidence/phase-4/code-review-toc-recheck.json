@@ -1,0 +1,53 @@
+[
+  {
+    "width": 390,
+    "nested": false,
+    "pass": true,
+    "infoboxOpen": true,
+    "allAncestorDisclosuresOpen": true,
+    "headingFocused": true,
+    "headingVisible": true,
+    "sameHeading": true,
+    "sameLink": true,
+    "sameTable": true,
+    "headingTop": 626.046875,
+    "headingBottom": 659.046875,
+    "hudBottom": 179,
+    "scrollWidth": 390,
+    "viewport": 390
+  },
+  {
+    "width": 320,
+    "nested": true,
+    "pass": true,
+    "infoboxOpen": true,
+    "allAncestorDisclosuresOpen": true,
+    "headingFocused": true,
+    "headingVisible": true,
+    "sameHeading": true,
+    "sameLink": true,
+    "sameTable": true,
+    "headingTop": 629.59375,
+    "headingBottom": 662.59375,
+    "hudBottom": 137,
+    "scrollWidth": 320,
+    "viewport": 320
+  },
+  {
+    "width": 1440,
+    "nested": false,
+    "pass": true,
+    "infoboxOpen": true,
+    "allAncestorDisclosuresOpen": true,
+    "headingFocused": true,
+    "headingVisible": true,
+    "sameHeading": true,
+    "sameLink": true,
+    "sameTable": true,
+    "headingTop": 407.25,
+    "headingBottom": 440.25,
+    "hudBottom": 506.109375,
+    "scrollWidth": 1440,
+    "viewport": 1440
+  }
+]

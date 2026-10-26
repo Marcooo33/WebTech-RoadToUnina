@@ -62,7 +62,6 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
   background: var(--color-canvas);
   color: var(--color-text);
   font-family: var(--font-ui);
@@ -394,52 +393,61 @@ h1 {
   }
 }
 
-/* Injected article descendants do not receive Angular encapsulation attributes. */
-app-wikipedia-article .wiki__body :is(h2, h3, h4, h5, h6) {
-  scroll-margin-top: var(--space-4);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
-  line-height: 1.25;
+/* Injected descendants retain the sanitized content and use the article's
+   inherited reading face; application headings and tables are unaffected. */
+app-wikipedia-article .wiki__body :is(h2, h3, h4, h5, h6, a[data-page-title]) {
+  scroll-margin-top: calc(var(--game-hud-height, 0px) + 20px);
 }
 app-wikipedia-article .wiki__body h2 {
-  margin: 2.25rem 0 var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
-  font-size: 1.45rem;
+  margin: 36px 0 16px;
+  color: var(--color-text);
+  font-family: var(--font-encyclopedia);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.375;
+  letter-spacing: normal;
 }
 app-wikipedia-article .wiki__body h3 {
-  margin: 1.75rem 0 var(--space-2);
-  font-size: 1.18rem;
+  margin: 28px 0 12px;
+  font-size: 1.25rem;
+  line-height: 1.4;
 }
 app-wikipedia-article .wiki__body :is(h4, h5, h6) {
-  margin: var(--space-5) 0 var(--space-2);
-  font-size: 1rem;
+  margin: 24px 0 12px;
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+app-wikipedia-article .wiki__body :is(h3, h4, h5, h6) {
+  font-family: inherit;
+  font-weight: 700;
 }
 app-wikipedia-article .wiki__body p {
-  margin: 0.85rem 0;
+  margin: 0 0 20px;
 }
 app-wikipedia-article .wiki__body :is(ul, ol, dl) {
-  margin-block: var(--space-3);
+  margin-block: 12px 20px;
 }
 app-wikipedia-article .wiki__body li + li {
-  margin-top: var(--space-1);
+  margin-top: 4px;
 }
 app-wikipedia-article .wiki__body a[data-page-title] {
-  color: #246b9a;
-  text-decoration: none;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 app-wikipedia-article .wiki__body a[data-page-title]:hover {
-  text-decoration: underline;
+  color: var(--color-accent-hover);
+  background: var(--color-accent-soft);
 }
-app-wikipedia-article .wiki__body a[data-page-title]:focus-visible {
-  outline: 2px solid var(--color-surface);
-  box-shadow: var(--focus-ring);
+app-wikipedia-article .wiki__body a[data-page-title][aria-disabled='true'] {
+  cursor: wait;
+}
+app-wikipedia-article .wiki__body :is(a[data-page-title], [tabindex]):focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
 }
 app-wikipedia-article .wiki__body :is(img, video) {
   max-width: 100%;
@@ -447,72 +455,97 @@ app-wikipedia-article .wiki__body :is(img, video) {
 }
 app-wikipedia-article .wiki__body :is(figure, .thumb) {
   max-width: 100%;
-  margin: var(--space-5) 0;
+  margin: 24px 0;
 }
 app-wikipedia-article .wiki__body :is(figcaption, .thumbcaption) {
   color: var(--color-muted);
-  font-family: system-ui, sans-serif;
-  font-size: 0.82rem;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
   line-height: 1.45;
 }
 app-wikipedia-article .wiki__body blockquote {
-  margin: var(--space-5) 0;
-  padding-left: var(--space-4);
+  margin: 24px 0;
+  padding-left: 16px;
   border-left: 3px solid var(--color-border-strong);
-  color: #46525a;
+  color: var(--color-muted);
 }
 app-wikipedia-article .wiki__body :is(pre, code) {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.88em;
 }
 app-wikipedia-article .wiki__body pre {
-  max-width: 100%;
-  overflow-x: auto;
-  padding: var(--space-3);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-subtle);
+  margin: 0;
+  padding: 12px;
+  background: var(--color-canvas);
 }
-app-wikipedia-article .wiki__body table:not(.infobox):not(.sinottico) {
-  display: block;
+app-wikipedia-article .wiki__body .wiki__facts {
+  margin: 24px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+app-wikipedia-article .wiki__body .wiki__facts summary {
+  min-height: 48px;
+  padding: 12px 16px;
+  font-weight: 650;
+  cursor: pointer;
+}
+app-wikipedia-article .wiki__body .wiki__facts > .wiki__scroll-block {
+  margin: 0;
+  padding: 0 16px 16px;
+}
+app-wikipedia-article .wiki__body .wiki__scroll-block {
+  min-width: 0;
+  margin: 24px 0;
+}
+app-wikipedia-article .wiki__body .wiki__scroll-region {
+  max-width: 100%;
+  overflow: auto;
+  padding: 7px;
+  overscroll-behavior-x: contain;
+}
+app-wikipedia-article .wiki__body .wiki__scroll-hint {
+  margin: 0 0 8px;
+  color: var(--color-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+}
+app-wikipedia-article .wiki__body table {
   width: max-content;
-  max-width: 100%;
-  overflow-x: auto;
-  border: 1px solid var(--color-border);
+  min-width: 100%;
   border-collapse: collapse;
-  font-family: system-ui, sans-serif;
-  font-size: 0.88rem;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
-app-wikipedia-article .wiki__body table:not(.infobox):not(.sinottico) :is(th, td) {
-  padding: var(--space-2) var(--space-3);
+app-wikipedia-article .wiki__body table :is(th, td) {
+  padding: 8px 12px;
   border: 1px solid var(--color-border);
-}
-app-wikipedia-article .wiki__body table:is(.infobox, .sinottico) {
-  float: right;
-  width: min(18rem, 45%);
-  max-width: 100%;
-  margin: 0 0 var(--space-4) var(--space-4);
-  border: 1px solid var(--color-border-strong);
-  border-collapse: collapse;
-  background: var(--color-surface-subtle);
-  font-family: system-ui, sans-serif;
-  font-size: 0.86rem;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
-}
-app-wikipedia-article .wiki__body :is(.infobox, .sinottico) :is(th, td) {
-  padding: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
   vertical-align: top;
   text-align: left;
 }
-app-wikipedia-article .wiki__body :is(.infobox, .sinottico) th {
-  background: var(--color-accent-soft);
+app-wikipedia-article .wiki__body table:is(.infobox, .sinottico) {
+  width: 100%;
+  overflow-wrap: break-word;
 }
-@media (max-width: 640px) {
-  app-wikipedia-article .wiki__body table:is(.infobox, .sinottico) {
-    float: none;
-    width: 100%;
-    margin: var(--space-4) 0;
+app-wikipedia-article .wiki__body :is(.infobox, .sinottico) th {
+  background: var(--color-canvas);
+}
+@media (max-width: 600px) {
+  app-wikipedia-article .wiki__body h2 {
+    margin-top: 30px;
+  }
+  app-wikipedia-article .wiki__body h3 {
+    font-size: 1.1875rem;
+  }
+  app-wikipedia-article .wiki__body .wiki__facts summary {
+    padding-inline: 12px;
+  }
+  app-wikipedia-article .wiki__body .wiki__facts > .wiki__scroll-block {
+    padding-inline: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

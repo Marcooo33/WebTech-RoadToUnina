@@ -1,0 +1,6350 @@
+[
+  {
+    "name": "initial-loading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "game-start",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 8259.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-reading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-index",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-infobox",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 365,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -181,
+      "width": 700,
+      "height": 45,
+      "top": -181,
+      "right": 1012,
+      "bottom": -136,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -112,
+      "width": 700,
+      "height": 9185.640625,
+      "top": -112,
+      "right": 1012,
+      "bottom": 9073.640625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<summary>Scheda informativa</summary>"
+  },
+  {
+    "name": "game-link-focus",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 9185.640625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 9438.640625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "game-busy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 410.90625,
+      "top": 128,
+      "right": 1328,
+      "bottom": 538.90625,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 9185.640625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 9438.640625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\" aria-disabled=\"true\">latino</a>"
+  },
+  {
+    "name": "game-after-keyboard-navigation",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 164,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 20,
+      "width": 700,
+      "height": 45,
+      "top": 20,
+      "right": 1012,
+      "bottom": 65,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 89,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 89,
+      "right": 1012,
+      "bottom": 8095.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Napoli </h1>"
+  },
+  {
+    "name": "game-after-backtrack",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 164,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 20,
+      "width": 700,
+      "height": 45,
+      "top": 20,
+      "right": 1012,
+      "bottom": 65,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 89,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 89,
+      "right": 1012,
+      "bottom": 8095.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-easy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-medium",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-hard",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 326.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 350.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-easy",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-medium",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-hard",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 326.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 350.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-3",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-2",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-0",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-title",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 8259.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Università degli Studi di Napoli Federico II </h1>"
+  },
+  {
+    "name": "long-path",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 8259.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-path-open",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 8259.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-numbers",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 253,
+      "right": 1012,
+      "bottom": 8259.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "no-index-infobox",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 49.25,
+      "top": 253,
+      "right": 1012,
+      "bottom": 302.25,
+      "left": 312
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 1048,
+      "y": 128,
+      "width": 280,
+      "height": 378.109375,
+      "top": 128,
+      "right": 1328,
+      "bottom": 506.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 184,
+      "width": 700,
+      "height": 45,
+      "top": 184,
+      "right": 1012,
+      "bottom": 229,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 253,
+      "width": 700,
+      "height": 1719.484375,
+      "top": 253,
+      "right": 1012,
+      "bottom": 1972.484375,
+      "left": 312
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content-reading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 673,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -489,
+      "width": 700,
+      "height": 45,
+      "top": -489,
+      "right": 1012,
+      "bottom": -444,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -420,
+      "width": 700,
+      "height": 1979.484375,
+      "top": -420,
+      "right": 1012,
+      "bottom": 1559.484375,
+      "left": 312
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<summary>Scheda informativa 2</summary>"
+  },
+  {
+    "name": "toc-infobox-heading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 408,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -224,
+      "width": 700,
+      "height": 45,
+      "top": -224,
+      "right": 1012,
+      "bottom": -179,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -155,
+      "width": 700,
+      "height": 1368.5,
+      "top": -155,
+      "right": 1012,
+      "bottom": 1213.5,
+      "left": 312
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h2 id=\"rtu-section-scheda-nascosta\" tabindex=\"-1\">Dettaglio della scheda</h2>"
+  },
+  {
+    "name": "toc-infobox-heading-behavior",
+    "width": 1440,
+    "target": {
+      "x": 349,
+      "y": 20.25,
+      "width": 626,
+      "height": 33,
+      "top": 20.25,
+      "right": 975,
+      "bottom": 53.25,
+      "left": 349
+    },
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "open": true
+  },
+  {
+    "name": "initial-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "initial-retry",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 164,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 20,
+      "width": 700,
+      "height": 45,
+      "top": 20,
+      "right": 1012,
+      "bottom": 65,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 89,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 89,
+      "right": 1012,
+      "bottom": 8095.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "navigation-error",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 164,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 477.703125,
+      "top": 24,
+      "right": 1328,
+      "bottom": 501.703125,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": 20,
+      "width": 700,
+      "height": 45,
+      "top": 20,
+      "right": 1012,
+      "bottom": 65,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": 89,
+      "width": 700,
+      "height": 8006.890625,
+      "top": 89,
+      "right": 1012,
+      "bottom": 8095.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "guest-reading",
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "title": {
+      "x": 312,
+      "y": -516,
+      "width": 700,
+      "height": 45,
+      "top": -516,
+      "right": 1012,
+      "bottom": -471,
+      "left": 312
+    },
+    "article": {
+      "x": 312,
+      "y": -447,
+      "width": 700,
+      "height": 8006.890625,
+      "top": -447,
+      "right": 1012,
+      "bottom": 7559.890625,
+      "left": 312
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "initial-loading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "game-start",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 374,
+      "right": 736,
+      "bottom": 8382.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-reading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "game-index",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 994,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 994,
+      "right": 736,
+      "bottom": 9002.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<summary _ngcontent-ng-c379804773=\"\">Indice</summary>"
+  },
+  {
+    "name": "game-infobox",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 1106,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -869,
+      "width": 704,
+      "height": 45,
+      "top": -869,
+      "right": 736,
+      "bottom": -824,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -112,
+      "width": 704,
+      "height": 9187.671875,
+      "top": -112,
+      "right": 736,
+      "bottom": 9075.671875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<summary>Scheda informativa</summary>"
+  },
+  {
+    "name": "game-link-focus",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 502,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -265,
+      "width": 704,
+      "height": 45,
+      "top": -265,
+      "right": 736,
+      "bottom": -220,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 492,
+      "width": 704,
+      "height": 9187.671875,
+      "top": 492,
+      "right": 736,
+      "bottom": 9679.671875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "game-busy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 534,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 105,
+      "top": 0,
+      "right": 768,
+      "bottom": 105,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -265,
+      "width": 704,
+      "height": 45,
+      "top": -265,
+      "right": 736,
+      "bottom": -220,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 492,
+      "width": 704,
+      "height": 9187.671875,
+      "top": 492,
+      "right": 736,
+      "bottom": 9679.671875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\" aria-disabled=\"true\">latino</a>"
+  },
+  {
+    "name": "game-after-keyboard-navigation",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 144,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 93,
+      "width": 704,
+      "height": 45,
+      "top": 93,
+      "right": 736,
+      "bottom": 138,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 850,
+      "width": 704,
+      "height": 8018.171875,
+      "top": 850,
+      "right": 736,
+      "bottom": 8868.171875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Napoli </h1>"
+  },
+  {
+    "name": "game-after-backtrack",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 144,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 93,
+      "width": 704,
+      "height": 45,
+      "top": 93,
+      "right": 736,
+      "bottom": 138,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 850,
+      "width": 704,
+      "height": 8018.171875,
+      "top": 850,
+      "right": 736,
+      "bottom": 8868.171875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-easy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-medium",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-hard",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-easy",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-medium",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-hard",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-3",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-2",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-0",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-title",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 374,
+      "right": 736,
+      "bottom": 8382.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Università degli Studi di Napoli Federico II </h1>"
+  },
+  {
+    "name": "long-path",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 374,
+      "right": 736,
+      "bottom": 8382.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-path-open",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 374,
+      "right": 736,
+      "bottom": 8382.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "long-numbers",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 374,
+      "right": 736,
+      "bottom": 8382.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "no-index-infobox",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 306,
+      "width": 704,
+      "height": 49.25,
+      "top": 306,
+      "right": 736,
+      "bottom": 355.25,
+      "left": 32
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 80,
+      "width": 768,
+      "height": 73,
+      "top": 80,
+      "right": 768,
+      "bottom": 153,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 237,
+      "width": 704,
+      "height": 45,
+      "top": 237,
+      "right": 736,
+      "bottom": 282,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 374,
+      "width": 704,
+      "height": 1719.484375,
+      "top": 374,
+      "right": 736,
+      "bottom": 2093.484375,
+      "left": 32
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content-reading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 794,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -557,
+      "width": 704,
+      "height": 45,
+      "top": -557,
+      "right": 736,
+      "bottom": -512,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -420,
+      "width": 704,
+      "height": 1979.484375,
+      "top": -420,
+      "right": 736,
+      "bottom": 1559.484375,
+      "left": 32
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<summary>Scheda informativa 2</summary>"
+  },
+  {
+    "name": "toc-infobox-heading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 544,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -307,
+      "width": 704,
+      "height": 45,
+      "top": -307,
+      "right": 736,
+      "bottom": -262,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -82,
+      "width": 704,
+      "height": 1368.5,
+      "top": -82,
+      "right": 736,
+      "bottom": 1286.5,
+      "left": 32
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h2 id=\"rtu-section-scheda-nascosta\" tabindex=\"-1\">Dettaglio della scheda</h2>"
+  },
+  {
+    "name": "toc-infobox-heading-behavior",
+    "width": 768,
+    "target": {
+      "x": 69,
+      "y": 93.25,
+      "width": 630,
+      "height": 33,
+      "top": 93.25,
+      "right": 699,
+      "bottom": 126.25,
+      "left": 69
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "open": true
+  },
+  {
+    "name": "initial-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "initial-retry",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 144,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 93,
+      "width": 704,
+      "height": 45,
+      "top": 93,
+      "right": 736,
+      "bottom": 138,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 230,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 230,
+      "right": 736,
+      "bottom": 8238.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "navigation-error",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 219,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 147.796875,
+      "top": 0,
+      "right": 768,
+      "bottom": 147.796875,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": 92.796875,
+      "width": 704,
+      "height": 45,
+      "top": 92.796875,
+      "right": 736,
+      "bottom": 137.796875,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": 229.796875,
+      "width": 704,
+      "height": 8008.921875,
+      "top": 229.796875,
+      "right": 736,
+      "bottom": 8238.71875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "guest-reading",
+    "width": 768,
+    "height": 900,
+    "scrollWidth": 768,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "title": {
+      "x": 32,
+      "y": -463,
+      "width": 704,
+      "height": 45,
+      "top": -463,
+      "right": 736,
+      "bottom": -418,
+      "left": 32
+    },
+    "article": {
+      "x": 32,
+      "y": -326,
+      "width": 704,
+      "height": 8008.921875,
+      "top": -326,
+      "right": 736,
+      "bottom": 7682.921875,
+      "left": 32
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "36px",
+      "lineHeight": "45px"
+    },
+    "bodyFont": {
+      "family": "sans-serif",
+      "size": "18px",
+      "lineHeight": "29.25px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "initial-loading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "game-start",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 391,
+      "width": 350,
+      "height": 10037.375,
+      "top": 391,
+      "right": 370,
+      "bottom": 10428.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-reading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "game-index",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 1011,
+      "width": 350,
+      "height": 10037.375,
+      "top": 1011,
+      "right": 370,
+      "bottom": 11048.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary _ngcontent-ng-c379804773=\"\">Indice</summary>"
+  },
+  {
+    "name": "game-infobox",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 1175,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -916,
+      "width": 350,
+      "height": 40,
+      "top": -916,
+      "right": 370,
+      "bottom": -876,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -164,
+      "width": 350,
+      "height": 11384.125,
+      "top": -164,
+      "right": 370,
+      "bottom": 11220.125,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary>Scheda informativa</summary>"
+  },
+  {
+    "name": "game-link-focus",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 481,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -222,
+      "width": 350,
+      "height": 40,
+      "top": -222,
+      "right": 370,
+      "bottom": -182,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 530,
+      "width": 350,
+      "height": 11384.125,
+      "top": 530,
+      "right": 370,
+      "bottom": 11914.125,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "game-busy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 513,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 139,
+      "top": 0,
+      "right": 390,
+      "bottom": 139,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -222,
+      "width": 350,
+      "height": 40,
+      "top": -222,
+      "right": 370,
+      "bottom": -182,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 530,
+      "width": 350,
+      "height": 11384.125,
+      "top": 530,
+      "right": 370,
+      "bottom": 11914.125,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\" aria-disabled=\"true\">latino</a>"
+  },
+  {
+    "name": "game-after-keyboard-navigation",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 127,
+      "width": 350,
+      "height": 40,
+      "top": 127,
+      "right": 370,
+      "bottom": 167,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 879,
+      "width": 350,
+      "height": 10046.421875,
+      "top": 879,
+      "right": 370,
+      "bottom": 10925.421875,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Napoli </h1>"
+  },
+  {
+    "name": "game-after-backtrack",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 127,
+      "width": 350,
+      "height": 40,
+      "top": 127,
+      "right": 370,
+      "bottom": 167,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 879,
+      "width": 350,
+      "height": 10046.421875,
+      "top": 879,
+      "right": 370,
+      "bottom": 10925.421875,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-easy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-medium",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-hard",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-easy",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-medium",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-hard",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-3",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-2",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-0",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-title",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 80,
+      "top": 259,
+      "right": 370,
+      "bottom": 339,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 431,
+      "width": 350,
+      "height": 10037.375,
+      "top": 431,
+      "right": 370,
+      "bottom": 10468.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Università degli Studi di Napoli Federico II </h1>"
+  },
+  {
+    "name": "long-path",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 391,
+      "width": 350,
+      "height": 10037.375,
+      "top": 391,
+      "right": 370,
+      "bottom": 10428.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-path-open",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 391,
+      "width": 350,
+      "height": 10037.375,
+      "top": 391,
+      "right": 370,
+      "bottom": 10428.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "long-numbers",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 391,
+      "width": 350,
+      "height": 10037.375,
+      "top": 391,
+      "right": 370,
+      "bottom": 10428.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "no-index-infobox",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 323,
+      "width": 350,
+      "height": 76.09375,
+      "top": 323,
+      "right": 370,
+      "bottom": 399.09375,
+      "left": 20
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 390,
+      "height": 107,
+      "top": 72,
+      "right": 390,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 40,
+      "top": 259,
+      "right": 370,
+      "bottom": 299,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 391,
+      "width": 350,
+      "height": 2891.578125,
+      "top": 391,
+      "right": 370,
+      "bottom": 3282.578125,
+      "left": 20
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content-reading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 980,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -721,
+      "width": 350,
+      "height": 40,
+      "top": -721,
+      "right": 370,
+      "bottom": -681,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -589,
+      "width": 350,
+      "height": 3256.578125,
+      "top": -589,
+      "right": 370,
+      "bottom": 2667.578125,
+      "left": 20
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary>Scheda informativa 2</summary>"
+  },
+  {
+    "name": "toc-infobox-heading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 520,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -261,
+      "width": 350,
+      "height": 40,
+      "top": -261,
+      "right": 370,
+      "bottom": -221,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -41,
+      "width": 350,
+      "height": 2297.234375,
+      "top": -41,
+      "right": 370,
+      "bottom": 2256.234375,
+      "left": 20
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h2 id=\"rtu-section-scheda-nascosta\" tabindex=\"-1\">Dettaglio della scheda</h2>"
+  },
+  {
+    "name": "toc-infobox-heading-behavior",
+    "width": 390,
+    "target": {
+      "x": 53,
+      "y": 127.046875,
+      "width": 284,
+      "height": 33,
+      "top": 127.046875,
+      "right": 337,
+      "bottom": 160.046875,
+      "left": 53
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "open": true
+  },
+  {
+    "name": "initial-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "initial-retry",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 127,
+      "width": 350,
+      "height": 40,
+      "top": 127,
+      "right": 370,
+      "bottom": 167,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 259,
+      "width": 350,
+      "height": 10037.375,
+      "top": 259,
+      "right": 370,
+      "bottom": 10296.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "navigation-error",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 232,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 206.59375,
+      "top": 0,
+      "right": 390,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": 126.59375,
+      "width": 350,
+      "height": 40,
+      "top": 126.59375,
+      "right": 370,
+      "bottom": 166.59375,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": 258.59375,
+      "width": 350,
+      "height": 10037.375,
+      "top": 258.59375,
+      "right": 370,
+      "bottom": 10295.96875,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "guest-reading",
+    "width": 390,
+    "height": 900,
+    "scrollWidth": 390,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 20,
+      "y": -441,
+      "width": 350,
+      "height": 40,
+      "top": -441,
+      "right": 370,
+      "bottom": -401,
+      "left": 20
+    },
+    "article": {
+      "x": 20,
+      "y": -309,
+      "width": 350,
+      "height": 10037.375,
+      "top": -309,
+      "right": 370,
+      "bottom": 9728.375,
+      "left": 20
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "32px",
+      "lineHeight": "40px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "initial-loading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "game-start",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 388.5,
+      "width": 288,
+      "height": 11352,
+      "top": 388.5,
+      "right": 304,
+      "bottom": 11740.5,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-reading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "game-index",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 1008.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": 1008.5,
+      "right": 304,
+      "bottom": 12351.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary _ngcontent-ng-c379804773=\"\">Indice</summary>"
+  },
+  {
+    "name": "game-infobox",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 1229,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -970,
+      "width": 288,
+      "height": 37.5,
+      "top": -970,
+      "right": 304,
+      "bottom": -932.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -220.5,
+      "width": 288,
+      "height": 12757.703125,
+      "top": -220.5,
+      "right": 304,
+      "bottom": 12537.203125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary>Scheda informativa</summary>"
+  },
+  {
+    "name": "game-link-focus",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 537,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -278,
+      "width": 288,
+      "height": 37.5,
+      "top": -278,
+      "right": 304,
+      "bottom": -240.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 471.5,
+      "width": 288,
+      "height": 12757.703125,
+      "top": 471.5,
+      "right": 304,
+      "bottom": 13229.203125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "game-busy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 569,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 139,
+      "top": 0,
+      "right": 320,
+      "bottom": 139,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -278,
+      "width": 288,
+      "height": 37.5,
+      "top": -278,
+      "right": 304,
+      "bottom": -240.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 471.5,
+      "width": 288,
+      "height": 12757.703125,
+      "top": 471.5,
+      "right": 304,
+      "bottom": 13229.203125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\" aria-disabled=\"true\">latino</a>"
+  },
+  {
+    "name": "game-after-keyboard-navigation",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 127,
+      "width": 288,
+      "height": 37.5,
+      "top": 127,
+      "right": 304,
+      "bottom": 164.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 876.5,
+      "width": 288,
+      "height": 11361.046875,
+      "top": 876.5,
+      "right": 304,
+      "bottom": 12237.546875,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Napoli </h1>"
+  },
+  {
+    "name": "game-after-backtrack",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 127,
+      "width": 288,
+      "height": 37.5,
+      "top": 127,
+      "right": 304,
+      "bottom": 164.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 876.5,
+      "width": 288,
+      "height": 11361.046875,
+      "top": 876.5,
+      "right": 304,
+      "bottom": 12237.546875,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-reading-320x740",
+    "width": 320,
+    "height": 740,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 308.5,
+      "width": 288,
+      "height": 11361.046875,
+      "top": 308.5,
+      "right": 304,
+      "bottom": 11669.546875,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "game-busy-320x740",
+    "width": 320,
+    "height": 740,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 732,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 139,
+      "top": 0,
+      "right": 320,
+      "bottom": 139,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 308.5,
+      "width": 288,
+      "height": 11361.046875,
+      "top": 308.5,
+      "right": 304,
+      "bottom": 11669.546875,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\" aria-disabled=\"true\">latino</a>"
+  },
+  {
+    "name": "variant-click-easy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-medium",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-click-hard",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-easy",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-medium",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "variant-time-hard",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-3",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-2",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "medium-left-0",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-title",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 75,
+      "top": 259,
+      "right": 304,
+      "bottom": 334,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 426,
+      "width": 288,
+      "height": 11352,
+      "top": 426,
+      "right": 304,
+      "bottom": 11778,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Università degli Studi di Napoli Federico II </h1>"
+  },
+  {
+    "name": "long-path",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 388.5,
+      "width": 288,
+      "height": 11352,
+      "top": 388.5,
+      "right": 304,
+      "bottom": 11740.5,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "long-path-open",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 388.5,
+      "width": 288,
+      "height": 11352,
+      "top": 388.5,
+      "right": 304,
+      "bottom": 11740.5,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<button _ngcontent-ng-c1319132857=\"\" type=\"button\" autofocus=\"\" aria-label=\"Close path\" class=\"game__dialog-close\"> × </button>"
+  },
+  {
+    "name": "long-numbers",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 388.5,
+      "width": 288,
+      "height": 11352,
+      "top": 388.5,
+      "right": 304,
+      "bottom": 11740.5,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "no-index-infobox",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 320.5,
+      "width": 288,
+      "height": 76.09375,
+      "top": 320.5,
+      "right": 304,
+      "bottom": 396.59375,
+      "left": 16
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "hud": {
+      "x": 0,
+      "y": 72,
+      "width": 320,
+      "height": 107,
+      "top": 72,
+      "right": 320,
+      "bottom": 179,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 259,
+      "width": 288,
+      "height": 37.5,
+      "top": 259,
+      "right": 304,
+      "bottom": 296.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 388.5,
+      "width": 288,
+      "height": 2919.625,
+      "top": 388.5,
+      "right": 304,
+      "bottom": 3308.125,
+      "left": 16
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "complex-content-reading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 1125,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -866,
+      "width": 288,
+      "height": 37.5,
+      "top": -866,
+      "right": 304,
+      "bottom": -828.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -736.5,
+      "width": 288,
+      "height": 3431.625,
+      "top": -736.5,
+      "right": 304,
+      "bottom": 2695.125,
+      "left": 16
+    },
+    "links": 3,
+    "keyboardLinks": 3,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<summary>Scheda informativa 2</summary>"
+  },
+  {
+    "name": "toc-infobox-heading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 546,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -287,
+      "width": 288,
+      "height": 37.5,
+      "top": -287,
+      "right": 304,
+      "bottom": -249.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -69.5,
+      "width": 288,
+      "height": 2942.3125,
+      "top": -69.5,
+      "right": 304,
+      "bottom": 2872.8125,
+      "left": 16
+    },
+    "links": 2,
+    "keyboardLinks": 2,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h2 id=\"rtu-section-scheda-nascosta\" tabindex=\"-1\">Dettaglio della scheda</h2>"
+  },
+  {
+    "name": "toc-infobox-heading-behavior",
+    "width": 320,
+    "target": {
+      "x": 49,
+      "y": 126.59375,
+      "width": 222,
+      "height": 33,
+      "top": 126.59375,
+      "right": 271,
+      "bottom": 159.59375,
+      "left": 49
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "open": true
+  },
+  {
+    "name": "initial-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 0,
+    "links": 0,
+    "keyboardLinks": 0,
+    "titleFont": null,
+    "bodyFont": null,
+    "active": "<body>\n    <app-root ng-version=\"22.1.4\" _nghost-ng-c1906703831=\"\"><app-nav-bar _ngcontent-ng-c1906703831=\"\" _nghost-ng-c1661737835=\"\"><nav _ngcontent-ng-c1661737835=\"\" aria-label=\"Main navigation\" class=\"nav\"><div _ngco"
+  },
+  {
+    "name": "initial-retry",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 132,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 127,
+      "width": 288,
+      "height": 37.5,
+      "top": 127,
+      "right": 304,
+      "bottom": 164.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 256.5,
+      "width": 288,
+      "height": 11352,
+      "top": 256.5,
+      "right": 304,
+      "bottom": 11608.5,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  },
+  {
+    "name": "navigation-error",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 232,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 206.59375,
+      "top": 0,
+      "right": 320,
+      "bottom": 206.59375,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": 126.59375,
+      "width": 288,
+      "height": 37.5,
+      "top": 126.59375,
+      "right": 304,
+      "bottom": 164.09375,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": 256.09375,
+      "width": 288,
+      "height": 11352,
+      "top": 256.09375,
+      "right": 304,
+      "bottom": 11608.09375,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<a data-page-title=\"Lingua latina\" href=\"#wikipedia-article-title\">latino</a>"
+  },
+  {
+    "name": "guest-reading",
+    "width": 320,
+    "height": 900,
+    "scrollWidth": 320,
+    "bodyOverflowX": "visible",
+    "scrollX": 0,
+    "scrollY": 700,
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "title": {
+      "x": 16,
+      "y": -441,
+      "width": 288,
+      "height": 37.5,
+      "top": -441,
+      "right": 304,
+      "bottom": -403.5,
+      "left": 16
+    },
+    "article": {
+      "x": 16,
+      "y": -311.5,
+      "width": 288,
+      "height": 11342.953125,
+      "top": -311.5,
+      "right": 304,
+      "bottom": 11031.453125,
+      "left": 16
+    },
+    "links": 266,
+    "keyboardLinks": 266,
+    "titleFont": {
+      "family": "\"Linux Libertine\", \"Libertinus Serif\", Georgia, Times, \"Times New Roman\", serif",
+      "size": "30px",
+      "lineHeight": "37.5px"
+    },
+    "bodyFont": {
+      "family": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+      "size": "17px",
+      "lineHeight": "28.05px"
+    },
+    "active": "<h1 _ngcontent-ng-c379804773=\"\" id=\"wikipedia-article-title\" tabindex=\"-1\" class=\"wiki__title\"> Golfo di Napoli </h1>"
+  }
+]

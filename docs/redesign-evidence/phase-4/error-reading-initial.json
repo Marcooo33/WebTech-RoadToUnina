@@ -1,0 +1,242 @@
+[
+  {
+    "kind": "recoverable",
+    "scrollY": 774,
+    "width": 1440,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "notice": {
+      "x": 0,
+      "y": -682,
+      "width": 1440,
+      "height": 50.796875,
+      "top": -682,
+      "right": 1440,
+      "bottom": -631.203125,
+      "left": 0
+    },
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 774,
+    "width": 1440,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "notice": {
+      "x": 0,
+      "y": -682,
+      "width": 1440,
+      "height": 50.796875,
+      "top": -682,
+      "right": 1440,
+      "bottom": -631.203125,
+      "left": 0
+    },
+    "hud": {
+      "x": 1048,
+      "y": 24,
+      "width": 280,
+      "height": 378.109375,
+      "top": 24,
+      "right": 1328,
+      "bottom": 402.109375,
+      "left": 1048
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 775,
+    "width": 768,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "notice": {
+      "x": 0,
+      "y": -683,
+      "width": 768,
+      "height": 50.796875,
+      "top": -683,
+      "right": 768,
+      "bottom": -632.203125,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 775,
+    "width": 768,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "notice": {
+      "x": 0,
+      "y": -683,
+      "width": 768,
+      "height": 50.796875,
+      "top": -683,
+      "right": 768,
+      "bottom": -632.203125,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "top": 0,
+      "right": 768,
+      "bottom": 73,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 800,
+    "width": 390,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "notice": {
+      "x": 0,
+      "y": -716,
+      "width": 390,
+      "height": 75.59375,
+      "top": -716,
+      "right": 390,
+      "bottom": -640.40625,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 775,
+    "width": 390,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "notice": {
+      "x": 0,
+      "y": -691,
+      "width": 390,
+      "height": 50.796875,
+      "top": -691,
+      "right": 390,
+      "bottom": -640.203125,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 107,
+      "top": 0,
+      "right": 390,
+      "bottom": 107,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "recoverable",
+    "scrollY": 799,
+    "width": 320,
+    "height": 900,
+    "text": "Wikipedia is temporarily unavailable. Please try again.",
+    "role": "status",
+    "notice": {
+      "x": 0,
+      "y": -715,
+      "width": 320,
+      "height": 75.59375,
+      "top": -715,
+      "right": 320,
+      "bottom": -639.40625,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  },
+  {
+    "kind": "unexpected",
+    "scrollY": 799,
+    "width": 320,
+    "height": 900,
+    "text": "!An unexpected game error occurred.",
+    "role": "alert",
+    "notice": {
+      "x": 0,
+      "y": -715,
+      "width": 320,
+      "height": 75.59375,
+      "top": -715,
+      "right": 320,
+      "bottom": -639.40625,
+      "left": 0
+    },
+    "hud": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 107,
+      "top": 0,
+      "right": 320,
+      "bottom": 107,
+      "left": 0
+    },
+    "intersectionViewport": 0,
+    "intersectionBelowHud": 0
+  }
+]

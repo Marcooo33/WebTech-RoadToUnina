@@ -66,7 +66,11 @@ export class GamePage implements OnInit {
   private readonly sanitizer = inject(DomSanitizer);
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
-  private readonly articleStart = viewChild<ElementRef<HTMLElement>>('articleStart');
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly articleView = viewChild(WikipediaArticle);
+  private readonly hud = viewChild(GameHud);
+  private readonly pathDialog = viewChild<ElementRef<HTMLDialogElement>>('pathDialog');
+  private compactHudHeight = 0;
 
   // game/:id path parameter (router input binding).
   readonly id = input.required<string>();
@@ -82,6 +86,7 @@ export class GamePage implements OnInit {
   readonly busy = signal(false);
   // Show a "retry" affordance for a failed article fetch.
   readonly wikipediaRetry = signal(false);
+  readonly pathOpen = signal(false);
 
   // effectivePlayTimeMs confirmed by the server on the last (re)load. The
   // backend just (re)started the play interval, so this is current as of
@@ -143,6 +148,51 @@ export class GamePage implements OnInit {
     if (this.phase() === 'playing') {
       this.games.pauseOnExit(this.id());
     }
+  }
+
+  onHudHeightChanged(height: number): void {
+    const previousHeight = this.compactHudHeight;
+    this.compactHudHeight = height;
+    const host = this.hostElement.nativeElement;
+    host.style.setProperty('--game-hud-height', `${height}px`);
+    if (height <= previousHeight) return;
+
+    const focused = host.ownerDocument.activeElement;
+    if (
+      !(focused instanceof HTMLElement) ||
+      !host.querySelector('app-wikipedia-article')?.contains(focused)
+    )
+      return;
+    const hud = host.querySelector('app-game-hud');
+    if (!hud) return;
+    const bar = hud.getBoundingClientRect();
+    const target = focused.getBoundingClientRect();
+    // Leave off-screen reading positions alone. Only compensate a growing HUD
+    // for an article control that was visible below its previous obstruction.
+    if (target.bottom <= bar.top + previousHeight || target.top >= window.innerHeight) return;
+    const style = window.getComputedStyle(focused);
+    const ring =
+      (Number.parseFloat(style.outlineWidth) || 0) +
+      Math.max(0, Number.parseFloat(style.outlineOffset) || 0);
+    const clearance = Math.max(8, ring + 1);
+    if (target.top >= bar.bottom + clearance) return;
+    const scrollMargin = Number.parseFloat(style.scrollMarginTop) || 0;
+    const visibleTop = Math.max(bar.bottom + clearance, scrollMargin);
+    window.scrollBy({ top: target.top - visibleTop, left: 0, behavior: 'instant' });
+  }
+
+  openPath(): void {
+    this.pathOpen.set(true);
+    this.pathDialog()?.nativeElement.showModal();
+  }
+
+  closePath(): void {
+    this.pathDialog()?.nativeElement.close();
+  }
+
+  onPathClosed(): void {
+    this.pathOpen.set(false);
+    this.hud()?.focusPathTrigger();
   }
 
   // --- User actions -------------------------------------------------------
@@ -375,11 +425,10 @@ export class GamePage implements OnInit {
     if (isNewPage) {
       this.lastDisplayedArticlePageId = dto.pageId;
       afterNextRender(
-        () =>
-          this.articleStart()?.nativeElement.scrollIntoView({
-            behavior: 'instant',
-            block: 'start',
-          }),
+        () => {
+          this.hud()?.measureHeight();
+          this.articleView()?.focusTitle();
+        },
         { injector: this.injector },
       );
     }

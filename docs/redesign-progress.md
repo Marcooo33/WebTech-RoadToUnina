@@ -15,8 +15,8 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
 | 0 — Baseline e perimetro | PASS | `ba799db` |
 | 1 — Fondamenta e componenti condivisi | PASS | `e92fe41` |
 | 2 — Home e autenticazione | PASS | `ea8cdcd` |
-| 3 — Dashboard e configurazione | PASS | hash dopo commit |
-| 4 — Partita e articolo | PENDING | — |
+| 3 — Dashboard e configurazione | PASS | `a41fe1a` |
+| 4 — Partita e articolo | PASS | hash dopo commit |
 | 5 — Risultato, History, dettagli, profilo | PENDING | — |
 | 6 — Verifica trasversale | PENDING | — |
 
@@ -122,3 +122,92 @@ presentazione; soltanto la suite disposable prova i flussi integrati.
   tutte 76 immagini finali esaminate; proposte P validate, nessun blocco.
 - Gate complessivo PASS. Rimane solo warning CSS Home precedente; limiti browser/SR
   dichiarati nei rapporti. Commit autorizzato dopo controllo finale del diff.
+- Commit Fase 3: `a41fe1a` — `feat(ui): complete redesign phase 3`.
+
+## Fase 4 — 2026-10-26
+
+- Branch verificato e working tree pulito al checkpoint `a41fe1a`.
+- Scope GamePage/HUD/Path/WikipediaArticle, shell e globali solo integrazione gioco/articolo,
+  test pertinenti. Gruppi: cornice, HUD/percorso, tipografia/indice, link/focus, infobox.
+- Timer, richieste/API, regole/backtrack, guardia uscita, auth/guest e trust boundary invariati.
+- Gate obbligatori: tastiera/busy, confronto B e after, quattro larghezze e 320×740,
+  varianti modalità/difficoltà, contenuto reale sanitizzato e regressioni E2E disposable.
+- Gruppo 1 implementato, build locale PASS: frame unico1280 e misura articolo,
+  rimozione transform/overflow-x hidden body, main annidato rimosso, Leave game preservato.
+- Gruppi successivi in corso. Nessuna verifica indipendente Fase 4 ancora eseguita.
+- Tester ha preparato soltanto `/tmp/roadtounina-phase4-checks.cjs` con matrice
+  responsive/tastiera/stati/contenuti complessi; esecuzione attende consegna finale.
+- Checkpoint gruppi 2–4: build e49test esistenti PASS comunicati dall'implementatore;
+  HUD unico/ResizeObserver, dialogo nativo, tipografia/TOC/lang e anchor locali implementati.
+  Busy senza opacità; infobox preservate come nodi sanitizzati originali in details.
+- Regressioni specifiche ancora in aggiunta. Root legge diff GamePage: cambiamenti
+  limitati a misura/dialogo/focus/scroll; nessun gate indipendente ancora attribuito.
+- Consegna finale implementatore: build PASS, 68 test/21 file PASS, nuovo E2E
+  Enter/focus aggiunto da eseguire. Gruppi completi, nessuna ulteriore modifica in corso.
+- Probe locale implementatore isolato: lettura 700/704/350/288, HUD73/107, top0
+  compatto e266anchor native; solo feedback, non gate indipendente.
+- Nuova interruzione subagent per limite utilizzo prima dei gate; ripresa su «continua»,
+  verificati branch/cronologia/diff interamente attribuibili alla Fase4. Nessun commit.
+- Gate indipendenti riattivati: tester conferma build e68unit PASS; E2E e browser
+  ancora in corso, review codice/visiva ancora necessarie.
+- Verifica E2E completa iniziale: 20 PASS / 2 FAIL, disposable rimosso. Matcher
+  obsoleti/ambiguo in game-lifecycle (New game exact) e profile (titolo Home B).
+- Code reviewer riproduce blocco: indice verso heading in infobox chiusa non apre
+  details antenato; titolo resta invisibile. Fix e regressione richiesti nel ciclo1.
+- Raccolta problemi browser/review in corso; riattivazione implementer temporaneamente
+  limitata dagli slot, nessuna modifica non autorizzata e nessun commit della fase.
+- Ciclo correzione1 completato dall'implementatore: TOC apre tutti details antenati
+  prima di misura/focus/scroll; regressione su infobox e disclosure annidate con nodi/link
+  originali preservati. Due matcher E2E aggiornati. Feedback69unit PASS, diff PASS.
+- Giro browser esplorativo118check/PNG non trova altri bugapp; non usato come set finale
+  per possibile HMR. Ripartenza finale build/unit/E2E22 e matrice stabile, review mirata.
+- Code review dopo ciclo1 PASS: riproduzione mirata3/3 Chromium a320/390/1440,
+  disclosure aperti, focus/visibilità sottoHUD e identità nodi verificati.
+- Browser finale dopo ciclo1: 126 PNG/130 record PASS tecnico comunicati; visual review
+  rileva ulteriore S2: navigation-error notice presente DOM ma fuori viewport dopo scroll.
+  Verifica tecnica mirata richiesta anche per error() durante playing; gate resta aperto.
+- Verifiche ciclo1: build/69unit PASS, E2E completa22 PASS (disposable rimosso).
+  Visual esamina132catture: unico blocco S2 feedback durante lettura fuori viewport.
+- Tester conferma8/8 casi: notice WIKIPEDIA_UNAVAILABLE ed error INTERNAL_ERROR alle
+  quattro larghezze; intersezione messaggio/viewport sottoHUD pari a0. Evidenze
+  error-reading-initial.json e relative PNG. Rapporto tecnico FAIL nonostante altri PASS.
+- Ciclo correzione2 assegnato: feedback playing una sola volta nell'area HUD misurata,
+  stati nonplaying conservati, nessun cambio a lifecycle/API/timer. Verifiche in attesa.
+- Ciclo correzione2 consegnato: delta solo game-page.html/spec.ts e game-hud.html/css.
+  Feedback playing proiettato unico in HUD osservato; messaggi nonplaying invariati,
+  nessun TypeScript applicativo o lifecycle errori/richieste/timer cambiato.
+- Feedback locale build PASS e72unit/21file PASS, solo warning Home noto. Nuova verifica
+  indipendente build/unit/browser8errori+matrice ed E2E pertinenti in corso; review delta attiva.
+- Visual FAIL e132hash precedenti conservati per confronto, più8PNG diagnostiche.
+- Ciclo2 build/72unit/E2E22 PASS, disposable rimosso; feedback normale10/10 visibile,
+  annuncio unico e contrasti PASS. Nuovo S2 residuo confermato da tester/visual:
+  al crescereHUD il link già focalizzato aHUDbase+18 resta coperto8/8compatte.
+  Evidenze focus-before/ e error-edge-before.json, storico FAIL visuale aggiornato.
+- Nessun altro problema verificato. Ciclo correzione3 (ULTIMO consentito) assegnato:
+  mantenere visibile focus articolo con scroll minimo solo se coperto dall'aumentoHUD,
+  preservare focus/stato/API e posizioni già visibili. Regressioni e nuova verifica richieste.
+- Se il gate fallisce ancora dopo ciclo3: fermarsi senza commit e senza Fase5.
+- Correzione3 finale consegnata: delta solo GamePage.ts/spec.ts; dopo aumentoHUD,
+  scroll minimo istantaneo solo se focus articolo nel viewport viene coperto anche nel ring.
+  Identità focus conservata; no scroll per giàvisibile/offscreen/HUD/dialogo/diminuzione.
+- Sette regressioni nuove, feedback locale build/79unit PASS e10edge PASS; probe locale
+  separato dalle evidenze tester. Ultimi gate indipendenti riavviati, ancora nessun PASS finale.
+- Ultimo tester ciclo3 prima del limite: build/79unit/22E2E e10edge PASS comunicati;
+  matrice e probe aggiuntivi in chiusura. Nuova ripresa su «continua»: /tmp pulito,
+  ma riferimenti B e risultati persistenti integri. Nessuna estranea nel working tree.
+- Riconciliazione necessaria: log unit.txt ancora69 e TEST-REPORT ancoraFAIL ciclo2;
+  tester riattivato per verificare JSON finali e salvare nuovi log direttamente in docs
+  (rieseguire build/unit/E2E se log finali persi), senza attribuire PASS non documentati.
+- Visual reviewer riattivato per edge/busy/focus e differenzeSHA; gate ancora aperto.
+- Riconciliazione finale root per indisponibilità capacità del tester: log nuovi build,
+  79 unit/21 file e22E2E PASS verificati; disposable rimosso. JSON finali completi,
+  script verify-evidence.py PASS (130 record,20 errori,10 focus,162 SHA).
+- [Rapporto tecnico finale](redesign-evidence/phase-4/TEST-REPORT.md) integrato dal root
+  con fallback dichiarato; nessuna prova attribuita a un agente che non l'ha svolta.
+- [Code review finale](redesign-evidence/phase-4/code-review.md): PASS ciclo3.
+- [Visual review finale](redesign-evidence/phase-4/visual-review.md): PASS ciclo3,
+  162 immagini finali esaminate (128 immutate/4 riesaminate/30 aggiunte), nessun blocco.
+- Gate Fase4 PASS dopo i tre cicli consentiti. Non bloccanti: warning Home, screen reader/
+  altri browser/zoom non ancora provati; casi resize focus da valutare in Fase6.
+- /tmp perso dopo ripresa: riferimenti essenziali e tutte evidenze finali integri nel repo;
+  limiti di riproducibilità futura dichiarati. Codice finale invariato dopo consegna ciclo3.

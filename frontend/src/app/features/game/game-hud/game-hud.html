@@ -1,45 +1,67 @@
 @let g = game();
 <div class="hud">
-  <div class="hud__goal">
-    <ng-icon name="lucideFlag" aria-hidden="true" />
-    <div><span>Target</span><strong>Federico II</strong></div>
-  </div>
-  <div class="hud__meta">
-    <span class="badge">{{ g.mode }}</span
-    ><span class="badge">{{ g.difficulty }}</span>
-  </div>
-  <dl class="hud__stats">
-    <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'TIME'">
-      <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Effective time</dt>
-      <dd>{{ displayTimeMs() | duration }}</dd>
+  <div class="hud__top">
+    <div class="hud__goal">
+      <ng-icon name="lucideFlag" aria-hidden="true" />
+      <div><span>Destination</span><strong>Federico II</strong></div>
+      <p>Università degli Studi<br />&ngsp;di Napoli Federico II</p>
     </div>
-    <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'CLICK'">
-      <dt><ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks</dt>
-      <dd data-testid="hud-clicks">{{ g.clickCount }}</dd>
+    <div class="hud__meta">
+      <span>{{ g.mode }}</span
+      ><span>{{ g.difficulty }}</span>
     </div>
-  </dl>
-  <p class="hud__note muted">The timer is visual feedback; official time is kept by the server.</p>
-  <div class="hud__backtrack">
-    @switch (g.difficulty) {
-      @case ('EASY') {
-        <span class="muted">Backtracking: unlimited</span>
-      }
-      @case ('MEDIUM') {
-        <span class="muted">Backtracks left: {{ backtracksLeft() }} / 3</span>
-      }
-      @case ('HARD') {
-        <span class="muted">Backtracking: not available</span>
-      }
-    }
+    <button
+      #pathTrigger
+      class="hud__path-toggle"
+      type="button"
+      (click)="pathRequested.emit()"
+      aria-haspopup="dialog"
+    >
+      Path <span>{{ g.path.length }}</span>
+    </button>
+  </div>
+  <div class="hud__bottom">
+    <dl class="hud__stats">
+      <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'CLICK'">
+        <dt>Clicks</dt>
+        <dd data-testid="hud-clicks">{{ g.clickCount }}</dd>
+      </div>
+      <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'TIME'">
+        <dt><span class="hud__effective">Effective </span>Time</dt>
+        <dd>{{ displayTimeMs() | duration }}</dd>
+      </div>
+    </dl>
     @if (g.difficulty !== 'HARD') {
       <button
         type="button"
-        class="btn btn--secondary"
+        class="btn btn--secondary hud__backtrack"
         [disabled]="!canBacktrack()"
         (click)="backtrack.emit()"
       >
         <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Backtrack
+        @if (g.difficulty === 'MEDIUM') {
+          <span class="hud__remaining">({{ backtracksLeft() }})</span>
+        }
       </button>
     }
+    <p class="hud__backtrack-note">
+      @switch (g.difficulty) {
+        @case ('EASY') {
+          <span>Backtracking: unlimited</span>
+        }
+        @case ('MEDIUM') {
+          <span>Backtracks left: {{ backtracksLeft() }} / 3</span>
+        }
+        @case ('HARD') {
+          <span>Backtracking: not available</span>
+        }
+      }
+    </p>
   </div>
+  @if (busy()) {
+    <p class="hud__busy" role="status">
+      <span class="hud__spinner" aria-hidden="true"></span>Opening the next article…
+    </p>
+  }
+  <div class="hud__feedback"><ng-content /></div>
 </div>

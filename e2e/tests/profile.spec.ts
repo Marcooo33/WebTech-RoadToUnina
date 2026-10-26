@@ -38,7 +38,7 @@ test("account deletion requires confirmation and preserves anonymized completed 
   await dialog.getByRole("button", { name: "Delete account" }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(
-    page.getByRole("heading", { name: "Reach Federico II" }),
+    page.getByRole("heading", { name: "Find your way to Federico II." }),
   ).toBeVisible();
 
   await page.goto(`/history/${completed.id}`);

@@ -1,0 +1,1129 @@
+[
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/backtrack",
+    "method": "POST",
+    "data": "{}"
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 1440,
+    "guest": true,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 1440,
+    "guest": true,
+    "path": "/api/guest-games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/backtrack",
+    "method": "POST",
+    "data": "{}"
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 768,
+    "guest": true,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 768,
+    "guest": true,
+    "path": "/api/guest-games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/backtrack",
+    "method": "POST",
+    "data": "{}"
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 390,
+    "guest": true,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 390,
+    "guest": true,
+    "path": "/api/guest-games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/backtrack",
+    "method": "POST",
+    "data": "{}"
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": false,
+    "path": "/api/games/f17bbc65-159a-4658-9327-054fb1b05fe6/moves",
+    "method": "POST",
+    "data": "{\"toTitle\":\"Lingua latina\"}"
+  },
+  {
+    "width": 320,
+    "guest": true,
+    "path": "/api/auth/me",
+    "method": "GET",
+    "data": null
+  },
+  {
+    "width": 320,
+    "guest": true,
+    "path": "/api/guest-games/f17bbc65-159a-4658-9327-054fb1b05fe6",
+    "method": "GET",
+    "data": null
+  }
+]

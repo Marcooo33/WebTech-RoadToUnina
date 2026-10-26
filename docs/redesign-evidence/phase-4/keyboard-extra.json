@@ -1,0 +1,146 @@
+[
+  {
+    "width": 1440,
+    "focus": {
+      "inside": true,
+      "tag": "A",
+      "title": "Roma",
+      "outline": "3px",
+      "visible": true,
+      "overflow": "visible",
+      "hud": {
+        "x": 1048,
+        "y": 24,
+        "width": 280,
+        "height": 378.109375,
+        "top": 24,
+        "right": 1328,
+        "bottom": 402.109375,
+        "left": 1048
+      },
+      "link": {
+        "x": 464.671875,
+        "y": 70.25,
+        "width": 38.125,
+        "height": 19,
+        "top": 70.25,
+        "right": 502.796875,
+        "bottom": 89.25,
+        "left": 464.671875
+      }
+    },
+    "moves": 1,
+    "modal": null
+  },
+  {
+    "width": 768,
+    "focus": {
+      "inside": true,
+      "tag": "A",
+      "title": "Roma",
+      "outline": "3px",
+      "visible": true,
+      "overflow": "visible",
+      "hud": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 73,
+        "top": 0,
+        "right": 768,
+        "bottom": 73,
+        "left": 0
+      },
+      "link": {
+        "x": 184.671875,
+        "y": 143.25,
+        "width": 38.125,
+        "height": 19,
+        "top": 143.25,
+        "right": 222.796875,
+        "bottom": 162.25,
+        "left": 184.671875
+      }
+    },
+    "moves": 1,
+    "modal": {
+      "active": "BUTTON",
+      "inside": true,
+      "backgroundFocused": false
+    }
+  },
+  {
+    "width": 390,
+    "focus": {
+      "inside": true,
+      "tag": "A",
+      "title": "Roma",
+      "outline": "3px",
+      "visible": true,
+      "overflow": "visible",
+      "hud": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 107,
+        "top": 0,
+        "right": 390,
+        "bottom": 107,
+        "left": 0
+      },
+      "link": {
+        "x": 168.671875,
+        "y": 177.046875,
+        "width": 38.125,
+        "height": 19,
+        "top": 177.046875,
+        "right": 206.796875,
+        "bottom": 196.046875,
+        "left": 168.671875
+      }
+    },
+    "moves": 1,
+    "modal": {
+      "active": "BUTTON",
+      "inside": true,
+      "backgroundFocused": false
+    }
+  },
+  {
+    "width": 320,
+    "focus": {
+      "inside": true,
+      "tag": "A",
+      "title": "Roma",
+      "outline": "3px",
+      "visible": true,
+      "overflow": "visible",
+      "hud": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 107,
+        "top": 0,
+        "right": 320,
+        "bottom": 107,
+        "left": 0
+      },
+      "link": {
+        "x": 164.671875,
+        "y": 177.09375,
+        "width": 38.125,
+        "height": 19,
+        "top": 177.09375,
+        "right": 202.796875,
+        "bottom": 196.09375,
+        "left": 164.671875
+      }
+    },
+    "moves": 1,
+    "modal": {
+      "active": "BUTTON",
+      "inside": true,
+      "backgroundFocused": false
+    }
+  }
+]

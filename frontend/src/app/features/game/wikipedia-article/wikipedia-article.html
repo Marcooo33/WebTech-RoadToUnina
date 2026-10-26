@@ -1,5 +1,7 @@
-<article class="wiki" [class.wiki--disabled]="disabled()">
-  <h1 class="wiki__title">{{ title() }}</h1>
+<article class="wiki" lang="it">
+  <h1 #articleTitle id="wikipedia-article-title" class="wiki__title" tabindex="-1">
+    {{ title() }}
+  </h1>
   @if (tocEntries().length > 0) {
     <ng-template #tocList>
       <ul class="wiki__toc-list">
@@ -23,5 +25,11 @@
   }
 
   <!-- Sanitized backend HTML; playable links are delegated via (click). -->
-  <div #articleBody class="wiki__body" [innerHTML]="html()" (click)="onClick($event)"></div>
+  <div
+    #articleBody
+    class="wiki__body"
+    [innerHTML]="html()"
+    (click)="onClick($event)"
+    (auxclick)="onAuxClick($event)"
+  ></div>
 </article>

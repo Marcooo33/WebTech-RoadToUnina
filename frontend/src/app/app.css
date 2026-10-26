@@ -21,3 +21,14 @@
     padding-inline: 20px;
   }
 }
+
+/* The active article owns its full-width frame and a single set of paddings. */
+:host:has(.game--playing) {
+  display: block;
+  min-height: 100dvh;
+  background: var(--color-surface);
+}
+.main:has(.game--playing) {
+  max-width: none;
+  padding: 0;
+}
