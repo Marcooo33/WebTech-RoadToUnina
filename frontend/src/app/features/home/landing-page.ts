@@ -22,7 +22,7 @@ import { lucideArrowRight, lucideFlag } from '@ng-icons/lucide';
   imports: [RouterLink, NgIcon, ErrorBanner],
   providers: [provideIcons({ lucideArrowRight, lucideFlag })],
   templateUrl: './landing-page.html',
-  styleUrl: './home.css',
+  styleUrls: ['./home.css', './guest-recovery.css'],
 })
 export class LandingPage implements OnInit {
   readonly guests = inject(GuestGamesService);

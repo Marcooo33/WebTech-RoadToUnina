@@ -1,7 +1,11 @@
 <div class="landing">
   <section class="home-intro" aria-labelledby="home-title">
     <div class="intro-title">
-      <h1 id="home-title">Find your way<br />&ngsp;to Federico II.</h1>
+      <h1 id="home-title">All links lead<br />&ngsp;to Federico II.</h1>
+      <p class="hero-description">
+        The Wikipedia navigation game. Start on a random Italian article and follow its links to
+        reach Federico II.
+      </p>
       <div class="hero-actions">
         <button class="btn" type="button" [disabled]="busy()" (click)="play()">
           {{ busy() ? 'Starting…' : 'Play as Guest' }}
@@ -14,7 +18,16 @@
         <p class="status status--warning" role="status">{{ notice }}</p>
       }
       @if (current()?.game; as game) {
-        <div class="card stack" data-testid="guest-existing">
+        <div
+          class="guest-recovery"
+          data-ui
+          data-testid="guest-existing"
+          role="region"
+          aria-labelledby="guest-title"
+        >
+          <h2 id="guest-title">
+            {{ game.status === 'COMPLETED' ? 'Keep your result.' : 'Your next link awaits.' }}
+          </h2>
           <p>
             {{
               game.status === 'COMPLETED'
@@ -23,7 +36,7 @@
             }}
           </p>
           <div class="actions">
-            <a class="btn" [routerLink]="['/guest/game', game.id]">{{
+            <a class="btn guest-resume" [routerLink]="['/guest/game', game.id]">{{
               game.status === 'COMPLETED' ? 'View Result' : 'Resume'
             }}</a>
             <button
@@ -60,87 +73,121 @@
         </div>
       }
     </div>
-    <div class="intro-copy">
-      <p class="game-description">The Wikipedia<br />&ngsp;navigation game.</p>
-      <p>
-        Start on a random Italian article. Follow its links to reach
-        <strong>Università degli Studi di Napoli Federico II.</strong>
-      </p>
-      <a class="text-link" href="#example-route">
-        See how a route unfolds
-        <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
-      </a>
+    <div class="journey-preview" aria-label="Illustrative Wikipedia journey">
+      <div class="preview-heading">
+        <span>Wikipedia · Italiano</span><span>Example journey</span>
+      </div>
+      <article class="article-preview" data-ui>
+        <span class="article-source">From a random beginning</span>
+        <h2>Roma</h2>
+        <p>
+          Roma è la capitale della Repubblica Italiana. Un punto di partenza tra le voci di
+          Wikipedia.
+        </p>
+        <details class="article-link">
+          <summary>Napoli <span aria-hidden="true">↗</span></summary>
+          <div class="next-article" data-ui>
+            <p class="next-title">Napoli</p>
+            <p>Una nuova voce, altri collegamenti. La tua destinazione si avvicina.</p>
+            <span class="preview-link">Università degli Studi di Napoli Federico II</span>
+          </div>
+        </details>
+      </article>
+      <div class="arrival-ticket">
+        <div class="preview-destination" data-ui>
+          <ng-icon name="lucideFlag" aria-hidden="true" />
+          <div>
+            <span>Your destination</span><strong>Federico II</strong>
+            <p>Università degli Studi di Napoli Federico II</p>
+          </div>
+        </div>
+        <img
+          class="arrival-photo"
+          src="/images/landing/universita-degli-studi-di-napoli-federico-ii.jpg"
+          width="1920"
+          height="1311"
+          alt="The façade of Federico II in Naples, the destination behind the article"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <a class="preview-caption" href="#how-to">See how it works ↓</a>
     </div>
-  </section>
-
-  <section id="example-route" class="example-route" aria-labelledby="route-title">
-    <div class="route-caption">
-      <h2 id="route-title">Different beginnings. One destination.</h2>
-      <span>A verified example from a completed game</span>
-    </div>
-    <ol class="atlas-route">
-      <li class="atlas-stop start-stop">
-        <span class="route-node" aria-hidden="true"></span>
-        <div>
-          <span class="stop-label">Starting article</span>
-          <h3>Roma</h3>
-          <p>A starting point,<br />&ngsp;not a straight line.</p>
-        </div>
-      </li>
-      <li class="atlas-stop">
-        <span class="route-node" aria-hidden="true"></span>
-        <div>
-          <span class="stop-label">One link later</span>
-          <h3>Napoli</h3>
-          <p>One article opens<br />&ngsp;another possibility.</p>
-        </div>
-      </li>
-      <li class="atlas-stop destination-stop">
-        <span class="route-node destination-node" aria-hidden="true">
-          <ng-icon class="icon" name="lucideFlag" aria-hidden="true" />
-        </span>
-        <div>
-          <span class="stop-label">Your destination</span>
-          <h3>Federico II</h3>
-          <p>Università degli Studi<br />&ngsp;di Napoli Federico II</p>
-        </div>
-      </li>
-    </ol>
-    <p class="route-footnote">
-      Roma → Napoli → Federico II is an example from a completed game. Each game chooses a random
-      starting article.
-    </p>
   </section>
 
   <section id="how-to" class="how-to" aria-labelledby="how-title">
-    <div>
-      <h2 id="how-title">Read. Connect. Arrive.</h2>
-      <p>Curiosity is your compass.<br />&ngsp;The links are your only way forward.</p>
-      <a class="text-link history-link" routerLink="/history">
-        Explore ranked game history
-        <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
-      </a>
+    <div class="how-heading">
+      <h2 id="how-title">How it works.</h2>
+      <p>One random article. Every link is a choice.</p>
     </div>
-    <ol>
+    <ol class="how-steps">
       <li>
-        <strong>Begin with an article.</strong>
-        <span>Each game starts on a random Italian Wikipedia page.</span>
+        <h3>Start.</h3>
+        <p>Start from a random Italian Wikipedia article.</p>
       </li>
       <li>
-        <strong>Make the connection.</strong>
-        <span>Use only internal article links. Your mode and difficulty shape the challenge.</span>
+        <h3>Follow.</h3>
+        <p>Navigate through internal Wikipedia links.</p>
       </li>
       <li>
-        <strong>Reach Federico II.</strong>
-        <span>In CLICK, fewer navigation clicks wins. In TIME, lower effective time wins.</span>
+        <h3>Arrive.</h3>
+        <p>Reach the Federico II article.</p>
       </li>
     </ol>
+    <a class="text-link history-link" routerLink="/history">
+      Explore ranked game history
+      <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
+    </a>
+  </section>
+  <section class="destination-gallery" aria-labelledby="destination-title">
+    <div class="destination-heading">
+      <h2 id="destination-title">The final article.</h2>
+
+      <p class="destination-article-name">Università degli Studi di Napoli Federico II</p>
+      <p>Reach the university’s Wikipedia article to finish your game.</p>
+      <a class="text-link" href="#home-title">Find your way to Federico II ↑</a>
+    </div>
+    <div class="destination-photos">
+      <figure>
+        <img
+          src="/images/landing/federico-ii-napoli-giurisprudenza.jpg"
+          width="1200"
+          height="1600"
+          alt="The Federico II building seen from the streets of Naples"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/landing/palazzo-di-lettere-di-napoli-federico-ii.jpg"
+          width="1600"
+          height="1200"
+          alt="Palazzo di Lettere, another view of the university behind the destination article"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
   </section>
   <footer class="landing-footer">
-    <span>ROADTOUNINA · A route through knowledge.</span>
+    <span>A route through knowledge.</span>
     <div>
       <a routerLink="/register">Create an account</a>
       <a routerLink="/login">Log in</a>
     </div>
+    <svg class="footer-wordmark" viewBox="0 0 1000 110" aria-hidden="true" focusable="false">
+      <text
+        x="0"
+        y="88"
+        textLength="1000"
+        lengthAdjust="spacingAndGlyphs"
+        fill="currentColor"
+        font-size="110"
+        font-weight="800"
+      >
+        ROADTOUNINA
+      </text>
+    </svg>
   </footer>
 </div>

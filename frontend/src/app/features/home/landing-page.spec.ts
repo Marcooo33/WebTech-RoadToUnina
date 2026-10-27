@@ -49,16 +49,30 @@ describe('LandingPage presentation', () => {
     fixture.detectChanges();
   });
 
-  it('labels the informative completed example without making its stops game actions', () => {
-    const stops = Array.from(fixture.nativeElement.querySelectorAll('.atlas-route h3')).map(
-      (heading) => (heading as HTMLElement).textContent?.trim(),
+  it('explains the three steps once and retains the ranked history route', () => {
+    const section = fixture.nativeElement.querySelector('#how-to');
+    const steps = Array.from(section.querySelectorAll('ol li p')).map((step) =>
+      (step as HTMLElement).textContent?.trim(),
     );
-    expect(stops).toEqual(['Roma', 'Napoli', 'Federico II']);
-    expect(fixture.nativeElement.querySelector('.route-caption').textContent).toContain(
-      'example from a completed game',
+    expect(steps).toEqual([
+      'Start from a random Italian Wikipedia article.',
+      'Navigate through internal Wikipedia links.',
+      'Reach the Federico II article.',
+    ]);
+    expect(section.querySelector('a[href="/history"]').textContent).toContain(
+      'Explore ranked game history',
     );
-    expect(fixture.nativeElement.querySelector('.atlas-route a, .atlas-route button')).toBeNull();
-    expect(fixture.nativeElement.querySelector('a[href="/history"]')).not.toBeNull();
+    expect(section.textContent).not.toMatch(/CLICK|TIME/);
+    expect(fixture.nativeElement.querySelector('#example-route')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.preview-caption').getAttribute('href')).toBe(
+      '#how-to',
+    );
+    expect(fixture.nativeElement.querySelector('.hero-description').textContent).toContain(
+      'random Italian article',
+    );
+    expect(fixture.nativeElement.querySelector('.preview-heading').textContent).toContain(
+      'Example journey',
+    );
     expect(fixture.nativeElement.querySelector('a[href="/register"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('a[href="/login"]')).not.toBeNull();
   });
@@ -67,13 +81,59 @@ describe('LandingPage presentation', () => {
     const text = (selector: string) =>
       fixture.nativeElement.querySelector(selector).textContent.replace(/\s+/g, ' ').trim();
     expect(text('.hero-actions > span')).toBe('No account needed. Follow the article links.');
-    expect(text('.game-description')).toBe('The Wikipedia navigation game.');
-    expect(text('.atlas-stop:nth-child(1) p')).toBe('A starting point, not a straight line.');
-    expect(text('.atlas-stop:nth-child(2) p')).toBe('One article opens another possibility.');
-    expect(text('.atlas-stop:nth-child(3) p')).toBe('Università degli Studi di Napoli Federico II');
-    expect(text('.how-to > div p')).toBe(
-      'Curiosity is your compass. The links are your only way forward.',
+    expect(text('.hero-description')).toContain('The Wikipedia navigation game.');
+    expect(text('.how-heading p')).toBe('One random article. Every link is a choice.');
+  });
+
+  it('connects the destination imagery to the actual goal article', () => {
+    const destination = fixture.nativeElement.querySelector('.destination-gallery');
+    expect(destination.querySelector('.destination-article-name').textContent).toContain(
+      'Università degli Studi di Napoli Federico II',
     );
+    expect(destination.textContent).toContain('Wikipedia article to finish your game.');
+    expect(destination.querySelector('a[href="#home-title"]')).not.toBeNull();
+    expect(fixture.nativeElement.querySelectorAll('.landing img').length).toBe(3);
+  });
+
+  it('reveals the example without starting a guest game', () => {
+    const details = fixture.nativeElement.querySelector('.article-link') as HTMLDetailsElement;
+    details.querySelector('summary')!.click();
+    expect(details.open).toBe(true);
+    expect(details.textContent).toContain('Università degli Studi di Napoli Federico II');
+    expect(create).not.toHaveBeenCalled();
+  });
+
+  it('keeps Play as Guest visible with and without the recovery panel', () => {
+    const primary = () => fixture.nativeElement.querySelector('.hero-actions button');
+    expect(primary().textContent).toContain('Play as Guest');
+    expect(fixture.nativeElement.querySelector('[data-testid="guest-existing"]')).toBeNull();
+    fixture.componentInstance.current.set(existing);
+    fixture.detectChanges();
+    const panel = fixture.nativeElement.querySelector('[data-testid="guest-existing"]');
+    expect(panel.getAttribute('aria-labelledby')).toBe('guest-title');
+    expect(panel.querySelector('h2').textContent).toContain('Your next link awaits.');
+    expect(primary().textContent).toContain('Play as Guest');
+    expect(primary().disabled).toBe(false);
+    expect(create).not.toHaveBeenCalled();
+  });
+
+  it('keeps replacement confirmation wired to the existing action and busy state', () => {
+    fixture.componentInstance.current.set(existing);
+    fixture.componentInstance.confirming.set(true);
+    fixture.detectChanges();
+    const replace = vi.spyOn(fixture.componentInstance, 'replace').mockResolvedValue();
+    const confirm = Array.from(fixture.nativeElement.querySelectorAll('button')).find(
+      (button) => (button as HTMLButtonElement).textContent?.trim() === 'Confirm Start New',
+    ) as HTMLButtonElement;
+    confirm.click();
+    expect(replace).toHaveBeenCalledOnce();
+    fixture.componentInstance.busy.set(true);
+    fixture.detectChanges();
+    const buttons = fixture.nativeElement.querySelectorAll('[data-testid="guest-existing"] button');
+    expect(Array.from(buttons).every((button) => (button as HTMLButtonElement).disabled)).toBe(
+      true,
+    );
+    expect(fixture.nativeElement.querySelector('.hero-actions button').disabled).toBe(true);
   });
 
   it('preserves existing-game resume and the explicit replacement confirmation', () => {

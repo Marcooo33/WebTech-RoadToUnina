@@ -1,0 +1,79 @@
+/* Landing-only recovery state; detection and actions remain in LandingPage. */
+.guest-recovery {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 24px;
+  background: var(--landing-paper);
+  color: var(--landing-ink);
+}
+.guest-recovery #guest-title {
+  color: inherit;
+  font: 32px/1.1 var(--font-encyclopedia);
+  letter-spacing: -0.035em;
+}
+.guest-recovery p {
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 38ch;
+}
+.guest-recovery .actions {
+  gap: 12px 24px;
+}
+.guest-recovery .btn {
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+.guest-recovery .guest-resume {
+  background: var(--color-target);
+  color: var(--landing-ink);
+  min-width: 132px;
+  justify-content: space-between;
+}
+.guest-recovery .guest-resume:hover {
+  background: var(--color-target);
+  text-decoration: underline;
+}
+.guest-recovery .btn--secondary {
+  padding-inline: 0;
+  background: transparent;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.guest-recovery .btn--secondary:hover {
+  text-decoration-thickness: 2px;
+}
+.guest-recovery [role='alert'] {
+  padding-top: 8px;
+  font-weight: 600;
+}
+@media (max-width: 700px) {
+  .guest-recovery {
+    padding: 20px;
+    gap: 12px;
+  }
+  .guest-recovery #guest-title {
+    font-size: 28px;
+  }
+}
+@media (max-width: 350px) {
+  .guest-recovery .actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .guest-recovery .btn {
+    justify-content: center;
+  }
+  .guest-recovery .btn--secondary {
+    align-self: center;
+  }
+}
+
+.guest-recovery :focus-visible {
+  outline-color: var(--color-accent);
+}
