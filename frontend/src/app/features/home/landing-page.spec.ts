@@ -55,12 +55,12 @@ describe('LandingPage presentation', () => {
       (step as HTMLElement).textContent?.trim(),
     );
     expect(steps).toEqual([
-      'Start from a random Italian Wikipedia article.',
-      'Navigate through internal Wikipedia links.',
-      'Reach the Federico II article.',
+      'Parti da una voce casuale di Wikipedia in italiano.',
+      'Segui i link interni di Wikipedia.',
+      'Raggiungi la voce della Federico II.',
     ]);
     expect(section.querySelector('a[href="/history"]').textContent).toContain(
-      'Explore ranked game history',
+      'Esplora la classifica delle partite',
     );
     expect(section.textContent).not.toMatch(/CLICK|TIME/);
     expect(fixture.nativeElement.querySelector('#example-route')).toBeNull();
@@ -68,10 +68,10 @@ describe('LandingPage presentation', () => {
       '#how-to',
     );
     expect(fixture.nativeElement.querySelector('.hero-description').textContent).toContain(
-      'random Italian article',
+      'voce italiana casuale',
     );
     expect(fixture.nativeElement.querySelector('.preview-heading').textContent).toContain(
-      'Example journey',
+      'Percorso di esempio',
     );
     expect(fixture.nativeElement.querySelector('a[href="/register"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('a[href="/login"]')).not.toBeNull();
@@ -80,9 +80,11 @@ describe('LandingPage presentation', () => {
   it('keeps word separators when responsive line breaks are hidden', () => {
     const text = (selector: string) =>
       fixture.nativeElement.querySelector(selector).textContent.replace(/\s+/g, ' ').trim();
-    expect(text('.hero-actions > span')).toBe('No account needed. Follow the article links.');
-    expect(text('.hero-description')).toContain('The Wikipedia navigation game.');
-    expect(text('.how-heading p')).toBe('One random article. Every link is a choice.');
+    expect(text('.hero-actions > span')).toBe(
+      'Non serve un account. Segui i link tra le voci.',
+    );
+    expect(text('.hero-description')).toContain('Il gioco di navigazione su Wikipedia.');
+    expect(text('.how-heading p')).toBe('Una voce casuale. Ogni collegamento è una scelta.');
   });
 
   it('connects the destination imagery to the actual goal article', () => {
@@ -90,7 +92,9 @@ describe('LandingPage presentation', () => {
     expect(destination.querySelector('.destination-article-name').textContent).toContain(
       'Università degli Studi di Napoli Federico II',
     );
-    expect(destination.textContent).toContain('Wikipedia article to finish your game.');
+    expect(destination.textContent).toContain(
+      'voce Wikipedia della Federico II per completare la partita.',
+    );
     expect(destination.querySelector('a[href="#home-title"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelectorAll('.landing img').length).toBe(3);
   });
@@ -105,14 +109,14 @@ describe('LandingPage presentation', () => {
 
   it('keeps Play as Guest visible with and without the recovery panel', () => {
     const primary = () => fixture.nativeElement.querySelector('.hero-actions button');
-    expect(primary().textContent).toContain('Play as Guest');
+    expect(primary().textContent).toContain('Gioca come ospite');
     expect(fixture.nativeElement.querySelector('[data-testid="guest-existing"]')).toBeNull();
     fixture.componentInstance.current.set(existing);
     fixture.detectChanges();
     const panel = fixture.nativeElement.querySelector('[data-testid="guest-existing"]');
     expect(panel.getAttribute('aria-labelledby')).toBe('guest-title');
-    expect(panel.querySelector('h2').textContent).toContain('Your next link awaits.');
-    expect(primary().textContent).toContain('Play as Guest');
+    expect(panel.querySelector('h2').textContent).toContain('Il prossimo collegamento ti aspetta.');
+    expect(primary().textContent).toContain('Gioca come ospite');
     expect(primary().disabled).toBe(false);
     expect(create).not.toHaveBeenCalled();
   });
@@ -123,7 +127,7 @@ describe('LandingPage presentation', () => {
     fixture.detectChanges();
     const replace = vi.spyOn(fixture.componentInstance, 'replace').mockResolvedValue();
     const confirm = Array.from(fixture.nativeElement.querySelectorAll('button')).find(
-      (button) => (button as HTMLButtonElement).textContent?.trim() === 'Confirm Start New',
+      (button) => (button as HTMLButtonElement).textContent?.trim() === 'Conferma nuova partita',
     ) as HTMLButtonElement;
     confirm.click();
     expect(replace).toHaveBeenCalledOnce();
@@ -141,15 +145,15 @@ describe('LandingPage presentation', () => {
     fixture.detectChanges();
     const panel = fixture.nativeElement.querySelector('[data-testid="guest-existing"]');
     expect(panel.querySelector('a').getAttribute('href')).toBe('/guest/game/guest-example');
-    expect(panel.querySelector('a').textContent.trim()).toBe('Resume');
+    expect(panel.querySelector('a').textContent.trim()).toBe('Riprendi');
     panel.querySelector('button').click();
     fixture.detectChanges();
     expect(panel.querySelector('[role="alert"]').textContent).toContain(
-      'Discard your current progress',
+      'Vuoi eliminare i progressi attuali',
     );
     expect(create).not.toHaveBeenCalled();
     const cancel = Array.from(panel.querySelectorAll('button')).find(
-      (button) => (button as HTMLButtonElement).textContent?.trim() === 'Cancel',
+      (button) => (button as HTMLButtonElement).textContent?.trim() === 'Annulla',
     ) as HTMLButtonElement;
     cancel.click();
     fixture.detectChanges();
@@ -165,8 +169,8 @@ describe('LandingPage presentation', () => {
     fixture.componentInstance.busy.set(true);
     fixture.detectChanges();
     const panel = fixture.nativeElement.querySelector('[data-testid="guest-existing"]');
-    expect(panel.textContent).toContain('unsaved guest result');
-    expect(panel.querySelector('a').textContent.trim()).toBe('View Result');
+    expect(panel.textContent).toContain('risultato ospite non ancora salvato');
+    expect(panel.querySelector('a').textContent.trim()).toBe('Visualizza risultato');
     expect(panel.querySelector('button').disabled).toBe(true);
     expect(fixture.nativeElement.querySelector('.hero-actions button').disabled).toBe(true);
   });

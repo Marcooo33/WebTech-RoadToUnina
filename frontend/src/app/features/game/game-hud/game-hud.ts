@@ -1,3 +1,4 @@
+import { GameLabelPipe } from '../../../shared/pipes/game-label.pipe';
 import {
   afterNextRender,
   ChangeDetectionStrategy,
@@ -22,7 +23,7 @@ const MEDIUM_BACKTRACK_LIMIT = 3;
 @Component({
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DurationPipe, NgIcon],
+  imports: [GameLabelPipe, DurationPipe, NgIcon],
   providers: [provideIcons({ lucideFlag, lucideRotateCcw })],
   templateUrl: './game-hud.html',
   styleUrl: './game-hud.css',

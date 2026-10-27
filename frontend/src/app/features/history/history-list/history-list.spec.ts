@@ -104,6 +104,18 @@ describe('HistoryList presentation', () => {
     );
   });
 
+  it('localizes the deleted-player placeholder without changing ranking data', () => {
+    const item = { ...response.items[0], username: 'Deleted user' };
+    fixture.componentInstance.result.set({ ...response, mode: 'CLICK', difficulty: 'EASY', items: [item] });
+    fixture.detectChanges();
+    const row = fixture.nativeElement.querySelector('tbody tr');
+    expect(row.querySelector('.player').textContent).toContain('Utente eliminato');
+    expect(row.querySelector('a').getAttribute('aria-label')).toBe(
+      'Visualizza la partita di Utente eliminato',
+    );
+    expect(item.username).toBe('Deleted user');
+  });
+
   it('preserves distinct empty and error states without adding a retry action', () => {
     fixture.componentInstance.result.set({
       ...response,
@@ -124,7 +136,7 @@ describe('HistoryList presentation', () => {
     );
     expect(fixture.nativeElement.querySelector('.empty-state')).toBeNull();
     expect(fixture.nativeElement.querySelector('[role="tabpanel"]').textContent).not.toContain(
-      'Retry',
+      'Riprova',
     );
   });
 });

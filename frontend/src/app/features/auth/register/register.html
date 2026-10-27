@@ -1,12 +1,12 @@
 <section class="auth card">
   <header class="auth__header">
-    <h1 class="page-title">Create an account</h1>
-    <p class="muted">Save routes, resume games, and enter the public history.</p>
+    <h1 class="page-title">Crea un account</h1>
+    <p class="muted">Salva i percorsi, riprendi le partite e partecipa alla classifica pubblica.</p>
   </header>
 
   @if (authenticated()) {
     @if (continuation.busy()) {
-      <p role="status">Finishing guest game…</p>
+      <p role="status">Completamento della gestione della partita ospite…</p>
     }
     @if (continuation.message(); as message) {
       <p class="status status--warning" role="alert">{{ message }}</p>
@@ -18,10 +18,10 @@
             [disabled]="continuation.busy()"
             (click)="afterAuthentication(true)"
           >
-            Retry
+            Riprova
           </button>
         }
-        <a class="btn btn--secondary" routerLink="/dashboard">Go to Dashboard</a>
+        <a class="btn btn--secondary" routerLink="/dashboard">Vai al riepilogo</a>
       </div>
     }
   } @else {
@@ -29,7 +29,7 @@
 
     <form #authForm [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="submitting()">
       <div class="field">
-        <label for="username">Username</label>
+        <label for="username">Nome utente</label>
         <input
           id="username"
           type="text"
@@ -42,9 +42,9 @@
               : 'username-hint'
           "
         />
-        <span id="username-hint" class="auth__hint">Use 3–30 characters.</span>
+        <span id="username-hint" class="auth__hint">Usa da 3 a 30 caratteri.</span>
         @if (form.controls.username.touched && form.controls.username.invalid) {
-          <span id="username-error" class="field__error">3–30 characters required.</span>
+          <span id="username-error" class="field__error">Sono richiesti da 3 a 30 caratteri.</span>
         }
       </div>
 
@@ -63,7 +63,9 @@
           "
         />
         @if (form.controls.email.touched && form.controls.email.invalid) {
-          <span id="register-email-error" class="field__error">Enter a valid email address.</span>
+          <span id="register-email-error" class="field__error"
+            >Inserisci un indirizzo email valido.</span
+          >
         }
       </div>
 
@@ -81,17 +83,19 @@
               : 'password-hint'
           "
         />
-        <span id="password-hint" class="auth__hint">Use at least 8 characters.</span>
+        <span id="password-hint" class="auth__hint">Usa almeno 8 caratteri.</span>
         @if (form.controls.password.touched && form.controls.password.invalid) {
-          <span id="register-password-error" class="field__error">At least 8 characters.</span>
+          <span id="register-password-error" class="field__error"
+            >Sono richiesti almeno 8 caratteri.</span
+          >
         }
       </div>
 
       <button class="btn auth__submit" type="submit" [disabled]="submitting()">
-        {{ submitting() ? 'Creating…' : 'Create account' }}
+        {{ submitting() ? 'Creazione…' : 'Crea account' }}
       </button>
     </form>
 
-    <p class="auth__footer muted">Already registered? <a routerLink="/login">Log in</a></p>
+    <p class="auth__footer muted">Hai già un account? <a routerLink="/login">Accedi</a></p>
   }
 </section>

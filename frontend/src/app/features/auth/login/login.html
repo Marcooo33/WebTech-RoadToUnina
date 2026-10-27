@@ -1,12 +1,12 @@
 <section class="auth card">
   <header class="auth__header">
-    <h1 class="page-title">Log in</h1>
-    <p class="muted">Resume your routes to Federico II.</p>
+    <h1 class="page-title">Accedi</h1>
+    <p class="muted">Riprendi i tuoi percorsi verso la Federico II.</p>
   </header>
 
   @if (authenticated()) {
     @if (continuation.busy()) {
-      <p role="status">Finishing guest game…</p>
+      <p role="status">Completamento della gestione della partita ospite…</p>
     }
     @if (continuation.message(); as message) {
       <p class="status status--warning" role="alert">{{ message }}</p>
@@ -18,10 +18,10 @@
             [disabled]="continuation.busy()"
             (click)="afterAuthentication(true)"
           >
-            Retry
+            Riprova
           </button>
         }
-        <a class="btn btn--secondary" routerLink="/dashboard">Go to Dashboard</a>
+        <a class="btn btn--secondary" routerLink="/dashboard">Vai al riepilogo</a>
       </div>
     }
   } @else {
@@ -29,7 +29,7 @@
 
     <form #authForm [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="submitting()">
       <div class="field">
-        <label for="identifier">Username or email</label>
+        <label for="identifier">Nome utente o email</label>
         <input
           id="identifier"
           type="text"
@@ -43,7 +43,9 @@
           "
         />
         @if (form.controls.identifier.touched && form.controls.identifier.invalid) {
-          <span id="identifier-error" class="field__error">Enter your username or email.</span>
+          <span id="identifier-error" class="field__error"
+            >Inserisci il nome utente o la tua email.</span
+          >
         }
       </div>
 
@@ -62,17 +64,17 @@
           "
         />
         @if (form.controls.password.touched && form.controls.password.invalid) {
-          <span id="login-password-error" class="field__error">Enter your password.</span>
+          <span id="login-password-error" class="field__error">Inserisci la tua password.</span>
         }
       </div>
 
       <button class="btn auth__submit" type="submit" [disabled]="submitting()">
-        {{ submitting() ? 'Logging in…' : 'Log in' }}
+        {{ submitting() ? 'Accesso in corso…' : 'Accedi' }}
       </button>
     </form>
 
     <p class="auth__footer muted">
-      New to ROADTOUNINA? <a routerLink="/register">Create an account</a>
+      Prima volta su ROADTOUNINA? <a routerLink="/register">Crea un account</a>
     </p>
   }
 </section>

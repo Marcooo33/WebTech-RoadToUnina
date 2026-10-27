@@ -4,14 +4,14 @@
       <li class="path__item" [class.path__item--current]="$last">
         <span class="path__title">{{ page.title }}</span>
         @if ($first) {
-          <span class="path__state">Starting article</span>
+          <span class="path__state">Voce iniziale</span>
         }
         @if ($last) {
           <span class="path__state path__state--current">{{
             lastLabel() === 'current'
-              ? 'Current article'
+              ? 'Voce attuale'
               : lastLabel() === 'target'
-                ? 'Destination'
+                ? 'Destinazione'
                 : lastLabel()
           }}</span>
         }

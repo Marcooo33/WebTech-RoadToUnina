@@ -68,7 +68,7 @@ describe('PostAuthGuestService', () => {
       .flush({ error: { code: 'GAME_NOT_FOUND' } }, { status: 404, statusText: 'Not found' });
     await finish;
     expect(service.retryable()).toBe(false);
-    expect(service.message()).toContain('could not be saved');
+    expect(service.message()).toContain('Non è stato possibile salvarlo');
   });
   it('retains pending result after bounded retries without changing authentication', async () => {
     vi.useFakeTimers();
@@ -81,7 +81,7 @@ describe('PostAuthGuestService', () => {
     await vi.advanceTimersByTimeAsync(4000);
     await finish;
     expect(service.retryable()).toBe(true);
-    expect(service.message()).toContain('has not been saved');
+    expect(service.message()).toContain('non è stato salvato');
     expect(guests.pending()?.gameId).toBe(id);
   });
   it('keeps the claim hint when authentication expires', async () => {
@@ -98,7 +98,7 @@ describe('PostAuthGuestService', () => {
       );
     await finish;
     expect(guests.pending()?.gameId).toBe(id);
-    expect(service.message()).toContain('Log in again');
+    expect(service.message()).toContain('Accedi di nuovo');
   });
   it('claims the authoritative completed result despite a stale discard hint', async () => {
     const guests = TestBed.inject(GuestGamesService);

@@ -33,7 +33,7 @@ describe('GameHud', () => {
       '37',
     );
     expect(fixture.nativeElement.querySelector('.hud__stat--primary dt').textContent).toContain(
-      'Clicks',
+      'Click',
     );
     expect(fixture.nativeElement.querySelectorAll('dl').length).toBe(1);
   });
@@ -81,7 +81,7 @@ describe('GameHud', () => {
     expect(backtrack).toHaveBeenCalledOnce();
     expect(fixture.nativeElement.querySelectorAll('[role="status"]').length).toBe(1);
     expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain(
-      'Opening the next article',
+      'Apertura della prossima voce',
     );
   });
 

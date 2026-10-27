@@ -1,17 +1,17 @@
 <div class="landing">
   <section class="home-intro" aria-labelledby="home-title">
     <div class="intro-title">
-      <h1 id="home-title">All links lead<br />&ngsp;to Federico II.</h1>
+      <h1 id="home-title">Tutti i link portano<br />&ngsp;alla Federico II.</h1>
       <p class="hero-description">
-        The Wikipedia navigation game. Start on a random Italian article and follow its links to
-        reach Federico II.
+        Il gioco di navigazione su Wikipedia. Parti da una voce italiana casuale e segui i suoi
+        link per raggiungere la Federico II.
       </p>
       <div class="hero-actions">
         <button class="btn" type="button" [disabled]="busy()" (click)="play()">
-          {{ busy() ? 'Starting…' : 'Play as Guest' }}
+          {{ busy() ? 'Avvio…' : 'Gioca come ospite' }}
           <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
         </button>
-        <span>No account needed.<br />&ngsp;Follow the article links.</span>
+        <span>Non serve un account.<br />&ngsp;Segui i link tra le voci.</span>
       </div>
       <app-error-banner [message]="error()" />
       @if (guests.notice(); as notice) {
@@ -26,18 +26,22 @@
           aria-labelledby="guest-title"
         >
           <h2 id="guest-title">
-            {{ game.status === 'COMPLETED' ? 'Keep your result.' : 'Your next link awaits.' }}
+            {{
+              game.status === 'COMPLETED'
+                ? 'Conserva il tuo risultato.'
+                : 'Il prossimo collegamento ti aspetta.'
+            }}
           </h2>
           <p>
             {{
               game.status === 'COMPLETED'
-                ? 'You have an unsaved guest result.'
-                : 'You have a guest game in progress.'
+                ? 'Hai un risultato ospite non ancora salvato.'
+                : 'Hai una partita ospite in corso.'
             }}
           </p>
           <div class="actions">
             <a class="btn guest-resume" [routerLink]="['/guest/game', game.id]">{{
-              game.status === 'COMPLETED' ? 'View Result' : 'Resume'
+              game.status === 'COMPLETED' ? 'Visualizza risultato' : 'Riprendi'
             }}</a>
             <button
               class="btn btn--secondary"
@@ -45,20 +49,20 @@
               [disabled]="busy()"
               (click)="confirming.set(true)"
             >
-              Start New
+              Nuova partita
             </button>
           </div>
           @if (confirming()) {
             <p role="alert">
               {{
                 game.status === 'COMPLETED'
-                  ? 'Discard this unsaved result and start a new game?'
-                  : 'Discard your current progress and start a new game?'
+                  ? 'Vuoi eliminare questo risultato non salvato e iniziare una nuova partita?'
+                  : 'Vuoi eliminare i progressi attuali e iniziare una nuova partita?'
               }}
             </p>
             <div class="actions">
               <button class="btn btn--danger" type="button" [disabled]="busy()" (click)="replace()">
-                Confirm Start New
+                Conferma nuova partita
               </button>
               <button
                 class="btn btn--secondary"
@@ -66,19 +70,19 @@
                 [disabled]="busy()"
                 (click)="confirming.set(false)"
               >
-                Cancel
+                Annulla
               </button>
             </div>
           }
         </div>
       }
     </div>
-    <div class="journey-preview" aria-label="Illustrative Wikipedia journey">
+    <div class="journey-preview" aria-label="Esempio di percorso su Wikipedia">
       <div class="preview-heading">
-        <span>Wikipedia · Italiano</span><span>Example journey</span>
+        <span>Wikipedia · Italiano</span><span>Percorso di esempio</span>
       </div>
       <article class="article-preview" data-ui>
-        <span class="article-source">From a random beginning</span>
+        <span class="article-source">Da un punto di partenza casuale</span>
         <h2>Roma</h2>
         <p>
           Roma è la capitale della Repubblica Italiana. Un punto di partenza tra le voci di
@@ -88,7 +92,7 @@
           <summary>Napoli <span aria-hidden="true">↗</span></summary>
           <div class="next-article" data-ui>
             <p class="next-title">Napoli</p>
-            <p>Una nuova voce, altri collegamenti. La tua destinazione si avvicina.</p>
+            <p>Una nuova voce, altri link. La tua destinazione si avvicina.</p>
             <span class="preview-link">Università degli Studi di Napoli Federico II</span>
           </div>
         </details>
@@ -97,7 +101,7 @@
         <div class="preview-destination" data-ui>
           <ng-icon name="lucideFlag" aria-hidden="true" />
           <div>
-            <span>Your destination</span><strong>Federico II</strong>
+            <span>La tua destinazione</span><strong>Federico II</strong>
             <p>Università degli Studi di Napoli Federico II</p>
           </div>
         </div>
@@ -106,46 +110,46 @@
           src="/images/landing/universita-degli-studi-di-napoli-federico-ii.jpg"
           width="1920"
           height="1311"
-          alt="The façade of Federico II in Naples, the destination behind the article"
+          alt="La facciata della Federico II a Napoli, la destinazione del percorso"
           fetchpriority="high"
           decoding="async"
         />
       </div>
-      <a class="preview-caption" href="#how-to">See how it works ↓</a>
+      <a class="preview-caption" href="#how-to">Scopri come funziona ↓</a>
     </div>
   </section>
 
   <section id="how-to" class="how-to" aria-labelledby="how-title">
     <div class="how-heading">
-      <h2 id="how-title">How it works.</h2>
-      <p>One random article. Every link is a choice.</p>
+      <h2 id="how-title">Come si gioca.</h2>
+      <p>Una voce casuale. Ogni collegamento è una scelta.</p>
     </div>
     <ol class="how-steps">
       <li>
-        <h3>Start.</h3>
-        <p>Start from a random Italian Wikipedia article.</p>
+        <h3>Parti.</h3>
+        <p>Parti da una voce casuale di Wikipedia in italiano.</p>
       </li>
       <li>
-        <h3>Follow.</h3>
-        <p>Navigate through internal Wikipedia links.</p>
+        <h3>Esplora.</h3>
+        <p>Segui i link interni di Wikipedia.</p>
       </li>
       <li>
-        <h3>Arrive.</h3>
-        <p>Reach the Federico II article.</p>
+        <h3>Arriva.</h3>
+        <p>Raggiungi la voce della Federico II.</p>
       </li>
     </ol>
     <a class="text-link history-link" routerLink="/history">
-      Explore ranked game history
+      Esplora la classifica delle partite
       <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
     </a>
   </section>
   <section class="destination-gallery" aria-labelledby="destination-title">
     <div class="destination-heading">
-      <h2 id="destination-title">The final article.</h2>
+      <h2 id="destination-title">La voce da raggiungere.</h2>
 
       <p class="destination-article-name">Università degli Studi di Napoli Federico II</p>
-      <p>Reach the university’s Wikipedia article to finish your game.</p>
-      <a class="text-link" href="#home-title">Find your way to Federico II ↑</a>
+      <p>Raggiungi la voce Wikipedia della Federico II per completare la partita.</p>
+      <a class="text-link" href="#home-title">Trova la strada per la Federico II ↑</a>
     </div>
     <div class="destination-photos">
       <figure>
@@ -153,7 +157,7 @@
           src="/images/landing/federico-ii-napoli-giurisprudenza.jpg"
           width="1200"
           height="1600"
-          alt="The Federico II building seen from the streets of Naples"
+          alt="Un edificio della Federico II visto dalle strade di Napoli"
           loading="lazy"
           decoding="async"
         />
@@ -163,7 +167,7 @@
           src="/images/landing/palazzo-di-lettere-di-napoli-federico-ii.jpg"
           width="1600"
           height="1200"
-          alt="Palazzo di Lettere, another view of the university behind the destination article"
+          alt="Il Palazzo di Lettere della Federico II a Napoli"
           loading="lazy"
           decoding="async"
         />
@@ -171,10 +175,10 @@
     </div>
   </section>
   <footer class="landing-footer">
-    <span>A route through knowledge.</span>
+    <span>Un percorso attraverso la conoscenza.</span>
     <div>
-      <a routerLink="/register">Create an account</a>
-      <a routerLink="/login">Log in</a>
+      <a routerLink="/register">Crea un account</a>
+      <a routerLink="/login">Accedi</a>
     </div>
     <svg class="footer-wordmark" viewBox="0 0 1000 110" aria-hidden="true" focusable="false">
       <text

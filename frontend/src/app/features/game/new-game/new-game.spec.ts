@@ -28,16 +28,16 @@ describe('NewGame', () => {
     const legends = Array.from(fixture.nativeElement.querySelectorAll('legend')).map((legend) =>
       (legend as HTMLElement).textContent?.trim(),
     );
-    expect(legends).toEqual(['Mode', 'Difficulty']);
+    expect(legends).toEqual(['Modalità', 'Difficoltà']);
     expect(fixture.nativeElement.querySelectorAll('input[type="radio"]').length).toBe(5);
     expect(fixture.nativeElement.querySelector('#difficulty-note').textContent).toContain(
-      'A backtrack never counts as a navigation click.',
+      'Tornare indietro non viene mai conteggiato come click di navigazione.',
     );
   });
 
   it('submits selections from the original native radio controls', () => {
     const labels = Array.from(fixture.nativeElement.querySelectorAll('.option')) as HTMLElement[];
-    for (const title of ['TIME', 'MEDIUM']) {
+    for (const title of ['Tempo', 'Media']) {
       labels
         .find((label) => label.querySelector('.option__title')?.textContent?.trim() === title)!
         .querySelector('input')!
@@ -66,13 +66,13 @@ describe('NewGame', () => {
   it('keeps other server errors in the shared error banner', () => {
     component.submit();
     request.error(
-      new ApiError(502, 'WIKIPEDIA_UNAVAILABLE', 'Wikipedia is temporarily unavailable.'),
+      new ApiError(502, 'WIKIPEDIA_UNAVAILABLE', 'Wikipedia è temporaneamente non disponibile.'),
     );
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('[role="alert"]').length).toBe(1);
     expect(
       fixture.nativeElement.querySelector('app-error-banner [role="alert"]').textContent,
-    ).toContain('Wikipedia is temporarily unavailable.');
+    ).toContain('Wikipedia è temporaneamente non disponibile.');
     expect(fixture.nativeElement.querySelector('button[type="submit"]').disabled).toBe(false);
   });
 });

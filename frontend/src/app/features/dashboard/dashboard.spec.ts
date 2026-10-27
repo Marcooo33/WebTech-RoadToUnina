@@ -80,9 +80,9 @@ describe('Dashboard', () => {
 
   it('explains average scopes and uses a returning-player safe empty action', () => {
     const text = fixture.nativeElement.textContent;
-    expect(text).toContain('Average clicks · CLICK');
-    expect(text).toContain('Average time · TIME');
-    expect(text).toContain('Start a new game');
+    expect(text).toContain('Media dei click · Click');
+    expect(text).toContain('Tempo medio · Tempo');
+    expect(text).toContain('Inizia una nuova partita');
     expect(text).not.toContain('first game');
     expect(component.statistics()?.averageClicks).toBe(7);
     expect(component.statistics()?.averageEffectiveTimeMs).toBeNull();
@@ -96,11 +96,11 @@ describe('Dashboard', () => {
     row.querySelector('.game-row__delete').click();
     fixture.detectChanges();
     expect(remove).not.toHaveBeenCalled();
-    const confirmation = row.querySelector('[aria-label="Confirm game deletion"]');
+    const confirmation = row.querySelector('[aria-label="Conferma eliminazione della partita"]');
     confirmation.querySelector('.link-btn--danger').click();
     fixture.detectChanges();
     expect(remove).toHaveBeenCalledExactlyOnceWith('saved-route');
-    expect(confirmation.textContent).toContain('Deleting…');
+    expect(confirmation.textContent).toContain('Eliminazione…');
     expect(confirmation.querySelector('button').disabled).toBe(true);
     deletion.next();
     deletion.complete();
@@ -118,7 +118,7 @@ describe('Dashboard', () => {
     expect(fixture.nativeElement.querySelectorAll('#games-title .games__count').length).toBe(1);
     expect(fixture.nativeElement.querySelector('.page-header button').disabled).toBe(true);
     expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain(
-      '10-game limit',
+      'limite di 10 partite',
     );
   });
 });

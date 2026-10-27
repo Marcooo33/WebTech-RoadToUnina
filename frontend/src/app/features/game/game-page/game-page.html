@@ -8,18 +8,18 @@
 
   @switch (phase()) {
     @case ('loading') {
-      <app-loading-spinner label="Loading game…" />
+      <app-loading-spinner label="Caricamento della partita…" />
       @if (wikipediaRetry()) {
-        <button type="button" class="btn btn--secondary" (click)="retry()">Retry</button>
+        <button type="button" class="btn btn--secondary" (click)="retry()">Riprova</button>
       }
     }
 
     @case ('error') {
       <div class="card stack">
-        <p>This game could not be loaded right now.</p>
+        <p>Al momento non è possibile caricare questa partita.</p>
         <div class="actions">
-          <button type="button" class="btn" (click)="retry()">Try again</button>
-          <a class="btn btn--secondary" routerLink="/">Back to dashboard</a>
+          <button type="button" class="btn" (click)="retry()">Riprova</button>
+          <a class="btn btn--secondary" routerLink="/">Torna al riepilogo</a>
         </div>
       </div>
     }
@@ -33,7 +33,7 @@
     @case ('playing') {
       @if (game(); as g) {
         <div class="game__layout">
-          <aside class="game__aside" aria-label="Game tools">
+          <aside class="game__aside" aria-label="Strumenti di gioco">
             <app-game-hud
               [game]="g"
               [displayTimeMs]="displayTimeMs()"
@@ -49,14 +49,15 @@
             </app-game-hud>
             <details class="game__desktop-path" open>
               <summary #desktopPathSummary>
-                Your path <span>{{ g.path.length }} articles</span>
+                Il tuo percorso
+                <span>{{ g.path.length }} {{ g.path.length === 1 ? 'voce' : 'voci' }}</span>
               </summary>
               <app-game-path [path]="g.path" />
             </details>
           </aside>
           <div class="game__main">
             <div class="game__article-toolbar">
-              <span>Wikipedia · Italiano</span><a routerLink="/">Leave game</a>
+              <span>Wikipedia · Italiano</span><a routerLink="/">Esci dalla partita</a>
             </div>
             @if (article(); as a) {
               <app-wikipedia-article
@@ -66,9 +67,9 @@
                 (navigate)="onNavigate($event)"
               />
             } @else {
-              <app-loading-spinner label="Loading article…" />
+              <app-loading-spinner label="Caricamento della voce…" />
               @if (wikipediaRetry()) {
-                <button type="button" class="btn btn--secondary" (click)="retry()">Retry</button>
+                <button type="button" class="btn btn--secondary" (click)="retry()">Riprova</button>
               }
             }
           </div>
@@ -81,24 +82,26 @@
         >
           <div class="game__dialog-heading">
             <div>
-              <h2 id="path-title">Your path</h2>
-              <p>{{ g.path.length }} articles visited</p>
+              <h2 id="path-title">Il tuo percorso</h2>
+              <p>
+                {{ g.path.length }} {{ g.path.length === 1 ? 'voce visitata' : 'voci visitate' }}
+              </p>
             </div>
             <button
               class="game__dialog-close"
               type="button"
               autofocus
-              aria-label="Close path"
+              aria-label="Chiudi il percorso"
               (click)="closePath()"
             >
               ×
             </button>
           </div>
           @if (pathOpen()) {
-            <app-game-path [path]="g.path" ariaLabel="Path in this game" />
+            <app-game-path [path]="g.path" ariaLabel="Percorso della partita" />
           }
           <div class="game__path-target">
-            <span>Destination</span><strong>Università degli Studi di Napoli Federico II</strong>
+            <span>Destinazione</span><strong>Università degli Studi di Napoli Federico II</strong>
           </div>
         </dialog>
       }

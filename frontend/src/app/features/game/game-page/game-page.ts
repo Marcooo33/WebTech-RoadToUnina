@@ -263,7 +263,11 @@ export class GamePage implements OnInit {
         }
         if (!state.article || state.article.pageId !== state.game.currentPageId) {
           this.onInitialError(
-            new ApiError(500, 'INTERNAL_ERROR', 'The game and article state did not match.'),
+            new ApiError(
+              500,
+              'INTERNAL_ERROR',
+              'Lo stato della partita non corrisponde alla voce caricata.',
+            ),
           );
           return;
         }
@@ -329,8 +333,8 @@ export class GamePage implements OnInit {
         // game state is intact, so surface a retry instead of a dead spinner.
         const message =
           err.code === 'WIKIPEDIA_UNAVAILABLE'
-            ? 'Wikipedia is temporarily unavailable.'
-            : 'The article could not be loaded.';
+            ? 'Wikipedia è temporaneamente non disponibile.'
+            : 'Non è stato possibile caricare la voce.';
         this.article.set(null);
         this.wikipediaRetry.set(true);
         if (this.phase() === 'loading') {
@@ -353,7 +357,7 @@ export class GamePage implements OnInit {
         this.load();
         return;
       case 'INVALID_MOVE':
-        this.notice.set('That link is no longer available here. The article was refreshed.');
+        this.notice.set('Questo collegamento non è più disponibile. La voce è stata aggiornata.');
         this.busy.set(true);
         this.fetchArticle();
         return;
@@ -362,13 +366,13 @@ export class GamePage implements OnInit {
         this.notice.set(err.message);
         return;
       case 'GUEST_GAME_BUSY':
-        this.notice.set('Another tab is updating this game. Try again in a moment.');
+        this.notice.set('Un’altra scheda sta aggiornando questa partita. Riprova tra poco.');
         return;
       case 'GUEST_PLAY_REQUIRES_ANONYMOUS':
         void this.router.navigate(['/dashboard']);
         return;
       case 'WIKIPEDIA_UNAVAILABLE':
-        this.notice.set('Wikipedia is temporarily unavailable. Please try again.');
+        this.notice.set('Wikipedia è temporaneamente non disponibile. Riprova.');
         return;
       case 'GAME_NOT_FOUND':
         this.leaveMissingGame();
@@ -388,7 +392,8 @@ export class GamePage implements OnInit {
   }
 
   private leaveMissingGame(): void {
-    if (this.isGuest) this.guests.notice.set('Your guest game expired or is no longer available.');
+    if (this.isGuest)
+      this.guests.notice.set('La tua partita ospite è scaduta o non è più disponibile.');
     void this.router.navigate(['/']);
   }
 

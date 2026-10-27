@@ -1,16 +1,17 @@
 <section class="stack">
   <header class="new-game__header">
-    <h1 class="page-title">New game</h1>
+    <h1 class="page-title">Nuova partita</h1>
     <p class="muted">
-      Every game starts on a random Italian Wikipedia article. Reach
-      <strong>Università degli Studi di Napoli Federico II</strong> by following only the internal
-      links inside each article.
+      Ogni partita inizia da una voce casuale di Wikipedia in italiano. Raggiungi
+      <strong>Università degli Studi di Napoli Federico II</strong> seguendo solo i link
+      interni presenti nelle voci.
     </p>
   </header>
 
   @if (limitReached) {
     <p class="status status--warning" role="alert">
-      {{ error() }} <a routerLink="/">Finish or delete one</a> before starting another.
+      {{ error() }} <a routerLink="/">Completa o elimina una partita</a> prima di iniziarne
+      un’altra.
     </p>
   } @else {
     <app-error-banner [message]="error()" />
@@ -23,7 +24,7 @@
     [attr.aria-busy]="submitting()"
   >
     <fieldset class="options options--modes">
-      <legend>Mode</legend>
+      <legend>Modalità</legend>
       @for (mode of modes; track mode.value) {
         <label class="option" [class.option--selected]="form.controls.mode.value === mode.value">
           <input type="radio" formControlName="mode" [value]="mode.value" />
@@ -38,7 +39,7 @@
     </fieldset>
 
     <fieldset class="options options--difficulty" aria-describedby="difficulty-note">
-      <legend>Difficulty</legend>
+      <legend>Difficoltà</legend>
       @for (difficulty of difficulties; track difficulty.value) {
         <label
           class="option"
@@ -50,17 +51,18 @@
         </label>
       }
       <p id="difficulty-note" class="muted options__note">
-        Difficulty only changes backtracking. A backtrack never counts as a navigation click.
+        La difficoltà cambia solo la possibilità di tornare indietro. Tornare indietro non viene mai
+        conteggiato come click di navigazione.
       </p>
     </fieldset>
 
     <button class="btn start-button" type="submit" [disabled]="submitting() || limitReached">
       <ng-icon class="icon" name="lucidePlay" aria-hidden="true" />
-      {{ submitting() ? 'Creating…' : 'Start game' }}
+      {{ submitting() ? 'Creazione…' : 'Inizia partita' }}
     </button>
   </form>
 
   <a class="back-link" routerLink="/"
-    ><ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Back to dashboard</a
+    ><ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Torna al riepilogo</a
   >
 </section>

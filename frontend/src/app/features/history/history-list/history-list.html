@@ -1,12 +1,12 @@
 <section class="history stack">
   <header class="page-header">
     <div class="page-header__copy">
-      <h1 class="page-title">Completed-game history</h1>
-      <p class="muted">Explore finished routes, ranked separately by objective and difficulty.</p>
+      <h1 class="page-title">Classifica delle partite</h1>
+      <p class="muted">Esplora i percorsi completati, classificati per modalità e difficoltà.</p>
     </div>
   </header>
   <div class="history__controls">
-    <div class="tabs" role="tablist" aria-label="History mode">
+    <div class="tabs" role="tablist" aria-label="Modalità della classifica">
       @for (mode of modes; track mode) {
         <button
           type="button"
@@ -24,7 +24,7 @@
             class="icon"
             [name]="mode === 'CLICK' ? 'lucideMousePointerClick' : 'lucideClock3'"
             aria-hidden="true"
-          />{{ mode }}
+          />{{ mode | gameLabel }}
         </button>
       }
     </div>
@@ -39,13 +39,13 @@
     <p class="history__objective">
       {{
         selection().mode === 'CLICK'
-          ? 'Fewest navigation clicks wins; effective time breaks ties.'
-          : 'Lowest effective play time wins; clicks break ties.'
+          ? 'Vince chi usa meno click di navigazione; a parità di click, conta il tempo effettivo.'
+          : 'Vince chi impiega meno tempo effettivo; a parità di tempo, conta il numero di click.'
       }}
     </p>
     <div class="filter-group">
-      <span>Difficulty</span>
-      <div class="filters" role="group" aria-label="Difficulty">
+      <span>Difficoltà</span>
+      <div class="filters" role="group" aria-label="Difficoltà">
         @for (difficulty of difficulties; track difficulty) {
           <button
             type="button"
@@ -54,66 +54,70 @@
             [attr.aria-pressed]="selection().difficulty === difficulty"
             (click)="selectDifficulty(difficulty)"
           >
-            {{ difficulty }}
+            {{ difficulty | gameLabel }}
           </button>
         }
       </div>
     </div>
     <app-error-banner [message]="error()" />
     @if (loading()) {
-      <app-loading-spinner label="Loading completed games…" />
+      <app-loading-spinner label="Caricamento delle partite completate…" />
     } @else if (!error()) {
       @if (result(); as res) {
         <div class="history__summary">
-          <strong>{{ res.total }}</strong> completed {{ res.total === 1 ? 'game' : 'games' }} in
-          <span class="badge">{{ selection().mode }}</span>
-          <span class="badge">{{ selection().difficulty }}</span>
+          <strong>{{ res.total }}</strong>
+          {{ res.total === 1 ? 'partita completata' : 'partite completate' }} ·
+          <span class="badge">{{ selection().mode | gameLabel }}</span>
+          <span class="badge">{{ selection().difficulty | gameLabel }}</span>
         </div>
       }
       @if (items.length > 0) {
         <div class="ranking card">
-          <table class="table" role="table" aria-label="Completed games ranking">
+          <table class="table" role="table" aria-label="Classifica delle partite completate">
             <thead>
               <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Player</th>
+                <th scope="col">Posizione</th>
+                <th scope="col">Giocatore</th>
                 <th scope="col" class="metric" [class.is-primary]="primaryMetric() === 'clicks'">
-                  Clicks
+                  Click
                 </th>
                 <th scope="col" class="metric" [class.is-primary]="primaryMetric() === 'time'">
-                  Time
+                  Tempo
                 </th>
-                <th scope="col">Completed</th>
-                <th scope="col"><span class="sr-only">Game details</span></th>
+                <th scope="col">Completata</th>
+                <th scope="col"><span class="sr-only">Dettagli della partita</span></th>
               </tr>
             </thead>
             <tbody>
               @for (item of items; track item.gameId) {
+                @let playerName =
+                  item.username === 'Deleted user' ? 'Utente eliminato' : item.username;
                 <tr [class.is-current-user]="currentUser()?.username === item.username">
-                  <td class="rank" data-label="Rank">{{ item.rank }}</td>
-                  <td class="player" data-label="Player">{{ item.username }}</td>
+                  <td class="rank" data-label="Posizione">{{ item.rank }}</td>
+                  <td class="player" data-label="Giocatore">{{ playerName }}</td>
                   <td
                     class="metric"
-                    data-label="Clicks"
+                    data-label="Click"
                     [class.is-primary]="primaryMetric() === 'clicks'"
                   >
                     {{ item.clickCount }}
                   </td>
                   <td
                     class="metric"
-                    data-label="Time"
+                    data-label="Tempo"
                     [class.is-primary]="primaryMetric() === 'time'"
                   >
                     {{ item.effectivePlayTimeMs | duration }}
                   </td>
-                  <td class="completed" data-label="Completed">
+                  <td class="completed" data-label="Completata">
                     {{ item.completedAt | date: 'short' }}
                   </td>
                   <td class="view">
                     <a
                       [routerLink]="['/history', item.gameId]"
-                      [attr.aria-label]="'View game by ' + item.username"
-                      >View game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
+                      [attr.aria-label]="'Visualizza la partita di ' + playerName"
+                      >Visualizza partita
+                      <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
                     /></a>
                   </td>
                 </tr>
@@ -123,23 +127,23 @@
         </div>
       } @else {
         <div class="empty-state">
-          <h2>No completed games here yet</h2>
+          <h2>Ancora nessuna partita completata</h2>
           <p class="muted">{{ emptyMessage }}</p>
-          <a routerLink="/">Learn how to play</a>
+          <a routerLink="/">Scopri come si gioca</a>
         </div>
       }
       @if (pagination(); as p) {
         @if (p.hasPrev || p.hasNext) {
-          <nav class="pager" aria-label="History pages">
+          <nav class="pager" aria-label="Pagine della classifica">
             <button
               type="button"
               class="btn btn--secondary"
               [disabled]="!p.hasPrev"
               (click)="goToPage(p.prevPage)"
             >
-              <ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Previous</button
+              <ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Precedente</button
             ><span class="muted"
-              >Page {{ p.page }} of {{ p.totalPages }}, showing {{ p.start }}–{{ p.end }} of
+              >Pagina {{ p.page }} di {{ p.totalPages }}, risultati {{ p.start }}–{{ p.end }} su
               {{ p.total }}</span
             ><button
               type="button"
@@ -147,7 +151,7 @@
               [disabled]="!p.hasNext"
               (click)="goToPage(p.nextPage)"
             >
-              Next<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
+              Successiva<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" />
             </button>
           </nav>
         }

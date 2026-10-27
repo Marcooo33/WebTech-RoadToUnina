@@ -123,25 +123,25 @@ test("Play as Guest starts directly; active replacement can be cancelled or conf
 }) => {
   await page.goto("/");
   await page
-    .getByRole("button", { name: "Play as Guest", exact: true })
+    .getByRole("button", { name: "Gioca come ospite", exact: true })
     .click();
   await expect(page).toHaveURL(/\/guest\/game\/[a-f0-9-]{36}$/);
   await expect(page.getByTestId("hud-clicks")).toHaveText("0");
   const original = page.url();
-  await page.getByRole("link", { name: "Leave game", exact: true }).click();
+  await page.getByRole("link", { name: "Esci dalla partita", exact: true }).click();
   await page
     .locator("nav")
-    .getByRole("link", { name: "Play as Guest", exact: true })
+    .getByRole("link", { name: "Gioca come ospite", exact: true })
     .click();
   await expect(page).toHaveURL(/\/$/);
-  await page.getByRole("button", { name: "Start New", exact: true }).click();
-  await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await page.getByRole("link", { name: "Resume", exact: true }).click();
+  await page.getByRole("button", { name: "Nuova partita", exact: true }).click();
+  await page.getByRole("button", { name: "Annulla", exact: true }).click();
+  await page.getByRole("link", { name: "Riprendi", exact: true }).click();
   await expect(page).toHaveURL(original);
-  await page.getByRole("link", { name: "Leave game", exact: true }).click();
-  await page.getByRole("button", { name: "Start New", exact: true }).click();
+  await page.getByRole("link", { name: "Esci dalla partita", exact: true }).click();
+  await page.getByRole("button", { name: "Nuova partita", exact: true }).click();
   await page
-    .getByRole("button", { name: "Confirm Start New", exact: true })
+    .getByRole("button", { name: "Conferma nuova partita", exact: true })
     .click();
   await expect(page).toHaveURL(/\/guest\/game\/[a-f0-9-]{36}$/);
   expect(page.url()).not.toBe(original);
@@ -164,17 +164,17 @@ test("guest victory registers and automatically persists full backtracking histo
   await page
     .locator(`a[data-page-title="${PAGE.golfoDiNapoli.title}"]`)
     .click();
-  await page.getByRole("button", { name: /Backtrack/ }).click();
+  await page.getByRole("button", { name: /Torna indietro/ }).click();
   await win(page);
   expect((await databaseGame(created.game.id)).game).toBeUndefined();
-  await page.getByRole("link", { name: "Register to save result" }).click();
+  await page.getByRole("link", { name: "Registrati per salvare il risultato" }).click();
   const user = uniqueUser("guest");
   await page.locator("#username").fill(user.username);
   await page.locator("#email").fill(user.email);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Create account" }).click();
+  await page.getByRole("button", { name: "Crea account" }).click();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText("Signed in as")).toContainText(user.username);
+  await expect(page.getByText("Accesso effettuato come")).toContainText(user.username);
   const saved = await databaseGame(created.game.id);
   expect(saved.game.status).toBe("COMPLETED");
   expect(saved.game.mode).toBe("CLICK");
@@ -250,11 +250,11 @@ test("login claim failures retain authentication and result; retry saves once", 
       }),
     }),
   );
-  await page.getByRole("link", { name: "Log in to save result" }).click();
+  await page.getByRole("link", { name: "Accedi per salvare il risultato" }).click();
   await page.locator("#identifier").fill(user.username);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText("has not been saved", {
+  await page.getByRole("button", { name: "Accedi", exact: true }).click();
+  await expect(page.getByRole("alert")).toContainText("non è stato salvato", {
     timeout: 10_000,
   });
   expect((await context.request.get("/api/auth/me")).status()).toBe(200);
@@ -269,7 +269,7 @@ test("login claim failures retain authentication and result; retry saves once", 
     ).game.status,
   ).toBe("COMPLETED");
   await page.unroute("**/api/guest-games/*/claim");
-  await page.getByRole("button", { name: "Retry", exact: true }).click();
+  await page.getByRole("button", { name: "Riprova", exact: true }).click();
   await expect(page).toHaveURL(/\/$/);
   expect((await databaseGame(created.game.id)).moves).toHaveLength(3);
 });
@@ -290,11 +290,11 @@ test("successful login explicitly discards unfinished guest progress", async ({
     .click();
   await page
     .locator("nav")
-    .getByRole("link", { name: "Log in", exact: true })
+    .getByRole("link", { name: "Accedi", exact: true })
     .click();
   await page.locator("#identifier").fill(user.username);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
+  await page.getByRole("button", { name: "Accedi", exact: true }).click();
   await expect(page).toHaveURL(/\/$/);
   expect(
     (
@@ -351,7 +351,7 @@ test("refresh, reopened cookie storage, stale tabs and missing identity restore 
   await lost.goto(`/guest/game/${created.game.id}`);
   await expect(lost).toHaveURL(/\/$/);
   await expect(lost.getByRole("status")).toContainText(
-    "expired or is no longer available",
+    "è scaduta o non è più disponibile",
   );
   await missing.close();
 });
@@ -362,12 +362,12 @@ test("completed result cancellation and failed replacement preserve the result",
   const created = await create(context);
   await page.goto(`/guest/game/${created.game.id}`);
   await win(page);
-  await page.getByRole("link", { name: "Home", exact: true }).last().click();
-  await page.getByRole("button", { name: "Start New", exact: true }).click();
-  await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await page.getByRole("link", { name: "View Result", exact: true }).click();
+  await page.getByRole("link", { name: "Homepage", exact: true }).last().click();
+  await page.getByRole("button", { name: "Nuova partita", exact: true }).click();
+  await page.getByRole("button", { name: "Annulla", exact: true }).click();
+  await page.getByRole("link", { name: "Visualizza risultato", exact: true }).click();
   await expect(page.getByTestId("game-result")).toBeVisible();
-  await page.getByRole("link", { name: "Home", exact: true }).last().click();
+  await page.getByRole("link", { name: "Homepage", exact: true }).last().click();
   await page.route("**/api/guest-games", async (route) => {
     if (route.request().method() === "POST")
       await route.fulfill({
@@ -382,12 +382,12 @@ test("completed result cancellation and failed replacement preserve the result",
       });
     else await route.continue();
   });
-  await page.getByRole("button", { name: "Start New", exact: true }).click();
+  await page.getByRole("button", { name: "Nuova partita", exact: true }).click();
   await page
-    .getByRole("button", { name: "Confirm Start New", exact: true })
+    .getByRole("button", { name: "Conferma nuova partita", exact: true })
     .click();
   await expect(page.getByRole("alert")).toContainText(
-    "Could not find a starting page",
+    "Non è stato possibile trovare una voce iniziale adatta.",
   );
   const summary = await (
     await context.request.get("/api/guest-games", { headers: GUEST_HEADERS })
@@ -401,10 +401,10 @@ test("completed result cancellation and failed replacement preserve the result",
   await page.locator("#username").fill(user.username);
   await page.locator("#email").fill(user.email);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Create account" }).click();
-  await expect(page.getByRole("alert")).toContainText("could not be saved");
+  await page.getByRole("button", { name: "Crea account" }).click();
+  await expect(page.getByRole("alert")).toContainText("Non è stato possibile salvarlo");
   expect((await context.request.get("/api/auth/me")).status()).toBe(200);
-  await page.getByRole("link", { name: "Go to Dashboard" }).click();
+  await page.getByRole("link", { name: "Vai al riepilogo" }).click();
   await expect(page).toHaveURL(/\/$/);
 });
 
@@ -482,23 +482,23 @@ test("failed discard then logout, resume, complete and login claims the result",
   });
   await page
     .locator("nav")
-    .getByRole("link", { name: "Log in", exact: true })
+    .getByRole("link", { name: "Accedi", exact: true })
     .click();
   await page.locator("#identifier").fill(user.username);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
+  await page.getByRole("button", { name: "Accedi", exact: true }).click();
   await expect(page.getByRole("alert")).toContainText(
-    "could not be discarded",
+    "non è stato possibile eliminare",
     { timeout: 10_000 },
   );
   await page.unroute(`**/api/guest-games/${created.game.id}`);
-  await page.locator("nav").getByRole("button", { name: "Log out" }).click();
-  await page.getByRole("link", { name: "Resume", exact: true }).click();
+  await page.locator("nav").getByRole("button", { name: "Esci" }).click();
+  await page.getByRole("link", { name: "Riprendi", exact: true }).click();
   await win(page);
-  await page.getByRole("link", { name: "Log in to save result" }).click();
+  await page.getByRole("link", { name: "Accedi per salvare il risultato" }).click();
   await page.locator("#identifier").fill(user.username);
   await page.locator("#password").fill(user.password);
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
+  await page.getByRole("button", { name: "Accedi", exact: true }).click();
   await expect(page).toHaveURL(/\/$/);
   const saved = await databaseGame(created.game.id);
   expect(saved.game.status).toBe("COMPLETED");

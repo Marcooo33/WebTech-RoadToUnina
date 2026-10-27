@@ -1,3 +1,4 @@
+import { GameLabelPipe } from '../../../shared/pipes/game-label.pipe';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -35,7 +36,7 @@ interface HistorySelection {
 @Component({
   selector: 'app-history-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
+  imports: [GameLabelPipe, RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
   providers: [
     provideIcons({ lucideArrowLeft, lucideArrowRight, lucideClock3, lucideMousePointerClick }),
   ],
@@ -92,9 +93,9 @@ export class HistoryList {
   get emptyMessage(): string {
     const p = this.pagination();
     if (p && p.page > 1) {
-      return 'No completed games on this page.';
+      return 'Nessuna partita completata in questa pagina.';
     }
-    return 'No completed games in this category yet.';
+    return 'Ancora nessuna partita completata in questa categoria.';
   }
 
   constructor() {

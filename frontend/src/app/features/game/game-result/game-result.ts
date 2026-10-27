@@ -1,3 +1,4 @@
+import { GameLabelPipe } from '../../../shared/pipes/game-label.pipe';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GameDto } from '../../../shared/models/game.model';
@@ -17,7 +18,7 @@ import {
 @Component({
   selector: 'app-game-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DurationPipe, NgIcon, GamePath],
+  imports: [GameLabelPipe, RouterLink, DurationPipe, NgIcon, GamePath],
   providers: [
     provideIcons({ lucideArrowRight, lucideCheckCircle2, lucideFlag, lucideHistory, lucideHouse }),
   ],

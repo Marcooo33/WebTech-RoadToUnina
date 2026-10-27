@@ -18,7 +18,7 @@ test("resuming an in-progress game restores its authoritative state", async ({ p
   const row = page.getByTestId("game-row");
   await expect(row).toHaveCount(1);
   await expect(row).toContainText(PAGE.napoli.title);
-  await row.getByRole("link", { name: "Resume" }).click();
+  await row.getByRole("link", { name: "Riprendi" }).click();
 
   await expect(page).toHaveURL(new RegExp(`/game/${game.id}$`));
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.napoli.title);

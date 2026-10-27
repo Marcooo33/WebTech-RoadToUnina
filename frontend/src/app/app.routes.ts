@@ -11,12 +11,12 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
-    title: 'Log in · ROADTOUNINA',
+    title: 'Accedi · ROADTOUNINA',
   },
   {
     path: 'register',
     loadComponent: () => import('./features/auth/register/register').then((m) => m.Register),
-    title: 'Register · ROADTOUNINA',
+    title: 'Registrati · ROADTOUNINA',
   },
   {
     path: 'dashboard',
@@ -27,14 +27,14 @@ export const routes: Routes = [
     path: 'new-game',
     canActivate: [authGuard],
     loadComponent: () => import('./features/game/new-game/new-game').then((m) => m.NewGame),
-    title: 'New game · ROADTOUNINA',
+    title: 'Nuova partita · ROADTOUNINA',
   },
   {
     path: 'game/:id',
     canActivate: [authGuard],
     loadComponent: () => import('./features/game/game-page/game-page').then((m) => m.GamePage),
     canDeactivate: [(component: GamePage) => component.pauseBeforeLeave()],
-    title: 'Game · ROADTOUNINA',
+    title: 'Partita · ROADTOUNINA',
   },
   {
     path: 'guest/game/:id',
@@ -42,30 +42,30 @@ export const routes: Routes = [
     data: { guest: true },
     loadComponent: () => import('./features/game/game-page/game-page').then((m) => m.GamePage),
     canDeactivate: [(component: GamePage) => component.pauseBeforeLeave()],
-    title: 'Guest game · ROADTOUNINA',
+    title: 'Partita ospite · ROADTOUNINA',
   },
   {
     path: 'history',
     loadComponent: () =>
       import('./features/history/history-list/history-list').then((m) => m.HistoryList),
-    title: 'History · ROADTOUNINA',
+    title: 'Classifica · ROADTOUNINA',
   },
   {
     path: 'history/:gameId',
     loadComponent: () =>
       import('./features/history/history-detail/history-detail').then((m) => m.HistoryDetail),
-    title: 'Completed game · ROADTOUNINA',
+    title: 'Partita completata · ROADTOUNINA',
   },
   {
     path: 'profile',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
-    title: 'Profile · ROADTOUNINA',
+    title: 'Profilo · ROADTOUNINA',
   },
   {
     path: '**',
     loadComponent: () => import('./shared/components/not-found/not-found').then((m) => m.NotFound),
-    title: 'Not found · ROADTOUNINA',
+    title: 'Pagina non trovata · ROADTOUNINA',
   },
 ];

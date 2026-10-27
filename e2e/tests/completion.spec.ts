@@ -14,7 +14,7 @@ test("reaching the target page completes the game", async ({ page, context }) =>
   }
 
   await expect(page.getByTestId("game-result")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Target reached" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Destinazione raggiunta" })).toBeVisible();
 
   const finished = await getGame(context, game.id);
   expect(finished.status).toBe("COMPLETED");

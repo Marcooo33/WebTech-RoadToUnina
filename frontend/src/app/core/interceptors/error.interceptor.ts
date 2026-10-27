@@ -1,3 +1,4 @@
+import { italianErrorMessage } from './italian-errors';
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
@@ -29,7 +30,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
 function toApiError(error: unknown): ApiError {
   if (!(error instanceof HttpErrorResponse)) {
-    return new ApiError(0, 'UNKNOWN_ERROR', 'An unexpected error occurred.');
+    return new ApiError(0, 'UNKNOWN_ERROR', 'Si è verificato un errore imprevisto.');
   }
 
   // status 0 => the request never reached the server (offline, CORS, DNS…).
@@ -37,27 +38,13 @@ function toApiError(error: unknown): ApiError {
     return new ApiError(
       0,
       'NETWORK_ERROR',
-      'Cannot reach the server. Check your connection and try again.',
+      'Impossibile contattare il server. Controlla la connessione e riprova.',
     );
   }
 
   const body = error.error as BackendErrorBody | string | null;
   const parsed = typeof body === 'object' && body !== null ? body.error : undefined;
 
-  if (parsed?.message) {
-    return new ApiError(
-      error.status,
-      parsed.code ?? 'INTERNAL_ERROR',
-      parsed.message,
-    );
-  }
-
-  // No standard envelope (e.g. a proxy returned a 502 with an HTML/empty body).
-  // Never surface Angular's raw "Http failure response for …" string to the user.
-  const fallback =
-    error.status >= 500
-      ? 'The server is temporarily unavailable. Please try again.'
-      : 'Request failed. Please try again.';
-
-  return new ApiError(error.status, parsed?.code ?? 'INTERNAL_ERROR', fallback);
+  const code = parsed?.code ?? 'INTERNAL_ERROR';
+  return new ApiError(error.status, code, italianErrorMessage(code, error.status, parsed?.message));
 }

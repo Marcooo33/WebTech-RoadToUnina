@@ -1,5 +1,7 @@
 @if (guestContinuation.busy()) {
-  <p class="status status--info" role="status">Finishing guest game…</p>
+  <p class="status status--info" role="status">
+    Completamento della gestione della partita ospite…
+  </p>
 }
 @if (guestContinuation.message(); as message) {
   <div class="status status--warning" role="alert">
@@ -11,7 +13,7 @@
         [disabled]="guestContinuation.busy()"
         (click)="retryGuest()"
       >
-        Retry guest operation
+        Riprova a gestire la partita ospite
       </button>
     }
   </div>
@@ -19,45 +21,46 @@
 <section class="dashboard stack">
   <header class="page-header">
     <div class="page-header__copy">
-      <h1 class="page-title">Welcome back, {{ user()?.username }}</h1>
-      <p class="muted">Resume a route or start a new path to Federico II.</p>
-      <span class="sr-only">Signed in as {{ user()?.username }}</span>
+      <h1 class="page-title">Bentornato, {{ user()?.username }}</h1>
+      <p class="muted">Riprendi un percorso o inizia una nuova partita verso la Federico II.</p>
+      <span class="sr-only">Accesso effettuato come {{ user()?.username }}</span>
     </div>
     @if (limitReached) {
       <button type="button" class="btn" disabled>
-        <ng-icon class="icon" name="lucidePlus" aria-hidden="true" />New game
+        <ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Nuova partita
       </button>
     } @else {
       <a class="btn" routerLink="/new-game"
-        ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />New game</a
+        ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Nuova partita</a
       >
     }
   </header>
   <app-error-banner [message]="error()" />
   @if (loading()) {
-    <app-loading-spinner label="Loading your games and statistics…" />
+    <app-loading-spinner label="Caricamento delle tue partite e statistiche…" />
   } @else {
     <section class="games card" aria-labelledby="games-title">
       <div class="section-heading">
         <div>
           <h2 id="games-title">
-            In-progress games
+            Partite in corso
             <span class="games__count">{{ inProgress().length }} / {{ limit }}</span>
           </h2>
         </div>
       </div>
       @if (limitReached) {
         <p class="status status--warning" role="status">
-          You have reached the {{ limit }}-game limit. Finish or delete a game before starting a new
-          one.
+          Hai raggiunto il limite di {{ limit }} partite in corso. Completa o elimina una partita
+          prima di iniziarne un’altra.
         </p>
       }
       @if (inProgress().length === 0) {
         <div class="empty-state">
-          <h3>No games in progress</h3>
-          <p class="muted">Your next Wikipedia route can start whenever you are ready.</p>
+          <h3>Nessuna partita in corso</h3>
+          <p class="muted">Il tuo prossimo percorso su Wikipedia ti aspetta.</p>
           <a class="btn" routerLink="/new-game"
-            ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Start a new game</a
+            ><ng-icon class="icon" name="lucidePlus" aria-hidden="true" />Inizia una nuova
+            partita</a
           >
         </div>
       } @else {
@@ -68,52 +71,56 @@
               data-testid="game-row"
               role="link"
               tabindex="0"
-              [attr.aria-label]="'Resume game from ' + game.currentPageTitle"
+              [attr.aria-label]="'Riprendi la partita da ' + game.currentPageTitle"
               (click)="openGame($event, game)"
               (keydown.enter)="openGameFromKeyboard($event, game)"
               (keydown.space)="openGameFromKeyboard($event, game)"
             >
               <div class="game-row__identity">
                 <div class="game-row__badges">
-                  <span class="badge">{{ game.mode }}</span
-                  ><span class="badge">{{ game.difficulty }}</span>
+                  <span class="badge">{{ game.mode | gameLabel }}</span
+                  ><span class="badge">{{ game.difficulty | gameLabel }}</span>
                 </div>
                 <h3>{{ game.currentPageTitle }}</h3>
-                <p>Started from {{ game.startPageTitle }}</p>
+                <p>Partenza da {{ game.startPageTitle }}</p>
               </div>
               <dl class="game-row__metrics">
                 <div>
                   <dt>
-                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks
+                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Click
                   </dt>
                   <dd>{{ game.clickCount }}</dd>
                 </div>
                 <div>
-                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Time</dt>
+                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Tempo</dt>
                   <dd>{{ game.effectivePlayTimeMs | duration }}</dd>
                 </div>
               </dl>
               <div class="game-row__actions">
                 <a class="btn" [routerLink]="['/game', game.id]"
-                  ><ng-icon class="icon" name="lucidePlay" aria-hidden="true" />Resume</a
+                  ><ng-icon class="icon" name="lucidePlay" aria-hidden="true" />Riprendi</a
                 >
                 @if (confirmingId() === game.id) {
-                  <div class="confirm" role="group" aria-label="Confirm game deletion">
-                    <span>Delete this game?</span
+                  <div
+                    class="confirm"
+                    role="group"
+                    aria-label="Conferma eliminazione della partita"
+                  >
+                    <span>Vuoi eliminare questa partita?</span
                     ><button
                       type="button"
                       class="link-btn link-btn--danger"
                       [disabled]="deletingId() !== null"
                       (click)="confirmDelete(game)"
                     >
-                      {{ deletingId() === game.id ? 'Deleting…' : 'Delete' }}</button
+                      {{ deletingId() === game.id ? 'Eliminazione…' : 'Elimina' }}</button
                     ><button
                       type="button"
                       class="link-btn"
                       [disabled]="deletingId() === game.id"
                       (click)="cancelDelete()"
                     >
-                      Cancel
+                      Annulla
                     </button>
                   </div>
                 } @else {
@@ -123,7 +130,7 @@
                     [disabled]="deletingId() !== null"
                     (click)="askDelete(game.id)"
                   >
-                    <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />Delete
+                    <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />Elimina
                   </button>
                 }
               </div>
@@ -135,13 +142,13 @@
     <section class="games card" aria-labelledby="completed-games-title">
       <div class="section-heading">
         <div>
-          <h2 id="completed-games-title">Completed games</h2>
+          <h2 id="completed-games-title">Partite completate</h2>
         </div>
         <span class="games__count">{{ completed().length }}</span>
       </div>
       @if (completed().length === 0) {
         <div class="completed-empty">
-          <p class="muted">No completed games yet.</p>
+          <p class="muted">Non hai ancora completato nessuna partita.</p>
         </div>
       } @else {
         <div class="game-list">
@@ -151,34 +158,37 @@
               data-testid="completed-game-row"
               role="link"
               tabindex="0"
-              [attr.aria-label]="'View completed game from ' + game.startPageTitle"
+              [attr.aria-label]="'Visualizza la partita completata da ' + game.startPageTitle"
               (click)="openGame($event, game)"
               (keydown.enter)="openGameFromKeyboard($event, game)"
               (keydown.space)="openGameFromKeyboard($event, game)"
             >
               <div class="game-row__identity">
                 <div class="game-row__badges">
-                  <span class="badge">{{ game.mode }}</span
-                  ><span class="badge">{{ game.difficulty }}</span>
+                  <span class="badge">{{ game.mode | gameLabel }}</span
+                  ><span class="badge">{{ game.difficulty | gameLabel }}</span>
                 </div>
                 <h3>{{ game.startPageTitle }}</h3>
-                <p>Completed {{ game.completedAt | date: 'short' }}</p>
+                <p>Completata il {{ game.completedAt | date: 'short' }}</p>
               </div>
               <dl class="game-row__metrics">
                 <div>
                   <dt>
-                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks
+                    <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Click
                   </dt>
                   <dd>{{ game.clickCount }}</dd>
                 </div>
                 <div>
-                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Time</dt>
+                  <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Tempo</dt>
                   <dd>{{ game.effectivePlayTimeMs | duration }}</dd>
                 </div>
               </dl>
               <div class="game-row__actions">
                 <a class="btn btn--secondary" [routerLink]="['/history', game.id]"
-                  >View details<ng-icon class="icon" name="lucideArrowRight" aria-hidden="true"
+                  >Visualizza dettagli<ng-icon
+                    class="icon"
+                    name="lucideArrowRight"
+                    aria-hidden="true"
                 /></a>
               </div>
             </article>
@@ -187,7 +197,11 @@
         @if (completed().length > 5) {
           <div class="completed-toggle">
             <button type="button" class="btn btn--quiet" (click)="toggleCompleted()">
-              {{ showAllCompleted() ? 'Show recent only' : 'View all completed games' }}
+              {{
+                showAllCompleted()
+                  ? 'Mostra solo le più recenti'
+                  : 'Mostra tutte le partite completate'
+              }}
             </button>
           </div>
         }
@@ -197,28 +211,28 @@
       <section class="stats-section" aria-labelledby="stats-title">
         <div class="section-heading">
           <div>
-            <h2 id="stats-title">Your statistics</h2>
+            <h2 id="stats-title">Le tue statistiche</h2>
           </div>
         </div>
         <dl class="stats">
           <div>
-            <dt>Completed</dt>
+            <dt>Completate</dt>
             <dd>{{ s.completedGames }}</dd>
           </div>
           <div>
-            <dt>In progress</dt>
+            <dt>In corso</dt>
             <dd>{{ s.inProgressGames }}</dd>
           </div>
           <div>
-            <dt>Best CLICK</dt>
+            <dt>Miglior risultato · Click</dt>
             <dd>
               <ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />{{
-                s.bestClick ? s.bestClick.clickCount + ' clicks' : '—'
+                s.bestClick ? s.bestClick.clickCount + ' click' : '—'
               }}
             </dd>
           </div>
           <div>
-            <dt>Best TIME</dt>
+            <dt>Miglior risultato · Tempo</dt>
             <dd>
               <ng-icon class="icon" name="lucideClock3" aria-hidden="true" />{{
                 s.bestTime ? (s.bestTime.effectivePlayTimeMs | duration) : '—'
@@ -226,11 +240,11 @@
             </dd>
           </div>
           <div>
-            <dt>Average clicks · CLICK</dt>
-            <dd>{{ s.averageClicks ?? '—' }}</dd>
+            <dt>Media dei click · Click</dt>
+            <dd>{{ s.averageClicks != null ? (s.averageClicks | number) : '—' }}</dd>
           </div>
           <div>
-            <dt>Average time · TIME</dt>
+            <dt>Tempo medio · Tempo</dt>
             <dd>
               {{ s.averageEffectiveTimeMs != null ? (s.averageEffectiveTimeMs | duration) : '—' }}
             </dd>

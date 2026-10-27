@@ -4,7 +4,7 @@
       <div class="profile__avatar" aria-hidden="true">{{ u.username.charAt(0).toUpperCase() }}</div>
       <div>
         <h1 class="page-title">{{ u.username }}</h1>
-        <p class="muted">{{ u.email }} · Member since {{ u.createdAt | date: 'mediumDate' }}</p>
+        <p class="muted">{{ u.email }} · Iscrizione dal {{ u.createdAt | date: 'mediumDate' }}</p>
       </div>
     </header>
 
@@ -12,8 +12,8 @@
       <div class="profile-section__heading">
         <ng-icon name="lucideUserRound" aria-hidden="true" />
         <div>
-          <h2 id="account-title">Account information</h2>
-          <p class="muted">Update the details used to identify your account.</p>
+          <h2 id="account-title">Informazioni account</h2>
+          <p class="muted">Aggiorna i dati del tuo account.</p>
         </div>
       </div>
       <div class="profile__forms">
@@ -24,7 +24,7 @@
           [attr.aria-describedby]="usernameError() ? 'username-request-error' : null"
         >
           <div class="field">
-            <label for="profile-username">Username</label
+            <label for="profile-username">Nome utente</label
             ><input
               id="profile-username"
               type="text"
@@ -39,10 +39,10 @@
                   : 'profile-username-hint'
               "
             />
-            <span id="profile-username-hint" class="profile__hint">Use 3–30 characters.</span>
+            <span id="profile-username-hint" class="profile__hint">Usa da 3 a 30 caratteri.</span>
             @if (usernameForm.controls.username.touched && usernameForm.controls.username.invalid) {
               <span id="profile-username-error" class="field__error"
-                >Username must be between 3 and 30 characters.</span
+                >Il nome utente deve contenere da 3 a 30 caratteri.</span
               >
             }
           </div>
@@ -57,7 +57,7 @@
               usernameSubmitting() || usernameForm.controls.username.value.trim() === u.username
             "
           >
-            {{ usernameSubmitting() ? 'Saving…' : 'Change username' }}
+            {{ usernameSubmitting() ? 'Salvataggio…' : 'Modifica nome utente' }}
           </button>
         </form>
         <form
@@ -84,7 +84,7 @@
             />
             @if (emailForm.controls.email.touched && emailForm.controls.email.invalid) {
               <span id="profile-email-error" class="field__error"
-                >Enter a valid email address.</span
+                >Inserisci un indirizzo email valido.</span
               >
             }
           </div>
@@ -100,7 +100,7 @@
               emailForm.controls.email.value.trim().toLowerCase() === u.email.toLowerCase()
             "
           >
-            {{ emailSubmitting() ? 'Saving…' : 'Change email' }}
+            {{ emailSubmitting() ? 'Salvataggio…' : 'Modifica email' }}
           </button>
         </form>
       </div>
@@ -111,7 +111,7 @@
         <ng-icon name="lucideShield" aria-hidden="true" />
         <div>
           <h2 id="security-title">Password</h2>
-          <p class="muted">Choose a new password for your account.</p>
+          <p class="muted">Scegli una nuova password per il tuo account.</p>
         </div>
       </div>
       <form
@@ -123,7 +123,7 @@
         [attr.aria-describedby]="passwordError() ? 'password-request-error' : null"
       >
         <div class="field">
-          <label for="current-password">Current password</label>
+          <label for="current-password">Password attuale</label>
           <input
             id="current-password"
             type="password"
@@ -145,12 +145,12 @@
             passwordForm.controls.currentPassword.invalid
           ) {
             <span id="current-password-error" class="field__error"
-              >Enter your current password.</span
+              >Inserisci la password attuale.</span
             >
           }
         </div>
         <div class="field">
-          <label for="new-password">New password</label>
+          <label for="new-password">Nuova password</label>
           <input
             id="new-password"
             type="password"
@@ -165,19 +165,19 @@
                 : 'new-password-hint'
             "
           />
-          <span id="new-password-hint" class="profile__hint">Use 8–128 characters.</span>
+          <span id="new-password-hint" class="profile__hint">Usa da 8 a 128 caratteri.</span>
           @if (
             passwordForm.controls.newPassword.touched && passwordForm.controls.newPassword.invalid
           ) {
             <span id="new-password-error" class="field__error">{{
               passwordForm.controls.newPassword.hasError('required')
-                ? 'Enter a new password.'
-                : 'Password must be between 8 and 128 characters.'
+                ? 'Inserisci una nuova password.'
+                : 'La password deve contenere da 8 a 128 caratteri.'
             }}</span>
           }
         </div>
         <div class="field">
-          <label for="confirm-password">Confirm new password</label>
+          <label for="confirm-password">Conferma nuova password</label>
           <input
             id="confirm-password"
             type="password"
@@ -202,12 +202,16 @@
             passwordForm.controls.confirmPassword.touched &&
             passwordForm.controls.confirmPassword.hasError('required')
           ) {
-            <span id="confirm-password-error" class="field__error">Confirm your new password.</span>
+            <span id="confirm-password-error" class="field__error"
+              >Conferma la nuova password.</span
+            >
           } @else if (
             passwordForm.controls.confirmPassword.touched &&
             passwordForm.hasError('passwordMismatch')
           ) {
-            <span id="password-mismatch-error" class="field__error">Passwords do not match.</span>
+            <span id="password-mismatch-error" class="field__error"
+              >Le password non coincidono.</span
+            >
           }
         </div>
         <app-error-banner id="password-request-error" [message]="passwordError()" />
@@ -215,33 +219,33 @@
           <p class="status status--success" role="status">{{ message }}</p>
         }
         <button class="btn" type="submit" [disabled]="passwordSubmitting()">
-          {{ passwordSubmitting() ? 'Changing…' : 'Change password' }}
+          {{ passwordSubmitting() ? 'Modifica…' : 'Modifica password' }}
         </button>
       </form>
     </section>
 
     <section class="session-row">
       <div>
-        <h2>Session</h2>
-        <p class="muted">Sign out of ROADTOUNINA on this browser.</p>
+        <h2>Sessione</h2>
+        <p class="muted">Esci da ROADTOUNINA su questo browser.</p>
       </div>
       <button class="btn btn--secondary" type="button" [disabled]="loggingOut()" (click)="logout()">
         <ng-icon class="icon" name="lucideLogOut" aria-hidden="true" />{{
-          loggingOut() ? 'Logging out…' : 'Log out'
+          loggingOut() ? 'Uscita…' : 'Esci'
         }}
       </button>
     </section>
 
     <section class="danger-zone">
       <div>
-        <h2>Delete account</h2>
+        <h2>Elimina account</h2>
         <p>
-          This permanently removes your account and in-progress games. Completed games remain in
-          public History under “Deleted user”.
+          Il tuo account e le partite in corso verranno eliminati definitivamente. Le partite
+          completate resteranno nella classifica pubblica come “Utente eliminato”.
         </p>
       </div>
       <button class="btn btn--danger" type="button" (click)="openDeleteDialog()">
-        <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />Delete account
+        <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />Elimina account
       </button>
     </section>
   }
@@ -255,9 +259,11 @@
 >
   <div class="stack">
     <div class="dialog-icon" aria-hidden="true"><ng-icon name="lucideTrash2" /></div>
-    <h2 id="delete-dialog-title">Delete account permanently?</h2>
-    <p>Your account and in-progress games will be removed. This action cannot be undone.</p>
-    <p class="muted">Completed games will remain in public History under “Deleted user”.</p>
+    <h2 id="delete-dialog-title">Vuoi eliminare definitivamente il tuo account?</h2>
+    <p>Il tuo account e le partite in corso verranno eliminati. Questa azione è irreversibile.</p>
+    <p class="muted">
+      Le partite completate resteranno nella classifica pubblica come “Utente eliminato”.
+    </p>
     <app-error-banner [message]="deleteError()" />
     <div class="dialog-actions">
       <button
@@ -267,7 +273,7 @@
         [disabled]="deleting()"
         (click)="cancelDelete()"
       >
-        Cancel</button
+        Annulla</button
       ><button
         class="btn btn--danger"
         type="button"
@@ -275,7 +281,7 @@
         (click)="confirmDelete()"
       >
         <ng-icon class="icon" name="lucideTrash2" aria-hidden="true" />{{
-          deleting() ? 'Deleting…' : 'Delete account'
+          deleting() ? 'Eliminazione…' : 'Elimina account'
         }}
       </button>
     </div>

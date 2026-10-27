@@ -83,7 +83,7 @@ describe('GamePage presentation', () => {
     ).toBeTruthy();
     const leave = fixture.nativeElement.querySelector('.game__article-toolbar a');
     expect(leave.getAttribute('href')).toBe('/');
-    expect(leave.textContent).toBe('Leave game');
+    expect(leave.textContent).toBe('Esci dalla partita');
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.wiki__title'));
   });
 
@@ -262,7 +262,7 @@ describe('GamePage presentation', () => {
     expect(notices.length).toBe(1);
     expect(notices[0].closest('.hud__feedback')).not.toBeNull();
     expect(notices[0].textContent).toContain(
-      'Wikipedia is temporarily unavailable. Please try again.',
+      'Wikipedia è temporaneamente non disponibile. Riprova.',
     );
     expect(fixture.nativeElement.querySelectorAll('[role="status"]').length).toBe(1);
     expect(fixture.nativeElement.querySelectorAll('app-error-banner').length).toBe(1);
@@ -294,8 +294,8 @@ describe('GamePage presentation', () => {
     expect(notices.length).toBe(1);
     expect(alerts[0].closest('app-game-hud')).toBeNull();
     expect(fixture.nativeElement.querySelector('app-game-hud')).toBeNull();
-    expect(fixture.nativeElement.textContent).toContain('Try again');
-    expect(fixture.nativeElement.textContent).toContain('Back to dashboard');
+    expect(fixture.nativeElement.textContent).toContain('Riprova');
+    expect(fixture.nativeElement.textContent).toContain('Torna al riepilogo');
   });
 
   it('preserves the existing pause-before-leave call', () => {

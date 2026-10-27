@@ -17,5 +17,5 @@ export class GamePath {
   readonly lastLabel = input('current');
 
   // Accessible name for the nav landmark, overridden in public history.
-  readonly ariaLabel = input('Active path');
+  readonly ariaLabel = input('Percorso attivo');
 }

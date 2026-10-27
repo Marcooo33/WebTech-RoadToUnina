@@ -1,5 +1,6 @@
+import { GameLabelPipe } from '../../shared/pipes/game-label.pipe';
 import { PostAuthGuestService } from '../../core/auth/post-auth-guest.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,7 +36,16 @@ const RECENT_COMPLETED_LIMIT = 5;
 @Component({
   selector: 'app-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, DurationPipe, ErrorBanner, LoadingSpinner, NgIcon],
+  imports: [
+    DecimalPipe,
+    GameLabelPipe,
+    RouterLink,
+    DatePipe,
+    DurationPipe,
+    ErrorBanner,
+    LoadingSpinner,
+    NgIcon,
+  ],
   providers: [
     provideIcons({
       lucideArrowRight,

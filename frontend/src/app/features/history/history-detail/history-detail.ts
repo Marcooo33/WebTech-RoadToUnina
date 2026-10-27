@@ -1,3 +1,4 @@
+import { GameLabelPipe } from '../../../shared/pipes/game-label.pipe';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -23,7 +24,16 @@ import {
 @Component({
   selector: 'app-history-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, DurationPipe, GamePath, ErrorBanner, LoadingSpinner, NgIcon],
+  imports: [
+    GameLabelPipe,
+    RouterLink,
+    DatePipe,
+    DurationPipe,
+    GamePath,
+    ErrorBanner,
+    LoadingSpinner,
+    NgIcon,
+  ],
   providers: [
     provideIcons({
       lucideArrowLeft,

@@ -17,7 +17,7 @@ test("EASY backtracking steps the active path back without spending a click", as
   await expect(page.locator(".path__item")).toHaveCount(3);
   await expect(page.getByTestId("hud-clicks")).toHaveText("2");
 
-  await page.getByRole("button", { name: "Backtrack" }).click();
+  await page.getByRole("button", { name: "Torna indietro" }).click();
 
   await expect(page.locator(".wiki__title")).toHaveText(PAGE.golfoDiNapoli.title);
   await expect(page.locator(".path__item")).toHaveCount(2);

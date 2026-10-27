@@ -67,20 +67,20 @@ for (const replacement of [false, true]) {
         )
         .toBe(true);
       await page
-        .getByRole("button", { name: "Play as Guest", exact: true })
+        .getByRole("button", { name: "Gioca come ospite", exact: true })
         .click();
       if (replacement) {
         await expect(page).toHaveURL(/\/guest\/game\//);
         await expect(page.locator(".wiki__title")).toBeVisible();
         await page
-          .getByRole("link", { name: "Leave game", exact: true })
+          .getByRole("link", { name: "Esci dalla partita", exact: true })
           .click();
         delay = true;
         await page
-          .getByRole("button", { name: "Start New", exact: true })
+          .getByRole("button", { name: "Nuova partita", exact: true })
           .click();
         await page
-          .getByRole("button", { name: "Confirm Start New", exact: true })
+          .getByRole("button", { name: "Conferma nuova partita", exact: true })
           .click();
       }
       await pending;
@@ -93,7 +93,7 @@ for (const replacement of [false, true]) {
           new URL(response.url()).pathname === "/api/guest-games" &&
           response.status() === 409,
       );
-      await login.getByRole("button", { name: "Log in", exact: true }).click();
+      await login.getByRole("button", { name: "Accedi", exact: true }).click();
       await busy;
       await expect(login).toHaveURL(/\/login$/);
       release();

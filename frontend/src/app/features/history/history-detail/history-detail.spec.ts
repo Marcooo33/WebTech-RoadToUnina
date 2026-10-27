@@ -50,28 +50,28 @@ describe('HistoryDetail presentation', () => {
 
   it('identifies a completed game, preserves the complete read-only route and deleted-player fallback', () => {
     expect(fixture.nativeElement.querySelector('h1').textContent).toContain(
-      'Completed game by Navigator',
+      'Partita completata da Navigator',
     );
     expect(fixture.nativeElement.querySelectorAll('.path__item').length).toBe(2);
     expect(fixture.nativeElement.querySelector('app-game-path a, app-game-path button')).toBeNull();
     fixture.componentInstance.game.set({ ...game, player: null });
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('h1 span').textContent).toBe('Deleted user');
+    expect(fixture.nativeElement.querySelector('h1 span').textContent).toBe('Utente eliminato');
   });
 
   it('keeps every chronological move column in a named keyboard-scrollable region', () => {
     const wrap = fixture.nativeElement.querySelector('.moves-wrap');
     expect(wrap.getAttribute('role')).toBe('region');
-    expect(wrap.getAttribute('aria-label')).toBe('Move history table');
+    expect(wrap.getAttribute('aria-label')).toBe('Tabella delle azioni');
     expect(wrap.tabIndex).toBe(0);
     expect(
       Array.from(wrap.querySelectorAll('thead th')).map((cell) =>
         (cell as HTMLElement).textContent?.trim(),
       ),
-    ).toEqual(['#', 'Type', 'From', 'To', 'Time']);
+    ).toEqual(['#', 'Tipo', 'Da', 'A', 'Tempo']);
     const row = wrap.querySelector('tbody tr');
     expect(row.querySelectorAll('th, td').length).toBe(5);
-    for (const value of ['1', 'NAVIGATION', 'Roma', 'Napoli'])
+    for (const value of ['1', 'Navigazione', 'Roma', 'Napoli'])
       expect(row.textContent).toContain(value);
   });
 });

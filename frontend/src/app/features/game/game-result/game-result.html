@@ -3,9 +3,9 @@
   <header class="result__header">
     <ng-icon name="lucideCheckCircle2" aria-hidden="true" />
     <div>
-      <h1>Target reached</h1>
+      <h1>Destinazione raggiunta</h1>
       <p>
-        You navigated from <strong>{{ g.startPageTitle }}</strong> to
+        Hai navigato da <strong>{{ g.startPageTitle }}</strong> a
         <strong>{{ g.currentPageTitle }}</strong
         >.
       </p>
@@ -13,51 +13,57 @@
   </header>
   <div class="result__destination">
     <ng-icon name="lucideFlag" aria-hidden="true" />
-    <div><span>Destination</span><strong>Università degli Studi di Napoli Federico II</strong></div>
+    <div>
+      <span>Destinazione</span><strong>Università degli Studi di Napoli Federico II</strong>
+    </div>
   </div>
   <dl class="result__metrics">
     <div class="result__primary">
-      <dt>{{ g.mode === 'CLICK' ? 'Navigation clicks' : 'Effective time' }}</dt>
+      <dt>{{ g.mode === 'CLICK' ? 'Click di navigazione' : 'Tempo effettivo' }}</dt>
       <dd>{{ g.mode === 'CLICK' ? g.clickCount : (g.effectivePlayTimeMs | duration) }}</dd>
     </div>
     <div>
-      <dt>{{ g.mode === 'CLICK' ? 'Effective time' : 'Navigation clicks' }}</dt>
+      <dt>{{ g.mode === 'CLICK' ? 'Tempo effettivo' : 'Click di navigazione' }}</dt>
       <dd>{{ g.mode === 'CLICK' ? (g.effectivePlayTimeMs | duration) : g.clickCount }}</dd>
     </div>
     <div>
-      <dt>Backtracks</dt>
+      <dt>Ritorni indietro</dt>
       <dd>{{ g.backtrackCount }}</dd>
     </div>
     <div>
-      <dt>Challenge</dt>
+      <dt>Sfida</dt>
       <dd>
-        <span class="badge">{{ g.mode }}</span> <span class="badge">{{ g.difficulty }}</span>
+        <span class="badge">{{ g.mode | gameLabel }}</span>
+        <span class="badge">{{ g.difficulty | gameLabel }}</span>
       </dd>
     </div>
   </dl>
   @if (guest()) {
     <p class="status status--info">
-      This result is not saved yet. Register or log in to save it automatically. Guest games expire
-      after 24 hours of inactivity and may be lost if the server restarts.
+      Questo risultato non è ancora salvato. Registrati o accedi per salvarlo automaticamente. Le
+      partite ospite scadono dopo 24 ore.
     </p>
     <div class="actions">
-      <a class="btn" routerLink="/register">Register to save result</a>
-      <a class="btn btn--secondary" routerLink="/login">Log in to save result</a>
-      <a class="btn btn--quiet" routerLink="/">Home</a>
+      <a class="btn" routerLink="/register">Registrati per salvare il risultato</a>
+      <a class="btn btn--secondary" routerLink="/login">Accedi per salvare il risultato</a>
+      <a class="btn btn--quiet" routerLink="/"
+        ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Homepage</a
+      >
     </div>
   } @else {
     <div class="actions">
       <a class="btn" [routerLink]="['/history', g.id]"
-        >View public game <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" /></a
+        >Visualizza la partita pubblica
+        <ng-icon class="icon" name="lucideArrowRight" aria-hidden="true" /></a
       ><a class="btn btn--secondary" routerLink="/"
-        ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Dashboard</a
+        ><ng-icon class="icon" name="lucideHouse" aria-hidden="true" />Riepilogo</a
       ><a class="btn btn--quiet" routerLink="/history"
-        ><ng-icon class="icon" name="lucideHistory" aria-hidden="true" />History</a
+        ><ng-icon class="icon" name="lucideHistory" aria-hidden="true" />Classifica</a
       >
     </div>
   }
   <section class="result__path" aria-labelledby="result-path-title">
-    <h2 id="result-path-title">Your route</h2>
-    <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Completed route" />
+    <h2 id="result-path-title">Il tuo percorso</h2>
+    <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Percorso completato" />
   </section>
 </section>

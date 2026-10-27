@@ -1,3 +1,6 @@
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
+import { LOCALE_ID } from '@angular/core';
 import {
   ApplicationConfig,
   inject,
@@ -12,8 +15,11 @@ import { AuthService } from './core/auth/auth.service';
 import { credentialsInterceptor } from './core/interceptors/credentials.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 
+registerLocaleData(localeIt);
+
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: LOCALE_ID, useValue: 'it-IT' },
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([credentialsInterceptor, errorInterceptor])),

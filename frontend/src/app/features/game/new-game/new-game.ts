@@ -1,3 +1,4 @@
+import { GAME_LABELS } from '../../../shared/pipes/game-label.pipe';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -43,20 +44,24 @@ export class NewGame {
   readonly modes: readonly ModeOption[] = [
     {
       value: 'CLICK',
-      label: 'CLICK',
-      description: 'Reach the target using as few navigation clicks as possible.',
+      label: GAME_LABELS.CLICK,
+      description: 'Raggiungi la destinazione con il minor numero di click sui link.',
     },
     {
       value: 'TIME',
-      label: 'TIME',
-      description: 'Reach the target using the lowest effective play time.',
+      label: GAME_LABELS.TIME,
+      description: 'Raggiungi la destinazione nel minor tempo effettivo di gioco.',
     },
   ];
 
   readonly difficulties: readonly DifficultyOption[] = [
-    { value: 'EASY', label: 'EASY', backtracking: 'Unlimited backtracking.' },
-    { value: 'MEDIUM', label: 'MEDIUM', backtracking: 'Backtracking allowed at most 3 times.' },
-    { value: 'HARD', label: 'HARD', backtracking: 'No backtracking.' },
+    { value: 'EASY', label: GAME_LABELS.EASY, backtracking: 'Puoi tornare indietro senza limiti.' },
+    {
+      value: 'MEDIUM',
+      label: GAME_LABELS.MEDIUM,
+      backtracking: 'Puoi tornare indietro al massimo 3 volte.',
+    },
+    { value: 'HARD', label: GAME_LABELS.HARD, backtracking: 'Non puoi tornare indietro.' },
   ];
 
   readonly submitting = signal(false);
@@ -88,7 +93,7 @@ export class NewGame {
           // The game exists on the server, only the client-side navigation failed.
           this.submitting.set(false);
           this.error.set(
-            'The game was created but could not be opened. Open it from your dashboard.',
+            'La partita è stata creata, ma non è stato possibile aprirla. Puoi aprirla dal riepilogo.',
           );
         });
       },

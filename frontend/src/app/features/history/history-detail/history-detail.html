@@ -1,79 +1,87 @@
 <section class="detail stack">
   <a class="back-link" routerLink="/history"
-    ><ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />All completed games</a
+    ><ng-icon class="icon" name="lucideArrowLeft" aria-hidden="true" />Tutte le partite
+    completate</a
   >
   <app-error-banner [message]="error()" />
   @if (loading()) {
-    <app-loading-spinner label="Loading completed game…" />
+    <app-loading-spinner label="Caricamento della partita completata…" />
   } @else if (game(); as g) {
     <header class="detail__header">
       <div>
         <h1 class="page-title">
-          Completed game by <span>{{ g.player?.username ?? 'Deleted user' }}</span>
+          Partita completata da <span>{{ g.player?.username ?? 'Utente eliminato' }}</span>
         </h1>
-        <p class="muted">Completed {{ g.completedAt | date: 'medium' }}</p>
+        <p class="muted">Completata il {{ g.completedAt | date: 'medium' }}</p>
       </div>
       <div class="detail__badges">
-        <span class="badge">{{ g.mode }}</span
-        ><span class="badge">{{ g.difficulty }}</span>
+        <span class="badge">{{ g.mode | gameLabel }}</span
+        ><span class="badge">{{ g.difficulty | gameLabel }}</span>
       </div>
     </header>
-    <section class="route-summary" aria-label="Route summary">
+    <section class="route-summary" aria-label="Riepilogo del percorso">
       <div class="route-summary__start">
-        <span>Started at</span><strong>{{ g.startPageTitle }}</strong>
+        <span>Partenza</span><strong>{{ g.startPageTitle }}</strong>
       </div>
       <div class="route-summary__target">
-        <span><ng-icon name="lucideFlag" aria-hidden="true" />Reached</span
+        <span><ng-icon name="lucideFlag" aria-hidden="true" />Arrivo</span
         ><strong>Università degli Studi di Napoli Federico II</strong>
       </div>
     </section>
     <dl class="detail__metrics">
       <div [class.detail__metric--primary]="g.mode === 'CLICK'">
-        <dt><ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Clicks</dt>
+        <dt><ng-icon class="icon" name="lucideMousePointerClick" aria-hidden="true" />Click</dt>
         <dd>{{ g.clickCount }}</dd>
       </div>
       <div [class.detail__metric--primary]="g.mode === 'TIME'">
-        <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Effective time</dt>
+        <dt><ng-icon class="icon" name="lucideClock3" aria-hidden="true" />Tempo effettivo</dt>
         <dd>{{ g.effectivePlayTimeMs | duration }}</dd>
       </div>
       <div>
-        <dt><ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Backtracks</dt>
+        <dt><ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Ritorni indietro</dt>
         <dd>{{ g.backtrackCount }}</dd>
       </div>
     </dl>
     <section class="path-section">
       <div class="section-heading">
-        <h2>Navigation path</h2>
-        <p class="muted">{{ g.path.length }} articles from start to target</p>
+        <h2>Percorso di navigazione</h2>
+        <p class="muted">
+          {{ g.path.length }} {{ g.path.length === 1 ? 'voce' : 'voci' }} dalla partenza alla
+          destinazione
+        </p>
       </div>
-      <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Completed path" />
+      <app-game-path [path]="g.path" lastLabel="target" ariaLabel="Percorso completato" />
     </section>
     <details class="moves-section">
       <summary>
         <span
-          ><strong>Move history</strong><small>{{ g.moves.length }} recorded actions</small></span
+          ><strong>Cronologia delle azioni</strong
+          ><small
+            >{{ g.moves.length }}
+            {{ g.moves.length === 1 ? 'azione registrata' : 'azioni registrate' }}</small
+          ></span
         >
       </summary>
       @if (g.moves.length === 0) {
-        <p class="muted">No moves were recorded.</p>
+        <p class="muted">Non sono state registrate azioni.</p>
       } @else {
-        <p class="moves-hint">Scroll horizontally to read all move columns.</p>
-        <div class="moves-wrap" role="region" aria-label="Move history table" tabindex="0">
+        <p class="moves-hint">Scorri orizzontalmente per leggere tutte le colonne delle azioni.</p>
+        <div class="moves-wrap" role="region" aria-label="Tabella delle azioni" tabindex="0">
           <table class="table moves">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-                <th scope="col">Time</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Da</th>
+                <th scope="col">A</th>
+                <th scope="col">Tempo</th>
               </tr>
             </thead>
             <tbody>
               @for (move of g.moves; track move.sequence) {
                 <tr [class.moves__row--backtrack]="move.type === 'BACKTRACK'">
                   <th scope="row">{{ move.sequence }}</th>
-                  <td>{{ move.type }}</td>
+                  <td>{{ move.type | gameLabel }}</td>
                   <td>{{ move.fromPageTitle }}</td>
                   <td>{{ move.toPageTitle }}</td>
                   <td>{{ move.createdAt | date: 'short' }}</td>

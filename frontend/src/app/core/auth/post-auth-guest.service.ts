@@ -73,15 +73,15 @@ export class PostAuthGuestService {
         const discarding = this.guests.pending()?.action === 'discard';
         this.message.set(
           err.code === 'GUEST_GAME_BUSY'
-            ? 'You are logged in, but a guest operation is still in progress. Please retry cleanup.'
+            ? 'Hai effettuato l’accesso, ma è ancora in corso un’operazione sulla partita ospite. Riprova.'
             : transient
               ? discarding
-                ? 'You are logged in, but the unfinished guest game could not be discarded. Please retry.'
-                : 'You are logged in, but your guest result has not been saved. Please retry saving.'
+                ? 'Hai effettuato l’accesso, ma non è stato possibile eliminare la partita ospite incompleta. Riprova.'
+                : 'Hai effettuato l’accesso, ma il risultato ospite non è stato salvato. Riprova a salvarlo.'
               : err.status === 401
-                ? 'Your login expired. Log in again to save your guest result.'
+                ? 'La sessione è scaduta. Accedi di nuovo per salvare il risultato ospite.'
                 : err.code === 'GAME_NOT_FOUND'
-                  ? 'Your guest result expired or is no longer available. It could not be saved.'
+                  ? 'Il risultato ospite è scaduto o non è più disponibile. Non è stato possibile salvarlo.'
                   : err.message,
         );
         if (!transient && err.status !== 401) this.guests.clearPending();

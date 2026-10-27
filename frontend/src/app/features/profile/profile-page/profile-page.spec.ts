@@ -82,7 +82,7 @@ describe('ProfilePage presentation', () => {
     expect(confirm.getAttribute('aria-describedby')).toBe('password-mismatch-error');
     expect(document.activeElement).toBe(confirm);
     expect(fixture.nativeElement.querySelector('#password-mismatch-error').textContent).toContain(
-      'Passwords do not match.',
+      'Le password non coincidono.',
     );
     expect(changePassword).not.toHaveBeenCalled();
   });
@@ -99,7 +99,7 @@ describe('ProfilePage presentation', () => {
       fixture.detectChanges();
       expect(component.passwordForm.controls.newPassword.invalid).toBe(true);
       expect(fixture.nativeElement.querySelector('#new-password-error').textContent).toContain(
-        '8 and 128',
+        '8 a 128',
       );
       expect(document.activeElement).toBe(fixture.nativeElement.querySelector('#new-password'));
       expect(changePassword).not.toHaveBeenCalled();
@@ -118,12 +118,12 @@ describe('ProfilePage presentation', () => {
     expect(fixture.nativeElement.querySelector('.password-form').getAttribute('aria-busy')).toBe(
       'true',
     );
-    request.error(new ApiError(400, 'INVALID_PASSWORD', 'Current password is incorrect.'));
+    request.error(new ApiError(400, 'INVALID_PASSWORD', 'Password attuale is incorrect.'));
     fixture.detectChanges();
     const form = fixture.nativeElement.querySelector('.password-form');
     expect(form.getAttribute('aria-describedby')).toBe('password-request-error');
     expect(form.querySelector('#password-request-error [role="alert"]').textContent).toContain(
-      'Current password is incorrect.',
+      'Password attuale is incorrect.',
     );
     expect(form.getAttribute('aria-busy')).toBe('false');
   });
@@ -145,7 +145,7 @@ describe('ProfilePage presentation', () => {
     });
     expect(
       fixture.nativeElement.querySelector('.password-form [role="status"]').textContent,
-    ).toContain('Password updated.');
+    ).toContain('Password aggiornata.');
     expect(fixture.nativeElement.querySelector('.password-form .field__error')).toBeNull();
   });
 
@@ -170,7 +170,7 @@ describe('ProfilePage presentation', () => {
     dialog.close = vi.fn();
     component.openDeleteDialog();
     expect(dialog.showModal).toHaveBeenCalledOnce();
-    expect(dialog.querySelector('button[autofocus]')?.textContent).toContain('Cancel');
+    expect(dialog.querySelector('button[autofocus]')?.textContent).toContain('Annulla');
     expect(deleteAccount).not.toHaveBeenCalled();
     component.cancelDelete();
     expect(dialog.close).toHaveBeenCalledOnce();

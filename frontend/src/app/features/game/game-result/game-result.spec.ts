@@ -49,7 +49,7 @@ describe('GameResult presentation', () => {
     fixture.componentRef.setInput('game', { ...game, mode: 'TIME' });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.result__primary dt').textContent.trim()).toBe(
-      'Effective time',
+      'Tempo effettivo',
     );
     expect(fixture.nativeElement.querySelector('.result__primary dd').textContent.trim()).toBe(
       '0:18',
@@ -61,15 +61,15 @@ describe('GameResult presentation', () => {
     fixture.componentRef.setInput('game', game);
     fixture.componentRef.setInput('guest', true);
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('This result is not saved yet.');
+    expect(fixture.nativeElement.textContent).toContain('Questo risultato non è ancora salvato.');
     const notice = fixture.nativeElement.querySelector('.status');
     const path = fixture.nativeElement.querySelector('.result__path');
     expect(notice.compareDocumentPosition(path) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(fixture.nativeElement.querySelector('a[href="/register"]').textContent).toContain(
-      'Register to save result',
+      'Registrati per salvare il risultato',
     );
     expect(fixture.nativeElement.querySelector('a[href="/login"]').textContent).toContain(
-      'Log in to save result',
+      'Accedi per salvare il risultato',
     );
     expect(fixture.nativeElement.querySelector('a[href="/"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('a[href="/new-game"]')).toBeNull();

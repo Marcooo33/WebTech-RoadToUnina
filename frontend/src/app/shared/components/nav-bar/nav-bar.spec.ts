@@ -120,7 +120,7 @@ describe('NavBar', () => {
     const dialog = document.createElement('dialog');
     dialog.open = true;
     const cancel = document.createElement('button');
-    cancel.textContent = 'Cancel';
+    cancel.textContent = 'Annulla';
     dialog.append(cancel);
     document.body.append(dialog);
     try {
@@ -154,7 +154,7 @@ describe('NavBar', () => {
     expect(fixture.nativeElement.querySelector('a[href="/profile"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('a[href="/login"]')).toBeNull();
     const dashboard = fixture.nativeElement.querySelector('.nav__primary a[href="/"]');
-    expect(dashboard.textContent).toContain('Dashboard');
+    expect(dashboard.textContent).toContain('Riepilogo');
     fixture.componentInstance.toggleMenu();
     fixture.nativeElement.querySelector('.nav__logout').click();
     fixture.detectChanges();

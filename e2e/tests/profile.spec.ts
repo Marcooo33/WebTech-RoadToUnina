@@ -25,25 +25,25 @@ test("account deletion requires confirmation and preserves anonymized completed 
   await page.goto("/profile");
   const openDelete = page
     .locator("main")
-    .getByRole("button", { name: "Delete account" });
+    .getByRole("button", { name: "Elimina account" });
   await openDelete.click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("button", { name: "Cancel" })).toBeVisible();
-  await dialog.getByRole("button", { name: "Cancel" }).click();
+  await expect(dialog.getByRole("button", { name: "Annulla" })).toBeVisible();
+  await dialog.getByRole("button", { name: "Annulla" }).click();
   await expect(dialog).toBeHidden();
   await expect(page).toHaveURL(/\/profile$/);
 
   await openDelete.click();
-  await dialog.getByRole("button", { name: "Delete account" }).click();
+  await dialog.getByRole("button", { name: "Elimina account" }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(
-    page.getByRole("heading", { name: "Find your way to Federico II." }),
+    page.getByRole("heading", { name: "Tutti i link portano alla Federico II." }),
   ).toBeVisible();
 
   await page.goto(`/history/${completed.id}`);
   await expect(
-    page.getByRole("heading", { name: /Deleted user/ }),
+    page.getByRole("heading", { name: /Utente eliminato/ }),
   ).toBeVisible();
-  await expect(page.getByText("Deleted user", { exact: true })).toBeVisible();
+  await expect(page.getByText("Utente eliminato", { exact: true })).toBeVisible();
 });

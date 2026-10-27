@@ -94,7 +94,7 @@ export class ProfilePage {
       next: (user) => {
         this.usernameForm.controls.username.setValue(user.username);
         this.usernameSubmitting.set(false);
-        this.usernameSuccess.set('Username updated.');
+        this.usernameSuccess.set('Nome utente aggiornato.');
       },
       error: (err: ApiError) => {
         this.usernameSubmitting.set(false);
@@ -120,7 +120,7 @@ export class ProfilePage {
       next: (user) => {
         this.emailForm.controls.email.setValue(user.email);
         this.emailSubmitting.set(false);
-        this.emailSuccess.set('Email updated.');
+        this.emailSuccess.set('Email aggiornata.');
       },
       error: (err: ApiError) => {
         this.emailSubmitting.set(false);
@@ -151,7 +151,7 @@ export class ProfilePage {
       next: () => {
         this.passwordForm.reset();
         this.passwordSubmitting.set(false);
-        this.passwordSuccess.set('Password updated.');
+        this.passwordSuccess.set('Password aggiornata.');
       },
       error: (err: ApiError) => {
         this.passwordSubmitting.set(false);

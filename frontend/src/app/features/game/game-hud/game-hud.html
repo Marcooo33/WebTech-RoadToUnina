@@ -3,12 +3,12 @@
   <div class="hud__top">
     <div class="hud__goal">
       <ng-icon name="lucideFlag" aria-hidden="true" />
-      <div><span>Destination</span><strong>Federico II</strong></div>
+      <div><span>Destinazione</span><strong>Federico II</strong></div>
       <p>Università degli Studi<br />&ngsp;di Napoli Federico II</p>
     </div>
     <div class="hud__meta">
-      <span>{{ g.mode }}</span
-      ><span>{{ g.difficulty }}</span>
+      <span>{{ g.mode | gameLabel }}</span
+      ><span>{{ g.difficulty | gameLabel }}</span>
     </div>
     <button
       #pathTrigger
@@ -17,17 +17,17 @@
       (click)="pathRequested.emit()"
       aria-haspopup="dialog"
     >
-      Path <span>{{ g.path.length }}</span>
+      Percorso <span>{{ g.path.length }}</span>
     </button>
   </div>
   <div class="hud__bottom">
     <dl class="hud__stats">
       <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'CLICK'">
-        <dt>Clicks</dt>
+        <dt>Click</dt>
         <dd data-testid="hud-clicks">{{ g.clickCount }}</dd>
       </div>
       <div class="hud__stat" [class.hud__stat--primary]="g.mode === 'TIME'">
-        <dt><span class="hud__effective">Effective </span>Time</dt>
+        <dt>Tempo<span class="hud__effective"> effettivo</span></dt>
         <dd>{{ displayTimeMs() | duration }}</dd>
       </div>
     </dl>
@@ -38,7 +38,7 @@
         [disabled]="!canBacktrack()"
         (click)="backtrack.emit()"
       >
-        <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Backtrack
+        <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Torna indietro
         @if (g.difficulty === 'MEDIUM') {
           <span class="hud__remaining">({{ backtracksLeft() }})</span>
         }
@@ -47,20 +47,20 @@
     <p class="hud__backtrack-note">
       @switch (g.difficulty) {
         @case ('EASY') {
-          <span>Backtracking: unlimited</span>
+          <span>Ritorni indietro: illimitati</span>
         }
         @case ('MEDIUM') {
-          <span>Backtracks left: {{ backtracksLeft() }} / 3</span>
+          <span>Ritorni indietro disponibili: {{ backtracksLeft() }} / 3</span>
         }
         @case ('HARD') {
-          <span>Backtracking: not available</span>
+          <span>Ritorni indietro: non disponibili</span>
         }
       }
     </p>
   </div>
   @if (busy()) {
     <p class="hud__busy" role="status">
-      <span class="hud__spinner" aria-hidden="true"></span>Opening the next article…
+      <span class="hud__spinner" aria-hidden="true"></span>Apertura della prossima voce…
     </p>
   }
   <div class="hud__feedback"><ng-content /></div>

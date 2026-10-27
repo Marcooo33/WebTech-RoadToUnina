@@ -40,5 +40,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   `,
 })
 export class LoadingSpinner {
-  readonly label = input('Loading…');
+  readonly label = input('Caricamento…');
 }
