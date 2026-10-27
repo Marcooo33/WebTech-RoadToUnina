@@ -44,3 +44,6 @@ Thumbs.db
 .course-resources/
 /.opencode
 /docs
+
+# Local startup script
+/start-local.sh

@@ -2,11 +2,24 @@
 
 ## Avvio del progetto
 
-Il progetto è diviso in due parti: **backend** (Express + TypeScript + Prisma/PostgreSQL) e **frontend** (Angular). Vanno avviati separatamente, ciascuno dalla propria cartella.
+Il progetto è diviso in due parti: **backend** (Express + TypeScript + Prisma/PostgreSQL) e **frontend** (Angular).
+
+Se disponi dello script locale `start-local.sh` (escluso dal repository), dopo
+la configurazione iniziale descritta sotto (dipendenze, `backend/.env` e
+migrazioni del database) puoi avviare entrambi dalla radice con:
+
+```bash
+./start-local.sh
+```
+
+Lo script richiede Bash 4.3+, genera il client Prisma e avvia l'app su
+`http://localhost:4200`, con il backend sulla porta `3000`. PostgreSQL deve essere
+già raggiungibile. Premi `Ctrl+C` per fermare entrambi i servizi. Lo script non
+applica migrazioni al database.
 
 ### Prerequisiti
 
-- Node.js 20+ e npm
+- Node.js `^22.22.3`, `^24.15.0` oppure `>=26.0.0` e npm
 - Un database PostgreSQL raggiungibile (ad esempio un progetto Supabase)
 
 ### Backend
