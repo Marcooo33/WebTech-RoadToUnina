@@ -28,12 +28,6 @@
   color: var(--color-muted);
   font-size: 0.75rem;
 }
-.game__article-toolbar a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--color-muted);
-}
 .game__aside {
   position: sticky;
   top: 24px;
@@ -174,4 +168,18 @@
   .game__path-dialog {
     padding: 20px 18px;
   }
+}
+
+.game__exit-dialog h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+.game__exit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.game__exit-actions .btn {
+  flex: 1 1 180px;
 }

@@ -14,7 +14,7 @@ import {
 import { GameDto } from '../../../shared/models/game.model';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideFlag, lucideRotateCcw } from '@ng-icons/lucide';
+import { lucideFlag, lucideLogOut, lucideRotateCcw } from '@ng-icons/lucide';
 
 const MEDIUM_BACKTRACK_LIMIT = 3;
 
@@ -24,7 +24,7 @@ const MEDIUM_BACKTRACK_LIMIT = 3;
   selector: 'app-game-hud',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [GameLabelPipe, DurationPipe, NgIcon],
-  providers: [provideIcons({ lucideFlag, lucideRotateCcw })],
+  providers: [provideIcons({ lucideFlag, lucideLogOut, lucideRotateCcw })],
   templateUrl: './game-hud.html',
   styleUrl: './game-hud.css',
 })
@@ -35,6 +35,7 @@ export class GameHud {
   // A gameplay mutation (move/backtrack) is in flight.
   readonly busy = input(false);
 
+  readonly exitRequested = output<void>();
   readonly backtrack = output<void>();
   readonly pathRequested = output<void>();
   readonly heightChanged = output<number>();

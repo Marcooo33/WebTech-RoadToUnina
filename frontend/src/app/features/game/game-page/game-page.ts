@@ -69,6 +69,7 @@ export class GamePage implements OnInit {
   private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly articleView = viewChild(WikipediaArticle);
   private readonly hud = viewChild(GameHud);
+  private readonly exitDialog = viewChild<ElementRef<HTMLDialogElement>>('exitDialog');
   private readonly pathDialog = viewChild<ElementRef<HTMLDialogElement>>('pathDialog');
   private readonly desktopPathSummary = viewChild<ElementRef<HTMLElement>>('desktopPathSummary');
   private compactHudHeight = 0;
@@ -180,6 +181,20 @@ export class GamePage implements OnInit {
     const scrollMargin = Number.parseFloat(style.scrollMarginTop) || 0;
     const visibleTop = Math.max(bar.bottom + clearance, scrollMargin);
     window.scrollBy({ top: target.top - visibleTop, left: 0, behavior: 'instant' });
+  }
+
+  openExit(): void {
+    this.exitDialog()?.nativeElement.showModal();
+  }
+
+  closeExit(): void {
+    this.exitDialog()?.nativeElement.close();
+  }
+
+  confirmExit(): void {
+    if (!this.exitDialog()?.nativeElement.open) return;
+    this.closeExit();
+    void this.router.navigateByUrl('/');
   }
 
   openPath(): void {

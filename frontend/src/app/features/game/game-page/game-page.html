@@ -39,6 +39,7 @@
               [displayTimeMs]="displayTimeMs()"
               [busy]="busy()"
               (backtrack)="onBacktrack()"
+              (exitRequested)="openExit()"
               (pathRequested)="openPath()"
               (heightChanged)="onHudHeightChanged($event)"
             >
@@ -57,7 +58,7 @@
           </aside>
           <div class="game__main">
             <div class="game__article-toolbar">
-              <span>Wikipedia · Italiano</span><a routerLink="/">Esci dalla partita</a>
+              <span>Wikipedia · Italiano</span>
             </div>
             @if (article(); as a) {
               <app-wikipedia-article
@@ -102,6 +103,23 @@
           }
           <div class="game__path-target">
             <span>Destinazione</span><strong>Università degli Studi di Napoli Federico II</strong>
+          </div>
+        </dialog>
+        <dialog
+          #exitDialog
+          class="game__path-dialog game__exit-dialog"
+          aria-labelledby="exit-title"
+          aria-describedby="exit-description"
+        >
+          <h2 id="exit-title">Vuoi abbandonare la partita?</h2>
+          <p id="exit-description">Vuoi davvero uscire dalla partita in corso?</p>
+          <div class="game__exit-actions">
+            <button type="button" class="btn btn--secondary" autofocus (click)="closeExit()">
+              Continua a giocare
+            </button>
+            <button type="button" class="btn btn--danger" (click)="confirmExit()">
+              Esci dalla partita
+            </button>
           </div>
         </dialog>
       }

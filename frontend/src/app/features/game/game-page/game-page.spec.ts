@@ -1,4 +1,4 @@
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, Subject } from 'rxjs';
 import { GamePage } from './game-page';
@@ -81,10 +81,33 @@ describe('GamePage presentation', () => {
     expect(
       hud.compareDocumentPosition(articleArea) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
-    const leave = fixture.nativeElement.querySelector('.game__article-toolbar a');
-    expect(leave.getAttribute('href')).toBe('/');
-    expect(leave.textContent).toBe('Esci dalla partita');
+    const leave = fixture.nativeElement.querySelector('app-game-hud .hud__exit');
+    expect(leave.getAttribute('aria-label')).toBe('Esci dalla partita');
+    expect(fixture.nativeElement.querySelector('.game__article-toolbar a')).toBeNull();
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.wiki__title'));
+  });
+
+  it('requires confirmation before leaving and keeps cancellation in the game', () => {
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+    const dialog = fixture.nativeElement.querySelector('.game__exit-dialog') as HTMLDialogElement;
+    dialog.showModal = vi.fn(() => {
+      dialog.open = true;
+    });
+    dialog.close = vi.fn(() => {
+      dialog.open = false;
+    });
+    const trigger = fixture.nativeElement.querySelector('.hud__exit') as HTMLButtonElement;
+    trigger.click();
+    expect(dialog.showModal).toHaveBeenCalledOnce();
+    expect(navigate).not.toHaveBeenCalled();
+    dialog.querySelector<HTMLButtonElement>('[autofocus]')!.click();
+    expect(dialog.open).toBe(false);
+    expect(navigate).not.toHaveBeenCalled();
+    component.confirmExit();
+    expect(navigate).not.toHaveBeenCalled();
+    trigger.click();
+    dialog.querySelector<HTMLButtonElement>('.btn--danger')!.click();
+    expect(navigate).toHaveBeenCalledExactlyOnceWith('/');
   });
 
   it('applies the measured HUD obstruction as a presentation-only scroll offset', () => {

@@ -31,32 +31,47 @@
         <dd>{{ displayTimeMs() | duration }}</dd>
       </div>
     </dl>
-    @if (g.difficulty !== 'HARD') {
-      <button
-        type="button"
-        class="btn btn--secondary hud__backtrack"
-        [disabled]="!canBacktrack()"
-        (click)="backtrack.emit()"
-      >
-        <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Torna indietro
-        @if (g.difficulty === 'MEDIUM') {
-          <span class="hud__remaining">({{ backtracksLeft() }})</span>
-        }
-      </button>
-    }
-    <p class="hud__backtrack-note">
-      @switch (g.difficulty) {
-        @case ('EASY') {
-          <span>Ritorni indietro: illimitati</span>
-        }
-        @case ('MEDIUM') {
-          <span>Ritorni indietro disponibili: {{ backtracksLeft() }} / 3</span>
-        }
-        @case ('HARD') {
-          <span>Ritorni indietro: non disponibili</span>
-        }
+    <div class="hud__actions">
+      @if (g.difficulty !== 'HARD') {
+        <button
+          type="button"
+          class="btn btn--secondary hud__backtrack"
+          [disabled]="!canBacktrack()"
+          (click)="backtrack.emit()"
+        >
+          <ng-icon class="icon" name="lucideRotateCcw" aria-hidden="true" />Torna indietro
+          @if (g.difficulty === 'MEDIUM') {
+            <span class="hud__remaining">({{ backtracksLeft() }})</span>
+          }
+        </button>
       }
-    </p>
+      <p class="hud__backtrack-note">
+        @switch (g.difficulty) {
+          @case ('EASY') {
+            <span>Ritorni indietro: illimitati</span>
+          }
+          @case ('MEDIUM') {
+            <span>Ritorni indietro disponibili: {{ backtracksLeft() }} / 3</span>
+          }
+          @case ('HARD') {
+            <span>Ritorni indietro: non disponibili</span>
+          }
+        }
+      </p>
+      <div class="hud__exit-area">
+        <button
+          type="button"
+          class="btn hud__exit"
+          aria-label="Esci dalla partita"
+          aria-haspopup="dialog"
+          (click)="exitRequested.emit()"
+        >
+          <ng-icon class="icon" name="lucideLogOut" aria-hidden="true" />
+          <span class="hud__exit-full">Esci dalla partita</span
+          ><span class="hud__exit-short" aria-hidden="true">Esci</span>
+        </button>
+      </div>
+    </div>
   </div>
   @if (busy()) {
     <p class="hud__busy" role="status">
