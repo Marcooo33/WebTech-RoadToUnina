@@ -154,7 +154,7 @@ describe('NavBar', () => {
     expect(fixture.nativeElement.querySelector('a[href="/profile"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('a[href="/login"]')).toBeNull();
     const dashboard = fixture.nativeElement.querySelector('.nav__primary a[href="/"]');
-    expect(dashboard.textContent).toContain('Riepilogo');
+    expect(dashboard.textContent).toContain('Dashboard');
     fixture.componentInstance.toggleMenu();
     fixture.nativeElement.querySelector('.nav__logout').click();
     fixture.detectChanges();

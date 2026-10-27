@@ -115,7 +115,7 @@ describe('LandingPage presentation', () => {
     fixture.detectChanges();
     const panel = fixture.nativeElement.querySelector('[data-testid="guest-existing"]');
     expect(panel.getAttribute('aria-labelledby')).toBe('guest-title');
-    expect(panel.querySelector('h2').textContent).toContain('Il prossimo collegamento ti aspetta.');
+    expect(panel.querySelector('h2').textContent).toContain('Il prossimo link ti aspetta.');
     expect(primary().textContent).toContain('Gioca come ospite');
     expect(primary().disabled).toBe(false);
     expect(create).not.toHaveBeenCalled();
