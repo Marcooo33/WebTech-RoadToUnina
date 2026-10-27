@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, finalize, map, of, tap } from 'rxjs';
+import { Observable, catchError, finalize, map, of, tap, timeout } from 'rxjs';
 import { API_BASE } from '../api/api.config';
 import { UserProfileDto } from '../../shared/models/user.model';
 
@@ -21,13 +21,16 @@ export class AuthService {
   readonly isAuthenticated = computed(() => this._status() === 'authenticated');
 
   // Resolves the session once at startup and lazily from the guard. Always
-  // completes, never rejects, so a transient error doesn't block navigation.
+  // completes, never rejects, so an unavailable database cannot indefinitely
+  // prevent the public landing page from rendering. This does not clear cookies
+  // or guest recovery state, and applies only to the initial session lookup.
   bootstrap(): Observable<AuthStatus> {
     if (this._status() !== 'unknown') {
       return of(this._status());
     }
 
     return this.http.get<UserProfileDto>(`${API_BASE}/auth/me`).pipe(
+      timeout({ first: 5_000 }),
       tap((user) => this.setUser(user)),
       map((): AuthStatus => 'authenticated'),
       catchError(() => {

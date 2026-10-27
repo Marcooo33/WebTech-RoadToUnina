@@ -13,7 +13,7 @@ test("a visitor can register through the form and lands authenticated", async ({
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByText(`Accesso effettuato come`)).toContainText(user.username);
   await expect(page.getByRole("button", { name: "Esci" })).toBeVisible();
-  await expect(page.locator("nav").getByRole("link", { name: "Riepilogo" })).toHaveAttribute(
+  await expect(page.locator("nav").getByRole("link", { name: "Dashboard" })).toHaveAttribute(
     "href",
     "/",
   );
@@ -45,7 +45,7 @@ test("a registered user can log out and log back in", async ({ page }) => {
     "href",
     "/",
   );
-  await expect(page.locator("nav").getByRole("link", { name: "Riepilogo" })).toHaveCount(0);
+  await expect(page.locator("nav").getByRole("link", { name: "Dashboard" })).toHaveCount(0);
 
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/$/);
