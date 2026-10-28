@@ -73,7 +73,10 @@ for (const replacement of [false, true]) {
         await expect(page).toHaveURL(/\/guest\/game\//);
         await expect(page.locator(".wiki__title")).toBeVisible();
         await page
-          .getByRole("link", { name: "Esci dalla partita", exact: true })
+          .getByRole("button", { name: "Esci dalla partita", exact: true })
+          .click();
+        await page.getByRole("dialog")
+          .getByRole("button", { name: "Esci dalla partita", exact: true })
           .click();
         delay = true;
         await page

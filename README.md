@@ -1,218 +1,174 @@
 # ROADTOUNINA
 
-## Avvio del progetto
+**Riesci a raggiungere la Federico II partendo da un articolo casuale di Wikipedia?**
 
-Il progetto è diviso in due parti: **backend** (Express + TypeScript + Prisma/PostgreSQL) e **frontend** (Angular).
+ROADTOUNINA è un gioco di navigazione ispirato alle Wikipedia Speedrun: segui i
+collegamenti tra gli articoli di Wikipedia in italiano fino a raggiungere
+l'Università degli Studi di Napoli Federico II. È un progetto universitario
+realizzato per il corso di Web Technologies.
 
-Se disponi dello script locale `start-local.sh` (escluso dal repository), dopo
-la configurazione iniziale descritta sotto (dipendenze, `backend/.env` e
-migrazioni del database) puoi avviare entrambi dalla radice con:
+**Demo pubblica:** non ancora pubblicata. Il collegamento verrà aggiunto dopo il
+deploy e la verifica dell'applicazione.
+
+![Homepage di ROADTOUNINA](assets/screenshots/landing.png)
+
+## Funzionalità
+
+- Partita di prova senza registrazione, in modalità **Click / Facile**.
+- Registrazione o login dopo la vittoria per salvare il risultato e il percorso.
+- Modalità **Click** e **Tempo**, con tre difficoltà che regolano il ritorno indietro.
+- Cronologia delle partite, statistiche personali e classifiche pubbliche.
+- Gestione del profilo e autenticazione con cookie HttpOnly.
+
+Per provare il gioco, apri la home e avvia una partita come ospite. Il risultato
+non viene salvato nel database finché non ti autentichi. Le partite ospite
+rimangono nella memoria del backend: scadono dopo 24 ore di inattività e vengono
+perse in caso di riavvio o deploy prima del salvataggio.
+
+## Tecnologie e architettura
+
+- **Frontend:** Angular 22, TypeScript 6, RxJS e CSS.
+- **Backend:** Express 5, TypeScript, Prisma 7, PostgreSQL, JWT e bcrypt.
+- **Test:** Vitest, test runner Node.js e Playwright.
+
+In produzione un unico Web Service Render Free serve la build Angular e le API
+`/api`, sulla stessa origine HTTPS. Il backend accede al database Supabase Free
+e alle API di Wikipedia. I cookie rimangono HttpOnly e `SameSite=Lax`, con
+`Secure` in produzione; il frontend non contiene credenziali del database.
+
+In locale Angular usa il proprio server di sviluppo e inoltra `/api` e `/health`
+a Express attraverso il proxy già configurato.
+
+## Esecuzione locale
+
+Occorrono Node.js **24.20.0** (versione fissata in `.node-version`), npm e un
+database PostgreSQL dedicato allo sviluppo. I pacchetti Angular richiedono
+almeno Node `^22.22.3`, `^24.15.0` oppure `>=26.0.0`.
+
+Non esiste un package npm alla radice. Prepara il backend:
 
 ```bash
-./start-local.sh
+cd backend
+npm ci
+cp .env.example .env
 ```
 
-Lo script richiede Bash 4.3+, genera il client Prisma e avvia l'app su
-`http://localhost:4200`, con il backend sulla porta `3000`. PostgreSQL deve essere
-già raggiungibile. Premi `Ctrl+C` per fermare entrambi i servizi. Lo script non
-applica migrazioni al database.
+Compila `.env` con la connessione PostgreSQL e un `JWT_SECRET` casuale di almeno
+32 caratteri. Mantieni `NODE_ENV=development` ed `E2E_FAKE_WIKIPEDIA=0`.
 
-### Prerequisiti
+```bash
+npm run prisma:generate
+```
 
-- Node.js `^22.22.3`, `^24.15.0` oppure `>=26.0.0` e npm
-- Un database PostgreSQL raggiungibile (ad esempio un progetto Supabase)
+Su un database di sviluppo nuovo, applica le migrazioni con
+`npx prisma migrate deploy`. Su un database già popolato verifica prima lo stato
+con `npx prisma migrate status` e leggi le migrazioni pendenti: alcune migrazioni
+storiche rimuovono colonne o tabelle. Non usare reset o `db push` sui dati
+esistenti. Avvia poi il backend:
 
-### Backend
+```bash
+npm run dev
+```
 
-1. Entra nella cartella del backend:
+In un secondo terminale:
 
-   ```bash
-   cd backend
-   ```
+```bash
+cd frontend
+npm ci
+npm start
+```
 
-2. Installa le dipendenze:
+Apri `http://localhost:4200`. Express ascolta di default sulla porta `3000`.
 
-   ```bash
-   npm install
-   ```
+## Build e pubblicazione
 
-3. Crea il file `.env` a partire dall'esempio fornito:
+Dalla radice del repository:
 
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+node scripts/build.mjs
+```
 
-   Poi compila le variabili nel file `.env`:
+Lo script installa dai lockfile, compila Angular, genera il client Prisma e
+compila Express. Non applica migrazioni e non effettua query al database.
 
-   - `DATABASE_URL`: stringa di connessione al database PostgreSQL (usata da Prisma).
-   - `PORT`: porta su cui gira il server Express (default `3000`).
-   - `NODE_ENV`: `development` in locale, `production` in produzione (abilita il flag `Secure` sui cookie).
-   - `JWT_SECRET`: segreto per firmare i token JWT, lungo almeno 32 caratteri.
-   - `JWT_EXPIRES_IN`: durata del token di accesso (default `8h`).
-   - `E2E_FAKE_WIKIPEDIA`: lasciare a `0` in sviluppo (serve solo ai test end-to-end).
+Configurazione prevista per Render:
 
-4. Genera il client Prisma e applica le migrazioni al database:
+| Impostazione | Valore |
+| --- | --- |
+| Tipo e piano | Web Service, **Free** |
+| Branch | `main` |
+| Root Directory | Radice del repository, campo vuoto |
+| Build Command | `node scripts/build.mjs` |
+| Start Command | `npm --prefix backend start` |
+| Health Check Path | `/health` |
+| Auto-Deploy | **After CI Checks Pass** |
 
-   ```bash
-   npx prisma generate
-   npx prisma migrate deploy
-   ```
+Le variabili sono descritte in `backend/.env.example`:
 
-5. Avvia il server:
+| Variabile | Uso |
+| --- | --- |
+| `DATABASE_URL` | Connessione PostgreSQL, soltanto sul backend |
+| `JWT_SECRET` | Segreto casuale di almeno 32 caratteri |
+| `JWT_EXPIRES_IN` | Durata JWT, predefinita `8h` |
+| `NODE_ENV` | `development` in locale, `production` su Render |
+| `PORT` | Assegnata da Render; predefinita `3000` in locale |
+| `PUBLIC_ORIGIN` | Origine HTTPS pubblica; su Render può derivare da `RENDER_EXTERNAL_URL` |
+| `TRUST_PROXY_HOPS` | `0` in locale; numero di proxy fidati (`0`–`5`) da determinare e verificare su Render |
+| `SERVE_FRONTEND` | Distribuzione della build statica, abilitata in produzione |
+| `DB_HEALTH_SECRET` | Facoltativo; abilita il controllo DB protetto, almeno 32 caratteri |
+| `E2E_FAKE_WIKIPEDIA` | Solo test; deve rimanere `0` in produzione |
 
-   ```bash
-   npm run build
-   npm start
-   ```
+Non inserire `.env` o credenziali nel repository e non configurare migrazioni
+automatiche senza aver verificato quelle già applicate al database esistente.
+Prima della pubblicazione verificare quote Supabase e accessibilità delle tabelle
+tramite Data API, grant e RLS: l'accesso diretto del backend non rende sicura
+un'eventuale API pubblica del database.
 
-   Il backend sarà disponibile su `http://localhost:3000`.
+GitHub Actions esegue test e build prima del deploy; il controllo finale
+**Required checks** deve riuscire. L'attivazione di Render e il collegamento a
+GitHub richiedono la configurazione degli account: il repository non crea
+servizi esterni. Non è configurato alcuno scheduler di ping. `/health` verifica
+il processo HTTP senza dipendere dal database; il controllo DB protetto resta
+separato ed è disabilitato senza segreto.
 
-### Frontend
+Un'interruzione temporanea del database non impedisce l'avvio HTTP o la
+distribuzione della landing. La verifica iniziale della sessione nel browser
+attende al massimo cinque secondi; le funzioni che richiedono PostgreSQL restano
+dipendenti dalla sua disponibilità.
 
-1. In un altro terminale, entra nella cartella del frontend:
+L'endpoint `GET /api/health/db` richiede `X-Health-Secret` ed esegue una sola
+lettura minima senza restituire dati. Le chiamate autorizzate sono limitate a
+12 all'ora; il segreto va mantenuto soltanto nella configurazione server e
+dell'eventuale chiamante autorizzato. Prima di impostare `TRUST_PROXY_HOPS`,
+verificare la catena effettiva dell'ingresso Render e che un client non possa
+falsificare l'IP usato dai limiti sulle richieste.
 
-   ```bash
-   cd frontend
-   ```
+Con Render Free anche il frontend può attendere il risveglio del servizio dopo
+un periodo di inattività. Il piano gratuito ha quote di utilizzo e non offre
+disponibilità continua garantita. Per un budget di 0 € mantenere il piano Free,
+non attivare risorse a pagamento e verificare le quote nel dashboard.
 
-2. Installa le dipendenze:
+## Verifiche
 
-   ```bash
-   npm install
-   ```
+```bash
+npm --prefix backend test
+npm --prefix backend run build
+npm --prefix frontend test -- --watch=false
+npm --prefix frontend run build
+```
 
-3. Avvia il server di sviluppo Angular:
+Per la suite browser esistente occorrono Docker e Chromium:
 
-   ```bash
-   npm start
-   ```
+```bash
+cd e2e
+npm ci
+cp .env.example .env
+npx playwright install chromium
+npm test
+```
 
-   Il comando esegue `ng serve` usando la configurazione di proxy già presente in `proxy.conf.json`, che inoltra le richieste verso `/api` e `/health` al backend su `http://localhost:3000`. Assicurati quindi che il backend sia già in esecuzione.
-
-4. Apri il browser su `http://localhost:4200`.
-
----
-
-**Riesci a raggiungere la Federico II partendo da un punto qualsiasi di Wikipedia?** ROADTOUNINA trasforma questa domanda in una sfida di orientamento: si parte da un articolo scelto a caso su Wikipedia in italiano e si deve raggiungere l'**Università degli Studi di Napoli Federico II** seguendo i collegamenti tra gli articoli.
-
-ROADTOUNINA è stato realizzato come progetto universitario per il corso di Web Technologies dell'Università degli Studi di Napoli Federico II. Riunisce in un'unica applicazione web un gioco interattivo completo, account utente, monitoraggio dei progressi personali e classifiche pubbliche.
-
-## La sfida
-
-Ogni partita parte da un nuovo articolo iniziale. Leggi la pagina, scegli uno dei suoi link interni e continua a navigare finché non raggiungi l'articolo Wikipedia dell'università. Il percorso è tutto da scoprire: non esiste una sequenza di pagine prestabilita da seguire.
-
-Il gioco registra il tuo percorso mentre giochi. Un clic di navigazione ti sposta su un articolo collegato e conta ai fini del punteggio. Se prendi una strada sbagliata, puoi tornare indietro all'articolo precedente quando la difficoltà selezionata lo consente. Il ritorno indietro viene registrato separatamente e non aggiunge un clic di navigazione.
-
-## Scegli come giocare
-
-Ogni partita combina una modalità di punteggio con un livello di difficoltà.
-
-### Modalità di punteggio
-
-- **Click** — l'obiettivo è raggiungere la meta con il minor numero di clic di navigazione. A parità di clic, vince chi ha il tempo effettivo più basso.
-- **Tempo** — l'obiettivo è ottenere il tempo di gioco effettivo più basso. A parità di tempo, vince il percorso con meno clic di navigazione.
-
-Il tempo di gioco effettivo misura il tempo di gioco attivo. Il tempo di attesa per il caricamento di un articolo viene escluso, così il caricamento delle pagine non influisce sul risultato.
-
-### Livelli di difficoltà
-
-- **Facile** — ritorna indietro senza limiti.
-- **Medio** — ritorna indietro fino a tre volte in una partita.
-- **Difficile** — il ritorno indietro non è disponibile.
-
-## Gioca come ospite
-
-**Play as Guest** avvia subito una partita **CLICK / EASY**, senza account e senza
-schermata di selezione. Le modalità e difficoltà della creazione autenticata
-rimangono tutte disponibili.
-
-Ogni identità ospite ha una sola partita: dalla home si può riprendere quella in
-corso oppure visualizzare il risultato non salvato. **Start New** richiede una
-conferma; annullare o fallire la creazione conserva la partita precedente.
-
-Le partite ospite e le mosse rimangono esclusivamente nella memoria del processo
-Express. Un cookie `guest_token`, casuale e HttpOnly, permette di riprenderle dopo
-un refresh o la riapertura del browser. Il cookie è host-only, `SameSite=Lax`, con
-percorso `/api/guest-games` e flag `Secure` in produzione: il deployment previsto
-è frontend/API sulla stessa origine, con HTTPS in produzione. Non abilitare CORS
-con credenziali verso origini arbitrarie.
-
-La scadenza è di **24 ore di inattività**. Creazione/sostituzione, apertura della
-partita o del risultato, mosse valide, una pausa che chiude un intervallo e un
-tentativo valido di salvataggio rinnovano la scadenza. Un'apertura valida può
-rinnovarla anche se Wikipedia è temporaneamente irraggiungibile. Riepiloghi,
-letture del solo articolo, richieste non valide/conflittuali e risposte ripetute
-a un risultato già salvato non la rinnovano. Non sono presenti polling o
-heartbeat. La pulizia avviene anche ogni minuto.
-
-**Un riavvio del backend perde le partite ospite non salvate.** La cancellazione
-del cookie ne perde l'accesso. La soluzione prevede un solo processo Express;
-non usa Redis, sessioni persistenti o nuove tabelle. Il limite predefinito è di
-500 identità conservate, incluse le ricevute di salvataggio. Ogni partita conserva
-al massimo **1000 mosse** (navigazione e ritorno indietro insieme); raggiunto il
-limite, ulteriori mosse vengono rifiutate senza modificare la partita. Si può
-ancora visualizzarla o sostituirla con conferma; una vittoria alla millesima mossa
-resta salvabile. Ogni identità può effettuare **120 richieste di gioco al minuto**
-(apertura, articolo, navigazione, ritorno e pausa, inclusi tentativi non validi o
-conflittuali), con finestra fissa di 60 secondi. L'eccesso restituisce `429` senza
-rinnovare il TTL o modificare lo stato. Riepilogo, scarto e salvataggio non consumano
-questa quota, così il recupero post-login e il salvataggio restano disponibili.
-La creazione è limitata a dieci tentativi per IP ogni dieci minuti; non vengono eliminate
-silenziosamente partite non scadute per fare spazio.
-
-Dopo la vittoria, registrazione e login salvano automaticamente partita e intera
-cronologia delle mosse con un'operazione autenticata separata. Il risultato entra
-normalmente in Dashboard, History, classifica CLICK/EASY e statistiche personali.
-La transazione conserva gli istanti originali della partita. Se il salvataggio
-fallisce temporaneamente, l'utente rimane autenticato, il risultato resta in
-memoria e sono disponibili due tentativi automatici e un pulsante Retry. Un
-risultato perso/scaduto viene segnalato esplicitamente. Autenticarsi prima della
-vittoria elimina invece la partita incompleta tramite una richiesta esplicita;
-il semplice rifiuto di una richiesta di gioco autenticata non elimina nulla.
-Lo stato corrente del backend prevale sempre sui suggerimenti locali: un risultato
-completato viene salvato e non può essere eliminato dallo scarto post-login.
-Un'operazione ospite ancora in corso restituisce `409 GUEST_GAME_BUSY` anche nel
-riepilogo; il coordinatore riprova dopo 1 e 3 secondi, poi espone Retry senza
-considerare conclusa la pulizia. Una sostituzione fallita conserva la partita
-precedente, che viene quindi riletta e salvata o scartata secondo il suo stato.
-
-Il motore condiviso mantiene il tempo ufficiale sul server. Un'apertura carica
-prima l'articolo e poi avvia l'intervallo; una mossa misura fino al suo arrivo al
-servizio ed esclude il caricamento successivo riuscito. Gli errori di navigazione
-lasciano aperto l'intervallo. Se la pausa di uscita non arriva, la riapertura
-scarta l'intervallo non consolidato, come per le partite autenticate. Le schede
-condividono una partita: richieste con una revisione precedente vengono rifiutate
-e richiedono di rileggere lo stato, senza ripetere automaticamente la mossa.
-
-### API ospite
-
-Tutte le richieste `/api/guest-games`, e login/registrazione, richiedono
-`X-Requested-With: ROADTOUNINA`. La SPA lo aggiunge automaticamente; i client API
-devono inviarlo esplicitamente. Questo protegge anche il GET di apertura che
-riavvia il tempo. L'uscita ospite usa `fetch` con `keepalive` e lo stesso header.
-
-- `GET /api/guest-games`: riepilogo senza ripresa del tempo o rinnovo TTL.
-  Senza cookie ne imposta uno prima della creazione, così le altre schede possono
-  osservare un avvio ancora in corso. La SPA condivide letture iniziali concorrenti.
-  I client API che coordinano più richieste devono leggere prima il riepilogo.
-- `POST /api/guest-games`: `{}`; nessun campo `mode` o `difficulty` è accettato.
-- Sostituzione: `{ "replaceGameId": "<uuid>", "replaceRevision": 3 }`.
-- `GET /:gameId`: stato/articolo e ripresa; `GET /:gameId/article`: solo articolo.
-- `POST /:gameId/moves`: `{ "toTitle": "Napoli", "revision": 3 }`.
-- `POST /:gameId/backtrack` e `/pause`: `{ "revision": 3 }`.
-- `DELETE /:gameId`: `{ "revision": 3 }`, anche per lo scarto post-login.
-- `POST /:gameId/claim`: `{}`, con cookie ospite e autenticazione. Restituisce
-  `201` alla prima conferma e `200` alla ripetizione dello stesso proprietario.
-
-I percorsi abbreviati sopra sono relativi a `/api/guest-games`. Stato e tempi non
-vengono mai accettati dal client. Una revisione obsoleta o un'operazione in corso
-restituiscono `409`; identità mancante, scadenza e perdita dello stato `404`.
-
-### Verifica
-
-- Backend: `cd backend && npm test` e `npm run build`.
-- Angular: `cd frontend && npm test -- --watch=false` e `npm run build`.
-- Browser/database: `cd e2e && npm test`, dopo la configurazione di `e2e/.env`.
-  Il runner usa solo PostgreSQL locale isolato sulla porta `55432`, applica le
-  migrazioni già esistenti e rimuove il database temporaneo al termine. Non usare
-  `DATABASE_URL` di produzione per i test.
+Il runner avvia PostgreSQL locale temporaneo, applica le migrazioni e rimuove il
+database al termine. Il controllo di sicurezza accetta soltanto
+`localhost`/`127.0.0.1:55432/roadtounina_e2e`: non usare Supabase per i test e non
+aggirare questa protezione. I test browser usano una fixture Wikipedia
+deterministica anziché il servizio esterno.

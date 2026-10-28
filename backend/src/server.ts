@@ -12,15 +12,8 @@ const app =
     : createApp();
 
 async function main(): Promise<void> {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
-  } catch {
-    console.error(
-      "Failed to connect to the database. Verify the DATABASE_URL configuration.",
-    );
-    process.exit(1);
-  }
-
+  // Database connections are established lazily by Prisma. A database outage
+  // must not prevent the landing page or the process liveness check from loading.
   const guestCleanup = setInterval(
     () => app.locals.guestGames.cleanup(),
     60_000,

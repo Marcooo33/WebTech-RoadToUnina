@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Tests and production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:55432/roadtounina_e2e
+      JWT_SECRET: ci-test-only-jwt-secret-01234567890123456789
+      E2E_FAKE_WIKIPEDIA: '0'
+      E2E_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:55432/roadtounina_e2e
+      E2E_JWT_SECRET: ci-test-only-jwt-secret-01234567890123456789
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            backend/package-lock.json
+            e2e/package-lock.json
+      - name: Install dependencies and build both applications
+        run: node scripts/build.mjs
+      - name: Backend unit tests
+        run: npm --prefix backend test
+      - name: Frontend unit tests
+        run: npm --prefix frontend test -- --watch=false
+      - name: Install browser test dependencies
+        run: npm ci
+        working-directory: e2e
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: e2e
+      - name: Existing browser suite with disposable local PostgreSQL
+        run: npm test
+        working-directory: e2e
+
+  required-checks:
+    name: Required checks
+    runs-on: ubuntu-latest
+    needs: validate
+    if: ${{ always() }}
+    steps:
+      # Render also accepts skipped/neutral checks: require actual validation success.
+      - name: Require every validation step to have succeeded
+        env:
+          VALIDATION_RESULT: ${{ needs.validate.result }}
+        run: test "$VALIDATION_RESULT" = success

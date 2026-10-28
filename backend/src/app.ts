@@ -11,10 +11,15 @@ import { createMeRouter } from "./modules/me/me.routes.js";
 import { WikipediaService } from "./modules/wikipedia/wikipedia.service.js";
 import type { WikipediaArticleSource } from "./modules/wikipedia/wikipedia.types.js";
 import { ErrorCode, errorBody } from "./shared/errors.js";
+import { env } from "./config/env.loader.js";
+import { frontendDirectory, serveFrontend } from "./lib/frontend.js";
+import { createRequestProtection } from "./middleware/request-protection.js";
+import { createDbHealthRouter } from "./modules/health/health.routes.js";
 
 export interface AppDependencies {
   wikipediaService?: WikipediaArticleSource;
   guestService?: GuestGamesService;
+  frontendDirectory?: string | false;
 }
 
 // Called only after guest capability, completion and authenticated ownership checks.
@@ -46,12 +51,26 @@ export async function persistGuestGame(
 export function createApp(dependencies: AppDependencies = {}): Express {
   const app = express();
 
+  app.disable("x-powered-by");
+  app.set("trust proxy", env.TRUST_PROXY_HOPS);
+  app.use((_req, res, next) => {
+    res.set("X-Content-Type-Options", "nosniff");
+    next();
+  });
+  app.use("/api", createRequestProtection(env.PUBLIC_ORIGIN), (_req, res, next) => {
+    res.set("Cache-Control", "no-store");
+    next();
+  });
   app.use(express.json());
   app.use(cookieParser());
 
   app.get("/health", (_req, res) => {
     res.status(200).json({ status: "ok" });
   });
+  app.use("/api/health", createDbHealthRouter({
+    secret: env.DB_HEALTH_SECRET,
+    readDatabase: () => prisma.$queryRaw`SELECT EXISTS (SELECT 1 FROM users LIMIT 1)`,
+  }));
 
   const wikipediaService =
     dependencies.wikipediaService ?? new WikipediaService();
@@ -68,9 +87,16 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use("/api/history", createHistoryRouter());
   app.use("/api/me", createMeRouter());
 
-  app.use((_req, res) => {
+  const notFound: express.RequestHandler = (_req, res) => {
     res.status(404).json(errorBody(ErrorCode.NOT_FOUND, "Route not found"));
-  });
+  };
+  app.use("/api", notFound);
+
+  const staticDirectory = dependencies.frontendDirectory ??
+    (env.SERVE_FRONTEND === "1" ? frontendDirectory : false);
+  if (staticDirectory) serveFrontend(app, staticDirectory);
+
+  app.use(notFound);
 
   app.use(errorMiddleware);
 

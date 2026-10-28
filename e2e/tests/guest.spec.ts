@@ -128,7 +128,8 @@ test("Play as Guest starts directly; active replacement can be cancelled or conf
   await expect(page).toHaveURL(/\/guest\/game\/[a-f0-9-]{36}$/);
   await expect(page.getByTestId("hud-clicks")).toHaveText("0");
   const original = page.url();
-  await page.getByRole("link", { name: "Esci dalla partita", exact: true }).click();
+  await page.getByRole("button", { name: "Esci dalla partita", exact: true }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Esci dalla partita", exact: true }).click();
   await page
     .locator("nav")
     .getByRole("link", { name: "Gioca come ospite", exact: true })
@@ -138,7 +139,8 @@ test("Play as Guest starts directly; active replacement can be cancelled or conf
   await page.getByRole("button", { name: "Annulla", exact: true }).click();
   await page.getByRole("link", { name: "Riprendi", exact: true }).click();
   await expect(page).toHaveURL(original);
-  await page.getByRole("link", { name: "Esci dalla partita", exact: true }).click();
+  await page.getByRole("button", { name: "Esci dalla partita", exact: true }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Esci dalla partita", exact: true }).click();
   await page.getByRole("button", { name: "Nuova partita", exact: true }).click();
   await page
     .getByRole("button", { name: "Conferma nuova partita", exact: true })

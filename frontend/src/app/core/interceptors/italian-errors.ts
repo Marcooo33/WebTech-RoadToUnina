@@ -14,6 +14,8 @@ const ERROR_MESSAGES: Record<string, string> = {
   NO_STARTING_PAGE: 'Non è stato possibile trovare una voce iniziale adatta. Riprova.',
   GUEST_MOVE_LIMIT_REACHED: 'Hai raggiunto il limite di azioni per questa partita ospite.',
   REQUEST_HEADER_REQUIRED: 'La richiesta non è valida. Ricarica la pagina e riprova.',
+  REQUEST_ORIGIN_REJECTED: 'La richiesta non è valida. Ricarica la pagina e riprova.',
+  RATE_LIMITED: 'Hai effettuato troppe richieste. Attendi qualche minuto e riprova.',
   GUEST_PLAY_REQUIRES_ANONYMOUS: 'Hai già effettuato l’accesso. Inizia una partita dal riepilogo.',
   GUEST_GAME_EXISTS: 'Hai già una partita ospite. Riprendila o inizia una nuova partita.',
   GUEST_GAME_CHANGED: 'La partita ospite è stata aggiornata in un’altra scheda. Riprova.',
