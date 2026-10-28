@@ -218,7 +218,8 @@ test("limiter expires windows, bounds identities and trusts only configured prox
   });
 });
 
-test("DB endpoint disabled without secret; rejects wrong secret without making any query", async () => {
+test("DB endpoint disabled without secret; rejects wrong secret without queries or logs", async (t) => {
+  const log = t.mock.method(console, "info", () => {});
   let queries = 0;
   for (const secret of [undefined, "a".repeat(32)]) {
     const app = express();
@@ -244,6 +245,7 @@ test("DB endpoint disabled without secret; rejects wrong secret without making a
     });
   }
   assert.equal(queries, 0);
+  assert.equal(log.mock.callCount(), 0);
 });
 
 test("DB endpoint returns no query data, limits successful callers and resets quota", async () => {
@@ -278,7 +280,9 @@ test("DB endpoint returns no query data, limits successful callers and resets qu
   });
 });
 
-test("DB endpoint hides database failures", async () => {
+test("DB endpoint hides database failures and recovers without leaking errors to logs", async (t) => {
+  const log = t.mock.method(console, "info", () => {});
+  let failed = false;
   const secret = "a".repeat(32);
   const app = express();
   app.use(
@@ -286,7 +290,10 @@ test("DB endpoint hides database failures", async () => {
     createDbHealthRouter({
       secret,
       readDatabase: async () => {
-        throw new Error("postgresql://sensitive-credentials");
+        if (!failed) {
+          failed = true;
+          throw new Error("postgresql://sensitive-credentials");
+        }
       },
     }),
   );
@@ -301,7 +308,20 @@ test("DB endpoint hides database failures", async () => {
         message: "Database temporarily unavailable.",
       },
     });
+    const recovered = await fetch(`${url}/api/health/db`, {
+      headers: { "X-Health-Secret": secret },
+    });
+    assert.equal(recovered.status, 200);
+    assert.deepEqual(await recovered.json(), { status: "ok" });
   });
+  assert.equal(log.mock.callCount(), 2);
+  for (const [index, status] of [503, 200].entries()) {
+    const entry = JSON.parse(log.mock.calls[index]!.arguments[0]!);
+    assert.deepEqual(Object.keys(entry).sort(), ["durationMs", "event", "status"]);
+    assert.equal(entry.event, "db_health");
+    assert.equal(entry.status, status);
+    assert.ok(entry.durationMs >= 0);
+  }
 });
 
 test("DB endpoint admits only one in-flight read", async () => {
