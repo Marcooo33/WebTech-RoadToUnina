@@ -43,7 +43,8 @@ Thumbs.db
 # Local course materials
 .course-resources/
 /.opencode
-/docs
+/docs/*
+!/docs/KEEP_ALIVE.md
 
 # Local startup script
 /start-local.sh

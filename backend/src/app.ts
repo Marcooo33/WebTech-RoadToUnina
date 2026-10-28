@@ -69,7 +69,12 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   });
   app.use("/api/health", createDbHealthRouter({
     secret: env.DB_HEALTH_SECRET,
-    readDatabase: () => prisma.$queryRaw`SELECT EXISTS (SELECT 1 FROM users LIMIT 1)`,
+    readDatabase: () => prisma.$transaction(async (tx) => {
+      // PostgreSQL cancels the statement itself, including waits for table locks.
+      // LOCAL is reset on commit/rollback before the pooled connection is reused.
+      await tx.$executeRaw`SET LOCAL statement_timeout = '3s'`;
+      await tx.$queryRaw`SELECT EXISTS (SELECT 1 FROM users LIMIT 1)`;
+    }, { maxWait: 5_000, timeout: 5_000 }),
   }));
 
   const wikipediaService =

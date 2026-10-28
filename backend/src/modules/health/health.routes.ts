@@ -56,8 +56,10 @@ export function createDbHealthRouter({
     }
     count++;
     busy = true;
+    let status = 503;
     try {
       await readDatabase();
+      status = 200;
       res.json({ status: "ok" });
     } catch {
       // Never return database errors, connection strings, or query results.
@@ -71,6 +73,12 @@ export function createDbHealthRouter({
         );
     } finally {
       busy = false;
+      // Log only admitted checks, never headers, query results or driver errors.
+      console.info(JSON.stringify({
+        event: "db_health",
+        status,
+        durationMs: Math.max(0, now() - time),
+      }));
     }
   });
   return router;
