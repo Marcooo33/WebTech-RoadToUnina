@@ -365,7 +365,7 @@
   }
   .how-steps li {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: minmax(120px, max-content) minmax(0, 1fr);
     gap: 20px;
     min-height: 84px;
   }
@@ -374,6 +374,7 @@
   }
   .landing .how-steps h3 {
     font-size: 34px;
+    white-space: nowrap;
     margin: 0;
   }
   .how-steps li:not(:last-child)::after {
